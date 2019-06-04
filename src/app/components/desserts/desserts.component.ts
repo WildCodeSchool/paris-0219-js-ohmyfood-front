@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DessertsDataService } from 'src/app/services/desserts-data.service';
 
 @Component({
   selector: 'app-desserts',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DessertsComponent implements OnInit {
 
-  constructor() { }
+  constructor(private dessertData: DessertsDataService) { }
+
+  dessertsList: object;
 
   ngOnInit() {
+    this.dessertData.getDesserts()
+    .subscribe(dessert => {
+      this.dessertsList = dessert;
+    });
   }
 
 }

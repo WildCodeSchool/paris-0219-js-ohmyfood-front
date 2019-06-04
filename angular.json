@@ -66,7 +66,8 @@
           },
           "configurations": {
             "production": {
-              "browserTarget": "ohmyfood:build:production"
+              "browserTarget": "ohmyfood:build:production",
+              "proxyConfig": "proxy.conf.json"
             }
           }
         },

@@ -1,6 +1,0 @@
-{
-  "/": {
-     "target": "http://localhost:3000(ceci est à modifier si vous avez changé le port)",
-     "secure": false
-  }
-}

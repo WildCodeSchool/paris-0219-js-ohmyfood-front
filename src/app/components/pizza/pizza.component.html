@@ -1,27 +1,27 @@
-<form [formGroup]="pizzaForm">
-    <label>
-        <p>i de la pizza</p>
-        <input type="number" formControlName="idPizza">
-      </label>
+<form [formGroup]="pizzaForm" (ngSubmit)="onSubmit()">
   <label>
     <p>Nom de la pizza</p>
-    <input type="text" formControlName="pizzaName">
+    <input type="text" formControlName="pizzaName" required>
+    <div *ngIf="formSubmit">
+      <div *ngIf="pizzaForm.value.pizzaName.length == 0">
+        <p class="invalidText">Le nom de la pizza est requis.</p>
+      </div>
+      <div *ngIf="pizzaForm.value.pizzaName.length > 45">
+        <p class="invalidText">Le nom de la pizza ne doit pas dépasser les 45 caractères.</p>
+      </div>
+    </div>
   </label>
   <label>
     <p>Description de la pizza</p>
-    <input type="text" formControlName="pizzDesc">
+    <input type="text" formControlName="pizzDesc" required>
   </label>
   <label>
     <p>Prix hors taxe</p>
-    <input type="number" formControlName="pizzPriceHt">
+    <input type="text" formControlName="pizzPriceHt" required>
   </label>
   <label>
-    <p>Url de la pizza</p>
-    <input type="text" formControlName="pizzPicture">
+    <p>Tax</p>
+    <input type="number" formControlName="idTax" required>
   </label>
-  <label>
-      <p>Tax</p>
-      <input type="number" formControlName="idTax">
-    </label>
-  <button type="submit" (click)="onSubmit()">VALIDER LA PIZZA</button>
+  <button type="submit">VALIDER LA PIZZA</button>
 </form>

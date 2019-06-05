@@ -1,4 +1,9 @@
-<p>
-  desserts works!
-</p>
-<p *ngFor="let dessert of dessertsList">{{ dessert.dessName }}</p>
+<form [formGroup]="formDessert" (ngSubmit)="onSubmit()">
+  <div formArrayName="selectedDessert">
+    <div [formGroupName]="i" *ngFor="let dessert of formDessert.value.selectedDessert ; let i = index">
+        <label for="date-{{i}}">Date :{{ dessert.name }}</label>
+
+    </div>
+  </div>
+
+</form>

@@ -1,0 +1,27 @@
+<form [formGroup]="pizzaForm">
+    <label>
+        <p>i de la pizza</p>
+        <input type="number" formControlName="idPizza">
+      </label>
+  <label>
+    <p>Nom de la pizza</p>
+    <input type="text" formControlName="pizzaName">
+  </label>
+  <label>
+    <p>Description de la pizza</p>
+    <input type="text" formControlName="pizzDesc">
+  </label>
+  <label>
+    <p>Prix hors taxe</p>
+    <input type="number" formControlName="pizzPriceHt">
+  </label>
+  <label>
+    <p>Url de la pizza</p>
+    <input type="text" formControlName="pizzPicture">
+  </label>
+  <label>
+      <p>Tax</p>
+      <input type="number" formControlName="idTax">
+    </label>
+  <button type="submit" (click)="onSubmit()">VALIDER LA PIZZA</button>
+</form>

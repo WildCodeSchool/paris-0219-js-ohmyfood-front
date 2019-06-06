@@ -8,12 +8,12 @@ import { PizzaService } from 'src/app/services/pizza.service';
   styleUrls: ['./pizza.component.scss']
 })
 export class PizzaComponent {
-  formSubmit: boolean;
+  formSubmit = false;
   regexPrice = /[0-9]+[.]+[0-9]*/gm
   pizzaForm = new FormGroup({
     pizzaName: new FormControl('', [Validators.required, Validators.maxLength(45)]),
     pizzDesc: new FormControl('', [Validators.required, Validators.maxLength(255)]),
-    pizzPriceHt: new FormControl('', [Validators.required, , Validators.maxLength(6), Validators.pattern(this.regexPrice)]),
+    pizzPriceHt: new FormControl('', [Validators.required, Validators.maxLength(6), Validators.pattern(this.regexPrice)]),
     idTax: new FormControl('')
   })
 
@@ -31,10 +31,5 @@ export class PizzaComponent {
     
     this.pizzaService.pizzaFormObject = this.pizzaFormObject;
     this.pizzaService.addPizzaType().subscribe(data => data);
-    this.formSubmit = false;
-    this.pizzaForm.value.pizzName = '';
-    this.pizzaForm.value.pizzDesc = '';
-    this.pizzaForm.value.pizzPriceHt = '';
-    this.pizzaForm.value.idTax  = '';
   }
 }

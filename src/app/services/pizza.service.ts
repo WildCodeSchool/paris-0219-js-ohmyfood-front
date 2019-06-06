@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -8,10 +7,10 @@ import { Observable } from 'rxjs';
 export class PizzaService {
 
   pizzaFormObject;
-  url = "routes_pizzas/pizzas";
+  url = "http://localhost:3000/pizzas";
   constructor(private http: HttpClient) { }
 
   addPizzaType() {
-    return this.http.post(this.url, this.pizzaFormObject);
-   }
+    return this.http.post(this.url, this.pizzaFormObject, { responseType: 'text' });
+  }
 }

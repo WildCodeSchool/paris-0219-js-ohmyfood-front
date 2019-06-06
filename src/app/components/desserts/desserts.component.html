@@ -1,9 +1,23 @@
-<form [formGroup]="formDessert" (ngSubmit)="onSubmit()">
+<form [formGroup]="formDessert" (ngSubmit)="formDessert.valid && onSubmit()">
   <div formArrayName="selectedDessert">
     <div [formGroupName]="i" *ngFor="let dessert of formDessert.value.selectedDessert ; let i = index">
-        <label for="dessert-{{i}}">{{ dessert.dessName }}, {{ dessertsList[i].dessPrice_ht }}€</label>
+        <label for="dessert-{{ i }}">{{ dessert.dessName }}, {{ dessertsList[i].dessPrice_ht }}€</label>
 
-        <input name="selectedDessert-{{ i }}" formControlName="dessQuantity" type="number">
+        <button
+          name="remove-dessert-quantity"
+          type="button"
+          (click)="quantitySelect('-', i, dessert.dessQuantity)">-</button>
+
+        <input
+          name="selectedDessert-{{ i }}"
+          formControlName="dessQuantity"
+          type="number"
+          [(ngModel)]="dessert.dessQuantity">
+
+        <button
+          name="add-dessert-quantity"
+          type="button"
+          (click)="quantitySelect('+', i, dessert.dessQuantity)">+</button>
     </div>
   </div>
 

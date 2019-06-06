@@ -1,4 +1,5 @@
 @import '../../../styles/colors.scss';
+// @import'../../../styles/reset.scss';
 
 nav {
     position: fixed;
@@ -10,6 +11,7 @@ nav {
 div.navbar-start {
     width: 33.3vw;
     display: inline-block;
+    box-sizing: border-box;
 }
 
 div.navbar-end {
@@ -26,15 +28,43 @@ div.img {
     position: fixed;
 }
 
-.account {
-    display: flex;
+div.account.column.is-6 {
+    padding-bottom: 2%;
+}
 
+div.basket.column.is-6 {
+    padding-bottom: 2%;
+}
+
+div.order.column.is-12 {
+    padding-bottom: 0;
+    padding-top: 0;
+}
+
+div.top-buttons {
+    float: left;
+}
+
+a.button.is-light {
+    float: right;
 }
 
 a.navbar-item {
     color: $white;
     width: 33.3vw;
     justify-content: center;
+    padding-top: 0%;
+    padding-bottom: 0%;
+    padding-right: 2%;
+    padding-left: 4%;
+}
+
+a.navbar-item.first.column.is-12 {
+    padding-top: 4%;
+}
+
+a.button.is-primary {
+    float: right;
 }
 
 a.navbar-link {
@@ -43,6 +73,11 @@ a.navbar-link {
   
 a.buttons {
     color: $lightgreen;
+
+}
+
+strong.my-account {
+    color: $white;
 }
   /* Mobile Version + Media Queries */
   
@@ -52,6 +87,9 @@ a.buttons {
   
 a:hover {
     color: $white;
+    h1 {
+        color: black;
+    }
 }
   
 @media screen and (max-width: 1087px){

@@ -8,7 +8,6 @@ import { PizzaService } from 'src/app/services/pizza.service';
   styleUrls: ['./pizza.component.scss']
 })
 export class PizzaComponent implements OnInit {
-  formSubmit = false;
   regexPrice = /[0-9]+[.]+[0-9]*/gm
   pizzaFormObject;
   pizzaForm;
@@ -17,28 +16,24 @@ export class PizzaComponent implements OnInit {
 
   ngOnInit() {
     this.pizzaForm = new FormGroup({
-      pizzaName: new FormControl('', [Validators.required, Validators.maxLength(45)]),
-      pizzDesc: new FormControl('', [Validators.required, Validators.maxLength(255)]),
-      pizzPriceHt: new FormControl('', [Validators.required, Validators.maxLength(6), Validators.pattern(this.regexPrice)]),
-      idTax: new FormControl('')
+      pizzaName: new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(45)]),
+      pizzDesc: new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(255)]),
+      pizzPriceHt: new FormControl('', [Validators.required, Validators.maxLength(6), Validators.pattern(this.regexPrice)])
     });
   }
 
-  get fPizzaName() { return this.pizzaForm.get('pizzaName') }
-  get fPizzDesc() { return this.pizzaForm.get('pizzDesc') }
-  get fPizzPriceHt() { return this.pizzaForm.get('pizzPriceHt') }
-  get fIdTax() { return this.pizzaForm.get('idTax') }
+  // convenience getter for easy access to form fields
+  get f() { return this.pizzaForm.controls; }
 
   onSubmit() {
-    this.formSubmit = true;
     if (this.pizzaForm.valid) {
-     /* this.pizzaService.pizzaFormObject = {
-        pizzName: this.fPizzaName, 
-        pizzDesc: this.fPizzDesc, 
-        pizzPriceHt: parseFloat(this.fPizzPriceHt), 
-        idTax: this.fIdTax
-      };*/
+      this.pizzaService.pizzaFormObject = {
+        pizzName: this.pizzaForm.value.pizzaName, 
+        pizzDesc: this.pizzaForm.value.pizzDesc, 
+        pizzPriceHt: parseFloat(this.pizzaForm.value.pizzPriceHt)
+      };
+      this.pizzaService.addPizzaType().subscribe(data => data);
+      this.pizzaForm.setValue({pizzaName: '', pizzDesc: '', pizzPriceHt: ''});
     };
-    this.pizzaService.addPizzaType().subscribe(data => data);
   }
 }

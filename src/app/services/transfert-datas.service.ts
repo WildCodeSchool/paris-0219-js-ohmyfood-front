@@ -1,10 +1,17 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TransfertDatasService {
 
-  url = 'saladsSauces';
-  constructor() { }
+  saladsSaucesFormTable;
+  url = 'http://localhost:3000/saladsSauces';
+  constructor(private http: HttpClient) { }
+
+  addSaladsSauces(): Observable<any> {
+    return this.http.get<any>(this.url);
+  }
 }

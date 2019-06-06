@@ -1,0 +1,11 @@
+<h5>Sauces</h5>
+<form [formGroup]='saladsSaucesForm' (ngSubmit)='onSubmit()'>
+  <div formArrayName="selectSauces">
+    <div [formGroupName]="i" *ngFor="let sauce of saladsSaucesFormTable; let i = index">
+      <label for="sauces-{{ i }}">
+        <input formControlName="saladsSauceChoice" type='checkbox'>{{ sauce.saladsSauceName }}</label>
+    </div>
+  </div>
+  <button type='submit'>Ajouter</button>
+</form>
+

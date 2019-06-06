@@ -1,9 +1,11 @@
 <form [formGroup]="formDessert" (ngSubmit)="onSubmit()">
   <div formArrayName="selectedDessert">
     <div [formGroupName]="i" *ngFor="let dessert of formDessert.value.selectedDessert ; let i = index">
-        <label for="date-{{i}}">Date :{{ dessert.name }}</label>
+        <label for="dessert-{{i}}">{{ dessert.dessName }}, {{ dessertsList[i].dessPrice_ht }}€</label>
 
+        <input name="selectedDessert-{{ i }}" formControlName="dessQuantity" type="number">
     </div>
   </div>
 
+  <button type="submit">Ajouter au panier</button>
 </form>

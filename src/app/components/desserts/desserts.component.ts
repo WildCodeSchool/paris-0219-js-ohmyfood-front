@@ -9,8 +9,10 @@ import { FormBuilder, FormArray, FormGroup } from '@angular/forms';
 })
 export class DessertsComponent implements OnInit {
 
+  // Datas collection from database
   dessertsList: object;
 
+  // Reactive form
   formDessert = this.formBuilder.group({
     selectedDessert: this.formBuilder.array([])
   });
@@ -27,22 +29,22 @@ export class DessertsComponent implements OnInit {
       console.log(this.dessertsList);
 
 // tslint:disable-next-line: forin
-      for (const key in this.dessertsList) {
+      for (const key in this.dessertsList) { // loop to access key of object
 
         const dessertForm = this.formBuilder.group({
-          id: [ this.dessertsList[key].idDesserts ],
-          name: [ this.dessertsList[key].dessName ],
-          quantity: ['']
+          idDesserts: [ this.dessertsList[key].idDesserts ],
+          dessName: [ this.dessertsList[key].dessName ],
+          dessQuantity: ['']
         });
 
         const selectedDessert = this.formDessert.get('selectedDessert') as FormArray;
-        selectedDessert.push(dessertForm);
+        selectedDessert.push(dessertForm); // push form in formArray
       }
-      console.log(this.formDessert);
     });
   }
 
   onSubmit() {
-    console.log(this.formDessert.value);
+    const orderDessert = this.formDessert.value; // User's dessert choice
+    console.log(orderDessert);
   }
 }

@@ -1,0 +1,61 @@
+@import '../../../styles/colors.scss';
+
+nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: $anthracite;
+}
+  
+div.navbar-start {
+    width: 33.3vw;
+    display: inline-block;
+}
+
+div.navbar-end {
+    width: 33.3vw;
+    display: inline-block;
+}
+
+div.has-dropdown {
+    background: $anthracite;
+}
+  
+div.img {
+    left: 0;
+    position: fixed;
+}
+
+.account {
+    display: flex;
+
+}
+
+a.navbar-item {
+    color: $white;
+    width: 33.3vw;
+    justify-content: center;
+}
+
+a.navbar-link {
+    color: $white;
+}
+  
+a.buttons {
+    color: $lightgreen;
+}
+  /* Mobile Version + Media Queries */
+  
+.navbar-burger {
+    color: $white;
+}
+  
+a:hover {
+    color: $white;
+}
+  
+@media screen and (max-width: 1087px){
+    .navbar-menu {
+        background-color: $anthracite;
+    }
+}

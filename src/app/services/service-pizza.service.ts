@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 export class ServicePizzaService {
 
   pizzaFormTable;
-  url = "/routes_pizzas/pizzas";
+  url = "http://localhost:3000/pizzas";
   constructor(private http: HttpClient) { }
 
   addPizzaType(): Observable<any> {

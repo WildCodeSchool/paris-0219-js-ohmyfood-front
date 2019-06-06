@@ -1,27 +1,57 @@
 <form [formGroup]="pizzaForm" (ngSubmit)="onSubmit()">
   <label>
     <p>Nom de la pizza</p>
-    <input type="text" formControlName="pizzaName" required>
-    <div *ngIf="formSubmit">
-      <div *ngIf="pizzaForm.value.pizzaName.length == 0">
-        <p class="invalidText">Le nom de la pizza est requis.</p>
-      </div>
-      <div *ngIf="pizzaForm.value.pizzaName.length > 45">
-        <p class="invalidText">Le nom de la pizza ne doit pas dépasser les 45 caractères.</p>
-      </div>
+    <input type="text" 
+        class="form-control" 
+        formControlName="pizzaName" 
+        required
+    >
+
+    <div *ngIf="pizzaForm.value.pizzaName.length == 0">
+      <p class="invalidText">*Le nom de la pizza est requis.</p>
+    </div>
+    <div *ngIf="pizzaForm.value.pizzaName.length > 255">
+      <p class="invalidText">*Le nom de la pizza ne doit pas dépasser les 45 caractères</p>
     </div>
   </label>
   <label>
     <p>Description de la pizza</p>
-    <input type="text" formControlName="pizzDesc" required>
+    <textarea type="text" 
+        class="form-control" 
+        formControlName="pizzDesc" 
+        required
+    >
+    </textarea>
+
+    <div *ngIf="pizzaForm.value.pizzDesc.length == 0">
+      <p class="invalidText">*La description de la pizza est requise</p>
+    </div>
+    <div *ngIf="pizzaForm.value.pizzDesc.length > 255">
+      <p class="invalidText">*La description ne doit pas dépasser les 255 caractères</p>
+    </div>
   </label>
   <label>
     <p>Prix hors taxe</p>
-    <input type="text" formControlName="pizzPriceHt" required>
+    <input type="text" 
+        class="form-control" 
+        formControlName="pizzPriceHt" 
+        required
+    >
+    <div *ngIf="pizzaForm.value.pizzPriceHt.length == 0">
+      <p class="invalidText">*Le prix est requis</p>
+    </div>
+    <div *ngIf="!pizzaForm.value.pizzPriceHt.valid">
+      <p class="invalidText">*Le prix doit être inséré sous la forme XXX.XX</p>
+    </div>
   </label>
   <label>
     <p>Tax</p>
-    <input type="number" formControlName="idTax" required>
+    <input type="number" 
+        class="form-control" 
+        formControlName="idTax" 
+        required
+    >
+
   </label>
   <button type="submit">VALIDER LA PIZZA</button>
 </form>

@@ -20,9 +20,8 @@ export class PizzaComponent implements OnInit {
       pizzDesc: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(255)]],
       pizzPriceHt: ['', [Validators.required, Validators.maxLength(6), Validators.pattern(this.regexPrice)]]
     });
-    console.log(this.pizzaForm)
   }
-
+  
   // convenience getter for easy access to form fields
   get f() { return this.pizzaForm.controls; }
 
@@ -36,7 +35,5 @@ export class PizzaComponent implements OnInit {
       };
       this.pizzaService.addPizzaType().subscribe(data => data);
       this.pizzaForm.reset();
-      this.pizzaService.addPizzaType()
-    };
   }
 }

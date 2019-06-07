@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PizzaService } from 'src/app/services/pizza.service';
 
 @Component({
@@ -10,16 +10,17 @@ import { PizzaService } from 'src/app/services/pizza.service';
 export class PizzaComponent implements OnInit {
   regexPrice = /[0-9]+[.]+[0-9]*/gm
   pizzaFormObject;
-  pizzaForm;
+  pizzaForm: FormGroup;
 
-  constructor(private pizzaService: PizzaService) { }
+  constructor(private pizzaService: PizzaService, private fb: FormBuilder) { }
 
   ngOnInit() {
-    this.pizzaForm = new FormGroup({
-      pizzaName: new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(45)]),
-      pizzDesc: new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(255)]),
-      pizzPriceHt: new FormControl('', [Validators.required, Validators.maxLength(6), Validators.pattern(this.regexPrice)])
+    this.pizzaForm = this.fb.group({
+      pizzaName: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(45)]],
+      pizzDesc: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(255)]],
+      pizzPriceHt: ['', [Validators.required, Validators.maxLength(6), Validators.pattern(this.regexPrice)]]
     });
+    console.log(this.pizzaForm)
   }
 
   // convenience getter for easy access to form fields
@@ -30,10 +31,12 @@ export class PizzaComponent implements OnInit {
       this.pizzaService.pizzaFormObject = {
         pizzName: this.pizzaForm.value.pizzaName, 
         pizzDesc: this.pizzaForm.value.pizzDesc, 
-        pizzPriceHt: parseFloat(this.pizzaForm.value.pizzPriceHt)
+        pizzPriceHt: parseFloat(this.pizzaForm.value.pizzPriceHt),
+        idTax: 1
       };
       this.pizzaService.addPizzaType().subscribe(data => data);
-      this.pizzaForm.setValue({pizzaName: '', pizzDesc: '', pizzPriceHt: ''});
+      this.pizzaForm.reset();
+      this.pizzaService.addPizzaType()
     };
   }
 }

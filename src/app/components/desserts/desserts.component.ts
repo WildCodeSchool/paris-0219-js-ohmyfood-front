@@ -44,6 +44,7 @@ export class DessertsComponent implements OnInit {
           const dessertForm = this.formBuilder.group({
             idDesserts: [ this.dessertsList[key].idDesserts ],
             dessName: [ this.dessertsList[key].dessName ],
+            dessPriceTTC: [this.dessertsList[key].dessPriceTTC ],
             dessQuantity: [0]
           });
           selectedDessert.push(dessertForm); // push form in formArray

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DessertsDataService } from 'src/app/services/desserts-data.service';
 import { FormBuilder, FormArray, FormGroup, Validators, FormControl } from '@angular/forms';
 import { QuantitySelectService } from 'src/app/services/quantity-select.service';
+import { TestBed } from '@angular/core/testing';
 
 @Component({
   selector: 'app-desserts',
@@ -12,8 +13,6 @@ export class DessertsComponent implements OnInit {
 
   // Datas collection from database
   dessertsList: object;
-
-  inputValue = 0;
 
   // Reactive form
   formDessert = this.formBuilder.group({
@@ -32,19 +31,25 @@ export class DessertsComponent implements OnInit {
       this.dessertsList = dessert;
       console.log(this.dessertsList);
 
-      const selectedDessert = this.formDessert.get('selectedDessert') as FormArray;
-// tslint:disable-next-line: forin
-      for (const key in this.dessertsList) { // loop to access key of object
-
-        const dessertForm = this.formBuilder.group({
-          idDesserts: [ this.dessertsList[key].idDesserts ],
-          dessName: [ this.dessertsList[key].dessName ],
-          dessQuantity: [this.inputValue]
-        });
-
-        selectedDessert.push(dessertForm); // push form in formArray
+      for (const key in this.dessertsList) {
+        if (this.dessertsList.hasOwnProperty(key)) {
+          this.dessertsList[key].dessPriceTTC = this.dessertsList[key].dessPriceTTC.toFixed(2);
+        }
       }
-      console.log(selectedDessert.value);
+
+      const selectedDessert = this.formDessert.get('selectedDessert') as FormArray;
+
+      for (const key in this.dessertsList) { // loop to access key of object
+        if (this.dessertsList.hasOwnProperty(key)) {
+          const dessertForm = this.formBuilder.group({
+            idDesserts: [ this.dessertsList[key].idDesserts ],
+            dessName: [ this.dessertsList[key].dessName ],
+            dessQuantity: [0]
+          });
+          selectedDessert.push(dessertForm); // push form in formArray
+        }
+      }
+      console.log(this.formDessert);
     });
   }
 
@@ -54,6 +59,6 @@ export class DessertsComponent implements OnInit {
   }
 
   quantitySelect(operator, i, quantity) {
-    this.formDessert.value.selectedDessert[i].dessQuantity = this.quantitySelectService.selectQuantity(operator, quantity);
+   this.formDessert.value.selectedDessert[i].dessQuantity = this.quantitySelectService.selectQuantity(operator, quantity);
   }
 }

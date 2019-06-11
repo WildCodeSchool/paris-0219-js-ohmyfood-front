@@ -1,0 +1,16 @@
+@import '../../../styles/colors';
+
+.column:nth-child(n + 2) {
+    margin-top: 6vh;
+}
+
+footer {
+    background-color: $green;
+    color: $anthracite;
+    font-size: 1.1rem;
+    min-height: auto;
+}
+
+#title {
+    font-size: 3rem;
+}

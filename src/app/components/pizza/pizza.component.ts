@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { ServicePizzaService } from 'src/app/services/service-pizza.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { PizzaService } from 'src/app/services/pizza.service';
 
 @Component({
   selector: 'app-pizza',
@@ -8,35 +8,33 @@ import { ServicePizzaService } from 'src/app/services/service-pizza.service';
   styleUrls: ['./pizza.component.scss']
 })
 export class PizzaComponent implements OnInit {
-  
-  pizzaForm = new FormGroup({
-    idPizza: new FormControl(''),
-    pizzaName: new FormControl(''),
-    pizzDesc: new FormControl(''),
-    pizzPriceHt: new FormControl(''),
-    pizzPicture: new FormControl(''),
-    idTax: new FormControl('')
-  })
+  regexPrice = /[0-9]+[.]+[0-9]*/gm
+  pizzaFormObject;
+  pizzaForm: FormGroup;
 
-  pizzaFormTable;
-  constructor(private pizzaService: ServicePizzaService) { }
+  constructor(private pizzaService: PizzaService, private fb: FormBuilder) { }
 
   ngOnInit() {
-   // this.pizzaFormTable = this.pizzaService.pizzaFormTable;
+    this.pizzaForm = this.fb.group({
+      pizzaName: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(45)]],
+      pizzDesc: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(255)]],
+      pizzPriceHt: ['', [Validators.required, Validators.maxLength(6), Validators.pattern(this.regexPrice)]]
+    });
   }
+  
+  // convenience getter for easy access to form fields
+  get f() { return this.pizzaForm.controls; }
 
   onSubmit() {
-    this.pizzaFormTable = {
-        idPizzas: this.pizzaForm.value.idPizza,
+    if (this.pizzaForm.valid) {
+      this.pizzaService.pizzaFormObject = {
         pizzName: this.pizzaForm.value.pizzaName, 
         pizzDesc: this.pizzaForm.value.pizzDesc, 
-        pizzPriceHt: this.pizzaForm.value.pizzPriceHt, 
-        pizzPictures: this.pizzaForm.value.pizzPicture,
-        idTax: this.pizzaForm.value.idTax
-      
+        pizzPriceHt: parseFloat(this.pizzaForm.value.pizzPriceHt),
+        idTax: 1
+      };
+      this.pizzaService.addPizzaType().subscribe(data => data);
+      this.pizzaForm.reset();
     }
-      this.pizzaService.pizzaFormTable = this.pizzaFormTable;
-      console.log(this.pizzaService.pizzaFormTable)
-      this.pizzaService.addPizzaType().subscribe(data => console.log(data));
   }
 }

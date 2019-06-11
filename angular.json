@@ -28,6 +28,7 @@
             ],
             "styles": [
               "node_modules/bulma/css/bulma.min.css",
+              "node_modules/font-awesome/css/font-awesome.css",
               "src/styles.scss"
             ],
             "scripts": [],
@@ -67,8 +68,7 @@
           },
           "configurations": {
             "production": {
-              "browserTarget": "ohmyfood:build:production",
-              "proxyConfig": "proxy.conf.json"
+              "browserTarget": "ohmyfood:build:production"
             }
           }
         },

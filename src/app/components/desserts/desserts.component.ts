@@ -13,6 +13,9 @@ export class DessertsComponent implements OnInit {
   // Datas collection from database
   dessertsList: object;
 
+  // Enable submit button
+  enableSubmit: boolean;
+
   // Reactive form
   formDessert = this.formBuilder.group({
     selectedDessert: this.formBuilder.array([])
@@ -60,10 +63,17 @@ export class DessertsComponent implements OnInit {
     this.dessertData.createOrderDessert(orderDessert);
 
     this.resetFormDessert(); // quantity return to 0
+    this.enableSubmit = false;
   }
 
   quantitySelect(operator, i, quantity) {
    this.formDessert.value.selectedDessert[i].dessQuantity = this.quantitySelectService.selectQuantity(operator, quantity);
+
+   if (this.formDessert.value.selectedDessert[i].dessQuantity > 0) {
+     this.enableSubmit = true;
+   } else {
+     this.enableSubmit = false;
+   }
   }
 
   resetFormDessert() {

@@ -9,12 +9,14 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { PizzaPageComponent } from './pages/pizza-page/pizza-page.component';
 import { PizzaComponent } from './components/pizza/pizza.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PizzaPageComponent,
-    PizzaComponent
+    PizzaComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

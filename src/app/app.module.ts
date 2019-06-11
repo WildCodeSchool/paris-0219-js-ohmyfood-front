@@ -1,22 +1,29 @@
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { AppRoutingModule } from './app-routing.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { DessertsComponent } from './components/desserts/desserts.component';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
 
+import { PizzaPageComponent } from './pages/pizza-page/pizza-page.component';
+import { PizzaComponent } from './components/pizza/pizza.component';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { Routes, RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
     AppComponent,
-    DessertsComponent
+    DessertsComponent,
+    PizzaComponent,
+    PizzaPageComponent
   ],
   imports: [
     AppRoutingModule,
     BrowserModule,
+    FormsModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

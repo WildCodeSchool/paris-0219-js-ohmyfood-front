@@ -33,15 +33,15 @@ export class DessertsDataService {
     if (this.userChoice.length > 1) {
       this.sortUserChoice();
     }
-    console.log(this.userChoice);
   }
 
   sortUserChoice() { // Remove duplicate choice
     for (let i = 0; i < this.userChoice.length; i ++) {
       for (let j = i + 1 ; j < this.userChoice.length; j ++ ) {
         if (this.userChoice[i].dessName === this.userChoice[j].dessName) {
-          this.userChoice[i].dessPrice *= 2;
-          this.userChoice.splice(j, 1);
+          this.userChoice[i].dessPrice += this.userChoice[j].dessPrice; // Sum of price
+          this.userChoice[i].dessQuantity += this.userChoice[j].dessQuantity; // Sum of quantity
+          this.userChoice.splice(j, 1); // Remove duplicate
         }
       }
     }

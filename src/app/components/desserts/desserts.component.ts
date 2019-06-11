@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DessertsDataService } from 'src/app/services/desserts-data.service';
-import { FormBuilder, FormArray, FormGroup, Validators, FormControl } from '@angular/forms';
+import { FormBuilder, FormArray } from '@angular/forms';
 import { QuantitySelectService } from 'src/app/services/quantity-select.service';
-import { TestBed } from '@angular/core/testing';
 
 @Component({
   selector: 'app-desserts',
@@ -26,14 +25,14 @@ export class DessertsComponent implements OnInit {
     ) {}
 
   ngOnInit() {
+    // Get Data from API
     this.dessertData.getDesserts()
     .subscribe(dessert => {
       this.dessertsList = dessert;
-      console.log(this.dessertsList);
 
       for (const key in this.dessertsList) {
-        if (this.dessertsList.hasOwnProperty(key)) {
-          this.dessertsList[key].dessPriceTTC = this.dessertsList[key].dessPriceTTC.toFixed(2);
+        if (this.dessertsList.hasOwnProperty(key)) { // Check if object get key
+          this.dessertsList[key].dessPriceTTC = this.dessertsList[key].dessPriceTTC.toFixed(2); // Display price with 00:00 form
         }
       }
 
@@ -50,16 +49,30 @@ export class DessertsComponent implements OnInit {
           selectedDessert.push(dessertForm); // push form in formArray
         }
       }
-      console.log(this.formDessert);
     });
   }
 
   onSubmit() {
-    const orderDessert = this.formDessert.value; // User's dessert choice
-    console.log(orderDessert);
+    // User's dessert choice
+    const orderDessert = this.formDessert.value;
+
+    // Service's method to create object with class Order Dessert
+    this.dessertData.createOrderDessert(orderDessert);
+
+    this.resetFormDessert(); // quantity return to 0
   }
 
   quantitySelect(operator, i, quantity) {
    this.formDessert.value.selectedDessert[i].dessQuantity = this.quantitySelectService.selectQuantity(operator, quantity);
+  }
+
+  resetFormDessert() {
+    for (const key in this.formDessert.value) {
+      if (this.formDessert.value.hasOwnProperty(key)) {
+        this.formDessert.value[key].map(
+          resetQuantity => resetQuantity.dessQuantity = 0
+          );
+      }
+    }
   }
 }

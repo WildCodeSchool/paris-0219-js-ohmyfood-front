@@ -8,22 +8,26 @@ import { PizzaService } from 'src/app/services/pizza.service';
   styleUrls: ['./pizza.component.scss']
 })
 export class PizzaComponent implements OnInit {
-  regexPrice = /[0-9]+[.]+[0-9]*/gm
+  regexPrice = /^\d{0,2}(\.\d{1,2})?$/gm;
   pizzaFormObject;
   pizzaForm: FormGroup;
 
   constructor(private pizzaService: PizzaService, private fb: FormBuilder) { }
 
   ngOnInit() {
-    this.pizzaForm = this.fb.group({
-      pizzaName: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(45)]],
-      pizzDesc: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(255)]],
-      pizzPriceHt: ['', [Validators.required, Validators.maxLength(6), Validators.pattern(this.regexPrice)]]
-    });
+    this.initForm();
   }
   
   // convenience getter for easy access to form fields
   get f() { return this.pizzaForm.controls; }
+
+  initForm() {
+    this.pizzaForm = this.fb.group({
+      pizzaName: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(45)]],
+      pizzDesc: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(255)]],
+      pizzPriceHt: ['', [Validators.required, Validators.pattern(this.regexPrice)]]
+    });
+  }
 
   onSubmit() {
     if (this.pizzaForm.valid) {
@@ -33,7 +37,10 @@ export class PizzaComponent implements OnInit {
         pizzPriceHt: parseFloat(this.pizzaForm.value.pizzPriceHt),
         idTax: 1
       };
-      this.pizzaService.addPizzaType().subscribe(data => data);
-      this.pizzaForm.reset();
+      const addPizzaType = this.pizzaService.addPizzaType().subscribe(_ => {
+        this.pizzaForm.reset();
+        addPizzaType.unsubscribe();
+      });
+    }
   }
 }

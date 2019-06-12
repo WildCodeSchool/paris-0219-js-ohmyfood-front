@@ -21,19 +21,20 @@ export class PizzaComponent implements OnInit {
       pizzPriceHt: ['', [Validators.required, Validators.maxLength(6), Validators.pattern(this.regexPrice)]]
     });
   }
-  
+
   // convenience getter for easy access to form fields
   get f() { return this.pizzaForm.controls; }
 
   onSubmit() {
     if (this.pizzaForm.valid) {
       this.pizzaService.pizzaFormObject = {
-        pizzName: this.pizzaForm.value.pizzaName, 
-        pizzDesc: this.pizzaForm.value.pizzDesc, 
+        pizzName: this.pizzaForm.value.pizzaName,
+        pizzDesc: this.pizzaForm.value.pizzDesc,
         pizzPriceHt: parseFloat(this.pizzaForm.value.pizzPriceHt),
         idTax: 1
       };
       this.pizzaService.addPizzaType().subscribe(data => data);
       this.pizzaForm.reset();
+    }
   }
 }

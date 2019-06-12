@@ -30,13 +30,16 @@ export class PizzaComponent implements OnInit {
   }
 
   onSubmit() {
+    console.log("Button ok")
     if (this.pizzaForm.valid) {
+      console.log("form valid")
       this.pizzaService.pizzaFormObject = {
         pizzName: this.pizzaForm.value.pizzaName,
         pizzDesc: this.pizzaForm.value.pizzDesc,
         pizzPriceHt: parseFloat(this.pizzaForm.value.pizzPriceHt),
         idTax: 1
       };
+      console.log(this.pizzaService.pizzaFormObject)
       const addPizzaType = this.pizzaService.addPizzaType().subscribe(_ => {
         this.pizzaForm.reset();
         addPizzaType.unsubscribe();

@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
 export class PizzaService {
 
   pizzaFormObject;
-  url = "http://localhost:3000/pizzas";
+  url = 'http://localhost:3000/pizzas';
   constructor(private http: HttpClient) { }
 
   addPizzaType() {

@@ -32,8 +32,8 @@ export class PizzaComponent implements OnInit {
   onSubmit() {
     if (this.pizzaForm.valid) {
       this.pizzaService.pizzaFormObject = {
-        pizzName: this.pizzaForm.value.pizzaName, 
-        pizzDesc: this.pizzaForm.value.pizzDesc, 
+        pizzName: this.pizzaForm.value.pizzaName,
+        pizzDesc: this.pizzaForm.value.pizzDesc,
         pizzPriceHt: parseFloat(this.pizzaForm.value.pizzPriceHt),
         idTax: 1
       };

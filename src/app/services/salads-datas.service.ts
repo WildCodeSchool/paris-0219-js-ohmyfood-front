@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class TransfertDatasService {
+export class SaladsDatasService {
   private basePath = 'http://localhost:3000';
 
   saladsSaucesFormTable;

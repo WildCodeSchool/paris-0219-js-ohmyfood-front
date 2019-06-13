@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TransfertDatasService } from 'src/app/services/transfert-datas.service';
+import { SaladsDatasService } from '../../services/salads-datas.service';
 import {  FormBuilder, FormArray, FormGroup, FormControl, FormControlName } from '@angular/forms';
 
 @Component({
@@ -16,7 +16,7 @@ export class SaladsSaucesComponent implements OnInit {
 
 
   constructor(
-    private transfertDatasService: TransfertDatasService,
+    private saucesDatasService: SaladsDatasService,
     private fb: FormBuilder
   ) {
     this.saladsSaucesForm = this.fb.group({
@@ -26,7 +26,7 @@ export class SaladsSaucesComponent implements OnInit {
     }
 
     ngOnInit() {
-      this.transfertDatasService.addSaladsSauces().subscribe(data => {
+      this.saucesDatasService.addSaladsSauces().subscribe(data => {
         this.saladsSaucesFormTable = data;
         console.log(this.saladsSaucesFormTable);
 

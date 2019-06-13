@@ -9,7 +9,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { PizzaPageComponent } from './pages/pizza-page/pizza-page.component';
 import { PizzaComponent } from './components/pizza/pizza.component';
-import { NavbarComponent } from './components/navbar/navbar.component';
 import { NewNavbarComponent } from './components/new-navbar/new-navbar.component';
 
 @NgModule({
@@ -17,7 +16,6 @@ import { NewNavbarComponent } from './components/new-navbar/new-navbar.component
     AppComponent,
     PizzaPageComponent,
     PizzaComponent,
-    NavbarComponent,
     NewNavbarComponent
   ],
   imports: [

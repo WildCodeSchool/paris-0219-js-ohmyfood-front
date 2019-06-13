@@ -35,7 +35,11 @@ a.navbar-item {
 }
 
 a.navbar-item.blank {
-    color: $white
+    color: $white;
+}
+
+a.navbar-item.blank:hover {
+    color: $anthracite;
 }
   /* Mobile Version + Media Queries */
   

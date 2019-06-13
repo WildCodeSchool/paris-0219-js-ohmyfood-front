@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { ServicePizzaService } from './service-pizza.service';
+import { DessertsDataService } from './desserts-data.service';
 
-describe('ServicePizzaService', () => {
+describe('DessertsDataService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: ServicePizzaService = TestBed.get(ServicePizzaService);
+    const service: DessertsDataService = TestBed.get(DessertsDataService);
     expect(service).toBeTruthy();
   });
 });

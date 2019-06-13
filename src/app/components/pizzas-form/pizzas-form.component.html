@@ -1,1 +1,26 @@
-<p>TEST</p>
+<form [formGroup]="formPizzas" (ngSubmit)="formPizzas.valid && onSubmit()">
+  <div formArrayName="selectedPizzas">
+    <div [formGroupName]="i" *ngFor="let pizzas of formPizzas.value.selectedPizzas ; let i = index">
+      <label for="pizzas-{{ i }}">{{ pizzasList[i].pizzName }}, {{ pizzasList[i].pizzPriceTTC }}€</label>
+
+      <button
+        name="remove-pizzas-quantity"
+        type="button"
+        (click)="quantitySelect('-', i, pizzas.pizzQuantity)">-</button>
+
+      <input
+        name="selectedPizzas-{{ i }}"
+        formControlName="pizzQuantity"
+        type="number"
+        [(ngModel)]="pizzas.pizzQuantity">
+
+        <button
+          name="add-pizzas-quantity"
+          type="button"
+          (click)="quantitySelect('+', i, pizzas.pizzQuantity)">+</button>
+    </div>
+  </div>
+
+  <button [disabled]="!enableSubmit" type="submit">Ajouter au panier</button>
+
+</form>

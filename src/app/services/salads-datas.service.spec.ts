@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 
 import { SaladsDatasService } from './salads-datas.service';
 
-describe('SaucesDatasService', () => {
+describe('SaladsDatasService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {

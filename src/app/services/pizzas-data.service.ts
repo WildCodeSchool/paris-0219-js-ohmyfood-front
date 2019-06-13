@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class PizzasDataService {
 
-  pizzasRoute: 'http://localhost:3000/pizzas';
+  pizzasRoute = 'http://localhost:3000/pizzas';
 
   constructor(private http: HttpClient) { }
 

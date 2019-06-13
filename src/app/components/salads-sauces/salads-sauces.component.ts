@@ -16,7 +16,7 @@ export class SaladsSaucesComponent implements OnInit {
 
 
   constructor(
-    private saucesDatasService: SaladsDatasService,
+    private saladsDatasService: SaladsDatasService,
     private fb: FormBuilder
   ) {
     this.saladsSaucesForm = this.fb.group({
@@ -26,7 +26,7 @@ export class SaladsSaucesComponent implements OnInit {
     }
 
     ngOnInit() {
-      this.saucesDatasService.addSaladsSauces().subscribe(data => {
+      this.saladsDatasService.addSaladsSauces().subscribe(data => {
         this.saladsSaucesFormTable = data;
         console.log(this.saladsSaucesFormTable);
 

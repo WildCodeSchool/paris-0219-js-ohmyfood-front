@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 
 @Component({
   selector: 'app-navbar',
@@ -7,5 +7,12 @@ import { Component } from '@angular/core';
 })
 export class NavbarComponent {
 
-}
+  @ViewChild('navBurger', {static: true}) navBurger: ElementRef<any>;
+  @ViewChild('navMenu', {static: true}) navMenu: ElementRef<any>;
 
+  toggleNavbar() {
+      this.navBurger.nativeElement.classList.toggle('is-active');
+      this.navMenu.nativeElement.classList.toggle('is-active');
+  }
+
+}

@@ -1,28 +1,30 @@
+import { AppComponent } from './app.component';
+import { AppRoutingModule } from './app-routing.module';
 import { BrowserModule } from '@angular/platform-browser';
+import { DessertsComponent } from './components/desserts/desserts.component';
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 
-import { AppRoutingModule } from './app-routing.module';
-import { ReactiveFormsModule } from '@angular/forms';
-import { Routes, RouterModule } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
-
-import { AppComponent } from './app.component';
 import { PizzaPageComponent } from './pages/pizza-page/pizza-page.component';
 import { PizzaComponent } from './components/pizza/pizza.component';
 import { NewNavbarComponent } from './components/new-navbar/new-navbar.component';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { Routes, RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
     AppComponent,
-    PizzaPageComponent,
+    DessertsComponent,
     PizzaComponent,
+    PizzaPageComponent,
     NewNavbarComponent
   ],
   imports: [
-    BrowserModule,
     AppRoutingModule,
-    ReactiveFormsModule, 
-    HttpClientModule
+    BrowserModule,
+    FormsModule,
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

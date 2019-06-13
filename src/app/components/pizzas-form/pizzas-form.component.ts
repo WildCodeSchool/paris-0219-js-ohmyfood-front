@@ -16,7 +16,13 @@ export class PizzasFormComponent implements OnInit {
     this.pizzasData.getPizzas()
     .subscribe(pizzas => {
       this.pizzasList = pizzas;
-      console.log(this.pizzasData);
+      console.log(this.pizzasList);
+
+      for (const key in this.pizzasList) {
+        if (this.pizzasList.hasOwnProperty(key)) {
+          this.pizzasList[key].pizzPriceTTC = this.pizzasList[key].pizzPriceTTC.toFixed(2);
+        }
+      }
     });
   }
 

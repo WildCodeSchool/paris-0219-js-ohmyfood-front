@@ -9,13 +9,15 @@ import { PizzaPageComponent } from './pages/pizza-page/pizza-page.component';
 import { PizzaComponent } from './components/pizza/pizza.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
+import { PizzasFormComponent } from './components/pizzas-form/pizzas-form.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DessertsComponent,
     PizzaComponent,
-    PizzaPageComponent
+    PizzaPageComponent,
+    PizzasFormComponent
   ],
   imports: [
     AppRoutingModule,

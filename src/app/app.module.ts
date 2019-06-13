@@ -10,13 +10,15 @@ import { AppComponent } from './app.component';
 import { PizzaPageComponent } from './pages/pizza-page/pizza-page.component';
 import { PizzaComponent } from './components/pizza/pizza.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { NewNavbarComponent } from './components/new-navbar/new-navbar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PizzaPageComponent,
     PizzaComponent,
-    NavbarComponent
+    NavbarComponent,
+    NewNavbarComponent
   ],
   imports: [
     BrowserModule,

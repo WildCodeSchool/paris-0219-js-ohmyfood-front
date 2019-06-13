@@ -1,0 +1,57 @@
+@import '../../../styles/colors.scss';
+// @import'../../../styles/reset.scss';
+
+nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: $anthracite;
+    box-shadow: 0px 10px 10px 0px rgba(194,245,177,1);
+}
+
+a.navbar-item {
+    color: $white;
+}
+
+div.has-dropdown {
+    color: $anthracite;
+    background: $anthracite;
+}
+
+a.button.is-primary {
+    background: $green;
+}
+
+a.navbar-link {
+    color: $white;
+}
+
+a.navbar-link:hover {
+    color: $anthracite;
+}
+
+a.navbar-item {
+    color: $anthracite;
+}
+
+a.navbar-item.blank {
+    color: $white
+}
+  /* Mobile Version + Media Queries */
+  
+.navbar-burger {
+    color: $white;
+}
+  
+a:hover {
+    color: $white;
+    h1 {
+        color: $anthracite;
+    }
+}
+  
+@media screen and (max-width: 1087px){
+    .navbar-menu {
+        background-color: $anthracite;
+    }
+}

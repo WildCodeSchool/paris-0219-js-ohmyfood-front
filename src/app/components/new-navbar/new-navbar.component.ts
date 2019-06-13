@@ -1,11 +1,11 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 
 @Component({
-  selector: 'app-navbar',
-  templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.scss']
+  selector: 'app-new-navbar',
+  templateUrl: './new-navbar.component.html',
+  styleUrls: ['./new-navbar.component.scss']
 })
-export class NavbarComponent {
+export class NewNavbarComponent {
 
   @ViewChild('navBurger', {static: true}) navBurger: ElementRef<any>;
   @ViewChild('navMenu', {static: true}) navMenu: ElementRef<any>;

@@ -6,12 +6,16 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class TransfertDatasService {
+  private basePath = 'http://localhost:3000';
 
   saladsSaucesFormTable;
-  url = 'http://localhost:3000/saladsSauces';
   constructor(private http: HttpClient) { }
 
   addSaladsSauces(): Observable<any> {
-    return this.http.get<any>(this.url);
+    return this.http.get<any>(`${this.basePath}/saladsSauces`);
+  }
+
+  addSaladsBase(): Observable<any> {
+    return this.http.get<any>(`${this.basePath}/saladsbase`);
   }
 }

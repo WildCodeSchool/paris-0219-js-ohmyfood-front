@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TransfertDatasService } from 'src/app/services/transfert-datas.service';
-import {  FormBuilder, FormArray } from '@angular/forms';
-
+import {  FormBuilder, FormArray, FormGroup, FormControl, FormControlName } from '@angular/forms';
 
 @Component({
   selector: 'app-salads-sauces',
@@ -9,52 +8,35 @@ import {  FormBuilder, FormArray } from '@angular/forms';
   styleUrls: ['./salads-sauces.component.scss']
 })
 export class SaladsSaucesComponent implements OnInit {
-
-  selectOptions: false;
-  saladsSaucesFormTable: object;
+  saladsSaucesFormTable;
 
   // reactive form
 
-  saladsSaucesForm = this.fb.group({
-  selectSauces: this.fb.array([])
-  });
+  saladsSaucesForm: FormGroup;
 
 
   constructor(
-    private transfertDatas: TransfertDatasService,
-    private fb: FormBuilder) { }
+    private transfertDatasService: TransfertDatasService,
+    private fb: FormBuilder
+  ) {
+    this.saladsSaucesForm = this.fb.group({
+      selectSauces: ''
+      });
 
-  ngOnInit() {
- /*    this.transfertDatas.saladsSaucesFormTable = this.saladsSaucesFormTable;
-    console.log(this.transfertDatas.saladsSaucesFormTable); */
-    this.transfertDatas.addSaladsSauces().subscribe(data => {
-      this.saladsSaucesFormTable = data;
-      console.log(this.saladsSaucesFormTable);
+    }
 
+    ngOnInit() {
+      this.transfertDatasService.addSaladsSauces().subscribe(data => {
+        this.saladsSaucesFormTable = data;
+        console.log(this.saladsSaucesFormTable);
 
-// tslint:disable-next-line: forin
-      for (const key in this.saladsSaucesFormTable) {
-
-        const saladsSaucesForm = this.fb.group({
-          idSaladsSauces: [ this.saladsSaucesFormTable[key].idSaladsSauces],
-          saladsSauceName: [this.saladsSaucesFormTable[key].saladsSauceName],
-          saladsSauceChoice: [Boolean]
-        });
-        const selectSauces = this.saladsSaucesForm.get('selectSauces') as FormArray;
-        selectSauces.push(saladsSaucesForm);
-      }
-    });
+      });
 }
 
 
-
-
-
     onSubmit() {
-    // this.saladsSaucesFormTable = {
-    // idSaladsSauces: this.saladsSaucesForm.value.idSaladsSauces,
-    // saladsSaucesName: this.saladsSaucesForm.value.fffsaladsSaucesName
     const orderSauces = this.saladsSaucesForm.value;
     console.log(orderSauces);
+
     }
 }

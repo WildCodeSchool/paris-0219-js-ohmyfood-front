@@ -1,0 +1,26 @@
+<form [formGroup]="formBeverage" (ngSubmit)="formBeverage.valid && onSubmit()">
+  <div formArrayName="selectedBeverage">
+    <div [formGroupName]="i" *ngFor="let beverage of formBeverage.value.selectedBeverage ; let i = index">
+        <label for="dessert-{{ i }}">{{ beveragesList[i].dessName }}, {{ beveragesList[i].bevPriceTTC }}€</label>
+
+        <button
+          name="remove-beverage-quantity"
+          type="button"
+          (click)="quantitySelect('-', i, beverage.bevQuantity)">-</button>
+
+        <input
+          name="selectedBeverage-{{ i }}"
+          formControlName="bevQuantity"
+          type="number"
+          [(ngModel)]="beverage.bevQuantity"/>
+
+        <button
+          name="add-beverage-quantity"
+          type="button"
+          (click)="quantitySelect('+', i, beverage.bevQuantity)">+</button>
+    </div>
+  </div>
+
+  <button [disabled]="!enableSubmit" type="submit">Ajouter au panier</button>
+</form>
+

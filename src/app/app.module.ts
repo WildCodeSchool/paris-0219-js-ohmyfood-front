@@ -14,6 +14,7 @@ import { SaladsSaucesPageComponent } from './pages/salads-sauces-page/salads-sau
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 import { PizzasFormComponent } from './components/pizzas-form/pizzas-form.component';
+import { BeveragesFormComponent } from './components/beverages-form/beverages-form.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { PizzasFormComponent } from './components/pizzas-form/pizzas-form.compon
     DessertsFormComponent,
     PizzaComponent,
     PizzaPageComponent,
-    PizzasFormComponent
+    PizzasFormComponent,
+    BeveragesFormComponent
   ],
   imports: [
     AppRoutingModule,

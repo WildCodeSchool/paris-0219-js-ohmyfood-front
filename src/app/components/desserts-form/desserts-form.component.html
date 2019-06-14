@@ -1,9 +1,13 @@
-<div class="columns">
-  <div class="column is-6 is-offset-one-quarter">
+<div class="header">
+  <h3 class="desserts">Nos Desserts<span>Prix</span></h3>
+
+  <h3 class="quantity">Quantités</h3>
+</div>
+
     <form [formGroup]="formDessert" (ngSubmit)="formDessert.valid && onSubmit()">
       <div formArrayName="selectedDessert">
         <div class="formLine" [formGroupName]="i" *ngFor="let dessert of formDessert.value.selectedDessert ; let i = index">
-            <label class="label" for="dessert-{{ i }}">{{ dessertsList[i].dessName }}, {{ dessertsList[i].dessPriceTTC }}€</label>
+            <label for="dessert-{{ i }}">{{ dessertsList[i].dessName }}<span>{{ dessertsList[i].dessPriceTTC }} EUR</span></label>
 
             <div class="buttonQuantity">
               <button
@@ -32,5 +36,4 @@
         <button class="submitButton button is-success is-rounded is-outlined " [disabled]="!enableSubmit" type="submit">Ajouter au panier</button>
       </div>
     </form>
-  </div>
-</div>
+

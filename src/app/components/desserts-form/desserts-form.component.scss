@@ -14,9 +14,46 @@ input[type=number]::-webkit-outer-spin-button {
   width: 15vw;
 }
 
+.header {
+  border-bottom: solid 1px;
+  display: flex;
+  justify-content: space-between;
+  margin: 0 0 2vw 25vw;
+  width: 50vw;
+
+  .desserts {
+    display: flex;
+    font-size: 1.5em;
+    justify-content: space-between;
+    width: 30vw;
+
+    span {
+      text-align: center;
+      width: 6vw;
+    }
+  }
+
+  .quantity {
+    font-size: 1.5em;
+    text-align: center;
+    width: 15vw;
+  }
+}
+
+label {
+  display: flex;
+  justify-content: space-between;
+  width: 30vw;
+}
+
 input {
   width: 5vw;
   text-align: center;
+}
+
+form {
+  margin: 0 0 0 25vw;
+  width: 50vw;
 }
 
 .formLine {
@@ -30,7 +67,8 @@ input {
   width: 100%;
 
   .submitButton {
-    margin-left: 34vw;
+    clear: both;
+    float: right;
     width: 15vw;
   }
 }

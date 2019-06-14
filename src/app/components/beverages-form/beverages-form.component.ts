@@ -30,8 +30,8 @@ export class BeveragesFormComponent implements OnInit {
   ngOnInit() {
     // Get Data from API
     this.beverageData.getBeverages()
-    .subscribe(dessert => {
-      this.beveragesList = dessert;
+    .subscribe(beverage => {
+      this.beveragesList = beverage;
 
       for (const key in this.beveragesList) {
         if (this.beveragesList.hasOwnProperty(key)) { // Check if object get key
@@ -45,9 +45,9 @@ export class BeveragesFormComponent implements OnInit {
         if (this.beveragesList.hasOwnProperty(key)) {
           const beverageForm = this.formBuilder.group({
             idBeverages: [ this.beveragesList[key].idBeverages ],
-            dessName: [ this.beveragesList[key].bevName ],
-            dessPriceTTC: [this.beveragesList[key].bevPriceTTC ],
-            dessQuantity: [0]
+            bevName: [ this.beveragesList[key].bevName ],
+            bevPriceTTC: [this.beveragesList[key].bevPriceTTC ],
+            bevQuantity: [0]
           });
           selectedBeverage.push(beverageForm); // push form in formArray
         }
@@ -60,7 +60,7 @@ export class BeveragesFormComponent implements OnInit {
     const orderBeverage = this.formBeverage.value;
 
     // Service's method to create object with class Order Beverage
-    this.beverageData.createOrderBeverage(orderBeverage);
+    this.beverageData.createOrderBeverages(orderBeverage);
 
     this.resetFormBeverage(); // quantity return to 0
     this.enableSubmit = false;

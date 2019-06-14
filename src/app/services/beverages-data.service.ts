@@ -18,7 +18,7 @@ export class BeveragesDataService {
     return this.http.get(this.beveragesRoute);
   }
 
-  createOrderBeverage(formResult) { // create object with OrderBeverage Class
+  createOrderBeverages(formResult) { // create object with OrderBeverages Class
     for (const key in formResult) {
       if (formResult.hasOwnProperty(key)) {
         formResult[key].map(test => {
@@ -46,5 +46,6 @@ export class BeveragesDataService {
       }
     }
   }
-
 }
+
+

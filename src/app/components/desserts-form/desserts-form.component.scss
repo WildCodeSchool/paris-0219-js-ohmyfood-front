@@ -52,7 +52,7 @@ input {
 }
 
 form {
-  margin: 0 0 0 25vw;
+  margin: 0 auto;
   width: 50vw;
 }
 
@@ -72,3 +72,62 @@ form {
     width: 15vw;
   }
 }
+
+// Media Queries //
+
+@media screen and(max-width: 900px) {
+  .header {
+    margin: 0 auto 2vw auto;
+    width: 90vw;
+
+    .desserts {
+      font-size: 1em;
+      width: 55vw;
+
+      span {
+        text-align: center;
+        width: 10vw;
+      }
+    }
+
+    .quantity {
+      font-size: 1em;
+      width: 20vw;
+    }
+  }
+
+  .buttonQuantity {
+    width: 30vw;
+
+    .quantity {
+      font-size: 1em;
+      text-align: center;
+      width: 20vw;
+    }
+  }
+
+  label {
+    font-size: 0.7em;
+  }
+
+  form {
+    margin: 0 auto;
+    width: 80vw;
+
+    .formLine {
+      width: 90vw;
+    }
+  }
+
+  .submitSection {
+    width: 100%;
+
+    .submitButton {
+      clear: both;
+      float: right;
+      width: 10vw;
+    }
+  }
+}
+
+

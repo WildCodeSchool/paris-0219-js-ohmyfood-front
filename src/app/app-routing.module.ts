@@ -6,11 +6,6 @@ import { SaladsSaucesPageComponent } from './pages/salads-sauces-page/salads-sau
 
 const routes: Routes = [
   {
-    path: '',
-    redirectTo: 'salades-sauce',
-    pathMatch: 'full'
-  },
-  {
     path: 'pizzaPage',
     component: PizzaPageComponent
   },

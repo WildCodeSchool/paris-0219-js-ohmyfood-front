@@ -28,15 +28,11 @@ export class SaladsSaucesComponent implements OnInit {
     ngOnInit() {
       this.saladsDatasService.addSaladsSauces().subscribe(data => {
         this.saladsSaucesFormTable = data;
-        console.log(this.saladsSaucesFormTable);
-
       });
 }
 
 
     onSubmit() {
     const orderSauces = this.saladsSaucesForm.value;
-    console.log(orderSauces);
-
     }
 }

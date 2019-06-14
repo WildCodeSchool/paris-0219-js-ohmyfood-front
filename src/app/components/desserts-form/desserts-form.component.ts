@@ -4,11 +4,11 @@ import { FormBuilder, FormArray } from '@angular/forms';
 import { QuantitySelectService } from 'src/app/services/quantity-select.service';
 
 @Component({
-  selector: 'app-desserts',
-  templateUrl: './desserts.component.html',
-  styleUrls: ['./desserts.component.scss']
+  selector: 'app-desserts-form',
+  templateUrl: './desserts-form.component.html',
+  styleUrls: ['./desserts-form.component.scss']
 })
-export class DessertsComponent implements OnInit {
+export class DessertsFormComponent implements OnInit {
 
   // Datas collection from database
   dessertsList: object;

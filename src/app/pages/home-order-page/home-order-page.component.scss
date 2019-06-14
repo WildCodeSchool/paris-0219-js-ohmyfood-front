@@ -1,18 +1,30 @@
+@import "../../../styles/colors";
+
 .button {
-    display: block;
     float: right;
+    clear: both;
 }
+
 .column {
-    background: red;
-    border: 1px solid white;
+    a {
+        align-items: center;
+        background-color: $green;
+        border: 1px solid #eee;
+        font-size: 2rem;
+        height: 12vh;
+        padding: 0 50px;
+        text-align: center;
+        width: 100%;
+    }
 }
 
 .columns {
     width: 100%;
 }
 
-.container {
+.cont {
     flex-wrap: wrap;
+    align-content: center;
 }
 
 h2 {
@@ -36,11 +48,15 @@ img {
     margin: 10px 20px;
 }
 
+#orderStatus {
+    color: red;
+}
+
 ul, li, p {
     display: inline-block;
     font-size: 2rem;
 }
 
 ul, p {
-    width: 50%;
+    display: inline-block;
 }

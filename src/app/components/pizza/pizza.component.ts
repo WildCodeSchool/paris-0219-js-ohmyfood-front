@@ -15,19 +15,15 @@ export class PizzaComponent implements OnInit {
   constructor(private pizzaService: PizzaService, private fb: FormBuilder) { }
 
   ngOnInit() {
-    this.initForm();
-  }
-  
-  // convenience getter for easy access to form fields
-  get f() { return this.pizzaForm.controls; }
-
-  initForm() {
     this.pizzaForm = this.fb.group({
       pizzaName: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(45)]],
       pizzDesc: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(255)]],
       pizzPriceHt: ['', [Validators.required, Validators.pattern(this.regexPrice)]]
     });
   }
+  
+  // convenience getter for easy access to form fields
+  get f() { return this.pizzaForm.controls; }
 
   onSubmit() {
     console.log("Button ok")

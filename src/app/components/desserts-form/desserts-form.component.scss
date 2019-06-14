@@ -78,6 +78,7 @@ form {
 @media screen and(max-width: 900px) {
   .header {
     margin: 0 auto 2vw auto;
+    justify-content: space-around;
     width: 90vw;
 
     .desserts {
@@ -92,29 +93,43 @@ form {
 
     .quantity {
       font-size: 1em;
-      width: 20vw;
-    }
-  }
-
-  .buttonQuantity {
-    width: 30vw;
-
-    .quantity {
-      font-size: 1em;
       text-align: center;
       width: 20vw;
     }
   }
 
+  .buttonQuantity {
+    align-items: center;
+    justify-content: center;
+    width: 30vw;
+
+    button {
+      height: 3vh;
+      padding: 0px 2vw;
+    }
+
+    input {
+      font-size: 0.5em;
+    }
+  }
+
   label {
+    align-items: center;
     font-size: 0.7em;
+    width: 80vw;
+
+    span {
+      text-align: center;
+      width: 20vw;
+    }
   }
 
   form {
-    margin: 0 auto;
-    width: 80vw;
+    margin: 0 auto 80vh auto;
+    width: 90vw;
 
     .formLine {
+      align-items: center;
       width: 90vw;
     }
   }
@@ -125,7 +140,7 @@ form {
     .submitButton {
       clear: both;
       float: right;
-      width: 10vw;
+      width: 45vw;
     }
   }
 }

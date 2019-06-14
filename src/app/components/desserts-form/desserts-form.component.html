@@ -11,20 +11,20 @@
 
             <div class="buttonQuantity">
               <button
-                class="button is-success is-rounded is-outlined"
+                class="button is-success is-rounded is-outlined is-mobile is-small"
                 name="remove-dessert-quantity"
                 type="button"
                 (click)="quantitySelect('-', i, dessert.dessQuantity)">-</button>
 
               <input
-                class="input"
+                class="input is-mobile is-small"
                 name="selectedDessert-{{ i }}"
                 formControlName="dessQuantity"
                 type="number"
                 [(ngModel)]="dessert.dessQuantity"/>
 
               <button
-                class="button is-success is-rounded is-outlined"
+                class="button is-success is-rounded is-outlined is-mobile is-small"
                 name="add-dessert-quantity"
                 type="button"
                 (click)="quantitySelect('+', i, dessert.dessQuantity)">+</button>

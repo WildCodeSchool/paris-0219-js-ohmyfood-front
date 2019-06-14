@@ -7,6 +7,10 @@ import { NgModule } from '@angular/core';
 
 import { PizzaPageComponent } from './pages/pizza-page/pizza-page.component';
 import { PizzaComponent } from './components/pizza/pizza.component';
+import { SaladsSaucesComponent } from './components/salads-sauces/salads-sauces.component';
+import { SaladsSaucesPageComponent } from './pages/salads-sauces-page/salads-sauces-page.component';
+
+
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 import { PizzasFormComponent } from './components/pizzas-form/pizzas-form.component';
@@ -14,6 +18,8 @@ import { PizzasFormComponent } from './components/pizzas-form/pizzas-form.compon
 @NgModule({
   declarations: [
     AppComponent,
+    SaladsSaucesComponent,
+    SaladsSaucesPageComponent,
     DessertsFormComponent,
     PizzaComponent,
     PizzaPageComponent,
@@ -21,9 +27,9 @@ import { PizzasFormComponent } from './components/pizzas-form/pizzas-form.compon
   ],
   imports: [
     AppRoutingModule,
+    HttpClientModule,
     BrowserModule,
     FormsModule,
-    HttpClientModule,
     ReactiveFormsModule
   ],
   providers: [],

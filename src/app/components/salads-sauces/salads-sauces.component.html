@@ -1,0 +1,29 @@
+<h5>Sauces</h5>
+
+<form
+[formGroup]='saladsSaucesForm'
+(ngSubmit)='onSubmit()'
+>
+
+    <div *ngFor="let sauce of saladsSaucesFormTable; let i = index">
+
+      <label for="selectSauces-{{ i }}">
+
+        <input
+        formControlName="selectSauces"
+        type="radio"
+        [value]="sauce.saladsSaucesName"
+        id='selectSauces-{{ i }}'
+        >
+        {{ sauce.saladsSaucesName }}
+      </label>
+
+    </div>
+
+
+  <button type='submit'
+  >
+    Ajouter
+  </button>
+</form>
+

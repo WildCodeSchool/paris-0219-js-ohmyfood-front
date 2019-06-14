@@ -1,17 +1,26 @@
-<div class="header">
-  <h3 class="desserts">Nos Desserts<span>Prix</span></h3>
+<label class="dessertsTitle" for="menuToggle">DESSERTS</label>
 
-  <h3 class="quantity">Quantités</h3>
-</div>
+<input type="checkbox" id="menuToggle"/>
+
+<section>
+  <div class="header">
+    <h3 class="desserts">Nos Desserts<span>Prix</span></h3>
+
+    <h3 class="quantity">Quantités</h3>
+  </div>
 
     <form [formGroup]="formDessert" (ngSubmit)="formDessert.valid && onSubmit()">
       <div formArrayName="selectedDessert">
-        <div class="formLine" [formGroupName]="i" *ngFor="let dessert of formDessert.value.selectedDessert ; let i = index">
+        <div
+          class="formLine"
+          [formGroupName]="i"
+          *ngFor="let dessert of formDessert.value.selectedDessert ; let i = index">
+
             <label for="dessert-{{ i }}">{{ dessertsList[i].dessName }}<span>{{ dessertsList[i].dessPriceTTC }} EUR</span></label>
 
             <div class="buttonQuantity">
               <button
-                class="button is-success is-rounded is-outlined is-mobile is-small"
+                class="button is-rounded is-outlined is-mobile is-small"
                 name="remove-dessert-quantity"
                 type="button"
                 (click)="quantitySelect('-', i, dessert.dessQuantity)">-</button>
@@ -24,7 +33,7 @@
                 [(ngModel)]="dessert.dessQuantity"/>
 
               <button
-                class="button is-success is-rounded is-outlined is-mobile is-small"
+                class="button is-rounded is-outlined is-mobile is-small"
                 name="add-dessert-quantity"
                 type="button"
                 (click)="quantitySelect('+', i, dessert.dessQuantity)">+</button>
@@ -33,7 +42,10 @@
       </div>
 
       <div class="submitSection">
-        <button class="submitButton button is-success is-rounded is-outlined " [disabled]="!enableSubmit" type="submit">Ajouter au panier</button>
+        <button
+          class="submitButton button is-rounded is-outlined "
+          [disabled]="!enableSubmit"
+          type="submit">Ajouter au panier</button>
       </div>
     </form>
-
+</section>

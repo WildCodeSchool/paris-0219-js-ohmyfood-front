@@ -1,3 +1,5 @@
+@import '../../../styles/colors.scss';
+
 input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
   -webkit-appearance: none;
@@ -5,7 +7,14 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .button {
+  border: solid 1px $green;
   margin: 0 auto;
+  transition-duration: 500ms;
+  transition-property: background-color;
+
+  &:hover {
+    background: $green;
+  }
 }
 
 .buttonQuantity {
@@ -14,8 +23,43 @@ input[type=number]::-webkit-outer-spin-button {
   width: 15vw;
 }
 
+.dessertsTitle {
+  border: 1px solid $green;
+  border-radius: 50px;
+  display: block;
+  font-size: 2em;
+  margin: 0 auto 2vh auto;
+  text-align: center;
+  width: 50vw;
+
+  &:hover {
+    box-shadow: 0 1px 1px  rgb(68, 160, 68);
+    cursor: pointer;
+  }
+}
+
+form {
+  margin: 0 auto;
+  width: 50vw;
+}
+
+.formLine {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 0 2vh 0;
+}
+
+h1 {
+  border: solid 1px $green;
+  border-radius: 50px;
+  font-size: 2em;
+  margin: 0 auto;
+  text-align: center;
+  width: 50vw;
+}
+
 .header {
-  border-bottom: solid 1px;
+  border-bottom: solid 1px $green;
   display: flex;
   justify-content: space-between;
   margin: 0 0 2vw 25vw;
@@ -23,8 +67,8 @@ input[type=number]::-webkit-outer-spin-button {
 
   .desserts {
     display: flex;
-    font-size: 1.5em;
     justify-content: space-between;
+    font-size: 1.5em;
     width: 30vw;
 
     span {
@@ -40,27 +84,31 @@ input[type=number]::-webkit-outer-spin-button {
   }
 }
 
+input {
+  width: 5vw;
+  text-align: center;
+}
+
 label {
   display: flex;
   justify-content: space-between;
   width: 30vw;
 }
 
-input {
-  width: 5vw;
-  text-align: center;
+#menuToggle {
+  display: none;
 }
 
-form {
+#menuToggle:checked + section {
+  max-height: 500px;
+}
+
+section {
+  max-height: 0;
   margin: 0 auto;
-  width: 50vw;
-}
-
-.formLine {
-  display: flex;
-  justify-content: space-between;
-  margin: 0 0 2vh 0;
-
+  overflow: hidden;
+  padding: 0;
+  transition: all 0.5s ease;
 }
 
 .submitSection {
@@ -77,8 +125,8 @@ form {
 
 @media screen and(max-width: 900px) {
   .header {
-    margin: 0 auto 2vw auto;
     justify-content: space-around;
+    margin: 0 auto 2vw auto;
     width: 90vw;
 
     .desserts {

@@ -3,3 +3,34 @@ input[type=number]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
+
+.button {
+  margin: 0 auto;
+}
+
+.buttonQuantity {
+  display: flex;
+  text-align: center;
+  width: 15vw;
+}
+
+input {
+  width: 5vw;
+  text-align: center;
+}
+
+.formLine {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 0 2vh 0;
+
+}
+
+.submitSection {
+  width: 100%;
+
+  .submitButton {
+    margin-left: 34vw;
+    width: 15vw;
+  }
+}

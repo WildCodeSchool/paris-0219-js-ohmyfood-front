@@ -1,25 +1,36 @@
-<form [formGroup]="formDessert" (ngSubmit)="formDessert.valid && onSubmit()">
-  <div formArrayName="selectedDessert">
-    <div [formGroupName]="i" *ngFor="let dessert of formDessert.value.selectedDessert ; let i = index">
-        <label for="dessert-{{ i }}">{{ dessertsList[i].dessName }}, {{ dessertsList[i].dessPriceTTC }}€</label>
+<div class="columns">
+  <div class="column is-6 is-offset-one-quarter">
+    <form [formGroup]="formDessert" (ngSubmit)="formDessert.valid && onSubmit()">
+      <div formArrayName="selectedDessert">
+        <div class="formLine" [formGroupName]="i" *ngFor="let dessert of formDessert.value.selectedDessert ; let i = index">
+            <label class="label" for="dessert-{{ i }}">{{ dessertsList[i].dessName }}, {{ dessertsList[i].dessPriceTTC }}€</label>
 
-        <button
-          name="remove-dessert-quantity"
-          type="button"
-          (click)="quantitySelect('-', i, dessert.dessQuantity)">-</button>
+            <div class="buttonQuantity">
+              <button
+                class="button is-success is-rounded is-outlined"
+                name="remove-dessert-quantity"
+                type="button"
+                (click)="quantitySelect('-', i, dessert.dessQuantity)">-</button>
 
-        <input
-          name="selectedDessert-{{ i }}"
-          formControlName="dessQuantity"
-          type="number"
-          [(ngModel)]="dessert.dessQuantity"/>
+              <input
+                class="input"
+                name="selectedDessert-{{ i }}"
+                formControlName="dessQuantity"
+                type="number"
+                [(ngModel)]="dessert.dessQuantity"/>
 
-        <button
-          name="add-dessert-quantity"
-          type="button"
-          (click)="quantitySelect('+', i, dessert.dessQuantity)">+</button>
-    </div>
+              <button
+                class="button is-success is-rounded is-outlined"
+                name="add-dessert-quantity"
+                type="button"
+                (click)="quantitySelect('+', i, dessert.dessQuantity)">+</button>
+            </div>
+        </div>
+      </div>
+
+      <div class="submitSection">
+        <button class="submitButton button is-success is-rounded is-outlined " [disabled]="!enableSubmit" type="submit">Ajouter au panier</button>
+      </div>
+    </form>
   </div>
-
-  <button [disabled]="!enableSubmit" type="submit">Ajouter au panier</button>
-</form>
+</div>

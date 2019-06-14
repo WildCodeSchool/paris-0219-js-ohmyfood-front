@@ -37,15 +37,10 @@ export class PizzaComponent implements OnInit {
         pizzPriceHt: parseFloat(this.pizzaForm.value.pizzPriceHt),
         idTax: 1
       };
-<<<<<<< HEAD
-      this.pizzaService.addPizzaType().subscribe(data => data);
-      this.pizzaForm.reset();
-=======
       const addPizzaType = this.pizzaService.addPizzaType().subscribe(_ => {
         this.pizzaForm.reset();
         addPizzaType.unsubscribe();
       });
->>>>>>> 2520220529f89471f025892ade2d25ebf4b5e9c6
     }
   }
 }

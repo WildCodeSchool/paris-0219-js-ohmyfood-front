@@ -1,0 +1,46 @@
+.button {
+    display: block;
+    float: right;
+}
+.column {
+    background: red;
+    border: 1px solid white;
+}
+
+.columns {
+    width: 100%;
+}
+
+.container {
+    flex-wrap: wrap;
+}
+
+h2 {
+    text-align: center;
+    width: 100%;
+}
+
+img, p {
+    display: flex;
+    flex-direction: row;
+}
+
+img {
+    justify-content: center;
+    width: 100%;
+}
+
+img {
+    display: block;
+    text-align: center;
+    margin: 10px 20px;
+}
+
+ul, li, p {
+    display: inline-block;
+    font-size: 2rem;
+}
+
+ul, p {
+    width: 50%;
+}

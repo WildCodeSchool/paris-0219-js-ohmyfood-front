@@ -1,51 +1,69 @@
-<label class="dessertsTitle" for="menuToggle">DESSERTS</label>
-
-<input type="checkbox" id="menuToggle"/>
-
 <section>
-  <div class="header">
-    <h3 class="desserts">Nos Desserts<span>Prix</span></h3>
+  <a href (click)="toggleFormDessert($event)">
+    <h1 class="dessertsTitle">
+      DESSERTS
+    </h1>
 
-    <h3 class="quantity">Quantités</h3>
-  </div>
+    <p>
+      Cliquez pour découvrir nos desserts
+    </p>
+  </a>
 
-    <form [formGroup]="formDessert" (ngSubmit)="formDessert.valid && onSubmit()">
-      <div formArrayName="selectedDessert">
-        <div
-          class="formLine"
-          [formGroupName]="i"
-          *ngFor="let dessert of formDessert.value.selectedDessert ; let i = index">
+  <div class="notToggle" [ngClass]="{toggle: isToggle}">
+    <div class="header">
+      <h3 class="desserts">
+        Nos Desserts<span>Prix</span>
+      </h3>
 
-            <label for="dessert-{{ i }}">{{ dessertsList[i].dessName }}<span>{{ dessertsList[i].dessPriceTTC }} EUR</span></label>
+      <h3 class="quantity">Quantités</h3>
+    </div>
 
-            <div class="buttonQuantity">
-              <button
-                class="button is-rounded is-outlined is-mobile is-small"
-                name="remove-dessert-quantity"
-                type="button"
-                (click)="quantitySelect('-', i, dessert.dessQuantity)">-</button>
+      <form [formGroup]="formDessert" (ngSubmit)="formDessert.valid && onSubmit()">
+        <div formArrayName="selectedDessert">
+          <div
+            class="formLine"
+            [formGroupName]="i"
+            *ngFor="let dessert of formDessert.value.selectedDessert ; let i = index">
 
-              <input
-                class="input is-mobile is-small"
-                name="selectedDessert-{{ i }}"
-                formControlName="dessQuantity"
-                type="number"
-                [(ngModel)]="dessert.dessQuantity"/>
+              <label for="dessert-{{ i }}">
+                {{ dessertsList[i].dessName }}<span>{{ dessertsList[i].dessPriceTTC }} EUR</span>
+              </label>
 
-              <button
-                class="button is-rounded is-outlined is-mobile is-small"
-                name="add-dessert-quantity"
-                type="button"
-                (click)="quantitySelect('+', i, dessert.dessQuantity)">+</button>
-            </div>
+              <div class="buttonQuantity">
+                <button
+                  class="button is-rounded is-outlined is-mobile is-small"
+                  name="remove-dessert-quantity"
+                  type="button"
+                  (click)="quantitySelect('-', i, dessert.dessQuantity)">
+                    -
+                </button>
+
+                <input
+                  class="input is-mobile is-small"
+                  name="selectedDessert-{{ i }}"
+                  formControlName="dessQuantity"
+                  type="number"
+                  [(ngModel)]="dessert.dessQuantity"/>
+
+                <button
+                  class="button is-rounded is-outlined is-mobile is-small"
+                  name="add-dessert-quantity"
+                  type="button"
+                  (click)="quantitySelect('+', i, dessert.dessQuantity)">
+                    +
+                </button>
+              </div>
+          </div>
         </div>
-      </div>
 
-      <div class="submitSection">
-        <button
-          class="submitButton button is-rounded is-outlined "
-          [disabled]="!enableSubmit"
-          type="submit">Ajouter au panier</button>
-      </div>
-    </form>
+        <div class="submitSection">
+          <button
+            class="submitButton button is-rounded is-outlined "
+            [disabled]="!enableSubmit"
+            type="submit">
+              Ajouter au panier
+          </button>
+        </div>
+      </form>
+    </div>
 </section>

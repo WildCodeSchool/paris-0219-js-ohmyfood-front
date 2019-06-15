@@ -1,19 +1,41 @@
 @import '../../../styles/colors.scss';
 
-input[type=number]::-webkit-inner-spin-button,
-input[type=number]::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+a {
+  align-items: center;
+  border: solid 1px $green;
+  border-radius: 50px;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-bottom: 2vh;
+  text-decoration: none;
+
+  h1 {
+    font-size: 2em;
+    text-align: center;
+  }
+
+  p {
+    font-size: 1em;
+    font-style: normal;
+  }
+
+  &:hover {
+    box-shadow: 0 1px 1px  rgb(68, 160, 68);
+    cursor: pointer;
+  }
 }
+
 
 .button {
   border: solid 1px $green;
   margin: 0 auto;
   transition-duration: 500ms;
-  transition-property: background-color;
 
   &:hover {
     background: $green;
+    color: whitesmoke;
   }
 }
 
@@ -23,47 +45,23 @@ input[type=number]::-webkit-outer-spin-button {
   width: 15vw;
 }
 
-.dessertsTitle {
-  border: 1px solid $green;
-  border-radius: 50px;
-  display: block;
-  font-size: 2em;
-  margin: 0 auto 2vh auto;
-  text-align: center;
-  width: 50vw;
-
-  &:hover {
-    box-shadow: 0 1px 1px  rgb(68, 160, 68);
-    cursor: pointer;
-  }
-}
-
-form {
-  margin: 0 auto;
-  width: 50vw;
-}
-
 .formLine {
   display: flex;
   justify-content: space-between;
   margin: 0 0 2vh 0;
-}
 
-h1 {
-  border: solid 1px $green;
-  border-radius: 50px;
-  font-size: 2em;
-  margin: 0 auto;
-  text-align: center;
-  width: 50vw;
+  label {
+    display: flex;
+    justify-content: space-between;
+    width: 60%;
+  }
 }
 
 .header {
   border-bottom: solid 1px $green;
   display: flex;
   justify-content: space-between;
-  margin: 0 0 2vw 25vw;
-  width: 50vw;
+  margin-bottom: 2vh;
 
   .desserts {
     display: flex;
@@ -89,26 +87,23 @@ input {
   text-align: center;
 }
 
-label {
-  display: flex;
-  justify-content: space-between;
-  width: 30vw;
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
-#menuToggle {
-  display: none;
-}
-
-#menuToggle:checked + section {
-  max-height: 500px;
-}
-
-section {
+.notToggle {
   max-height: 0;
   margin: 0 auto;
   overflow: hidden;
   padding: 0;
-  transition: all 0.5s ease;
+  transition-duration: 1000ms;
+}
+
+section {
+  margin: 0 auto;
+  width: 50vw;
 }
 
 .submitSection {
@@ -121,12 +116,16 @@ section {
   }
 }
 
+.toggle {
+  max-height: 600px;
+}
+
 // Media Queries //
 
 @media screen and(max-width: 900px) {
   .header {
     justify-content: space-around;
-    margin: 0 auto 2vw auto;
+    margin: 0 auto 2vh auto;
     width: 90vw;
 
     .desserts {
@@ -149,7 +148,7 @@ section {
   .buttonQuantity {
     align-items: center;
     justify-content: center;
-    width: 30vw;
+    width: 25vw;
 
     button {
       height: 3vh;
@@ -161,34 +160,39 @@ section {
     }
   }
 
-  label {
-    align-items: center;
-    font-size: 0.7em;
-    width: 80vw;
-
-    span {
-      text-align: center;
-      width: 20vw;
-    }
-  }
-
   form {
-    margin: 0 auto 80vh auto;
-    width: 90vw;
+    margin: 0 auto;
 
     .formLine {
       align-items: center;
-      width: 90vw;
+
+      label {
+        align-items: center;
+        font-size: 0.7em;
+        width: 69%;
+
+        span {
+          text-align: center;
+          width: 16vw;
+        }
+      }
     }
   }
 
+  .notToggle {
+    width: 90vw;
+  }
+
+  section {
+    width: 100vw;
+  }
+
   .submitSection {
-    width: 100%;
 
     .submitButton {
-      clear: both;
-      float: right;
-      width: 45vw;
+        clear: both;
+        float: right;
+        width: 45vw;
     }
   }
 }

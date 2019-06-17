@@ -7,6 +7,7 @@ import { NgModule } from '@angular/core';
 
 import { PizzaPageComponent } from './pages/pizza-page/pizza-page.component';
 import { PizzaComponent } from './components/pizza/pizza.component';
+import { FooterComponent } from './components/footer/footer.component';
 import { SaladsSaucesComponent } from './components/salads-sauces/salads-sauces.component';
 import { SaladsSaucesPageComponent } from './pages/salads-sauces-page/salads-sauces-page.component';
 
@@ -25,7 +26,8 @@ import { BeveragesFormComponent } from './components/beverages-form/beverages-fo
     PizzaComponent,
     PizzaPageComponent,
     PizzasFormComponent,
-    BeveragesFormComponent
+    BeveragesFormComponent,
+    FooterComponent
   ],
   imports: [
     AppRoutingModule,

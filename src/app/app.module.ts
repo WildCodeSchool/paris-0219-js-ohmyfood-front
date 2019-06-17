@@ -17,6 +17,7 @@ import { DessertsFormComponent } from './components/desserts-form/desserts-form.
 import { FooterComponent } from './components/footer/footer.component';
 import { SaladsSaucesComponent } from './components/salads-sauces/salads-sauces.component';
 import { Routes, RouterModule } from '@angular/router';
+import { Navbar2Component } from './components/navbar2/navbar2.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { Routes, RouterModule } from '@angular/router';
     HomePageComponent,
     HomeOrderPageComponent,
     BeveragesFormComponent,
-    FooterComponent
+    FooterComponent,
+    Navbar2Component
   ],
   imports: [
     AppRoutingModule,

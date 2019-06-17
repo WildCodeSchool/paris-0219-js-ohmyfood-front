@@ -1,5 +1,198 @@
+@import '../../../styles/colors.scss';
+
+a {
+  align-items: center;
+  border: solid 1px $green;
+  border-radius: 50px;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-bottom: 2vh;
+  text-decoration: none;
+
+  h1 {
+    font-size: 2em;
+    text-align: center;
+  }
+
+  p {
+    font-size: 1em;
+    font-style: normal;
+  }
+
+  &:hover {
+    box-shadow: 0 1px 1px  rgb(68, 160, 68);
+    cursor: pointer;
+  }
+}
+
+
+.button {
+  border: solid 1px $green;
+  margin: 0 auto;
+  transition-duration: 500ms;
+
+  &:hover {
+    background: $green;
+    color: whitesmoke;
+  }
+}
+
+.buttonQuantity {
+  display: flex;
+  text-align: center;
+  width: 15vw;
+}
+
+.formLine {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 0 2vh 0;
+
+  label {
+    display: flex;
+    justify-content: space-between;
+    width: 60%;
+  }
+}
+
+.header {
+  border-bottom: solid 1px $green;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2vh;
+
+  .pizzas {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.5em;
+    width: 30vw;
+
+    span {
+      text-align: center;
+      width: 6vw;
+    }
+  }
+
+  .quantity {
+    font-size: 1.5em;
+    text-align: center;
+    width: 15vw;
+  }
+}
+
+input {
+  width: 5vw;
+  text-align: center;
+}
+
 input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+
+.notToggle {
+  max-height: 0;
+  margin: 5vh auto;
+  overflow: hidden;
+  padding: 0;
+  transition-duration: 1000ms;
+}
+
+section {
+  margin: 0 auto;
+  width: 50vw;
+}
+
+.submitSection {
+  width: 100%;
+
+  .submitButton {
+    clear: both;
+    float: right;
+    width: 15vw;
+  }
+}
+
+.toggle {
+  max-height: 1000px;
+}
+
+// Media Queries //
+
+@media screen and(max-width: 900px) {
+  .header {
+    justify-content: space-around;
+    margin: 0 auto 2vh auto;
+    width: 90vw;
+
+    .pizzas {
+      font-size: 1em;
+      width: 55vw;
+
+      span {
+        text-align: center;
+        width: 10vw;
+      }
+    }
+
+    .quantity {
+      font-size: 1em;
+      text-align: center;
+      width: 20vw;
+    }
+  }
+
+  .buttonQuantity {
+    align-items: center;
+    justify-content: center;
+    width: 25vw;
+
+    button {
+      height: 3vh;
+      padding: 0px 2vw;
+    }
+
+    input {
+      font-size: 0.5em;
+    }
+  }
+
+  form {
+    margin: 0 auto;
+
+    .formLine {
+      align-items: center;
+
+      label {
+        align-items: center;
+        font-size: 0.7em;
+        width: 69%;
+
+        span {
+          text-align: center;
+          width: 16vw;
+        }
+      }
+    }
+  }
+
+  .notToggle {
+    width: 90vw;
+  }
+
+  section {
+    width: 100vw;
+  }
+
+  .submitSection {
+
+    .submitButton {
+        clear: both;
+        float: right;
+        width: 45vw;
+    }
+  }
 }

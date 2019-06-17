@@ -1,8 +1,8 @@
 @import "../../../styles/colors";
 
-.button {
-    float: right;
-    clear: both;
+.classButton {
+    justify-content: space-around;
+    width: 100%;
 }
 
 .column {
@@ -46,6 +46,11 @@ img {
     display: block;
     text-align: center;
     margin: 10px 20px;
+}
+
+.livrAndStatus {
+    justify-content: space-around;
+    width: 100%;
 }
 
 #orderStatus {

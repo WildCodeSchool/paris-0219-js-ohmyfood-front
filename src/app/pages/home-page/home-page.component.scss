@@ -16,6 +16,11 @@
     overflow: hidden;
 }
 
+.columns.column {
+    overflow: hidden;
+    justify-content: space-around;
+}
+
 h2 {
     font-size: 3rem;
     margin: 8vh 0;

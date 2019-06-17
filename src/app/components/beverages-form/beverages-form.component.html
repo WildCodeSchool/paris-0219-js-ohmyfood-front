@@ -1,7 +1,7 @@
 <form [formGroup]="formBeverage" (ngSubmit)="formBeverage.valid && onSubmit()">
   <div formArrayName="selectedBeverage">
     <div [formGroupName]="i" *ngFor="let beverage of formBeverage.value.selectedBeverage ; let i = index">
-        <label for="dessert-{{ i }}">{{ beveragesList[i].dessName }}, {{ beveragesList[i].bevPriceTTC }}€</label>
+        <label for="dessert-{{ i }}">{{ beveragesList[i].bevName }}, {{ beveragesList[i].bevPriceTTC }}€</label>
 
         <button
           name="remove-beverage-quantity"

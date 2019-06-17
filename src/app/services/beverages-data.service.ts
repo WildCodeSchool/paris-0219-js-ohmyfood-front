@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { OrderBeverages } from '../class/order-beverages';
+import { OrderBeverage } from '../class/order-beverage';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +10,7 @@ export class BeveragesDataService {
 
   beveragesRoute = 'http://localhost:3000/beverages';
 
-  userChoice: Array<OrderBeverages> = [];
+  userChoice: Array<OrderBeverage> = [];
 
   constructor(private http: HttpClient) { }
 
@@ -18,12 +18,12 @@ export class BeveragesDataService {
     return this.http.get(this.beveragesRoute);
   }
 
-  createOrderBeverages(formResult) { // create object with OrderBeverages Class
+  createOrderBeverage(formResult) { // create object with OrderBeverage Class
     for (const key in formResult) {
       if (formResult.hasOwnProperty(key)) {
         formResult[key].map(test => {
           if (test.bevQuantity > 0) {
-            const choice = new OrderBeverages(test.idBeverages, test.bevName, test.bevPriceTTC * test.bevQuantity, test.bevQuantity);
+            const choice = new OrderBeverage(test.idBeverages, test.bevName, test.bevPriceTTC * test.bevQuantity, test.bevQuantity);
             this.userChoice.push(choice);
             }
           }
@@ -46,6 +46,7 @@ export class BeveragesDataService {
       }
     }
   }
+  
 }
 
 

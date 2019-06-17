@@ -60,7 +60,7 @@ export class BeveragesFormComponent implements OnInit {
     const orderBeverage = this.formBeverage.value;
 
     // Service's method to create object with class Order Beverage
-    this.beverageData.createOrderBeverages(orderBeverage);
+    this.beverageData.createOrderBeverage(orderBeverage);
 
     this.resetFormBeverage(); // quantity return to 0
     this.enableSubmit = false;

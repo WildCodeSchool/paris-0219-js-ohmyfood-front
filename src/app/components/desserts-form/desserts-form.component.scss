@@ -27,7 +27,6 @@ a {
   }
 }
 
-
 .button {
   border: solid 1px $green;
   margin: 0 auto;
@@ -95,7 +94,7 @@ input[type=number]::-webkit-outer-spin-button {
 
 .notToggle {
   max-height: 0;
-  margin: 0 auto;
+  margin: 5vh auto;
   overflow: hidden;
   padding: 0;
   transition-duration: 1000ms;

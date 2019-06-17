@@ -8,7 +8,8 @@ import { PizzaService } from 'src/app/services/pizza.service';
   styleUrls: ['./pizzas-form-admin.component.scss']
 })
 export class PizzasFormAdminComponent implements OnInit {
-  regexPrice = /^\d{0,2}(\.\d{1,2})?$/gm;
+
+  regexPrice = /[0-9{1,3}]+[.]+[0-9]{2}/gm;
   pizzaFormObject;
   pizzaForm: FormGroup;
 

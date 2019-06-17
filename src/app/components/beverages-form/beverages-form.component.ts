@@ -91,7 +91,7 @@ export class BeveragesFormComponent implements OnInit {
     }
   }
 
-  toggleFormDessert($event) {
+  toggleFormBeverage($event) {
     $event.preventDefault();
     this.isToggle = this.toggleService.toggleForm(this.isToggle);
   }

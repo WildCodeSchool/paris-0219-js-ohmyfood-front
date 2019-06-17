@@ -23,7 +23,9 @@ a {
 
   &:hover {
     box-shadow: 0 1px 1px  rgb(68, 160, 68);
+    color: inherit;
     cursor: pointer;
+    text-decoration: none;
   }
 }
 
@@ -117,7 +119,7 @@ section {
 }
 
 .toggle {
-  max-height: 600px;
+  max-height: 1000px;
 }
 
 // Media Queries //

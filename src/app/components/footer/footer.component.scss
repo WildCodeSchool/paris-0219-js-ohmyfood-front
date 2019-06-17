@@ -1,0 +1,40 @@
+@import '../../../styles/colors';
+
+a {
+    text-decoration: none;
+    color: #eee;
+}
+.column:nth-child(2), .column:nth-child(3) {
+    margin-top: 6vh;
+}
+.column:nth-child(4) {
+    margin-top: 10vh;
+}
+footer {
+    background-color: $green;
+    color: $anthracite;
+    font-size: 1.1rem;
+    width: 100vw;
+}
+
+.socialNetwork {
+    color: #eee;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+
+    a {
+        transition: transform .25s;
+        align-items: center;
+    }
+
+    a:hover {
+        transform: scale(1.2);
+    }
+
+
+}
+
+#title {
+    font-size: 3rem;
+}

@@ -1,0 +1,69 @@
+<section>
+  <a href (click)="toggleFormDessert($event)">
+    <h1 class="dessertsTitle">
+      DESSERTS
+    </h1>
+
+    <p>
+      Cliquez pour découvrir nos desserts
+    </p>
+  </a>
+
+  <div class="notToggle" [ngClass]="{toggle: isToggle}">
+    <div class="header">
+      <h3 class="desserts">
+        Nos Desserts<span>Prix</span>
+      </h3>
+
+      <h3 class="quantity">Quantités</h3>
+    </div>
+
+      <form [formGroup]="formDessert" (ngSubmit)="formDessert.valid && onSubmit()">
+        <div formArrayName="selectedDessert">
+          <div
+            class="formLine"
+            [formGroupName]="i"
+            *ngFor="let dessert of formDessert.value.selectedDessert ; let i = index">
+
+              <label for="dessert-{{ i }}">
+                {{ dessertsList[i].dessName }}<span>{{ dessertsList[i].dessPriceTTC }} EUR</span>
+              </label>
+
+              <div class="buttonQuantity">
+                <button
+                  class="button is-rounded is-outlined is-mobile is-small"
+                  name="remove-dessert-quantity"
+                  type="button"
+                  (click)="quantitySelect('-', i, dessert.dessQuantity)">
+                    -
+                </button>
+
+                <input
+                  class="input is-mobile is-small"
+                  name="selectedDessert-{{ i }}"
+                  formControlName="dessQuantity"
+                  type="number"
+                  [(ngModel)]="dessert.dessQuantity"/>
+
+                <button
+                  class="button is-rounded is-outlined is-mobile is-small"
+                  name="add-dessert-quantity"
+                  type="button"
+                  (click)="quantitySelect('+', i, dessert.dessQuantity)">
+                    +
+                </button>
+              </div>
+          </div>
+        </div>
+
+        <div class="submitSection">
+          <button
+            class="submitButton button is-rounded is-outlined "
+            [disabled]="!enableSubmit"
+            type="submit">
+              Ajouter au panier
+          </button>
+        </div>
+      </form>
+    </div>
+</section>

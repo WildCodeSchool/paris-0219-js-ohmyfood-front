@@ -8,11 +8,11 @@ import { HomeOrderPageComponent } from './pages/home-order-page/home-order-page.
 
 const routes: Routes = [
   {
-    path:'homePage',
+    path: 'homePage',
     component: HomePageComponent
   },
   {
-    path:'homeOrderPage',
+    path: 'homeOrderPage',
     component: HomeOrderPageComponent
   },
   {

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PizzasDataService } from 'src/app/services/pizzas-data.service';
 import { FormArray, FormBuilder } from '@angular/forms';
 import { QuantitySelectService } from 'src/app/services/quantity-select.service';
+import { ToggleFormService } from 'src/app/services/toggle-form.service';
 
 @Component({
   selector: 'app-pizzas-form',
@@ -14,6 +15,8 @@ export class PizzasFormComponent implements OnInit {
 
   enableSubmit: boolean;
 
+  isToggle: boolean;
+
   formPizzas = this.formBuilder.group({
     selectedPizzas: this.formBuilder.array([])
   });
@@ -21,7 +24,8 @@ export class PizzasFormComponent implements OnInit {
   constructor(
     private pizzasData: PizzasDataService,
     private formBuilder: FormBuilder,
-    private quantitySelectService: QuantitySelectService
+    private quantitySelectService: QuantitySelectService,
+    private toggleService: ToggleFormService
     ) { }
 
   ngOnInit() {
@@ -79,6 +83,11 @@ export class PizzasFormComponent implements OnInit {
           );
       }
     }
+  }
+
+  toggleFormPizzas($event) {
+    $event.preventDefault();
+    this.isToggle = this.toggleService.toggleForm(this.isToggle);
   }
 
 }

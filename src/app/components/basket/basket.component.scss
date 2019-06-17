@@ -1,3 +1,31 @@
+.basket { 
+    width: 40vw; 
+    height: 100vh; 
+    background: red; 
+    position: fixed; 
+    top: 0;
+    right: -39.5vw;
+    -moz-border-radius: 10px; 
+    -webkit-border-radius: 10px; 
+    border-radius: 10px; 
+} 
+
+.basket::before { 
+    content: ""; 
+    position: absolute; 
+    right: 100%; 
+    top: calc(50% - 300px); 
+    width: 0; 
+    height: 0; 
+	border-top:  300px solid transparent;
+	border-right: 40px solid red;
+	border-bottom: 300px solid transparent;
+}
+
+.basket:hover {
+    right: 0;
+}
+
 .headerBasket {
     justify-content: center;
 }

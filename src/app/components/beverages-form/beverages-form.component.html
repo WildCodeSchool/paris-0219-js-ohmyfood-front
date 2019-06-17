@@ -1,26 +1,70 @@
-<form [formGroup]="formBeverage" (ngSubmit)="formBeverage.valid && onSubmit()">
-  <div formArrayName="selectedBeverage">
-    <div [formGroupName]="i" *ngFor="let beverage of formBeverage.value.selectedBeverage ; let i = index">
-        <label for="dessert-{{ i }}">{{ beveragesList[i].bevName }}, {{ beveragesList[i].bevPriceTTC }}€</label>
+<section>
+  <a href (click)="toggleFormBeverage($event)">
+    <h1 class="beveragesTitle">
+      BOISSONS
+    </h1>
 
-        <button
-          name="remove-beverage-quantity"
-          type="button"
-          (click)="quantitySelect('-', i, beverage.bevQuantity)">-</button>
+    <p>
+      Cliquez pour découvrir nos boissons
+    </p>
+  </a>
 
-        <input
-          name="selectedBeverage-{{ i }}"
-          formControlName="bevQuantity"
-          type="number"
-          [(ngModel)]="beverage.bevQuantity"/>
+  <div class="notToggle" [ngClass]="{toggle: isToggle}">
+    <div class="header">
+      <h3 class="beverages">
+        Nos Boissons<span>Prix</span>
+      </h3>
 
-        <button
-          name="add-beverage-quantity"
-          type="button"
-          (click)="quantitySelect('+', i, beverage.bevQuantity)">+</button>
+      <h3 class="quantity">Quantités</h3>
     </div>
-  </div>
 
-  <button [disabled]="!enableSubmit" type="submit">Ajouter au panier</button>
-</form>
+      <form [formGroup]="formBeverage" (ngSubmit)="formBeverage.valid && onSubmit()">
+        <div formArrayName="selectedBeverage">
+          <div
+            class="formLine"
+            [formGroupName]="i"
+            *ngFor="let beverage of formBeverage.value.selectedBeverage ; let i = index">
+
+              <label for="beverage-{{ i }}">
+                {{ beveragesList[i].bevName }}<span>{{ beveragesList[i].bevPriceTTC }} EUR</span>
+              </label>
+
+              <div class="buttonQuantity">
+                <button
+                  class="button is-rounded is-outlined is-mobile is-small"
+                  name="remove-beverage-quantity"
+                  type="button"
+                  (click)="quantitySelect('-', i, beverage.bevQuantity)">
+                    -
+                </button>
+
+                <input
+                  class="input is-mobile is-small"
+                  name="selectedBeverage-{{ i }}"
+                  formControlName="bevQuantity"
+                  type="number"
+                  [(ngModel)]="beverage.bevQuantity"/>
+
+                <button
+                  class="button is-rounded is-outlined is-mobile is-small"
+                  name="add-beverage-quantity"
+                  type="button"
+                  (click)="quantitySelect('+', i, beverage.bevQuantity)">
+                    +
+                </button>
+              </div>
+          </div>
+        </div>
+
+        <div class="submitSection">
+          <button
+            class="submitButton button is-rounded is-outlined "
+            [disabled]="!enableSubmit"
+            type="submit">
+              Ajouter au panier
+          </button>
+        </div>
+      </form>
+    </div>
+</section>
 

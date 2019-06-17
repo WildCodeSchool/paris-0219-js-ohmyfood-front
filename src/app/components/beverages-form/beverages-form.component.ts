@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BeveragesDataService } from 'src/app/services/beverages-data.service';
 import { FormBuilder, FormArray } from '@angular/forms';
 import { QuantitySelectService } from 'src/app/services/quantity-select.service';
+import { ToggleFormService } from 'src/app/services/toggle-form.service';
 
 @Component({
   selector: 'app-beverages-form',
@@ -16,6 +17,9 @@ export class BeveragesFormComponent implements OnInit {
   // Enable submit button
   enableSubmit: boolean;
 
+  // To toggle Form
+  isToggle: boolean
+
   // Reactive form
   formBeverage = this.formBuilder.group({
     selectedBeverage: this.formBuilder.array([])
@@ -24,7 +28,8 @@ export class BeveragesFormComponent implements OnInit {
   constructor(
     private beverageData: BeveragesDataService,
     private quantitySelectService: QuantitySelectService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private toggleService: ToggleFormService
     ) {}
 
   ngOnInit() {
@@ -84,5 +89,10 @@ export class BeveragesFormComponent implements OnInit {
           );
       }
     }
+  }
+
+  toggleFormBeverage($event) {
+    $event.preventDefault();
+    this.isToggle = this.toggleService.toggleForm(this.isToggle);
   }
 }

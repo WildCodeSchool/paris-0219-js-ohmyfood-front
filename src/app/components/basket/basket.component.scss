@@ -4,17 +4,18 @@
     background: red; 
     position: fixed; 
     top: 0;
-    right: -39.5vw;
+    right: -35vw;
     -moz-border-radius: 10px; 
     -webkit-border-radius: 10px; 
     border-radius: 10px; 
+    z-index: 1;
 } 
 
 .basket::before { 
     content: ""; 
     position: absolute; 
     right: 100%; 
-    top: calc(50% - 300px); 
+    top: calc( 50% - 300px ); 
     width: 0; 
     height: 0; 
 	border-top:  300px solid transparent;
@@ -41,6 +42,14 @@
 
 p {
     text-align: center;
+}
+
+.reverseText {
+    color: white;
+    position: absolute;
+    top: calc(50% - 126.5px);
+    transition: transform .1s;
+    transform: rotate(-90deg);
 }
 
 ul li {

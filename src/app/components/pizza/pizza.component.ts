@@ -8,7 +8,7 @@ import { PizzaService } from 'src/app/services/pizza.service';
   styleUrls: ['./pizza.component.scss']
 })
 export class PizzaComponent implements OnInit {
-  regexPrice = /^\d{0,2}(\.\d{1,2})?$/gm;
+  regexPrice = /[0-9{1,3}]+[.]+[0-9]{2}/gm;
   pizzaFormObject;
   pizzaForm: FormGroup;
 
@@ -17,7 +17,7 @@ export class PizzaComponent implements OnInit {
   ngOnInit() {
     this.initForm();
   }
-  
+
   // convenience getter for easy access to form fields
   get f() { return this.pizzaForm.controls; }
 

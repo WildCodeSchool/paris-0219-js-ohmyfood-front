@@ -14,6 +14,57 @@
       </ul>
       <p id="orderStatus">Statut de la commande : </p>
     </div>
-    <p>Voici le récapitulatif de votre commande : </p>
+
+    <table>
+        <thead>
+          <tr>
+            <th colspan="4">
+              Voici le récapitulatif de votre commande :
+            </th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td>
+              Pizzas
+            </td>
+
+            <td>
+              Quantité
+            </td>
+
+            <td>
+              Prix TTC
+            </td>
+          </tr>
+
+          <tr *ngFor="let pizzas of userPizzaChoice">
+            <td>
+              {{ pizzas.pizzName }}
+            </td>
+
+            <td>
+              {{ pizzas.pizzQuantity }}
+            </td>
+
+            <td>
+              {{ pizzas.pizzPrice }} EUR
+            </td>
+          </tr>
+        </tbody>
+
+        <tfoot>
+          <tr>
+            <th colspan="2">
+              Total
+            </th>
+
+            <th>
+              {{ total }} EUR
+            </th>
+          </tr>
+        </tfoot>
+      </table>
   </div>
 </div>

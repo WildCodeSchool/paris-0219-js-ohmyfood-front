@@ -5,8 +5,15 @@ import { PizzaPageComponent } from './pages/pizza-page/pizza-page.component';
 import { SaladsSaucesPageComponent } from './pages/salads-sauces-page/salads-sauces-page.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { HomeOrderPageComponent } from './pages/home-order-page/home-order-page.component';
+import { AdminPagesComponent } from './pages/admin-pages/admin-pages.component';
 
 const routes: Routes = [
+  {
+    path: '', redirectTo: 'homePage', pathMatch: 'full'
+  },
+  {
+    path: 'admin', component: AdminPagesComponent
+  },
   {
     path: 'homePage',
     component: HomePageComponent

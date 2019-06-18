@@ -1,29 +1,13 @@
 <form [formGroup]="pizzaForm" (ngSubmit)="onSubmit()">
   <p>Quelle action voulez-vous réaliser ?</p>
-  <label>
+  <label *ngFor="let action of actions; let i = index">
     <input type="radio" 
+      value="action"
       name="pizzAction"
       formControlName="pizzAction"
-      value="Ajouter"
+      (click)="getActionName(i)"
     >
-      Ajouter
-  </label>
-  <label>  
-    <input type="radio" 
-      name="pizzAction"
-      formControlName="pizzAction"
-      value="Modifier"
-    >
-      Modifier
-  </label>
-  <label>
-    <input 
-      type="radio" 
-      name="pizzAction"
-      formControlName="pizzAction" 
-      value="Retirer"
-    >
-      Retirer
+      {{ action }}
   </label>
   <label>
     <p>Nom de la pizza</p>
@@ -49,9 +33,9 @@
       <label>
         <p>Description de la pizza</p>
         <textarea type="text" 
-        class="form-control" 
-        formControlName="pizzDesc" 
-        required
+          class="form-control" 
+          formControlName="pizzDesc" 
+          required
         >
       </textarea>
       <div *ngIf="f.pizzDesc.invalid && (f.pizzDesc.dirty || f.pizzDesc.touched)">
@@ -70,9 +54,9 @@
     <label>
       <p>Prix hors taxe</p>
       <input type="text" 
-      class="form-control" 
-      formControlName="pizzPriceHt" 
-      required
+        class="form-control" 
+        formControlName="pizzPriceHt" 
+        required
       >
       <div *ngIf="f.pizzPriceHt.invalid && (f.pizzPriceHt.dirty || f.pizzPriceHt.touched)">
         <div *ngIf="f.pizzPriceHt.errors.required">

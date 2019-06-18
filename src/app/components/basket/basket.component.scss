@@ -1,14 +1,18 @@
+@import '../../../styles/colors.scss';
+
 .basket { 
-    width: 40vw; 
+    width: 100vw; 
     height: 100vh; 
-    background: red; 
+    background: $green; 
+    color: white;
     position: fixed; 
     top: 0;
-    right: -35vw;
+    right: -95vw;
     -moz-border-radius: 10px; 
     -webkit-border-radius: 10px; 
     border-radius: 10px; 
     z-index: 1;
+    transition-duration: .5s;
 } 
 
 .basket::before { 
@@ -19,16 +23,32 @@
     width: 0; 
     height: 0; 
 	border-top:  300px solid transparent;
-	border-right: 40px solid red;
+	border-right: 40px solid $green;
 	border-bottom: 300px solid transparent;
 }
 
-.basket:hover {
-    right: 0;
+.basket::after { 
+    border-top:  320px solid transparent;
+	border-right: 45px solid white;
+	border-bottom: 320px solid transparent;
+    content: ""; 
+    position: absolute; 
+    right: 100%; 
+    top: calc( 50% - 320px ); 
+    width: 0; 
+    height: 0; 
+    z-index: -1;
 }
 
 .headerBasket {
     justify-content: center;
+}
+
+.inlineBasket {
+    flex-wrap: wrap;
+    justify-content: center;
+    position: absolute;
+    top: 10px;
 }
 
 .livrAndStatus {
@@ -45,13 +65,37 @@ p {
 }
 
 .reverseText {
+    border-right: 1px solid white;
     color: white;
-    position: absolute;
-    top: calc(50% - 126.5px);
-    transition: transform .1s;
-    transform: rotate(-90deg);
+    font-size: 1rem;
+    font-weight: bolder;
+    justify-content: center;
+    width: 5%;
+    height: 100vh;
 }
 
 ul li {
     display: inline-block;
+}
+
+@media screen and (min-width: 720px) {
+    .basket {
+        width: 60vw; 
+        right: -57vw;
+    }
+
+    .reverseText {
+        font-size: 1.15rem;
+    }
+}
+
+@media screen and (min-width: 928px) {
+    .basket {
+        width: 40vw; 
+        right: -38vw;
+    }
+}
+
+.basketToggle {
+    right: 0;
 }

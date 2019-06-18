@@ -1,15 +1,19 @@
-<div class="basket">
-  <p class="reverseText">RECAPITULATIF DE COMMANDE</p>
-  <div class=" headerBasket d-flex flex-row">
-    <h2>MON PANIER</h2>
-    <i class="fa fa-shopping-cart fa-3x"></i>
+<div class="basket" [ngClass]="{basketToggle: isToggleBasket}">
+  <a class="reverseText d-flex flex-column" (click)="displayToggleBasket($event)">
+    <p>R<br>E<br>C<br>A<br>P<br>I<br>T<br>U<br>L<br>A<br>T<br>I<br>F<br> <br>D<br>E<br> <br>C<br>O<br>M<br>M<br>A<br>N<br>D<br>E</p>
+  </a>
+  <div class="inlineBasket d-flex flex-row">
+    <div class="headerBasket d-flex flex-row">
+      <h2>MON PANIER</h2>
+      <i class="fa fa-shopping-cart fa-3x"></i>
+    </div>
+    <div class="livrAndStatus d-flex flex-row">
+      <ul>
+        <li><input type="checkbox" name="ifLivraison"/></li>
+        <li>En livraison</li>
+      </ul>
+      <p id="orderStatus">Statut de la commande : </p>
+    </div>
+    <p>Voici le récapitulatif de votre commande : </p>
   </div>
-  <div class="livrAndStatus d-flex flex-row">
-    <ul>
-      <li><input type="checkbox" name="ifLivraison"/></li>
-      <li>En livraison</li>
-    </ul>
-    <p id="orderStatus">Statut de la commande : </p>
-  </div>
-  <p>Voici le récapitulatif de votre commande : </p>
 </div>

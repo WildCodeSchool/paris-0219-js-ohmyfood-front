@@ -1,4 +1,30 @@
 <form [formGroup]="pizzaForm" (ngSubmit)="onSubmit()">
+  <p>Quelle action voulez-vous réaliser ?</p>
+  <label>
+    <input type="radio" 
+      name="pizzAction"
+      formControlName="pizzAction"
+      value="Ajouter"
+    >
+      Ajouter
+  </label>
+  <label>  
+    <input type="radio" 
+      name="pizzAction"
+      formControlName="pizzAction"
+      value="Modifier"
+    >
+      Modifier
+  </label>
+  <label>
+    <input 
+      type="radio" 
+      name="pizzAction"
+      formControlName="pizzAction" 
+      value="Retirer"
+    >
+      Retirer
+  </label>
   <label>
     <p>Nom de la pizza</p>
     <input type="text" 
@@ -19,42 +45,44 @@
     </div>
   </label>
 
-  <label>
-    <p>Description de la pizza</p>
-    <textarea type="text" 
+  <div *ngIf="f.pizzAction.value === 'Ajouter' || f.pizzAction.value === 'Modifier'">
+      <label>
+        <p>Description de la pizza</p>
+        <textarea type="text" 
         class="form-control" 
         formControlName="pizzDesc" 
         required
-    >
-    </textarea>
-    <div *ngIf="f.pizzDesc.invalid && (f.pizzDesc.dirty || f.pizzDesc.touched)">
-      <div *ngIf="f.pizzDesc.errors.required">
-        <p class="invalidText">*La description de la pizza est requis</p>
+        >
+      </textarea>
+      <div *ngIf="f.pizzDesc.invalid && (f.pizzDesc.dirty || f.pizzDesc.touched)">
+        <div *ngIf="f.pizzDesc.errors.required">
+          <p class="invalidText">*La description de la pizza est requis</p>
+        </div>
+        <div *ngIf="f.pizzDesc.errors.minlength">
+          <p class="invalidText">*La description de la pizza doit contenir au moins 4 caractères</p>
+        </div>
+        <div *ngIf="f.pizzDesc.errors.maxlength">
+          <p class="invalidText">*La description ne doit pas dépasser les 255 caractères</p>
+        </div>
       </div>
-      <div *ngIf="f.pizzDesc.errors.minlength">
-        <p class="invalidText">*La description de la pizza doit contenir au moins 4 caractères</p>
+    </label>
+  
+    <label>
+      <p>Prix hors taxe</p>
+      <input type="text" 
+      class="form-control" 
+      formControlName="pizzPriceHt" 
+      required
+      >
+      <div *ngIf="f.pizzPriceHt.invalid && (f.pizzPriceHt.dirty || f.pizzPriceHt.touched)">
+        <div *ngIf="f.pizzPriceHt.errors.required">
+          <p class="invalidText">*Le prix est requis</p>
+        </div>
+        <div *ngIf="f.pizzPriceHt.errors.pattern">
+          <p class="invalidText">*Le prix doit être inséré sous la forme XXX.XX</p>
+        </div>
       </div>
-      <div *ngIf="f.pizzDesc.errors.maxlength">
-        <p class="invalidText">*La description ne doit pas dépasser les 255 caractères</p>
-      </div>
-    </div>
-  </label>
-
-  <label>
-    <p>Prix hors taxe</p>
-    <input type="text" 
-        class="form-control" 
-        formControlName="pizzPriceHt" 
-        required
-    >
-    <div *ngIf="f.pizzPriceHt.invalid && (f.pizzPriceHt.dirty || f.pizzPriceHt.touched)">
-      <div *ngIf="f.pizzPriceHt.errors.required">
-        <p class="invalidText">*Le prix est requis</p>
-      </div>
-      <div *ngIf="f.pizzPriceHt.errors.pattern">
-        <p class="invalidText">*Le prix doit être inséré sous la forme XXX.XX</p>
-      </div>
-    </div>
-  </label>
-  <button type="submit">VALIDER LA PIZZA</button>
+    </label>
+  </div>
+  <button type="submit">{{ f.pizzAction.value | uppercase }} LA PIZZA</button>
 </form>

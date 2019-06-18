@@ -24,6 +24,7 @@ export class PizzasFormAdminComponent implements OnInit {
 
   initForm() {
     this.pizzaForm = this.fb.group({
+      pizzAction: ['Ajouter', Validators.required],
       pizzaName: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(45)]],
       pizzDesc: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(255)]],
       pizzPriceHt: ['', [Validators.required, Validators.pattern(this.regexPrice)]]
@@ -32,16 +33,30 @@ export class PizzasFormAdminComponent implements OnInit {
 
   onSubmit() {
     if (this.pizzaForm.valid) {
-      this.pizzaService.pizzaFormObject = {
-        pizzName: this.pizzaForm.value.pizzaName,
-        pizzDesc: this.pizzaForm.value.pizzDesc,
-        pizzPriceHt: parseFloat(this.pizzaForm.value.pizzPriceHt),
-        idTax: 1
-      };
-      const addPizzaType = this.pizzaService.addPizzaType().subscribe(_ => {
-        this.pizzaForm.reset();
-        addPizzaType.unsubscribe();
-      });
+      if (this.pizzaForm.value.pizzAction === 'Ajouter') {
+        if (confirm(`Êtes-vous certain d'ajouter la pizza ${this.pizzaForm.value.pizzaName} ?`)) {
+          this.pizzaService.pizzaFormObject = {
+            pizzName: this.pizzaForm.value.pizzaName,
+            pizzDesc: this.pizzaForm.value.pizzDesc,
+            pizzPriceHt: parseFloat(this.pizzaForm.value.pizzPriceHt),
+            idTax: 1
+          };
+          const addPizzaType = this.pizzaService.addPizzaType().subscribe(_ => {
+            this.pizzaForm.reset();
+            addPizzaType.unsubscribe();
+          });
+        }
+      }else if (this.pizzaForm.value.pizzAction === 'Modifier') {
+        if (confirm(`Êtes-vous certain de modifier la pizza ${this.pizzaForm.value.pizzaName} ?`)) {
+          console.log('Pizza modifiée')  
+        } 
+      }else if (this.pizzaForm.value.pizzAction === 'Retirer') {
+        if (confirm(`Êtes-vous certain de supprimer la pizza ${this.pizzaForm.value.pizzaName} ?`)) {
+          console.log('Pizza supprimée')
+        }
+      }else{
+        return
+      }
     }
   }
 }

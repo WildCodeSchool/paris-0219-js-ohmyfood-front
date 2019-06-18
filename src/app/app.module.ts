@@ -17,6 +17,7 @@ import { DessertsFormComponent } from './components/desserts-form/desserts-form.
 import { FooterComponent } from './components/footer/footer.component';
 import { SaladsSaucesComponent } from './components/salads-sauces/salads-sauces.component';
 import { Routes, RouterModule } from '@angular/router';
+import { BasketComponent } from './components/basket/basket.component';
 import { AdminPagesComponent } from './pages/admin-pages/admin-pages.component';
 
 @NgModule({
@@ -32,6 +33,7 @@ import { AdminPagesComponent } from './pages/admin-pages/admin-pages.component';
     HomeOrderPageComponent,
     BeveragesFormComponent,
     FooterComponent,
+    BasketComponent,
     AdminPagesComponent
   ],
   imports: [

@@ -10,7 +10,7 @@ import { SaladsSaucesPageComponent } from './pages/salads-sauces-page/salads-sau
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { HomeOrderPageComponent } from './pages/home-order-page/home-order-page.component';
 
-import { PizzaComponent } from './components/pizza/pizza.component';
+import { PizzasFormAdminComponent } from './components/pizzas-form-admin/pizzas-form-admin.component';
 import { PizzasFormComponent } from './components/pizzas-form/pizzas-form.component';
 import { BeveragesFormComponent } from './components/beverages-form/beverages-form.component';
 import { DessertsFormComponent } from './components/desserts-form/desserts-form.component';
@@ -18,6 +18,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { SaladsSaucesComponent } from './components/salads-sauces/salads-sauces.component';
 import { Routes, RouterModule } from '@angular/router';
 import { BasketComponent } from './components/basket/basket.component';
+import { AdminPagesComponent } from './pages/admin-pages/admin-pages.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,7 @@ import { BasketComponent } from './components/basket/basket.component';
     SaladsSaucesComponent,
     SaladsSaucesPageComponent,
     DessertsFormComponent,
-    PizzaComponent,
+    PizzasFormAdminComponent,
     PizzaPageComponent,
     PizzasFormComponent,
     HomePageComponent,
@@ -33,6 +34,7 @@ import { BasketComponent } from './components/basket/basket.component';
     BeveragesFormComponent,
     FooterComponent,
     BasketComponent,
+    AdminPagesComponent
   ],
   imports: [
     AppRoutingModule,

@@ -3,11 +3,12 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PizzaService } from 'src/app/services/pizza.service';
 
 @Component({
-  selector: 'app-pizza',
-  templateUrl: './pizza.component.html',
-  styleUrls: ['./pizza.component.scss']
+  selector: 'app-pizzas-form-admin',
+  templateUrl: './pizzas-form-admin.component.html',
+  styleUrls: ['./pizzas-form-admin.component.scss']
 })
-export class PizzaComponent implements OnInit {
+export class PizzasFormAdminComponent implements OnInit {
+
   regexPrice = /[0-9{1,3}]+[.]+[0-9]{2}/gm;
   pizzaFormObject;
   pizzaForm: FormGroup;

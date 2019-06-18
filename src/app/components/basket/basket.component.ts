@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PizzasDataService } from 'src/app/services/pizzas-data.service';
 import { OrderPizzas } from 'src/app/class/order-pizzas';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-basket',
@@ -10,16 +9,30 @@ import { Observable } from 'rxjs';
 })
 export class BasketComponent implements OnInit {
 
-  isToggleBasket = false;
+  isToggleBasket: boolean;
 
-  userPizzaChoice: Array<OrderPizzas>;
+  userPizzaChoice: Array<OrderPizzas>; // Get data from service
+
+  totalArray: Array<number> = []; // Use to calculate total price
+
+  total: number; // final result
 
   constructor(private pizzasData: PizzasDataService) { }
 
   ngOnInit() {
     this.pizzasData.getUserPizzas.subscribe(pizzasChoice => {
       this.userPizzaChoice = pizzasChoice;
-      console.log(this.userPizzaChoice);
+
+      const reducer = (accumulator, currentValue) => accumulator + currentValue; // Sum of array's value function
+
+      for (const key in this.userPizzaChoice) {
+        if (this.userPizzaChoice.hasOwnProperty(key)) {
+          this.totalArray.push(this.userPizzaChoice[key].pizzPrice);
+        }
+      }
+      this.total = 0; // intialize total
+      this.total = this.totalArray.reduce(reducer); // Calculate total each time values changes
+      this.totalArray = []; // Initialize array
     });
   }
 
@@ -30,10 +43,6 @@ export class BasketComponent implements OnInit {
     } else {
       this.isToggleBasket = false;
     }
-  }
-
-  onGetUserPizzas($event) {
-    console.log($event);
   }
 
 }

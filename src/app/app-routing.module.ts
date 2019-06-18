@@ -9,6 +9,9 @@ import { AdminPagesComponent } from './pages/admin-pages/admin-pages.component';
 
 const routes: Routes = [
   {
+    path: '', redirectTo: 'homePage', pathMatch: 'full'
+  },
+  {
     path: 'admin', component: AdminPagesComponent
   },
   {

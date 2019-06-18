@@ -13,7 +13,7 @@ export class PizzasDataService {
   userChoice: Array<OrderPizzas> = [];
 
   @Output()
-  public getUserPizzas: EventEmitter<any> = new EventEmitter();
+  public getUserPizzas: EventEmitter<any> = new EventEmitter(); // To transfert data to basketComponent
 
   constructor(private http: HttpClient) { }
 
@@ -21,7 +21,7 @@ export class PizzasDataService {
     return this.http.get(this.pizzasRoute);
   }
 
-  createOrderPizzas(formResult) { // create object with OrderDessert Class
+   createOrderPizzas(formResult) { // create object with OrderDessert Class
     for (const key in formResult) {
       if (formResult.hasOwnProperty(key)) {
         formResult[key].map(test => {
@@ -33,14 +33,13 @@ export class PizzasDataService {
         );
       }
     }
-/*     if (this.userChoice.length > 1) {
-      this.sortUserChoice();
-    } */
-    console.log(this.userChoice);
+    if (this.userChoice.length > 1) {
+       this.sortUserChoice();
+    }
     this.getUserPizzas.emit(this.userChoice);
   }
 
-  sortUserChoice() { // Remove duplicate choice
+   sortUserChoice() { // Remove duplicate choice
     for (let i = 0; i < this.userChoice.length; i ++) {
       for (let j = i + 1 ; j < this.userChoice.length; j ++ ) {
         if (this.userChoice[i].pizzName === this.userChoice[j].pizzName) {

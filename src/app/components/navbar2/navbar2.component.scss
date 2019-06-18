@@ -1,10 +1,89 @@
+@import '../../../styles/reset.scss';
 @import '../../../styles/colors';
 
-// .columns {
-//     background-color: $lightgreen;
-// }
-
 .topbar {
+    margin: 0;
     background-color: $lightgreen;
-    height: 12vh;
+    height: 20vh;
 }
+
+#phone {
+    margin: 0;
+    color: white;
+    font-size: 5vh;
+    color:white;
+    text-shadow:
+        -1px -1px 0 #000,
+        1px -1px 0 #000,
+        -1px 1px 0 #000,
+        1px 1px 0 #000;
+}
+
+#title {
+    @extend #phone;
+    font-size: 6vh;
+}
+
+#subtitle {
+    @extend #phone;
+    font-size: 3vh;
+}
+
+#order {
+    color: red;
+    font-size: 3vh;
+}
+
+.navbar{
+    list-style: none;
+    margin: 0; 
+    font-size: 1.4rem;
+    
+    background:#2D2C33;
+    
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    
+    -webkit-flex-flow: row wrap;
+    justify-content: flex-end;
+  }
+  
+  .navbar a {
+    text-decoration: none;
+    display: block;
+    padding: 1em;
+    color:white;
+  }
+  
+  .navbar a:hover {
+    background: darken(#2D2C33, 50%);
+  }
+  
+  @media all and (max-width: 800px) {
+    .navbar {
+      justify-content: space-around;
+    }
+  }
+  
+  @media all and (max-width: 600px) {
+    .navbar {
+      -webkit-flex-flow: column wrap;
+      flex-flow: column wrap;
+      padding: 0;
+    }
+    
+    .navbar a { 
+      text-align: center; 
+      padding: 10px;
+      border-top: 1px solid rgba(255,255,255,0.3); 
+      border-bottom: 1px solid rgba(0,0,0,0.1); 
+    }
+  
+    
+    .navbar li:last-of-type a {
+      border-bottom: none;
+    }
+  }

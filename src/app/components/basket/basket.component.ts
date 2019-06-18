@@ -7,18 +7,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BasketComponent implements OnInit {
 
-  isToggleBasket: boolean = false;
+  isToggleBasket = false;
 
   constructor() { }
 
   ngOnInit() {
   }
-  
+
   displayToggleBasket(event) {
     event.preventDefault();
-    if (this.isToggleBasket == false) {
+    if (this.isToggleBasket === false) {
       this.isToggleBasket = true;
-    }else {
+    } else {
       this.isToggleBasket = false;
     }
   }

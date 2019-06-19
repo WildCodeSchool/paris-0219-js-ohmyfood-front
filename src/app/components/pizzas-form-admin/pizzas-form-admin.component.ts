@@ -88,7 +88,7 @@ export class PizzasFormAdminComponent implements OnInit {
   onSubmitDelForm() {
     if (this.pizzaFormDel.valid) {
       this.pizzaService.pizzaFormObject = {
-        "pizzName": this.pizzaFormDel.value.pizzaName
+        pizzName: this.pizzaFormDel.value.pizzaName
       };
       if (confirm(`Êtes-vous certain de supprimer la pizza ${this.pizzaFormDel.value.pizzaName} ?`)) {
         const delPizzaType = this.pizzaService.delPizzaType().subscribe(_ => {

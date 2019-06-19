@@ -19,6 +19,6 @@ export class PizzaService {
   }
 
   delPizzaType() {
-    return this.http.delete(this.url, this.pizzaFormObject);
+    return this.http.delete(`${this.url}/?pizzaName=${this.pizzaFormObject.pizzName}`, { responseType: 'text' });
   }
 }

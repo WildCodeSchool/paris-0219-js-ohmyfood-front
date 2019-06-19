@@ -1,39 +1,122 @@
-<form [formGroup]="beverageForm" (ngSubmit)="onSubmit()">
-  <label>
-    <p>Nom de la boisson</p>
-    <input type="text" 
-        class="form-control" 
-        formControlName="beverageName" 
-        required
+<p>Quelle action voulez-vous réaliser ?</p>
+<form [formGroup]="formCheck">
+  <label *ngFor="let action of actions; let i = index">
+    <input type="radio" 
+      value="{{ action }}"
+      name="bevAction"
+      formControlName="bevAction"
     >
-    <div *ngIf="f.bevName.invalid && (f.bevName.dirty || f.bevName.touched)">
-      <div *ngIf="f.bevName.errors.required">
+      {{ action }}
+  </label>
+</form>
+<div *ngIf="formCheck.value.bevAction === 'Ajouter'">
+  <form [formGroup]="beverageFormAdd">
+<!--Adding form-->
+    <label>
+    <p>Nom de la boisson à ajouter</p>
+    <input type="text" 
+      class="form-control" 
+      formControlName="bevName" 
+      required
+    >
+    <div *ngIf="fA.bevName.invalid && (fA.bevName.dirty || fA.bevName.touched)">
+      <div *ngIf="fA.bevName.errors.required">
         <p class="invalidText">*Le nom de la boisson est requis</p>
       </div>
-      <div *ngIf="f.bevName.errors.minlength">
+      <div *ngIf="fA.bevName.errors.minlength">
         <p class="invalidText">*Le nom de la boisson doit contenir au moins 4 caractères</p>
       </div>
-      <div *ngIf="f.bevName.errors.maxlength">
+      <div *ngIf="fA.bevName.errors.maxlength">
         <p class="invalidText">*Le nom de la boisson ne doit pas dépasser les 45 caractères</p>
       </div>
     </div>
-  </label>
+    </label>
 
-  <label>
-    <p>Prix hors taxe</p>
-    <input type="text" 
+    <label>
+      <p>Prix hors taxe</p>
+      <input type="text" 
         class="form-control" 
         formControlName="bevPriceHt" 
         required
-    >
-    <div *ngIf="f.bevPriceHt.invalid && (f.bevPriceHt.dirty || f.bevPriceHt.touched)">
-      <div *ngIf="f.bevPriceHt.errors.required">
-        <p class="invalidText">*Le prix est requis</p>
+      >
+      <div *ngIf="fA.bevPriceHt.invalid && (fA.bevPriceHt.dirty || fA.bevPriceHt.touched)">
+        <div *ngIf="fA.bevPriceHt.errors.required">
+          <p class="invalidText">*Le prix est requis</p>
+        </div>
+        <div *ngIf="fA.bevPriceHt.errors.pattern">
+          <p class="invalidText">*Le prix doit être inséré sous la forme XXX.XX</p>
+        </div>
       </div>
-      <div *ngIf="f.bevPriceHt.errors.pattern">
-        <p class="invalidText">*Le prix doit être inséré sous la forme XXX.XX</p>
+    </label>
+  </form>
+  <button type="submit" (click)="onSubmitAddForm()">AJOUTER LA BOISSON</button>
+</div>
+
+  <!--Modifier form-->
+<div *ngIf="formCheck.value.bevAction === 'Modifier'">
+  <form [formGroup]="beverageFormPut">
+      <label>
+      <p>Nom de la boisson à modifier</p>
+      <input type="text" 
+        class="form-control" 
+        formControlName="bevName" 
+        required
+      >
+      <div *ngIf="fM.bevName.invalid && (fM.bevName.dirty || fM.bevName.touched)">
+        <div *ngIf="fM.bevName.errors.required">
+          <p class="invalidText">*Le nom de la boisson est requis</p>
+        </div>
+        <div *ngIf="fM.bevName.errors.minlength">
+          <p class="invalidText">*Le nom de la boisson doit contenir au moins 4 caractères</p>
+        </div>
+        <div *ngIf="fM.bevName.errors.maxlength">
+          <p class="invalidText">*Le nom de la boisson ne doit pas dépasser les 45 caractères</p>
+        </div>
       </div>
-    </div>
-  </label>
-  <button type="submit">VALIDER LA BOISSON</button>
-</form>
+      </label>
+
+      <label>
+        <p>Prix hors taxe</p>
+        <input type="text" 
+          class="form-control" 
+          formControlName="bevPriceHt" 
+          required
+        >
+        <div *ngIf="fM.bevPriceHt.invalid && (fM.bevPriceHt.dirty || fM.bevPriceHt.touched)">
+          <div *ngIf="fM.bevPriceHt.errors.required">
+            <p class="invalidText">*Le prix est requis</p>
+          </div>
+          <div *ngIf="fM.bevPriceHt.errors.pattern">
+            <p class="invalidText">*Le prix doit être inséré sous la forme XXX.XX</p>
+          </div>
+        </div>
+      </label>
+  </form>
+  <button type="submit" (click)="onSubmitPutForm()">MODIFIER LA BOISSON</button>
+</div>
+
+  <!--Delete form-->
+<div *ngIf="formCheck.value.bevAction === 'Retirer'">
+  <form [formGroup]="bevFormDel">
+      <label>
+        <p>Nom de la boisson à Supprimer</p>
+        <input type="text" 
+          class="form-control" 
+          formControlName="bevName" 
+          required
+        >
+        <div *ngIf="fD.bevName.invalid && (fD.bevName.dirty || fD.bevName.touched)">
+          <div *ngIf="fD.bevName.errors.required">
+            <p class="invalidText">*Le nom de la boisson est requis</p>
+          </div>
+          <div *ngIf="fD.bevName.errors.minlength">
+            <p class="invalidText">*Le nom de la boisson doit contenir au moins 4 caractères</p>
+          </div>
+          <div *ngIf="fD.bevName.errors.maxlength">
+            <p class="invalidText">*Le nom de la boisson ne doit pas dépasser les 45 caractères</p>
+          </div>
+        </div>
+      </label>
+    <button type="submit" (click)="onSubmitDelForm()">SUPPRIMER LA BOISSON</button>
+  </form>
+</div>

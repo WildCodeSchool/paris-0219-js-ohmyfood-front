@@ -11,7 +11,15 @@ export class BeverageService {
 
   constructor(private http: HttpClient) { }
 
-  addPizzaType() {
+  addBeverageType() {
     return this.http.post(this.url, this.beverageFormObject, { responseType: 'text' });
+  }
+
+  putBeverageType() {
+    return this.http.put(this.url, this.beverageFormObject, { responseType: 'text'});
+  }
+
+  delBeverageType() {
+    return this.http.delete(this.url, this.beverageFormObject);
   }
 }

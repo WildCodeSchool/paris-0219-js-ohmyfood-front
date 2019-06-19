@@ -19,6 +19,7 @@ import { SaladsSaucesComponent } from './components/salads-sauces/salads-sauces.
 import { Routes, RouterModule } from '@angular/router';
 import { BasketComponent } from './components/basket/basket.component';
 import { AdminPagesComponent } from './pages/admin-pages/admin-pages.component';
+import { BeveragesFormAdminComponent } from './components/beverages-form-admin/beverages-form-admin.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { AdminPagesComponent } from './pages/admin-pages/admin-pages.component';
     BeveragesFormComponent,
     FooterComponent,
     BasketComponent,
-    AdminPagesComponent
+    AdminPagesComponent,
+    BeveragesFormAdminComponent
   ],
   imports: [
     AppRoutingModule,

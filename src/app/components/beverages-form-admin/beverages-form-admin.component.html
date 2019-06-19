@@ -1,0 +1,39 @@
+<form [formGroup]="beverageForm" (ngSubmit)="onSubmit()">
+  <label>
+    <p>Nom de la boisson</p>
+    <input type="text" 
+        class="form-control" 
+        formControlName="beverageName" 
+        required
+    >
+    <div *ngIf="f.bevName.invalid && (f.bevName.dirty || f.bevName.touched)">
+      <div *ngIf="f.bevName.errors.required">
+        <p class="invalidText">*Le nom de la boisson est requis</p>
+      </div>
+      <div *ngIf="f.bevName.errors.minlength">
+        <p class="invalidText">*Le nom de la boisson doit contenir au moins 4 caractères</p>
+      </div>
+      <div *ngIf="f.bevName.errors.maxlength">
+        <p class="invalidText">*Le nom de la boisson ne doit pas dépasser les 45 caractères</p>
+      </div>
+    </div>
+  </label>
+
+  <label>
+    <p>Prix hors taxe</p>
+    <input type="text" 
+        class="form-control" 
+        formControlName="bevPriceHt" 
+        required
+    >
+    <div *ngIf="f.bevPriceHt.invalid && (f.bevPriceHt.dirty || f.bevPriceHt.touched)">
+      <div *ngIf="f.bevPriceHt.errors.required">
+        <p class="invalidText">*Le prix est requis</p>
+      </div>
+      <div *ngIf="f.bevPriceHt.errors.pattern">
+        <p class="invalidText">*Le prix doit être inséré sous la forme XXX.XX</p>
+      </div>
+    </div>
+  </label>
+  <button type="submit">VALIDER LA BOISSON</button>
+</form>

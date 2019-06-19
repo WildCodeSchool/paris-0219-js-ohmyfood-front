@@ -36,15 +36,15 @@ import { AdminPagesComponent } from './pages/admin-pages/admin-pages.component';
     FooterComponent,
     Navbar2Component,
     BasketComponent,
-    AdminPagesComponent,
-    RouterModule
+    AdminPagesComponent
   ],
   imports: [
     AppRoutingModule,
     HttpClientModule,
     BrowserModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RouterModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

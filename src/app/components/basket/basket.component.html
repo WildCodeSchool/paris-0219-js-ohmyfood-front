@@ -2,69 +2,36 @@
   <a class="reverseText d-flex flex-column" (click)="displayToggleBasket($event)">
     <p>Récapitulatif de votre commande</p>
   </a>
+
   <div class="inlineBasket d-flex flex-row">
     <div class="headerBasket d-flex flex-row">
       <h2>MON PANIER</h2>
+
       <i class="fa fa-shopping-cart fa-3x"></i>
     </div>
+
     <div class="livrAndStatus d-flex flex-row">
       <ul>
         <li><input type="checkbox" name="ifLivraison"/></li>
+
         <li>En livraison</li>
       </ul>
       <p id="orderStatus">Statut de la commande : </p>
     </div>
+    <form [formGroup]="finalOrderForm" (ngSubmit)="onSubmit()">
+      <div formArrayName="pizza">
+        <div [formGroupName]="i" *ngFor="let pizzas of pizza.controls; let i = index">
+          <label for="pizzName-{{i}}">
+            {{ pizzas.value.pizzName }}<span>{{ pizzas.value.pizzPriceTotal }} EUR</span>
+          </label>
 
-    <table>
-        <thead>
-          <tr>
-            <th colspan="4">
-              Voici le récapitulatif de votre commande :
-            </th>
-          </tr>
-        </thead>
+          <input type="number" name="pizzQuantity-{{i}}" formControlName="pizzQuantity" value="{{pizzas.value.pizzQuantity}}">
+        </div>
+      </div>
 
-        <tbody>
-          <tr>
-            <td>
-              Pizzas
-            </td>
+      <button type="submit">Valider votre panier</button>
 
-            <td>
-              Quantité
-            </td>
-
-            <td>
-              Prix TTC
-            </td>
-          </tr>
-
-          <tr *ngFor="let pizzas of userPizzaChoice">
-            <td>
-              {{ pizzas.pizzName }}
-            </td>
-
-            <td>
-              {{ pizzas.pizzQuantity }}
-            </td>
-
-            <td>
-              {{ pizzas.pizzPrice }} EUR
-            </td>
-          </tr>
-        </tbody>
-
-        <tfoot>
-          <tr>
-            <th colspan="2">
-              Total
-            </th>
-
-            <th>
-              {{ total }} EUR
-            </th>
-          </tr>
-        </tfoot>
-      </table>
+      <button type="reset">Videz votre panier</button>
+    </form>
   </div>
 </div>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PizzasDataService } from 'src/app/services/pizzas-data.service';
 import { OrderPizzas } from 'src/app/class/order-pizzas';
+import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
 
 @Component({
   selector: 'app-basket',
@@ -17,12 +18,52 @@ export class BasketComponent implements OnInit {
 
   total: number; // final result
 
-  constructor(private pizzasData: PizzasDataService) { }
+  finalOrderForm = this.formBuilder.group({
+    pizza: this.formBuilder.array([]),
+    drinks: this.formBuilder.array([]),
+    desserts: this.formBuilder.array([])
+  });
+
+  constructor(
+    private pizzasData: PizzasDataService,
+    private formBuilder: FormBuilder
+    ) { }
 
   ngOnInit() {
     this.pizzasData.getUserPizzas.subscribe(pizzasChoice => {
       this.userPizzaChoice = pizzasChoice;
 
+      console.log(this.userPizzaChoice);
+
+      const pizza = this.finalOrderForm.get('pizza') as FormArray;
+
+      for (const key in this.userPizzaChoice) {
+        if (this.userPizzaChoice.hasOwnProperty(key)) {
+          const pizzChoice = this.formBuilder.group({
+            idPizzas: [this.userPizzaChoice[key].idPizzas],
+            pizzName: [this.userPizzaChoice[key].pizzName],
+            pizzPriceTotal: [this.userPizzaChoice[key].pizzPrice],
+            pizzQuantity: [this.userPizzaChoice[key].pizzQuantity]
+          });
+          pizza.push(pizzChoice);
+        }
+      }
+
+      if (pizza.value.length > 1) {
+        for (let i = 0; i < pizza.value.length; i ++) {
+          for (let j = i + 1 ; j < pizza.value.length; j ++ ) {
+            if (pizza.value[i].pizzName === pizza.value[j].pizzName) {
+              pizza.value[i].pizzPriceTotal = 0;
+              pizza.value[i].pizzQuantity = 0;
+              pizza.value[i].pizzPriceTotal += pizza.value[j].pizzPriceTotal; // Sum of price
+              pizza.value[i].pizzQuantity += pizza.value[j].pizzQuantity; // Sum of quantity
+              pizza.removeAt(j); // Remove duplicate
+            }
+          }
+        }
+      }
+
+      console.log(this.finalOrderForm);
       const reducer = (accumulator, currentValue) => accumulator + currentValue; // Sum of array's value function
 
       for (const key in this.userPizzaChoice) {
@@ -43,6 +84,15 @@ export class BasketComponent implements OnInit {
     } else {
       this.isToggleBasket = false;
     }
+  }
+
+  get pizza(): FormArray {
+    return this.finalOrderForm.get('pizza') as FormArray;
+  }
+
+  onSubmit() {
+    const finalOrder = this.finalOrderForm.value;
+    console.log(finalOrder);
   }
 
 }

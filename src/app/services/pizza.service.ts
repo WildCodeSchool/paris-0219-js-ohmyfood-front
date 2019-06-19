@@ -14,11 +14,11 @@ export class PizzaService {
     return this.http.post(this.url, this.pizzaFormObject, { responseType: 'text' });
   }
 
-  changePizzaType() {
+  putPizzaType() {
     return this.http.put(this.url, this.pizzaFormObject, { responseType: 'text' });
   }
 
-  deletePizzaType() {
+  delPizzaType() {
     return this.http.delete(this.url, this.pizzaFormObject);
   }
 }

@@ -51,57 +51,51 @@ export class PizzasFormAdminComponent implements OnInit {
     });
   }
 
-  onSubmit() {
-    if (this.formCheck.valid) {
+  onSubmitAddForm() {
+    if (this.pizzaFormAdd.valid) {
       this.pizzaService.pizzaFormObject = {
-        pizzName: this.formCheck.value.pizzaName,
-        pizzDesc: this.formCheck.value.pizzDesc,
-        pizzPriceHt: parseFloat(this.formCheck.value.pizzPriceHt),
+        pizzName: this.pizzaFormAdd.value.pizzaName,
+        pizzDesc: this.pizzaFormAdd.value.pizzDesc,
+        pizzPriceHt: parseFloat(this.pizzaFormAdd.value.pizzPriceHt),
         idTax: 1
       };
-      if (this.formCheck.value.pizzAction === 'Ajouter') {
-        if (confirm(`Êtes-vous certain d'ajouter la pizza ${this.formCheck.value.pizzaName} ?`)) {
-          const addPizzaType = this.pizzaService.addPizzaType().subscribe(_ => {
-            this.formCheck.reset();
-            addPizzaType.unsubscribe();
-          });
-        }
-      }else if (this.formCheck.value.pizzAction === 'Modifier') {
-        if (confirm(`Êtes-vous certain de modifier la pizza ${this.formCheck.value.pizzaName} ?`)) {
-          const changePizzaType = this.pizzaService.changePizzaType().subscribe(_ => {
-            this.formCheck.reset();
-            changePizzaType.unsubscribe();
-          });
-          console.log('Pizza modifiée')  
-        } 
-      }else if (this.formCheck.value.pizzAction === 'Retirer') {
-        if (confirm(`Êtes-vous certain de supprimer la pizza ${this.formCheck.value.pizzaName} ?`)) {
-          const deletePizzaType = this.pizzaService.deletePizzaType().subscribe(_ => {
-            this.formCheck.reset();
-            deletePizzaType.unsubscribe();
-          });
-          console.log('Pizza supprimée')
-        }
-      }else{
-        return
+      if (confirm(`Êtes-vous certain d'ajouter la pizza ${this.pizzaFormAdd.value.pizzaName} ?`)) {
+        const addPizzaType = this.pizzaService.addPizzaType().subscribe(_ => {
+          this.pizzaFormAdd.reset();
+          addPizzaType.unsubscribe();
+        });
       }
     }
   }
 
-  getActionName(i) {
-    let index = i;
-    this.valueAction = this.actions[index];
-    if (this.valueAction === 'Ajouter') {
-      this.formCheck = this.pizzaFormAdd;
-      return console.log(this.valueAction)
+  onSubmitPutForm() {
+    if (this.pizzaFormPut.valid) {
+      this.pizzaService.pizzaFormObject = {
+        pizzName: this.pizzaFormPut.value.pizzaName,
+        pizzDesc: this.pizzaFormPut.value.pizzDesc,
+        pizzPriceHt: parseFloat(this.pizzaFormPut.value.pizzPriceHt),
+        idTax: 1
+      };
+      if (confirm(`Êtes-vous certain de modifier la pizza ${this.pizzaFormPut.value.pizzaName} ?`)) {
+        const putPizzaType = this.pizzaService.putPizzaType().subscribe(_ => {
+          this.pizzaFormPut.reset();
+          putPizzaType.unsubscribe();
+        });
+      }
     }
-    if (this.valueAction === 'Modifier') {
-      this.formCheck = this.pizzaFormPut;
-      return console.log(this.valueAction)
-    }
-    if (this.valueAction === 'Retirer') {
-      this.formCheck = this.pizzaFormDel;
-      return console.log(this.valueAction)
+  }
+
+  onSubmitDelForm() {
+    if (this.pizzaFormDel.valid) {
+      this.pizzaService.pizzaFormObject = {
+        pizzName: this.pizzaFormDel.value.pizzaName
+      };
+      if (confirm(`Êtes-vous certain de supprimer la pizza ${this.pizzaFormDel.value.pizzaName} ?`)) {
+        const delPizzaType = this.pizzaService.delPizzaType().subscribe(_ => {
+          this.pizzaFormDel.reset();
+          delPizzaType.unsubscribe();
+        });
+      }
     }
   }
 }

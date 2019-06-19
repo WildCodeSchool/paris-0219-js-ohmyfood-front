@@ -6,16 +6,15 @@
       value="{{ action }}"
       name="pizzAction"
       formControlName="pizzAction"
-      (click)="getActionName(i)"
     >
-    {{ action }}
+      {{ action }}
   </label>
 </form>
-<div *ngIf="valueAction === 'Ajouter'">
-  <form [formGroup]="pizzaFormAdd" (ngSubmit)="onSubmit()">
+<div *ngIf="formCheck.value.pizzAction === 'Ajouter'">
+  <form [formGroup]="pizzaFormAdd">
 <!--Adding form-->
     <label>
-    <p>Nom de la pizza</p>
+    <p>Nom de la pizza à ajouter</p>
     <input type="text" 
       class="form-control" 
       formControlName="pizzaName" 
@@ -71,14 +70,14 @@
       </div>
     </label>
   </form>
-  <button type="submit">{{ valueAction | uppercase }} LA PIZZA</button>
+  <button type="submit" (click)="onSubmitAddForm()">AJOUTER LA PIZZA</button>
 </div>
 
   <!--Modifier form-->
-<div *ngIf="valueAction === 'Modifier'">
-  <form [formGroup]="pizzaFormPut" (ngSubmit)="onSubmit()">
+<div *ngIf="formCheck.value.pizzAction === 'Modifier'">
+  <form [formGroup]="pizzaFormPut">
       <label>
-      <p>Nom de la pizza</p>
+      <p>Nom de la pizza à modifier</p>
       <input type="text" 
         class="form-control" 
         formControlName="pizzaName" 
@@ -134,12 +133,12 @@
         </div>
       </label>
   </form>
-  <button type="submit">{{ valueAction | uppercase }} LA PIZZA</button>
+  <button type="submit" (click)="onSubmitPutForm()">MODIFIER LA PIZZA</button>
 </div>
 
   <!--Delete form-->
-<div *ngIf="valueAction === 'Retirer'">
-  <form [formGroup]="pizzaFormDel" (ngSubmit)="onSubmit()">
+<div *ngIf="formCheck.value.pizzAction === 'Retirer'">
+  <form [formGroup]="pizzaFormDel">
       <label>
         <p>Nom de la pizza à Supprimer</p>
         <input type="text" 
@@ -159,6 +158,6 @@
           </div>
         </div>
       </label>
-    <button type="submit">{{ valueAction | uppercase }} LA PIZZA</button>
+    <button type="submit" (click)="onSubmitDelForm()">SUPPRIMER LA PIZZA</button>
   </form>
 </div>

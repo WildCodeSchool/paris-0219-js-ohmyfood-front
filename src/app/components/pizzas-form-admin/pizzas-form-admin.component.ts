@@ -9,9 +9,14 @@ import { PizzaService } from 'src/app/services/pizza.service';
 })
 export class PizzasFormAdminComponent implements OnInit {
 
+  actions = ['Ajouter', 'Modifier', 'Retirer'];
+  formCheck: FormGroup;
   regexPrice = /[0-9{1,3}]+[.]+[0-9]{2}/gm;
   pizzaFormObject;
-  pizzaForm: FormGroup;
+  pizzaFormAdd: FormGroup;
+  pizzaFormPut: FormGroup;
+  pizzaFormDel: FormGroup;
+  valueAction = 'Ajouter';
 
   constructor(private pizzaService: PizzaService, private fb: FormBuilder) { }
 
@@ -20,28 +25,77 @@ export class PizzasFormAdminComponent implements OnInit {
   }
 
   // convenience getter for easy access to form fields
-  get f() { return this.pizzaForm.controls; }
+  get fA() { return this.pizzaFormAdd.controls; }
+
+  get fM () { return this.pizzaFormPut.controls; }
+
+  get fD () { return this.pizzaFormDel.controls; }
 
   initForm() {
-    this.pizzaForm = this.fb.group({
+    this.formCheck = this.fb.group({
+      pizzAction: ['Ajouter', Validators.required]
+    })
+
+    this.pizzaFormAdd = this.fb.group({
       pizzaName: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(45)]],
       pizzDesc: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(255)]],
       pizzPriceHt: ['', [Validators.required, Validators.pattern(this.regexPrice)]]
     });
+    this.pizzaFormPut = this.fb.group({
+      pizzaName: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(45)]],
+      pizzDesc: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(255)]],
+      pizzPriceHt: ['', [Validators.required, Validators.pattern(this.regexPrice)]]
+    });
+    this.pizzaFormDel = this.fb.group({
+      pizzaName: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(45)]],
+    });
   }
 
-  onSubmit() {
-    if (this.pizzaForm.valid) {
+  onSubmitAddForm() {
+    if (this.pizzaFormAdd.valid) {
       this.pizzaService.pizzaFormObject = {
-        pizzName: this.pizzaForm.value.pizzaName,
-        pizzDesc: this.pizzaForm.value.pizzDesc,
-        pizzPriceHt: parseFloat(this.pizzaForm.value.pizzPriceHt),
+        pizzName: this.pizzaFormAdd.value.pizzaName,
+        pizzDesc: this.pizzaFormAdd.value.pizzDesc,
+        pizzPriceHt: parseFloat(this.pizzaFormAdd.value.pizzPriceHt),
         idTax: 1
       };
-      const addPizzaType = this.pizzaService.addPizzaType().subscribe(_ => {
-        this.pizzaForm.reset();
-        addPizzaType.unsubscribe();
-      });
+      if (confirm(`Êtes-vous certain d'ajouter la pizza ${this.pizzaFormAdd.value.pizzaName} ?`)) {
+        const addPizzaType = this.pizzaService.addPizzaType().subscribe(_ => {
+          this.pizzaFormAdd.reset();
+          addPizzaType.unsubscribe();
+        });
+      }
+    }
+  }
+
+  onSubmitPutForm() {
+    if (this.pizzaFormPut.valid) {
+      this.pizzaService.pizzaFormObject = {
+        pizzName: this.pizzaFormPut.value.pizzaName,
+        pizzDesc: this.pizzaFormPut.value.pizzDesc,
+        pizzPriceHt: parseFloat(this.pizzaFormPut.value.pizzPriceHt),
+        idTax: 1
+      };
+      if (confirm(`Êtes-vous certain de modifier la pizza ${this.pizzaFormPut.value.pizzaName} ?`)) {
+        const putPizzaType = this.pizzaService.putPizzaType().subscribe(_ => {
+          this.pizzaFormPut.reset();
+          putPizzaType.unsubscribe();
+        });
+      }
+    }
+  }
+
+  onSubmitDelForm() {
+    if (this.pizzaFormDel.valid) {
+      this.pizzaService.pizzaFormObject = {
+        pizzName: this.pizzaFormDel.value.pizzaName
+      };
+      if (confirm(`Êtes-vous certain de supprimer la pizza ${this.pizzaFormDel.value.pizzaName} ?`)) {
+        const delPizzaType = this.pizzaService.delPizzaType().subscribe(_ => {
+          this.pizzaFormDel.reset();
+          delPizzaType.unsubscribe();
+        });
+      }
     }
   }
 }

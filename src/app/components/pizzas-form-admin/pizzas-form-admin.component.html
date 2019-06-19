@@ -75,6 +75,7 @@
 
   <!--Modifier form-->
 <div *ngIf="formCheck.value.pizzAction === 'Modifier'">
+  <p *ngFor="let dataPizza of pizzaDataObject; let i = index;">{{ dataPizza.pizzName }} {{ dataPizza.pizzPriceTTC }} EUR</p>
   <form [formGroup]="pizzaFormPut">
       <label>
       <p>Nom de la pizza à modifier</p>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PizzaService } from 'src/app/services/pizza.service';
+import { PizzasDataService } from 'src/app/services/pizzas-data.service';
 
 @Component({
   selector: 'app-pizzas-form-admin',
@@ -13,15 +14,20 @@ export class PizzasFormAdminComponent implements OnInit {
   formCheck: FormGroup;
   regexPrice = /[0-9{1,3}]+[.]+[0-9]{2}/gm;
   pizzaFormObject;
+  pizzaDataObject;
   pizzaFormAdd: FormGroup;
   pizzaFormPut: FormGroup;
   pizzaFormDel: FormGroup;
   valueAction = 'Ajouter';
 
-  constructor(private pizzaService: PizzaService, private fb: FormBuilder) { }
+  constructor(private pizzaService: PizzaService, private pizzaDataService: PizzasDataService,private fb: FormBuilder) { }
 
   ngOnInit() {
     this.initForm();
+    this.pizzaDataService.getPizzas().subscribe(data => {
+      this.pizzaDataObject = data;
+      console.log(data)
+    });
   }
 
   // convenience getter for easy access to form fields

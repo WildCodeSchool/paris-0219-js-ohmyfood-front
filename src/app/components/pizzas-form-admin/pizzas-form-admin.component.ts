@@ -10,19 +10,17 @@ import { PizzaService } from 'src/app/services/pizza.service';
 export class PizzasFormAdminComponent implements OnInit {
 
   actions = ['Ajouter', 'Modifier', 'Retirer'];
-  checkBox = [true, false, false];
+  formCheck: FormGroup;
   regexPrice = /[0-9{1,3}]+[.]+[0-9]{2}/gm;
   pizzaFormObject;
   pizzaFormAdd: FormGroup;
   pizzaFormPut: FormGroup;
   pizzaFormDel: FormGroup;
-  selectedForm: FormGroup;
-  valueAction = '';
+  valueAction = 'Ajouter';
 
   constructor(private pizzaService: PizzaService, private fb: FormBuilder) { }
 
   ngOnInit() {
-
     this.initForm();
   }
 
@@ -34,51 +32,52 @@ export class PizzasFormAdminComponent implements OnInit {
   get fD () { return this.pizzaFormDel.controls; }
 
   initForm() {
+    this.formCheck = this.fb.group({
+      pizzAction: ['Ajouter', Validators.required]
+    })
+
     this.pizzaFormAdd = this.fb.group({
-      pizzAction: ['Ajouter', Validators.required],
       pizzaName: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(45)]],
       pizzDesc: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(255)]],
       pizzPriceHt: ['', [Validators.required, Validators.pattern(this.regexPrice)]]
     });
     this.pizzaFormPut = this.fb.group({
-      pizzAction: ['', Validators.required],
       pizzaName: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(45)]],
       pizzDesc: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(255)]],
       pizzPriceHt: ['', [Validators.required, Validators.pattern(this.regexPrice)]]
     });
     this.pizzaFormDel = this.fb.group({
-      pizzAction: ['', Validators.required],
       pizzaName: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(45)]],
     });
   }
 
   onSubmit() {
-    if (this.selectedForm.valid) {
+    if (this.formCheck.valid) {
       this.pizzaService.pizzaFormObject = {
-        pizzName: this.selectedForm.value.pizzaName,
-        pizzDesc: this.selectedForm.value.pizzDesc,
-        pizzPriceHt: parseFloat(this.selectedForm.value.pizzPriceHt),
+        pizzName: this.formCheck.value.pizzaName,
+        pizzDesc: this.formCheck.value.pizzDesc,
+        pizzPriceHt: parseFloat(this.formCheck.value.pizzPriceHt),
         idTax: 1
       };
-      if (this.selectedForm.value.pizzAction === 'Ajouter') {
-        if (confirm(`Êtes-vous certain d'ajouter la pizza ${this.selectedForm.value.pizzaName} ?`)) {
+      if (this.formCheck.value.pizzAction === 'Ajouter') {
+        if (confirm(`Êtes-vous certain d'ajouter la pizza ${this.formCheck.value.pizzaName} ?`)) {
           const addPizzaType = this.pizzaService.addPizzaType().subscribe(_ => {
-            this.selectedForm.reset();
+            this.formCheck.reset();
             addPizzaType.unsubscribe();
           });
         }
-      }else if (this.selectedForm.value.pizzAction === 'Modifier') {
-        if (confirm(`Êtes-vous certain de modifier la pizza ${this.selectedForm.value.pizzaName} ?`)) {
+      }else if (this.formCheck.value.pizzAction === 'Modifier') {
+        if (confirm(`Êtes-vous certain de modifier la pizza ${this.formCheck.value.pizzaName} ?`)) {
           const changePizzaType = this.pizzaService.changePizzaType().subscribe(_ => {
-            this.selectedForm.reset();
+            this.formCheck.reset();
             changePizzaType.unsubscribe();
           });
           console.log('Pizza modifiée')  
         } 
-      }else if (this.selectedForm.value.pizzAction === 'Retirer') {
-        if (confirm(`Êtes-vous certain de supprimer la pizza ${this.selectedForm.value.pizzaName} ?`)) {
+      }else if (this.formCheck.value.pizzAction === 'Retirer') {
+        if (confirm(`Êtes-vous certain de supprimer la pizza ${this.formCheck.value.pizzaName} ?`)) {
           const deletePizzaType = this.pizzaService.deletePizzaType().subscribe(_ => {
-            this.selectedForm.reset();
+            this.formCheck.reset();
             deletePizzaType.unsubscribe();
           });
           console.log('Pizza supprimée')
@@ -93,15 +92,15 @@ export class PizzasFormAdminComponent implements OnInit {
     let index = i;
     this.valueAction = this.actions[index];
     if (this.valueAction === 'Ajouter') {
-      this.selectedForm = this.pizzaFormAdd;
+      this.formCheck = this.pizzaFormAdd;
       return console.log(this.valueAction)
     }
     if (this.valueAction === 'Modifier') {
-      this.selectedForm = this.pizzaFormPut;
+      this.formCheck = this.pizzaFormPut;
       return console.log(this.valueAction)
     }
     if (this.valueAction === 'Retirer') {
-      this.selectedForm = this.pizzaFormDel;
+      this.formCheck = this.pizzaFormDel;
       return console.log(this.valueAction)
     }
   }

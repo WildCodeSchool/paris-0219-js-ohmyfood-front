@@ -1,13 +1,12 @@
 
 <p>Quelle action voulez-vous réaliser ?</p>
-<form>
+<form [formGroup]="formCheck">
   <label *ngFor="let action of actions; let i = index">
     <input type="radio" 
-    value="{{ action }}"
-    name="pizzAction"
-    formControlName="pizzAction"
-    (click)="getActionName(i)"
-    [checked]="checkBox[i]"
+      value="{{ action }}"
+      name="pizzAction"
+      formControlName="pizzAction"
+      (click)="getActionName(i)"
     >
     {{ action }}
   </label>

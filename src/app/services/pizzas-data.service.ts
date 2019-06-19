@@ -26,7 +26,7 @@ export class PizzasDataService {
       if (formResult.hasOwnProperty(key)) {
         formResult[key].map(test => {
           if (test.pizzQuantity > 0) {
-            const choice = new OrderPizzas(test.idPizzas, test.pizzName, test.pizzPriceTTC * test.pizzQuantity, test.pizzQuantity);
+            const choice = new OrderPizzas(test.idPizzas, test.pizzName, +test.pizzPriceTTC, test.pizzQuantity);
             this.userChoice.push(choice);
             }
           }
@@ -43,7 +43,6 @@ export class PizzasDataService {
     for (let i = 0; i < this.userChoice.length; i ++) {
       for (let j = i + 1 ; j < this.userChoice.length; j ++ ) {
         if (this.userChoice[i].pizzName === this.userChoice[j].pizzName) {
-          this.userChoice[i].pizzPrice += this.userChoice[j].pizzPrice; // Sum of price
           this.userChoice[i].pizzQuantity += this.userChoice[j].pizzQuantity; // Sum of quantity
           this.userChoice.splice(j, 1); // Remove duplicate
         }

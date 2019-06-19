@@ -25,13 +25,32 @@
             {{ pizzas.value.pizzName }}<span>{{ pizzas.value.pizzPriceTotal }} EUR</span>
           </label>
 
-          <input type="number" name="pizzQuantity-{{i}}" formControlName="pizzQuantity" value="{{pizzas.value.pizzQuantity}}">
+          <button
+            class="button is-rounded is-outlined is-mobile is-small"
+            name="add-pizzas-quantity"
+            type="button"
+            (click)="quantitySelect('-', i, pizzas.value.pizzQuantity)">
+              -
+          </button>
+
+          <input
+            type="number"
+            name="pizzQuantity-{{i}}"
+            formControlName="pizzQuantity"
+            value="{{pizzas.value.pizzQuantity}}"/>
+
+          <button
+            class="button is-rounded is-outlined is-mobile is-small"
+            name="add-pizzas-quantity"
+            type="button"
+            (click)="quantitySelect('+', i, pizzas.value.pizzQuantity)">
+              +
+          </button>
         </div>
       </div>
 
       <button type="submit">Valider votre panier</button>
 
-      <button type="reset">Videz votre panier</button>
     </form>
   </div>
 </div>

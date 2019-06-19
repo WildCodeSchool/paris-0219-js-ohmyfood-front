@@ -16,7 +16,8 @@ import { BeveragesFormComponent } from './components/beverages-form/beverages-fo
 import { DessertsFormComponent } from './components/desserts-form/desserts-form.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { SaladsSaucesComponent } from './components/salads-sauces/salads-sauces.component';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
+import { Navbar2Component } from './components/navbar2/navbar2.component';
 import { BasketComponent } from './components/basket/basket.component';
 import { AdminPagesComponent } from './pages/admin-pages/admin-pages.component';
 
@@ -33,6 +34,7 @@ import { AdminPagesComponent } from './pages/admin-pages/admin-pages.component';
     HomeOrderPageComponent,
     BeveragesFormComponent,
     FooterComponent,
+    Navbar2Component,
     BasketComponent,
     AdminPagesComponent
   ],
@@ -41,7 +43,8 @@ import { AdminPagesComponent } from './pages/admin-pages/admin-pages.component';
     HttpClientModule,
     BrowserModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RouterModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

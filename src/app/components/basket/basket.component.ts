@@ -230,6 +230,8 @@ export class BasketComponent implements OnInit {
     this.beverageData.userChoice.splice(0, this.beverageData.userChoice.length);
     this.dessertData.userChoice.splice(0, this.dessertData.userChoice.length);
     this.enableSubmit = false;
+
+    this.totalBasket();
   }
 
   totalBasket() {

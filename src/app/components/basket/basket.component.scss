@@ -1,42 +1,42 @@
 @import '../../../styles/colors.scss';
 
-.basket { 
-    width: 100vw; 
-    height: 100vh; 
-    background: $green; 
+.basket {
+    width: 100vw;
+    height: 100vh;
+    background: $green;
     color: white;
-    position: fixed; 
+    position: fixed;
     top: 0;
     right: -95vw;
-    -moz-border-radius: 10px; 
-    -webkit-border-radius: 10px; 
-    border-radius: 10px; 
-    z-index: 1;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    z-index: 30;
     transition-duration: .5s;
-} 
+}
 
-.basket::before { 
-    content: ""; 
-    position: absolute; 
-    right: 100%; 
-    top: calc( 50% - 300px ); 
-    width: 0; 
-    height: 0; 
+.basket::before {
+    content: "";
+    position: absolute;
+    right: 100%;
+    top: calc( 50% - 300px );
+    width: 0;
+    height: 0;
 	border-top:  300px solid transparent;
 	border-right: 40px solid $green;
 	border-bottom: 300px solid transparent;
 }
 
-.basket::after { 
+.basket::after {
     border-top:  320px solid transparent;
 	border-right: 45px solid white;
 	border-bottom: 320px solid transparent;
-    content: ""; 
-    position: absolute; 
-    right: 100%; 
-    top: calc( 50% - 320px ); 
-    width: 0; 
-    height: 0; 
+    content: "";
+    position: absolute;
+    right: 100%;
+    top: calc( 50% - 320px );
+    width: 0;
+    height: 0;
     z-index: -1;
 }
 
@@ -49,6 +49,12 @@
     justify-content: center;
     position: absolute;
     top: 10px;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 .livrAndStatus {
@@ -70,8 +76,10 @@ p {
     font-size: 1rem;
     font-weight: bolder;
     justify-content: center;
-    width: 5%;
     height: 100vh;
+    text-orientation: upright;
+    width: 10%;
+    writing-mode: vertical-rl;
 }
 
 ul li {
@@ -80,18 +88,18 @@ ul li {
 
 @media screen and (min-width: 720px) {
     .basket {
-        width: 60vw; 
+        width: 60vw;
         right: -57vw;
     }
 
     .reverseText {
-        font-size: 1.15rem;
+        font-size: 1em;
     }
 }
 
 @media screen and (min-width: 928px) {
     .basket {
-        width: 40vw; 
+        width: 40vw;
         right: -38vw;
     }
 }

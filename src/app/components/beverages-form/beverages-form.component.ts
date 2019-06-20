@@ -60,6 +60,10 @@ export class BeveragesFormComponent implements OnInit {
     });
   }
 
+  get selectedBeverage(): FormArray {
+    return this.formBeverage.get('selectedBeverage') as FormArray;
+  }
+
   onSubmit() {
     // User's beverage choice
     const orderBeverage = this.formBeverage.value;

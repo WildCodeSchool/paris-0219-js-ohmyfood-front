@@ -60,6 +60,10 @@ export class DessertsFormComponent implements OnInit {
     });
   }
 
+  get selectedDessert(): FormArray {
+    return this.formDessert.get('selectedDessert') as FormArray;
+  }
+
   onSubmit() {
     // User's dessert choice
     const orderDessert = this.formDessert.value;

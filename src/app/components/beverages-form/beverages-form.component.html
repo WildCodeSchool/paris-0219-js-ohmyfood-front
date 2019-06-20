@@ -23,10 +23,10 @@
           <div
             class="formLine"
             [formGroupName]="i"
-            *ngFor="let beverage of formBeverage.value.selectedBeverage ; let i = index">
+            *ngFor="let beverage of selectedBeverage.controls ; let i = index">
 
               <label for="beverage-{{ i }}">
-                {{ beveragesList[i].bevName }}<span>{{ beveragesList[i].bevPriceTTC }} EUR</span>
+                {{ beverage.value.bevName }}<span>{{ beverage.value.bevPriceTTC }} EUR</span>
               </label>
 
               <div class="buttonQuantity">
@@ -34,7 +34,7 @@
                   class="button is-rounded is-outlined is-mobile is-small"
                   name="remove-beverage-quantity"
                   type="button"
-                  (click)="quantitySelect('-', i, beverage.bevQuantity)">
+                  (click)="quantitySelect('-', i, beverage.value.bevQuantity)">
                     -
                 </button>
 
@@ -43,13 +43,13 @@
                   name="selectedBeverage-{{ i }}"
                   formControlName="bevQuantity"
                   type="number"
-                  [(ngModel)]="beverage.bevQuantity"/>
+                  value="{{beverage.value.bevQuantity}}"/>
 
                 <button
                   class="button is-rounded is-outlined is-mobile is-small"
                   name="add-beverage-quantity"
                   type="button"
-                  (click)="quantitySelect('+', i, beverage.bevQuantity)">
+                  (click)="quantitySelect('+', i, beverage.value.bevQuantity)">
                     +
                 </button>
               </div>

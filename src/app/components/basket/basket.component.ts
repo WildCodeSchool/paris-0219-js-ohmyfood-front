@@ -3,6 +3,7 @@ import { PizzasDataService } from 'src/app/services/pizzas-data.service';
 import { OrderPizzas } from 'src/app/class/order-pizzas';
 import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
 import { QuantitySelectService } from 'src/app/services/quantity-select.service';
+import { CreateFormBasketService } from 'src/app/services/create-form-basket.service';
 
 @Component({
   selector: 'app-basket',
@@ -30,7 +31,8 @@ export class BasketComponent implements OnInit {
   constructor(
     private pizzasData: PizzasDataService,
     private formBuilder: FormBuilder,
-    private quantityService: QuantitySelectService
+    private quantityService: QuantitySelectService,
+    private createForm: CreateFormBasketService
     ) { }
 
   ngOnInit() {
@@ -41,25 +43,14 @@ export class BasketComponent implements OnInit {
 
       for (const key in this.userPizzaChoice) {
         if (this.userPizzaChoice.hasOwnProperty(key)) {
-          const pizzChoice = this.formBuilder.group({
-            idPizzas: [this.userPizzaChoice[key].idPizzas],
-            pizzName: [this.userPizzaChoice[key].pizzName],
-            pizzPriceTotal: [this.userPizzaChoice[key].pizzPrice * this.userPizzaChoice[key].pizzQuantity],
-            pizzQuantity: [this.userPizzaChoice[key].pizzQuantity]
-          });
-          pizza.push(pizzChoice);
+          pizza.push(this.createForm.createOrderForm(this.userPizzaChoice[key]));
         }
       }
 
       for (let i = 0; i < pizza.value.length; i ++) {
         for (let j = i + 1 ; j < pizza.value.length; j ++ ) {
           if (pizza.value[i].pizzName === pizza.value[j].pizzName) {
-            pizza.value[i].pizzPriceTotal = 0;
-            pizza.value[i].pizzQuantity = 0;
-
-            pizza.value[i].pizzPriceTotal += pizza.value[j].pizzPriceTotal; // Sum of price
-            pizza.value[i].pizzQuantity += pizza.value[j].pizzQuantity; // Sum of quantity
-            pizza.removeAt(j); // Remove duplicate
+            this.createForm.sortOrderForm(pizza, i, j);
           }
         }
       }

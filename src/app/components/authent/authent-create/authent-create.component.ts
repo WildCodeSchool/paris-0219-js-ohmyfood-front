@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthCreateClientService } from 'src/app/services/auth-create-client.service';
 
 @Component({
   selector: 'app-authent-create',
@@ -8,18 +9,48 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class AuthentCreateComponent implements OnInit {
   authCreateForm: FormGroup;
+  createClientObject;
+  regexPhone = /[0-9]*/gm;
+  regexEmail = /^[a-zA-Z0-9.%&_~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/gm
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private authCreateClientService: AuthCreateClientService) { }
 
   ngOnInit() {
     this.initForm();
   }
 
+  get fC () { return this.authCreateForm.controls }
+
   initForm() {
     this.authCreateForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email, Validators.minLength(4)]],
-      password: ['', [Validators.required, Validators.minLength(7), Validators.maxLength(15)]]
+      lastName: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(45)]],
+      firstName: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(45)]],
+      email: ['', [Validators.required, Validators.pattern(this.regexEmail), Validators.minLength(4)]],
+      phone: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10), Validators.pattern(this.regexPhone)]],
+      pssw: ['', [Validators.required, Validators.minLength(7), Validators.maxLength(15)]]
     })
   }
 
+  onSubmitCreateClientForm() {
+    if (this.authCreateForm.valid) {
+      this.authCreateClientService.createClientObject = {
+        lastName: this.authCreateForm.value.lastName,
+        firstName: this.authCreateForm.value.firstName,
+        mail: this.authCreateForm.value.email,
+        phoneNumber: this.authCreateForm.value.phone,
+        forgotPassword: "",
+        userRigth: 0
+      };
+      if (confirm(`Êtes-vous certain d'ajouter la pizza ${this.authCreateForm.value.pizzaName} ?`)) {
+        const addPizzaType = this.authCreateClientService.addClient().subscribe(_ => {
+          /* const getPizzaObs = this.authCreateClientService.getPizzas().subscribe(data => {
+            this.createClientObject = data;
+            getPizzaObs.unsubscribe();
+          });*/
+          this.authCreateForm.reset();
+          addPizzaType.unsubscribe();
+        });
+      }
+    }
+  }
 }

@@ -17,8 +17,8 @@ export class AuthClientComponent implements OnInit {
 
   initForm() {
     this.authClientForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email, Validators.minLength(4)]],
-      password: ['', [Validators.required, Validators.minLength(7), Validators.maxLength(15)]]
+      emailClient: ['', [Validators.required, Validators.email, Validators.minLength(4)]],
+      psswClient: ['', [Validators.required, Validators.minLength(7), Validators.maxLength(15)]]
     })
   }
 

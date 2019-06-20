@@ -23,10 +23,10 @@
         <div
           class="formLine"
           [formGroupName]="i"
-          *ngFor="let pizzas of formPizzas.value.selectedPizzas ; let i = index">
+          *ngFor="let pizzas of selectedPizzas.controls ; let i = index">
 
             <label for="pizzas-{{ i }}">
-              {{ pizzasList[i].pizzName }}<span>{{ pizzasList[i].pizzPriceTTC }} EUR</span>
+              {{ pizzas.value.pizzName }}<span>{{ pizzas.value.pizzPriceTTC }} EUR</span>
             </label>
 
             <div class="buttonQuantity">
@@ -34,7 +34,7 @@
                 class="button is-rounded is-outlined is-mobile is-small"
                 name="remove-pizzas-quantity"
                 type="button"
-                (click)="quantitySelect('-', i, pizzas.pizzQuantity)">
+                (click)="quantitySelect('-', i, pizzas.value.pizzQuantity)">
                   -
               </button>
 
@@ -43,13 +43,13 @@
                 name="selectedPizzas-{{ i }}"
                 formControlName="pizzQuantity"
                 type="number"
-                [(ngModel)]="pizzas.pizzQuantity">
+                value="{{pizzas.value.pizzQuantity}}">
 
               <button
                 class="button is-rounded is-outlined is-mobile is-small"
                 name="add-pizzas-quantity"
                 type="button"
-                (click)="quantitySelect('+', i, pizzas.pizzQuantity)">
+                (click)="quantitySelect('+', i, pizzas.value.pizzQuantity)">
                   +
               </button>
             </div>

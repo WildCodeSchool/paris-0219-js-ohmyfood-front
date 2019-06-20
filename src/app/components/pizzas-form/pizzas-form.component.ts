@@ -55,6 +55,10 @@ export class PizzasFormComponent implements OnInit {
     });
   }
 
+  get selectedPizzas(): FormArray {
+    return this.formPizzas.get('selectedPizzas') as FormArray;
+  }
+
   onSubmit() {
     const orderPizzas = this.formPizzas.value;
 

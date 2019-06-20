@@ -6,6 +6,7 @@ import { SaladsSaucesPageComponent } from './pages/salads-sauces-page/salads-sau
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { HomeOrderPageComponent } from './pages/home-order-page/home-order-page.component';
 import { AdminPagesComponent } from './pages/admin-pages/admin-pages.component';
+import { AuthClientPageComponent } from './pages/authent/auth-client-page/auth-client-page.component';
 
 const routes: Routes = [
   {
@@ -21,6 +22,10 @@ const routes: Routes = [
   {
     path: 'homeOrderPage',
     component: HomeOrderPageComponent
+  },
+  {
+    path: 'authClientPage',
+    component: AuthClientPageComponent
   },
   {
     path: 'pizzaPage',

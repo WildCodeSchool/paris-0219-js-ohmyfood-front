@@ -37,26 +37,26 @@ export class BeveragesFormAdminComponent implements OnInit {
     })
 
     this.beverageFormAdd = this.fb.group({
-      bevName: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(45)]],
+      beverName: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(45)]],
       bevPriceHt: ['', [Validators.required, Validators.pattern(this.regexPrice)]]
     });
     this.beverageFormPut = this.fb.group({
-      pizzaName: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(45)]],
-      pizzPriceHt: ['', [Validators.required, Validators.pattern(this.regexPrice)]]
+      beverName: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(45)]],
+      bevPriceHt: ['', [Validators.required, Validators.pattern(this.regexPrice)]]
     });
     this.beverageFormDel = this.fb.group({
-      pizzaName: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(45)]],
+      beverName: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(45)]],
     });
   }
 
   onSubmitAddForm() {
     if (this.beverageFormAdd.valid) {
       this.beverageService.beverageFormObject = {
-        bevName: this.beverageFormAdd.value.pizzaName,
+        bevName: this.beverageFormAdd.value.beverName,
         bevPriceHt: parseFloat(this.beverageFormAdd.value.bevPriceHt),
         idTax: 1
       };
-      if (confirm(`Êtes-vous certain d'ajouter la boisson ${this.beverageFormAdd.value.bevName} ?`)) {
+      if (confirm(`Êtes-vous certain d'ajouter la boisson ${this.beverageFormAdd.value.beverName} ?`)) {
         const addBeverageType = this.beverageService.addBeverageType().subscribe(_ => {
           this.beverageFormAdd.reset();
           addBeverageType.unsubscribe();
@@ -68,11 +68,11 @@ export class BeveragesFormAdminComponent implements OnInit {
   onSubmitPutForm() {
     if (this.beverageFormPut.valid) {
       this.beverageService.beverageFormObject = {
-        bevName: this.beverageFormPut.value.bevName,
+        bevName: this.beverageFormPut.value.beverName,
         bevPriceHt: parseFloat(this.beverageFormPut.value.bevPriceHt),
         idTax: 1
       };
-      if (confirm(`Êtes-vous certain de modifier la boisson ${this.beverageFormPut.value.bevName} ?`)) {
+      if (confirm(`Êtes-vous certain de modifier la boisson ${this.beverageFormPut.value.beverName} ?`)) {
         const putBeverageType = this.beverageService.putBeverageType().subscribe(_ => {
           this.beverageFormPut.reset();
           putBeverageType.unsubscribe();
@@ -84,9 +84,9 @@ export class BeveragesFormAdminComponent implements OnInit {
   onSubmitDelForm() {
     if (this.beverageFormDel.valid) {
       this.beverageService.beverageFormObject = {
-        bevName: this.beverageFormDel.value.bevName
+        bevName: this.beverageFormDel.value.beverName
       };
-      if (confirm(`Êtes-vous certain de supprimer la boisson ${this.beverageFormDel.value.bevName} ?`)) {
+      if (confirm(`Êtes-vous certain de supprimer la boisson ${this.beverageFormDel.value.beverName} ?`)) {
         const delBeverageType = this.beverageService.delBeverageType().subscribe(_ => {
           this.beverageFormDel.reset();
           delBeverageType.unsubscribe();

@@ -25,8 +25,9 @@ export class PizzasFormAdminComponent implements OnInit {
 
   ngOnInit() {
     this.initForm();
-    this.pizzaDataService.getPizzas().subscribe(data => {
+    const getPizzaObs = this.pizzaDataService.getPizzas().subscribe(data => {
       this.pizzaDataObject = data;
+      getPizzaObs.unsubscribe();
     });
   }
 
@@ -68,6 +69,10 @@ export class PizzasFormAdminComponent implements OnInit {
       };
       if (confirm(`Êtes-vous certain d'ajouter la pizza ${this.pizzaFormAdd.value.pizzaName} ?`)) {
         const addPizzaType = this.pizzaService.addPizzaType().subscribe(_ => {
+          const getPizzaObs = this.pizzaDataService.getPizzas().subscribe(data => {
+            this.pizzaDataObject = data;
+            getPizzaObs.unsubscribe();
+          });
           this.pizzaFormAdd.reset();
           addPizzaType.unsubscribe();
         });
@@ -92,6 +97,10 @@ export class PizzasFormAdminComponent implements OnInit {
       }
       if (confirm(`Êtes-vous certain de modifier la pizza ${this.pizzaFormPut.value.pizzaName} ?`)) {
         const putPizzaType = this.pizzaService.putPizzaType().subscribe(_ => {
+          const getPizzaObs = this.pizzaDataService.getPizzas().subscribe(data => {
+            this.pizzaDataObject = data;
+            getPizzaObs.unsubscribe();
+          });
           this.pizzaFormPut.reset();
           putPizzaType.unsubscribe();
         });
@@ -106,6 +115,10 @@ export class PizzasFormAdminComponent implements OnInit {
       };
       if (confirm(`Êtes-vous certain de supprimer la pizza ${this.pizzaFormDel.value.pizzaName} ?`)) {
         const delPizzaType = this.pizzaService.delPizzaType().subscribe(_ => {
+          const getPizzaObs = this.pizzaDataService.getPizzas().subscribe(data => {
+            this.pizzaDataObject = data;
+            getPizzaObs.unsubscribe();
+          });
           this.pizzaFormDel.reset();
           delPizzaType.unsubscribe();
         });

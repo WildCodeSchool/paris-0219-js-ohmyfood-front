@@ -75,7 +75,6 @@
 
   <!--Modifier form-->
 <div *ngIf="formCheck.value.pizzAction === 'Modifier'">
-  <p *ngFor="let dataPizza of pizzaDataObject; let i = index;">{{ dataPizza.pizzName }} {{ dataPizza.pizzPriceTTC }} EUR</p>
   <form [formGroup]="pizzaFormPut">
       <label>
         <p>Nom de la pizza à modifier</p>
@@ -136,3 +135,4 @@
     <button type="submit" (click)="onSubmitDelForm()">SUPPRIMER LA PIZZA</button>
   </form>
 </div>
+<p *ngFor="let dataPizza of pizzaDataObject; let i = index;">{{ dataPizza.pizzName }} {{ dataPizza.pizzPriceTTC }} EUR</p>

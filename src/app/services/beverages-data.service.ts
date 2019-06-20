@@ -26,7 +26,7 @@ export class BeveragesDataService {
       if (formResult.hasOwnProperty(key)) {
         formResult[key].map(test => {
           if (test.bevQuantity > 0) {
-            const choice = new OrderBeverage(test.idBeverages, test.bevName, test.bevPriceTTC * test.bevQuantity, test.bevQuantity);
+            const choice = new OrderBeverage(test.idBeverages, test.bevName, +test.bevPriceTTC, test.bevQuantity);
             this.userChoice.push(choice);
             }
           }

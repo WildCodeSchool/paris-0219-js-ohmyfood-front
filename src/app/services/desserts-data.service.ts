@@ -26,7 +26,7 @@ export class DessertsDataService {
       if (formResult.hasOwnProperty(key)) {
         formResult[key].map(test => {
           if (test.dessQuantity > 0) {
-            const choice = new OrderDessert(test.idDesserts, test.dessName, test.dessPriceTTC * test.dessQuantity, test.dessQuantity);
+            const choice = new OrderDessert(test.idDesserts, test.dessName, +test.dessPriceTTC, test.dessQuantity);
             this.userChoice.push(choice);
             }
           }

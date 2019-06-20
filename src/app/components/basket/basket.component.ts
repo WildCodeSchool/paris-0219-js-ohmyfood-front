@@ -138,6 +138,8 @@ export class BasketComponent implements OnInit {
 
   onSubmit() {
     const finalOrder = this.finalOrderForm.value;
+
+    this.resetBasket();
     console.log(finalOrder);
   }
 

@@ -20,6 +20,9 @@ import { RouterModule } from '@angular/router';
 import { Navbar2Component } from './components/navbar2/navbar2.component';
 import { BasketComponent } from './components/basket/basket.component';
 import { AdminPagesComponent } from './pages/admin-pages/admin-pages.component';
+import { AuthClientPageComponent } from './pages/authent/auth-client-page/auth-client-page.component';
+import { AuthClientComponent } from './components/authent/auth-client/auth-client.component';
+import { AuthentCreateComponent } from './components/authent/authent-create/authent-create.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +39,10 @@ import { AdminPagesComponent } from './pages/admin-pages/admin-pages.component';
     FooterComponent,
     Navbar2Component,
     BasketComponent,
-    AdminPagesComponent
+    AdminPagesComponent,
+    AuthClientPageComponent,
+    AuthClientComponent,
+    AuthentCreateComponent
   ],
   imports: [
     AppRoutingModule,

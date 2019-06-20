@@ -18,6 +18,8 @@ export class BasketComponent implements OnInit {
 
   isToggleBasket: boolean;
 
+  enableSubmit: boolean;
+
   userPizzaChoice: Array<OrderPizzas>; // Get data from service
   userBeveragesChoice: Array<OrderBeverage>;
   userDessertsChoice: Array<OrderDessert>;
@@ -63,6 +65,8 @@ export class BasketComponent implements OnInit {
           }
         }
       }
+      this.enableSubmit = true;
+      this.totalBasket();
     });
 
     // Creation of FormArray beverages
@@ -84,6 +88,8 @@ export class BasketComponent implements OnInit {
           }
         }
       }
+      this.enableSubmit = true;
+      this.totalBasket();
     });
     // Creation of FormArray desserts
     this.dessertData.getUserDesserts.subscribe(dessertsChoice => {
@@ -104,6 +110,8 @@ export class BasketComponent implements OnInit {
           }
         }
       }
+      this.enableSubmit = true;
+      this.totalBasket();
     });
   }
 
@@ -155,6 +163,8 @@ export class BasketComponent implements OnInit {
         this.pizzasData.userChoice.splice(index, 1); // remove object from service's array to be update data
       }
 
+      this.totalBasket();
+
     } else if (check[0] === 'idBeverages') {
         quantity =
         this.finalOrderForm.value.beverage[index].bevQuantity = this.quantityService.selectQuantity(operator, quantity);
@@ -170,6 +180,9 @@ export class BasketComponent implements OnInit {
           beverage.removeAt(index); // remove object from form array when quantity = 0
           this.beverageData.userChoice.splice(index, 1);
         }
+
+        this.totalBasket();
+
     } else if (check[0] === 'idDesserts') {
       quantity =
       this.finalOrderForm.value.dessert[index].dessQuantity = this.quantityService.selectQuantity(operator, quantity);
@@ -185,20 +198,59 @@ export class BasketComponent implements OnInit {
         dessert.removeAt(index); // remove object from form array when quantity = 0
         this.dessertData.userChoice.splice(index, 1);
       }
+
+      this.totalBasket();
+    }
+
+    if (this.pizza.controls.length === 0 &&
+      this.beverage.controls.length === 0 &&
+      this.dessert.controls.length === 0) {
+        this.enableSubmit = false;
     }
   }
 
-  totalBasket() {
-    const reducer = (accumulator, currentValue) => accumulator + currentValue; // Sum of array's value function
+  resetBasket() {
+    const pizza = this.finalOrderForm.get('pizza') as FormArray;
+    const beverage = this.finalOrderForm.get('beverage') as FormArray;
+    const dessert = this.finalOrderForm.get('dessert') as FormArray;
 
-    for (const key in this.userPizzaChoice) {
-      if (this.userPizzaChoice.hasOwnProperty(key)) {
-        this.totalArray.push(this.userPizzaChoice[key].pizzPrice);
-      }
+    while (pizza.length > 0) {
+      pizza.removeAt(0);
     }
-    this.total = 0; // intialize total
-    this.total = this.totalArray.reduce(reducer); // Calculate total each time values changes
-    this.totalArray = []; // Initialize array
+
+    while (beverage.length > 0) {
+      beverage.removeAt(0);
+    }
+
+    while (dessert.length > 0) {
+      dessert.removeAt(0);
+    }
+
+    this.pizzasData.userChoice.splice(0, this.pizzasData.userChoice.length);
+    this.beverageData.userChoice.splice(0, this.beverageData.userChoice.length);
+    this.dessertData.userChoice.splice(0, this.dessertData.userChoice.length);
+    this.enableSubmit = false;
+  }
+
+  totalBasket() {
+    this.totalArray = [];
+    this.total = 0;
+
+    const reducer = (accumulator, currentValue) => accumulator + currentValue; // Method to calculate max of an array
+
+    for (const iterator of this.pizza.value) {
+      this.totalArray.push(iterator.pizzasPriceTotal);
+    }
+
+    for (const iterator of this.beverage.value) {
+      this.totalArray.push(iterator.bevPriceTotal);
+    }
+
+    for (const iterator of this.dessert.value) {
+      this.totalArray.push(iterator.dessPriceTotal);
+    }
+
+    this.totalArray.length === 0 ? this.total = 0 : this.total = this.totalArray.reduce(reducer);
   }
 
 }

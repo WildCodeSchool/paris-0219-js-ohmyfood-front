@@ -109,8 +109,12 @@
         </div>
       </div>
 
-      <button type="submit">Valider votre panier</button>
+      <button type="submit" [disabled]="!enableSubmit">Validez votre panier</button>
 
+      <button type="button" (click)="resetBasket()">Videz votre panier</button>
     </form>
+    <p>
+      TOTAL de votre commande {{ total }}
+    </p>
   </div>
 </div>

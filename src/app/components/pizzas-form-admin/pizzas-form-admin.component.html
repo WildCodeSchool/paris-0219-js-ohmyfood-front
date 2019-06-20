@@ -78,60 +78,34 @@
   <p *ngFor="let dataPizza of pizzaDataObject; let i = index;">{{ dataPizza.pizzName }} {{ dataPizza.pizzPriceTTC }} EUR</p>
   <form [formGroup]="pizzaFormPut">
       <label>
-      <p>Nom de la pizza à modifier</p>
+        <p>Nom de la pizza à modifier</p>
+        <input type="text" 
+          class="form-control" 
+          formControlName="pizzaName" 
+          required
+        >
+      </label>
+      <label>
+      <p>Nouveau nom de pizza ?</p>
       <input type="text" 
         class="form-control" 
-        formControlName="pizzaName" 
-        required
+        formControlName="pizzaNewName" 
       >
-      <div *ngIf="fM.pizzaName.invalid && (fM.pizzaName.dirty || fM.pizzaName.touched)">
-        <div *ngIf="fM.pizzaName.errors.required">
-          <p class="invalidText">*Le nom de la pizza est requis</p>
-        </div>
-        <div *ngIf="fM.pizzaName.errors.minlength">
-          <p class="invalidText">*Le nom de la pizza doit contenir au moins 4 caractères</p>
-        </div>
-        <div *ngIf="fM.pizzaName.errors.maxlength">
-          <p class="invalidText">*Le nom de la pizza ne doit pas dépasser les 45 caractères</p>
-        </div>
-      </div>
       </label>
       <label>
         <p>Description de la pizza</p>
         <textarea type="text" 
           class="form-control" 
           formControlName="pizzDesc" 
-          required
         >
         </textarea>
-        <div *ngIf="fM.pizzDesc.invalid && (fM.pizzDesc.dirty || fM.pizzDesc.touched)">
-          <div *ngIf="fM.pizzDesc.errors.required">
-            <p class="invalidText">*La description de la pizza est requis</p>
-          </div>
-          <div *ngIf="fM.pizzDesc.errors.minlength">
-            <p class="invalidText">*La description de la pizza doit contenir au moins 4 caractères</p>
-          </div>
-          <div *ngIf="fM.pizzDesc.errors.maxlength">
-            <p class="invalidText">*La description ne doit pas dépasser les 255 caractères</p>
-          </div>
-        </div>
       </label>
-
       <label>
         <p>Prix hors taxe</p>
         <input type="text" 
           class="form-control" 
           formControlName="pizzPriceHt" 
-          required
         >
-        <div *ngIf="fM.pizzPriceHt.invalid && (fM.pizzPriceHt.dirty || fM.pizzPriceHt.touched)">
-          <div *ngIf="fM.pizzPriceHt.errors.required">
-            <p class="invalidText">*Le prix est requis</p>
-          </div>
-          <div *ngIf="fM.pizzPriceHt.errors.pattern">
-            <p class="invalidText">*Le prix doit être inséré sous la forme XXX.XX</p>
-          </div>
-        </div>
       </label>
   </form>
   <button type="submit" (click)="onSubmitPutForm()">MODIFIER LA PIZZA</button>

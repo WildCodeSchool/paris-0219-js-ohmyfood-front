@@ -56,6 +56,7 @@ export class BasketComponent implements OnInit {
           if (pizza.value[i].pizzName === pizza.value[j].pizzName) {
             pizza.value[i].pizzPriceTotal = 0;
             pizza.value[i].pizzQuantity = 0;
+
             pizza.value[i].pizzPriceTotal += pizza.value[j].pizzPriceTotal; // Sum of price
             pizza.value[i].pizzQuantity += pizza.value[j].pizzQuantity; // Sum of quantity
             pizza.removeAt(j); // Remove duplicate
@@ -94,19 +95,23 @@ export class BasketComponent implements OnInit {
     console.log(finalOrder);
   }
 
+  // method to update basket quantity and service's userChoice to have good values in basketComponent
   quantitySelect(operator, index, quantity) {
-    quantity = this.finalOrderForm.value.pizza[index].pizzQuantity = this.quantityService.selectQuantity(operator, quantity);
+
+    // give value of selectQuantity result to calculate price behind
+    quantity =
+    this.finalOrderForm.value.pizza[index].pizzQuantity = this.quantityService.selectQuantity(operator, quantity);
+
     this.finalOrderForm.value.pizza[index].pizzPriceTotal =
-    this.quantityService.updatePrice(this.userPizzaChoice[index].pizzPrice, quantity);
+    this.quantityService.updatePrice(this.userPizzaChoice[index].pizzPrice, quantity); // update price according to quantity
+
+    this.userPizzaChoice[index].pizzQuantity = this.finalOrderForm.value.pizza[index].pizzQuantity; // update quantity in userPizzaChoice
 
     const pizza = this.finalOrderForm.get('pizza') as FormArray;
+
     if (pizza.controls[index].value.pizzQuantity === 0) {
-      console.log(pizza);
-      pizza.controls[index].patchValue({
-        pizzQuantity: 0
-      });
-      pizza.removeAt(index);
-      console.log(this.finalOrderForm);
+      pizza.removeAt(index); // remove object from form array when quantity = 0
+      this.pizzasData.userChoice.splice(index, 1); // remove object from service's array to be update data
     }
   }
 

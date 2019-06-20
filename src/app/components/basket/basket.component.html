@@ -79,6 +79,36 @@
         </div>
       </div>
 
+      <div formArrayName="dessert">
+        <div [formGroupName]="i" *ngFor="let desserts of dessert.controls; let i = index">
+          <label for="bevName-{{i}}">
+            {{ desserts.value.dessName }}<span>{{ desserts.value.dessPriceTotal }} EUR</span>
+          </label>
+
+          <button
+            class="button is-rounded is-outlined is-mobile is-small"
+            name="add-dessert-quantity"
+            type="button"
+            (click)="quantitySelect('-', i, desserts.value.dessQuantity, desserts.value)">
+              -
+          </button>
+
+          <input
+            type="number"
+            name="dessertsQuantity-{{i}}"
+            formControlName="dessQuantity"
+            value="{{desserts.value.dessQuantity}}"/>
+
+          <button
+            class="button is-rounded is-outlined is-mobile is-small"
+            name="add-desserts-quantity"
+            type="button"
+            (click)="quantitySelect('+', i, desserts.value.dessQuantity, desserts.value)">
+              +
+          </button>
+        </div>
+      </div>
+
       <button type="submit">Valider votre panier</button>
 
     </form>

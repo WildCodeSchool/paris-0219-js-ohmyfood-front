@@ -34,21 +34,22 @@ export class AuthentCreateComponent implements OnInit {
   onSubmitCreateClientForm() {
     if (this.authCreateForm.valid) {
       this.authCreateClientService.createClientObject = {
-        lastName: this.authCreateForm.value.lastName,
-        firstName: this.authCreateForm.value.firstName,
+        lastname: this.authCreateForm.value.lastName,
+        firstname: this.authCreateForm.value.firstName,
         mail: this.authCreateForm.value.email,
+        password: this.authCreateForm.value.pssw,
         phoneNumber: this.authCreateForm.value.phone,
         forgotPassword: "",
-        userRigth: 0
+        userRight: 0
       };
-      if (confirm(`Êtes-vous certain d'ajouter la pizza ${this.authCreateForm.value.pizzaName} ?`)) {
-        const addPizzaType = this.authCreateClientService.addClient().subscribe(_ => {
+      if (confirm(`Êtes-vous sûr de soumettre ces informations ?`)) {
+        const addClient = this.authCreateClientService.addClient().subscribe(_ => {
           /* const getPizzaObs = this.authCreateClientService.getPizzas().subscribe(data => {
             this.createClientObject = data;
             getPizzaObs.unsubscribe();
           });*/
           this.authCreateForm.reset();
-          addPizzaType.unsubscribe();
+          addClient.unsubscribe();
         });
       }
     }

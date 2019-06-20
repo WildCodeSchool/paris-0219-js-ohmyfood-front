@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class AuthCreateClientService {
   createClientObject;
-  url = 'http://localhost:3000/pizzas';
+  url = 'http://localhost:3000/users';
 
   constructor(private http: HttpClient) { }
 

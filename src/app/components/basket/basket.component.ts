@@ -49,7 +49,7 @@ export class BasketComponent implements OnInit {
 
       for (let i = 0; i < pizza.value.length; i ++) {
         for (let j = i + 1 ; j < pizza.value.length; j ++ ) {
-          if (pizza.value[i].pizzName === pizza.value[j].pizzName) {
+          if (pizza.value[i].pizzasName === pizza.value[j].pizzasName) {
             this.createForm.sortOrderForm(pizza, i, j);
           }
         }
@@ -91,16 +91,16 @@ export class BasketComponent implements OnInit {
 
     // give value of selectQuantity result to calculate price behind
     quantity =
-    this.finalOrderForm.value.pizza[index].pizzQuantity = this.quantityService.selectQuantity(operator, quantity);
+    this.finalOrderForm.value.pizza[index].pizzasQuantity = this.quantityService.selectQuantity(operator, quantity);
 
-    this.finalOrderForm.value.pizza[index].pizzPriceTotal =
+    this.finalOrderForm.value.pizza[index].pizzasPriceTotal =
     this.quantityService.updatePrice(this.userPizzaChoice[index].pizzPrice, quantity); // update price according to quantity
 
-    this.userPizzaChoice[index].pizzQuantity = this.finalOrderForm.value.pizza[index].pizzQuantity; // update quantity in userPizzaChoice
+    this.userPizzaChoice[index].pizzQuantity = this.finalOrderForm.value.pizza[index].pizzasQuantity; // update quantity in userPizzaChoice
 
     const pizza = this.finalOrderForm.get('pizza') as FormArray;
 
-    if (pizza.controls[index].value.pizzQuantity === 0) {
+    if (pizza.controls[index].value.pizzasQuantity === 0) {
       pizza.removeAt(index); // remove object from form array when quantity = 0
       this.pizzasData.userChoice.splice(index, 1); // remove object from service's array to be update data
     }

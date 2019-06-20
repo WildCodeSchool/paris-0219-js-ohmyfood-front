@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Output, EventEmitter } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { OrderBeverage } from '../class/order-beverage';
@@ -11,6 +11,9 @@ export class BeveragesDataService {
   beveragesRoute = 'http://localhost:3000/beverages';
 
   userChoice: Array<OrderBeverage> = [];
+
+  @Output()
+  public getUserBeverages: EventEmitter<any> = new EventEmitter();
 
   constructor(private http: HttpClient) { }
 
@@ -33,6 +36,7 @@ export class BeveragesDataService {
     if (this.userChoice.length > 1) {
       this.sortUserChoice();
     }
+    this.getUserBeverages.emit(this.userChoice);
   }
 
   sortUserChoice() { // Remove duplicate choice
@@ -46,7 +50,7 @@ export class BeveragesDataService {
       }
     }
   }
-  
+
 }
 
 

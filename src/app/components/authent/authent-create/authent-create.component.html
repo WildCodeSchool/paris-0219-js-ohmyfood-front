@@ -89,11 +89,13 @@
     <p>Pour une sécurité optimale, nous vous conseillons d'entrer un mot de passe incluant des majuscules et des caractères spéciaux</p>
     <p>Exemple de mot de passe : IlovePizza!42</p>
     <input 
-      type="text" 
+      type="{{ psswType }}" 
       placeholder="Mot de Passe"
       formControlName="pssw"
       required
     >
+    <a *ngIf="show" (click)="showPssw($event)"><i class="fa fa-eye"></i></a>
+    <a *ngIf="!show" (click)="showPssw($event)"><i class="fa fa-eye-slash"></i></a>
   </label>
   <div *ngIf="fC.pssw.invalid && (fC.pssw.dirty || fC.pssw.touched)">
     <div *ngIf="fC.pssw.errors.required">

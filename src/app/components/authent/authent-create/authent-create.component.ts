@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthCreateClientService } from 'src/app/services/auth-create-client.service';
+import { fcall } from 'q';
 
 @Component({
   selector: 'app-authent-create',
@@ -12,6 +13,8 @@ export class AuthentCreateComponent implements OnInit {
   createClientObject;
   regexPhone = /[0-9]*/gm;
   regexEmail = /^[a-zA-Z0-9.%&_~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/gm
+  show: boolean = false;
+  psswType = "password";
 
   constructor(private fb: FormBuilder, private authCreateClientService: AuthCreateClientService) { }
 
@@ -52,6 +55,17 @@ export class AuthentCreateComponent implements OnInit {
           addClient.unsubscribe();
         });
       }
+    }
+  }
+
+  showPssw(event) {
+    event.preventDefault()
+    if (this.psswType === "password") {
+      this.psswType = "text";
+      this.show = true;
+    } else {
+      this.psswType = "password";
+      this.show = false;
     }
   }
 }

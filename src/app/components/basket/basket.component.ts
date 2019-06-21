@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { PizzasDataService } from 'src/app/services/pizzas-data.service';
 import { OrderPizzas } from 'src/app/class/order-pizzas';
 import { FormGroup, FormBuilder, FormArray, Form } from '@angular/forms';
@@ -14,7 +14,7 @@ import { DessertsDataService } from 'src/app/services/desserts-data.service';
   templateUrl: './basket.component.html',
   styleUrls: ['./basket.component.scss']
 })
-export class BasketComponent implements OnInit {
+export class BasketComponent implements OnInit, OnDestroy {
 
   isToggleBasket: boolean;
 
@@ -140,7 +140,6 @@ export class BasketComponent implements OnInit {
     const finalOrder = this.finalOrderForm.value;
 
     this.resetBasket();
-    console.log(finalOrder);
   }
 
   // method to update basket quantity and service's userChoice to have good values in basketComponent
@@ -255,6 +254,12 @@ export class BasketComponent implements OnInit {
     }
 
     this.totalArray.length === 0 ? this.total = 0 : this.total = this.totalArray.reduce(reducer);
+  }
+
+  ngOnDestroy() {
+    this.pizzasData.getUserPizzas.unsubscribe();
+    this.beverageData.getUserBeverages.unsubscribe();
+    this.dessertData.getUserDesserts.unsubscribe();
   }
 
 }

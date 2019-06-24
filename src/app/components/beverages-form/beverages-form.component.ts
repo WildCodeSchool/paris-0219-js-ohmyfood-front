@@ -18,7 +18,7 @@ export class BeveragesFormComponent implements OnInit {
   enableSubmit: boolean;
 
   // To toggle Form
-  isToggle: boolean
+  isToggle: boolean;
 
   // Reactive form
   formBeverage = this.formBuilder.group({
@@ -34,7 +34,7 @@ export class BeveragesFormComponent implements OnInit {
 
   ngOnInit() {
     // Get Data from API
-    this.beverageData.getBeverages()
+    const subscription = this.beverageData.getBeverages()
     .subscribe(beverage => {
       this.beveragesList = beverage;
 
@@ -57,7 +57,12 @@ export class BeveragesFormComponent implements OnInit {
           selectedBeverage.push(beverageForm); // push form in formArray
         }
       }
+      subscription.unsubscribe();
     });
+  }
+
+  get selectedBeverage(): FormArray {
+    return this.formBeverage.get('selectedBeverage') as FormArray;
   }
 
   onSubmit() {
@@ -95,4 +100,5 @@ export class BeveragesFormComponent implements OnInit {
     $event.preventDefault();
     this.isToggle = this.toggleService.toggleForm(this.isToggle);
   }
+
 }

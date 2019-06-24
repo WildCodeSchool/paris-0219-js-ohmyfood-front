@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Output, EventEmitter } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { OrderDessert } from '../class/order-dessert';
@@ -12,6 +12,9 @@ export class DessertsDataService {
 
   userChoice: Array<OrderDessert> = [];
 
+  @Output()
+  public getUserDesserts: EventEmitter<any> = new EventEmitter();
+
   constructor(private http: HttpClient) { }
 
   getDesserts(): Observable<object> {
@@ -23,7 +26,7 @@ export class DessertsDataService {
       if (formResult.hasOwnProperty(key)) {
         formResult[key].map(test => {
           if (test.dessQuantity > 0) {
-            const choice = new OrderDessert(test.idDesserts, test.dessName, test.dessPriceTTC * test.dessQuantity, test.dessQuantity);
+            const choice = new OrderDessert(test.idDesserts, test.dessName, +test.dessPriceTTC, test.dessQuantity);
             this.userChoice.push(choice);
             }
           }
@@ -33,6 +36,7 @@ export class DessertsDataService {
     if (this.userChoice.length > 1) {
       this.sortUserChoice();
     }
+    this.getUserDesserts.emit(this.userChoice);
   }
 
   sortUserChoice() { // Remove duplicate choice

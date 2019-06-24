@@ -29,7 +29,7 @@ export class PizzasFormComponent implements OnInit {
     ) { }
 
   ngOnInit() {
-    this.pizzasData.getPizzas()
+    const subscription = this.pizzasData.getPizzas()
     .subscribe(pizzas => {
       this.pizzasList = pizzas;
 
@@ -52,7 +52,12 @@ export class PizzasFormComponent implements OnInit {
           selectedPizzas.push(pizzasForm);
         }
       }
+      subscription.unsubscribe();
     });
+  }
+
+  get selectedPizzas(): FormArray {
+    return this.formPizzas.get('selectedPizzas') as FormArray;
   }
 
   onSubmit() {

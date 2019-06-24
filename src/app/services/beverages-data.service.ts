@@ -43,7 +43,6 @@ export class BeveragesDataService {
     for (let i = 0; i < this.userChoice.length; i ++) {
       for (let j = i + 1 ; j < this.userChoice.length; j ++ ) {
         if (this.userChoice[i].bevName === this.userChoice[j].bevName) {
-          this.userChoice[i].bevPrice += this.userChoice[j].bevPrice; // Sum of price
           this.userChoice[i].bevQuantity += this.userChoice[j].bevQuantity; // Sum of quantity
           this.userChoice.splice(j, 1); // Remove duplicate
         }

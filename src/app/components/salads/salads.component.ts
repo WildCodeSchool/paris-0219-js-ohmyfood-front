@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { SaladsDatasService } from 'src/app/services/salads-datas.service';
 import { QuantitySelectService } from 'src/app/services/quantity-select.service';
 import { ToggleFormService } from 'src/app/services/toggle-form.service';
-import { FormBuilder, FormArray } from '@angular/forms';
+import { FormBuilder, FormArray, Validators } from '@angular/forms';
 import { OrderSalads } from 'src/app/class/order-salads';
+import {checkSaladsBase} from 'src/app/validators/saladsBaseValidators';
 
 @Component({
   selector: 'app-salads',
@@ -29,7 +30,7 @@ export class SaladsComponent implements OnInit {
 
 
   saladsFormTable = this.fb.group({
-      selectBase: this.fb.array([]),
+      selectBase: this.fb.array([], checkSaladsBase()),
       selectIngredients: this.fb.array([]),
       selectToppings: this.fb.array([]),
       selectSauces: this.fb.array([])
@@ -46,7 +47,6 @@ export class SaladsComponent implements OnInit {
   ngOnInit() {
     const basesSubscription = this.saladsDataService.addSaladsBases().subscribe(bases => {
       this.saladsBaseList = bases;
-      console.log(this.saladsBaseList);
 
       for (const key in this.saladsBaseList) {
         if (this.saladsBaseList.hasOwnProperty(key)) {
@@ -61,20 +61,19 @@ export class SaladsComponent implements OnInit {
             idSaladsBase: [ this.saladsBaseList[key].idSaladsBase],
             saladsBaseName: [ this.saladsBaseList[key].saladsBaseName],
             saladsBasePriceTTC: [ this.saladsBaseList[key].saladsBasePriceTTC],
-            saladsBaseQuantity: [0]
+            saladsBaseQuantity: [false]
           });
           selectBase.push(saladsBaseFormTable);
         }
       }
-      console.log(this.saladsFormTable);
+      console.log(selectBase);
       basesSubscription.unsubscribe();
     });
 
     const ingredientsSubscription = this.saladsDataService.addSaladsIngredients().subscribe(ingredients => { // get ingredients from API
       this.saladsIngredientsList = ingredients;
-      console.log(this.saladsIngredientsList);
 
-      for (const key in this.saladsBaseList) { // Display price TTC with two digits after decimal point
+      for (const key in this.saladsIngredientsList) { // Display price TTC with two digits after decimal point
         if (this.saladsIngredientsList.hasOwnProperty(key)) {
           this.saladsIngredientsList[key].saladsIngredientsPriceTTC = this.saladsIngredientsList[key].saladsIngredientsPriceTTC.toFixed(2);
         }
@@ -97,7 +96,6 @@ export class SaladsComponent implements OnInit {
 
     const saucesSubscription = this.saladsDataService.addSaladsSauces().subscribe(sauces => {
       this.saladsSaucesList = sauces;
-      console.log(this.saladsSaucesList);
 
       const selectSauces = this.saladsFormTable.get('selectSauces') as FormArray;
 
@@ -115,7 +113,6 @@ export class SaladsComponent implements OnInit {
 
     const toppingsSubscription = this.saladsDataService.addSaladsToppings().subscribe(toppings => {
       this.saladsToppingsList = toppings;
-      console.log(this.saladsToppingsList);
 
       for (const key in this.saladsToppingsList) {
         if (this.saladsToppingsList.hasOwnProperty(key)) {
@@ -128,9 +125,9 @@ export class SaladsComponent implements OnInit {
         if (this.saladsToppingsList.hasOwnProperty(key)) {
           const saladsToppingsFormTable = this.fb.group({
             idSaladsToppings: [ this.saladsToppingsList[key].idSaladsToppings],
-            saladsToppingssName: [ this.saladsToppingsList[key].saladsToppingssName],
-            saladsToppingssPriceTTC: [ this.saladsToppingsList[key].saladsToppingssPriceTTC],
-            saladsToppingssQuantity: [0]
+            saladsToppingsName: [ this.saladsToppingsList[key].saladsToppingsName],
+            saladsToppingsPriceTTC: [ this.saladsToppingsList[key].saladsToppingsPriceTTC],
+            saladsToppingsQuantity: [0]
           });
           selectToppings.push(saladsToppingsFormTable);
         }
@@ -159,29 +156,30 @@ export class SaladsComponent implements OnInit {
 // tslint:disable-next-line: no-shadowed-variable
     const OrderSalads = this.saladsFormTable.value;
 
+    console.log(OrderSalads);
 
     this.saladsDataService.createOrderSalads(OrderSalads);
 
     this.enableSubmit = false;
   }
-  quantitySelect(operator, i, quantity) {
+//   quantitySelect(operator, i, quantity) {
 
-    this.saladsFormTable.value.selectSaladsBase[i].saladsBaseQuantity = this.quantitySelectService.selectQuantity(operator, quantity);
-    console.log(this.saladsFormTable);
+//     this.saladsFormTable.value.selectSaladsBase[i].saladsBaseQuantity = this.quantitySelectService.selectQuantity(operator, quantity);
+//     console.log(this.saladsFormTable);
 
-    this.saladsFormTable.value.selectSaladsBases[i].saladsBasesQuantity = this.quantitySelectService.selectQuantity(operator, quantity);
+//     this.saladsFormTable.value.selectSaladsBases[i].saladsBasesQuantity = this.quantitySelectService.selectQuantity(operator, quantity);
 
-// tslint:disable-next-line: max-line-length
-    this.saladsToppingsFormTable.value.selectSaladsBases[i].saladsBasesQuantity = this.quantitySelectService.selectQuantity(operator, quantity);
-// tslint:disable-next-line: max-line-length
-    this.saladsSaucesFormTable.value.selectSaladsBases[i].saladsBasesQuantity = this.quantitySelectService.selectQuantity(operator, quantity);
+// // tslint:disable-next-line: max-line-length
+//     this.saladsToppingsFormTable.value.selectSaladsBases[i].saladsBasesQuantity = this.quantitySelectService.selectQuantity(operator, quantity);
+// // tslint:disable-next-line: max-line-length
+//     this.saladsSaucesFormTable.value.selectSaladsBases[i].saladsBasesQuantity = this.quantitySelectService.selectQuantity(operator, quantity);
 
-    if (this.saladsBasesFormTable.value.selectSaladsBases[i].saladsBasesQuantity > 0) {
-      this.enableSubmit = true;
-    } else {
-      this.enableSubmit = false;
-    }
-   }
+//     if (this.saladsBasesFormTable.value.selectSaladsBases[i].saladsBasesQuantity > 0) {
+//       this.enableSubmit = true;
+//     } else {
+//       this.enableSubmit = false;
+//     }
+//    }
    toggleFormSalads($event) {
     $event.preventDefault();
     this.isToggle = this.ToggleForm.toggleForm(this.isToggle);

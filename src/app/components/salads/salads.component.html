@@ -28,32 +28,15 @@
               {{ base.value.saladsBaseName }}<span>{{ base.value.saladsBasePriceTTC }} EUR</span>
             </label>
 
-            <div class="buttonQuantity">
-              <button
-                class="button is-rounded is-outlined is-mobile is-small"
-                id='selectSaladsBase-{{ i }}'
-                name="remove-bases-quantity"
-                type="button"
-                (click)="quantitySelect('-', i, base.value.saladsBaseQuantity)">
-                  -
-              </button>
-
-              <input
-              class="input is-mobile is-small"
-              name="selectBase-{{ i }}"
-              formControlName="saladsBaseQuantity"
-              type="number"
-              value="{{base.value.saladsBasesQuantity}}"/>
-
-            <button
-              class="button is-rounded is-outlined is-mobile is-small"
-              name="add-dessert-quantity"
-              type="button"
-              (click)="quantitySelect('+', i, base.value.saladsBaseQuantity)">
-                +
-            </button>
+           <input
+           type="checkbox"
+           formControlName='saladsBaseQuantity' name='selectBase-{{ i }}'
+           >
+        </div>
+        <div *ngIf="selectBase.errors">
+          <p>{{selectBase.errors['tooMuchBase']}}</p>
         </div>
       </div>
-    </div>
+      <button type='submit'> AjoutER </button>
   </form>
 </div>

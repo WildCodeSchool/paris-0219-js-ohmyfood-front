@@ -1,0 +1,40 @@
+@import '../../../styles/colors.scss';
+
+a {
+  align-items: center;
+  border: solid 1px $green;
+  border-radius: 50px;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-bottom: 2vh;
+  text-decoration: none;
+
+  h1 {
+    font-size: 2em;
+    text-align: center;
+  }
+
+  p {
+    font-size: 1em;
+    font-style: normal;
+  }
+
+  &:hover {
+    box-shadow: 0 1px 1px  rgb(68, 160, 68);
+    color: inherit;
+    cursor: pointer;
+    text-decoration: none;
+  }
+}
+.button {
+  border: solid 1px $green;
+  margin: 0 auto;
+  transition-duration: 500ms;
+
+  &:hover {
+    background: $green;
+    color: whitesmoke;
+  }
+}

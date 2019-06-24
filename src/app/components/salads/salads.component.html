@@ -1,0 +1,59 @@
+<section>
+  <a href (click)="toggleFormSalads($event)">
+    <h1 class="saladsTitle">
+      SALADS COMPOSEE
+    </h1>
+
+    <p>
+      Cliquez pour découvrir nos ingredients de salade
+    </p>
+  </a>
+
+  <div class="notToggle" [ngClass]="{toggle: isToggle}">
+    <div class="header">
+      <h3 class="salads">
+        Nos Desserts<span>Prix</span>
+      </h3>
+      <h3 class="quantity">Quantités</h3>
+    </div>
+
+    <form [formGroup]="saladsFormTable" (ngSubmit)="saladsFormTable.valid && onSubmit()">
+      <div formArrayName="selectBase">
+        <div
+          class="formLine"
+          [formGroupName]="i"
+          *ngFor="let base of selectBase.controls ; let i = index">
+
+            <label for="selectBase-{{ i }}">
+              {{ base.value.saladsBaseName }}<span>{{ base.value.saladsBasePriceTTC }} EUR</span>
+            </label>
+
+            <div class="buttonQuantity">
+              <button
+                class="button is-rounded is-outlined is-mobile is-small"
+                id='selectSaladsBase-{{ i }}'
+                name="remove-bases-quantity"
+                type="button"
+                (click)="quantitySelect('-', i, base.value.saladsBaseQuantity)">
+                  -
+              </button>
+
+              <input
+              class="input is-mobile is-small"
+              name="selectBase-{{ i }}"
+              formControlName="saladsBaseQuantity"
+              type="number"
+              value="{{base.value.saladsBasesQuantity}}"/>
+
+            <button
+              class="button is-rounded is-outlined is-mobile is-small"
+              name="add-dessert-quantity"
+              type="button"
+              (click)="quantitySelect('+', i, base.value.saladsBaseQuantity)">
+                +
+            </button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

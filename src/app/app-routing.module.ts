@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, Component } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { PizzaPageComponent } from './pages/pizza-page/pizza-page.component';
@@ -7,6 +7,8 @@ import { HomePageComponent } from './pages/home-page/home-page.component';
 import { HomeOrderPageComponent } from './pages/home-order-page/home-order-page.component';
 import { AdminPagesComponent } from './pages/admin-pages/admin-pages.component';
 import { AuthClientPageComponent } from './pages/authent/auth-client-page/auth-client-page.component';
+import { SaladsIngredientsComponent } from './components/salads-ingredients/salads-ingredients.component';
+import { SaladsComponent } from './components/salads/salads.component';
 
 const routes: Routes = [
   {
@@ -34,6 +36,14 @@ const routes: Routes = [
   {
     path: 'salades-sauce',
     component: SaladsSaucesPageComponent
+  },
+  {
+    path: 'salades-ingredients',
+    component: SaladsIngredientsComponent
+  },
+  {
+    path: 'salades',
+    component: SaladsComponent
   }
 ];
 

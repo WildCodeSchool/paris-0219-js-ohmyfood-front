@@ -23,6 +23,8 @@ import { AdminPagesComponent } from './pages/admin-pages/admin-pages.component';
 import { AuthClientPageComponent } from './pages/authent/auth-client-page/auth-client-page.component';
 import { AuthClientComponent } from './components/authent/auth-client/auth-client.component';
 import { AuthentCreateComponent } from './components/authent/authent-create/authent-create.component';
+import { SaladsIngredientsComponent } from './components/salads-ingredients/salads-ingredients.component';
+import { SaladsComponent } from './components/salads/salads.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +44,10 @@ import { AuthentCreateComponent } from './components/authent/authent-create/auth
     AdminPagesComponent,
     AuthClientPageComponent,
     AuthClientComponent,
-    AuthentCreateComponent
+    AuthentCreateComponent,
+    SaladsIngredientsComponent,
+    SaladsComponent,
+
   ],
   imports: [
     AppRoutingModule,

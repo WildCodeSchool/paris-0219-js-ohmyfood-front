@@ -20,13 +20,10 @@ import { RouterModule } from '@angular/router';
 import { Navbar2Component } from './components/navbar2/navbar2.component';
 import { BasketComponent } from './components/basket/basket.component';
 import { AdminPagesComponent } from './pages/admin-pages/admin-pages.component';
-<<<<<<< HEAD
 import { BeveragesFormAdminComponent } from './components/beverages-form-admin/beverages-form-admin.component';
-=======
 import { AuthClientPageComponent } from './pages/authent/auth-client-page/auth-client-page.component';
 import { AuthClientComponent } from './components/authent/auth-client/auth-client.component';
 import { AuthentCreateComponent } from './components/authent/authent-create/authent-create.component';
->>>>>>> 09e549b57d2a2faa4e117670c584b85b0dfd155b
 
 @NgModule({
   declarations: [
@@ -44,13 +41,10 @@ import { AuthentCreateComponent } from './components/authent/authent-create/auth
     Navbar2Component,
     BasketComponent,
     AdminPagesComponent,
-<<<<<<< HEAD
-    BeveragesFormAdminComponent
-=======
+    BeveragesFormAdminComponent,
     AuthClientPageComponent,
     AuthClientComponent,
     AuthentCreateComponent
->>>>>>> 09e549b57d2a2faa4e117670c584b85b0dfd155b
   ],
   imports: [
     AppRoutingModule,

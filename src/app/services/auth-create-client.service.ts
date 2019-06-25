@@ -9,7 +9,7 @@ export class AuthCreateClientService {
   createClientAddressObject;
 
   url = 'http://localhost:3000/users';
-  urlAddress = 'http://localhost:3000/user'
+  urlAddress = 'http://localhost:3000/userAddress'
   constructor(private http: HttpClient) { }
 
   addClient() {

@@ -24,6 +24,8 @@ import { AuthClientPageComponent } from './pages/authent/auth-client-page/auth-c
 import { AuthClientComponent } from './components/authent/auth-client/auth-client.component';
 import { AuthentCreateComponent } from './components/authent/authent-create/authent-create.component';
 import { AuthCreateAddressComponent } from './components/authent/auth-create-address/auth-create-address.component';
+import { HomeOrderComponent } from './components/home-order/home-order.component';
+import { HomeComponent } from './components/home/home.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +46,9 @@ import { AuthCreateAddressComponent } from './components/authent/auth-create-add
     AuthClientPageComponent,
     AuthClientComponent,
     AuthentCreateComponent,
-    AuthCreateAddressComponent
+    AuthCreateAddressComponent,
+    HomeOrderComponent,
+    HomeComponent
   ],
   imports: [
     AppRoutingModule,

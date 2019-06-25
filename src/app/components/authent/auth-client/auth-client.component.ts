@@ -22,9 +22,4 @@ export class AuthClientComponent implements OnInit {
       psswClient: ['', [Validators.required, Validators.minLength(7), Validators.maxLength(15)]]
     })
   }
-
-  getInformations() {
-    
-  }
-
 }

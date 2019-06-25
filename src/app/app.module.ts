@@ -20,6 +20,7 @@ import { RouterModule } from '@angular/router';
 import { Navbar2Component } from './components/navbar2/navbar2.component';
 import { BasketComponent } from './components/basket/basket.component';
 import { AdminPagesComponent } from './pages/admin-pages/admin-pages.component';
+import { BeveragesFormAdminComponent } from './components/beverages-form-admin/beverages-form-admin.component';
 import { AuthClientPageComponent } from './pages/authent/auth-client-page/auth-client-page.component';
 import { AuthClientComponent } from './components/authent/auth-client/auth-client.component';
 import { AuthentCreateComponent } from './components/authent/authent-create/authent-create.component';
@@ -42,6 +43,7 @@ import { SaladsComponent } from './components/salads/salads.component';
     Navbar2Component,
     BasketComponent,
     AdminPagesComponent,
+    BeveragesFormAdminComponent,
     AuthClientPageComponent,
     AuthClientComponent,
     AuthentCreateComponent,

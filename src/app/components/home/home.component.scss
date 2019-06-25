@@ -1,0 +1,50 @@
+.buttonArea {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 25px 50px;
+
+    .button {
+        font-size: 2rem;
+        margin: 0 20px;
+        padding: 6px 35px;
+    }
+}
+
+.carousel {
+    height: 300px;
+    overflow: hidden;
+}
+
+.columns.column {
+    overflow: hidden;
+    justify-content: space-around;
+}
+
+h2 {
+    font-size: 3rem;
+    margin: 8vh 0;
+    text-align: center;
+}
+
+h3, p {
+    text-align: center;
+    margin: 4vh 0;
+}
+
+h3 {
+    font-size: 3rem;
+}
+
+p {
+    font-size: 2rem;
+}
+
+@media all and (max-width: 600px) {
+    
+    .buttonArea .button {
+            font-size: 1rem;
+            margin: 0 20px;
+            padding: 6px 35px;
+        }
+    }

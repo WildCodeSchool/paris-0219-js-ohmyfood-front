@@ -5,11 +5,5 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './home-order-page.component.html',
   styleUrls: ['./home-order-page.component.scss']
 })
-export class HomeOrderPageComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit() {
-  }
-
+export class HomeOrderPageComponent {
 }

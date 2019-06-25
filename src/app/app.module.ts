@@ -24,6 +24,9 @@ import { BeveragesFormAdminComponent } from './components/beverages-form-admin/b
 import { AuthClientPageComponent } from './pages/authent/auth-client-page/auth-client-page.component';
 import { AuthClientComponent } from './components/authent/auth-client/auth-client.component';
 import { AuthentCreateComponent } from './components/authent/authent-create/authent-create.component';
+import { AuthCreateAddressComponent } from './components/authent/auth-create-address/auth-create-address.component';
+import { HomeOrderComponent } from './components/home-order/home-order.component';
+import { HomeComponent } from './components/home/home.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +47,10 @@ import { AuthentCreateComponent } from './components/authent/authent-create/auth
     BeveragesFormAdminComponent,
     AuthClientPageComponent,
     AuthClientComponent,
-    AuthentCreateComponent
+    AuthentCreateComponent,
+    AuthCreateAddressComponent,
+    HomeOrderComponent,
+    HomeComponent
   ],
   imports: [
     AppRoutingModule,

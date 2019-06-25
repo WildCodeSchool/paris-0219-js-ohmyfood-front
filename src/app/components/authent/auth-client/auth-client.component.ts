@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { LoginService } from 'src/app/services/login.service';
 
 @Component({
   selector: 'app-auth-client',
@@ -9,7 +10,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class AuthClientComponent implements OnInit {
   authClientForm: FormGroup;
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private loginCheck: LoginService) { }
 
   ngOnInit() {
     this.initForm();
@@ -21,5 +22,4 @@ export class AuthClientComponent implements OnInit {
       psswClient: ['', [Validators.required, Validators.minLength(7), Validators.maxLength(15)]]
     })
   }
-
 }

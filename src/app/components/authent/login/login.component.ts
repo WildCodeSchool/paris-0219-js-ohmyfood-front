@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoginService } from 'src/app/services/login.service';
-import { HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -30,20 +29,16 @@ export class LoginComponent implements OnInit {
         mail: this.loginForm.value.emailClient,
         password: this.loginForm.value.psswClient
       }
-      const obsLogin = this.loginService.loginCheck().subscribe(res => {
-        console.log('this is the response : ' + res)
-        localStorage.setItem('token', res.headers['x-access-token'])
+      this.loginService.loginCheck().then(res => {
+        localStorage.setItem('token', res)
         this.routeProtected();
-        obsLogin.unsubscribe();
       });
     }
   }
 
   routeProtected() {
-    const protectToken = this.loginService.routeProtection().subscribe(res => {
+    this.loginService.routeProtection().then(res => {
       console.log('the protect route is called : ' + res)
-      protectToken.unsubscribe();
-
     });
   }
   

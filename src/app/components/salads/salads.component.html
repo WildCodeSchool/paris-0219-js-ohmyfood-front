@@ -10,14 +10,10 @@
   </a>
 
   <div class="notToggle" [ngClass]="{toggle: isToggle}">
-    <div class="header">
-      <h3 class="salads">
-        Nos Desserts<span>Prix</span>
-      </h3>
-      <h3 class="quantity">Quantités</h3>
-    </div>
 
     <form [formGroup]="saladsFormTable" (ngSubmit)="saladsFormTable.valid && onSubmit()">
+      <h1>Sélectionner votre base</h1>
+
       <div formArrayName="selectBase">
         <div
           class="formLine"
@@ -37,6 +33,45 @@
           <p>{{selectBase.errors['tooMuchBase']}}</p>
         </div>
       </div>
-      <button type='submit'> AjoutER </button>
+
+      <h1>Sélectionner vos ingredients</h1>
+
+      <div formArrayName="selectIngredients">
+        <div
+          class="formLine"
+          [formGroupName]="i"
+          *ngFor="let ingredients of selectIngredients.controls ; let i = index">
+
+            <label for="selectBase-{{ i }}">
+              {{ ingredients.value.saladsIngredientsName }}<span>{{ ingredients.value.saladsIngredientsPriceTTC }} EUR</span>
+            </label>
+
+            <div class="buttonQuantity">
+              <button
+                class="button is-rounded is-outlined is-mobile is-small"
+                name="remove-saladsIngredients-quantity"
+                type="button"
+                (click)="quantitySelect('-', i, ingredients.value.saladsIngredientsQuantity)">
+                  -
+              </button>
+
+              <input
+                type="number"
+                formControlName='saladsIngredientsQuantity' name='selectIngredients-{{ i }}' value="{{ingredients.value.saladsIngredientsQuantity}}">
+
+              <button
+                class="button is-rounded is-outlined is-mobile is-small"
+                name="remove-saladsIngredients-quantity"
+                type="button"
+                (click)="quantitySelect('+', i, ingredients.value.saladsIngredientsQuantity)">
+                  +
+                </button>
+            </div>
+        </div>
+      </div>
+
+      <button type='submit'> Ajouter au panier </button>
   </form>
+
+
 </div>

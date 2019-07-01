@@ -19,9 +19,6 @@ export class SaladsComponent implements OnInit {
 
   selectSaladsBase: object;
 
-
-
-
    // To toggle Form
    isToggle: boolean;
 
@@ -66,7 +63,6 @@ export class SaladsComponent implements OnInit {
           selectBase.push(saladsBaseFormTable);
         }
       }
-      console.log(selectBase);
       basesSubscription.unsubscribe();
     });
 
@@ -162,24 +158,12 @@ export class SaladsComponent implements OnInit {
 
     this.enableSubmit = false;
   }
-//   quantitySelect(operator, i, quantity) {
 
-//     this.saladsFormTable.value.selectSaladsBase[i].saladsBaseQuantity = this.quantitySelectService.selectQuantity(operator, quantity);
-//     console.log(this.saladsFormTable);
+  quantitySelect(operator, i, quantity) {
+    this.saladsFormTable.value.selectIngredients[i].saladsIngredientsQuantity =
+    this.quantitySelectService.selectQuantity(operator, quantity);
+   }
 
-//     this.saladsFormTable.value.selectSaladsBases[i].saladsBasesQuantity = this.quantitySelectService.selectQuantity(operator, quantity);
-
-// // tslint:disable-next-line: max-line-length
-//     this.saladsToppingsFormTable.value.selectSaladsBases[i].saladsBasesQuantity = this.quantitySelectService.selectQuantity(operator, quantity);
-// // tslint:disable-next-line: max-line-length
-//     this.saladsSaucesFormTable.value.selectSaladsBases[i].saladsBasesQuantity = this.quantitySelectService.selectQuantity(operator, quantity);
-
-//     if (this.saladsBasesFormTable.value.selectSaladsBases[i].saladsBasesQuantity > 0) {
-//       this.enableSubmit = true;
-//     } else {
-//       this.enableSubmit = false;
-//     }
-//    }
    toggleFormSalads($event) {
     $event.preventDefault();
     this.isToggle = this.ToggleForm.toggleForm(this.isToggle);

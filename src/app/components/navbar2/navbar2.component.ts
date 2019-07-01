@@ -8,17 +8,25 @@ import { LoginService } from 'src/app/services/login.service';
 })
 export class Navbar2Component {
   userInfoObject: Object;
+  userInfoGet: boolean = false;
 
   constructor(
     private loginService: LoginService
   ) {}
 
   ngOnInit() {
-    this.loginService.transfertUser.subscribe(data => {
+    if (localStorage.getItem('userLastName') != undefined) { //on page refresh with logged user
       this.userInfoObject = {
-        lastname: data.lastname,
-        firstname: data.firstname,
-        mail: data.mail
+        lastname: localStorage.getItem('userLastName'),
+        firstname: localStorage.getItem('userFirstName'),
+        mail: localStorage.getItem('userMail')
+      };
+    }
+    this.loginService.transfertUser.subscribe(_ => { // on client logged
+      this.userInfoObject = {
+        lastname: localStorage.getItem('userLastName'),
+        firstname: localStorage.getItem('userFirstName'),
+        mail: localStorage.getItem('userMail')
       };
     })
   }

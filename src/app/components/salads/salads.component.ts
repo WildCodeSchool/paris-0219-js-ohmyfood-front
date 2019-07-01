@@ -159,9 +159,17 @@ export class SaladsComponent implements OnInit {
     this.enableSubmit = false;
   }
 
-  quantitySelect(operator, i, quantity) {
-    this.saladsFormTable.value.selectIngredients[i].saladsIngredientsQuantity =
-    this.quantitySelectService.selectQuantity(operator, quantity);
+  quantitySelect(operator, i, quantity, saladsComponent) {
+    const check = Object.getOwnPropertyNames(saladsComponent.value); // to check what quantity have to change
+
+    if (check[0] === 'idSaladsIngredients') {
+      this.saladsFormTable.value.selectIngredients[i].saladsIngredientsQuantity =
+      this.quantitySelectService.selectQuantity(operator, quantity);
+
+    } else if (check[0] === 'idSaladsToppings') {
+      this.saladsFormTable.value.selectToppings[i].saladsToppingsQuantity =
+      this.quantitySelectService.selectQuantity(operator, quantity);
+    }
    }
 
    toggleFormSalads($event) {

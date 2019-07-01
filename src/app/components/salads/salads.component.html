@@ -42,7 +42,7 @@
           [formGroupName]="i"
           *ngFor="let ingredients of selectIngredients.controls ; let i = index">
 
-            <label for="selectBase-{{ i }}">
+            <label for="selectIngredients-{{ i }}">
               {{ ingredients.value.saladsIngredientsName }}<span>{{ ingredients.value.saladsIngredientsPriceTTC }} EUR</span>
             </label>
 
@@ -51,19 +51,58 @@
                 class="button is-rounded is-outlined is-mobile is-small"
                 name="remove-saladsIngredients-quantity"
                 type="button"
-                (click)="quantitySelect('-', i, ingredients.value.saladsIngredientsQuantity)">
+                (click)="quantitySelect('-', i, ingredients.value.saladsIngredientsQuantity, ingredients)">
                   -
               </button>
 
               <input
                 type="number"
-                formControlName='saladsIngredientsQuantity' name='selectIngredients-{{ i }}' value="{{ingredients.value.saladsIngredientsQuantity}}">
+                formControlName='saladsIngredientsQuantity'
+                name='selectIngredients-{{ i }}'
+                value="{{ingredients.value.saladsIngredientsQuantity}}">
 
               <button
                 class="button is-rounded is-outlined is-mobile is-small"
                 name="remove-saladsIngredients-quantity"
                 type="button"
-                (click)="quantitySelect('+', i, ingredients.value.saladsIngredientsQuantity)">
+                (click)="quantitySelect('+', i, ingredients.value.saladsIngredientsQuantity, ingredients)">
+                  +
+                </button>
+            </div>
+        </div>
+      </div>
+
+      <h1>Sélectionner vos toppgins</h1>
+
+      <div formArrayName="selectToppings">
+        <div
+          class="formLine"
+          [formGroupName]="i"
+          *ngFor="let toppings of selectToppings.controls ; let i = index">
+
+            <label for="selectToppings-{{ i }}">
+              {{ toppings.value.saladsToppginsName }}<span>{{ toppings.value.saladsToppingsPriceTTC }} EUR</span>
+            </label>
+
+            <div class="buttonQuantity">
+              <button
+                class="button is-rounded is-outlined is-mobile is-small"
+                name="remove-saladsToppings-quantity"
+                type="button"
+                (click)="quantitySelect('-', i, toppings.value.saladsToppingsQuantity, toppings)">
+                  -
+              </button>
+
+              <input
+                type="number"
+                formControlName='saladsToppingsQuantity'
+                name='selectToppings-{{ i }}' value="{{toppings.value.saladsToppingsQuantity}}">
+
+              <button
+                class="button is-rounded is-outlined is-mobile is-small"
+                name="remove-saladsToppings-quantity"
+                type="button"
+                (click)="quantitySelect('+', i, toppings.value.saladsToppingsQuantity, toppings)">
                   +
                 </button>
             </div>

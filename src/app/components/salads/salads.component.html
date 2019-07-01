@@ -141,6 +141,8 @@
                 (ngModelChange)="getSauce(i)">
 
         </div>
+
+        <p *ngIf="displaySaucesMessage">Attention, vous n'avez pas séléctionner de sauces</p>
       </div>
 
       <button type='submit'> Ajouter au panier </button>

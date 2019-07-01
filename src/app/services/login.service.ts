@@ -1,4 +1,4 @@
-import { Injectable, ɵConsole } from '@angular/core';
+import { Injectable, Output, EventEmitter } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
@@ -10,6 +10,8 @@ export class LoginService {
   urlProtected = 'http://localhost:3000/login/protected';
   urlUser = 'http://localhost:3000/users/userInfos';
   userInfoObject: Object;
+  transfertObject;
+  @Output() transfertUser: EventEmitter<any> = new EventEmitter;
 
   constructor(private http: HttpClient) { }
 
@@ -17,16 +19,12 @@ export class LoginService {
     return this.http.get(this.urlUser).toPromise();
   }
 
-  getClientInformationDone() {
-    return this.http.get(this.urlUser).subscribe(res => { 
-      if (this.userInfoObject['mail'] !== undefined) {
-        console.log('rfgbtrgerbe')
-      }
-    })
-  }
-
   loginCheck() {
     return this.http.post(this.url, this.loginObject, {responseType: "text"}).toPromise()
+  }
+
+  transfertUserFn(param) {
+    this.transfertUser.emit(param)
   }
 
   routeProtection() {

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoginService } from 'src/app/services/login.service';
 import { IsLogged } from 'src/app/services/IsLogged.service';
@@ -47,12 +47,12 @@ export class LoginComponent implements OnInit {
       this.isLogged.log = true;
       this.isLogged.canActivate;
       this.loginService.getClientInformation().then(res => {
-        this.loginService.userInfoObject = {
+        const userInfoObject = {
           lastname: res['0'].lastname,
           firstname: res['0'].firstname,
           mail: res['0'].mail
         }
-        console.log(this.loginService.userInfoObject)
+        this.loginService.transfertUserFn(userInfoObject);
       })
       this.router.navigateByUrl("/homeOrderPage");
     });

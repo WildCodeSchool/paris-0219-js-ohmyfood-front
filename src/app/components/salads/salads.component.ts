@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { SaladsDatasService } from 'src/app/services/salads-datas.service';
 import { QuantitySelectService } from 'src/app/services/quantity-select.service';
 import { ToggleFormService } from 'src/app/services/toggle-form.service';
-import { FormBuilder, FormArray, Validators } from '@angular/forms';
+import { FormBuilder, FormArray } from '@angular/forms';
 import { OrderSalads } from 'src/app/class/order-salads';
 import {checkSaladsBase} from 'src/app/validators/saladsBaseValidators';
+import { checkSaladsIngredients } from 'src/app/validators/saladsIngredientsValidators';
 
 @Component({
   selector: 'app-salads',
@@ -19,16 +20,18 @@ export class SaladsComponent implements OnInit {
 
   selectSaladsBase: object;
 
-   // To toggle Form
-   isToggle: boolean;
+  // To toggle Form
+  isToggle: boolean;
 
-   // Enable submit button
+  // To control all formArray
+  enableSubmitArray: Array<boolean>;
+
+  // Enable submit button
   enableSubmit: boolean;
-
 
   formSalads = this.fb.group({
       selectBase: this.fb.array([], checkSaladsBase()),
-      selectIngredients: this.fb.array([]),
+      selectIngredients: this.fb.array([], checkSaladsIngredients()),
       selectToppings: this.fb.array([]),
       selectSauces: this.fb.array([])
   });
@@ -166,12 +169,15 @@ export class SaladsComponent implements OnInit {
     const check = Object.getOwnPropertyNames(saladsComponent.value); // to check what quantity have to change
 
     if (check[0] === 'idSaladsIngredients') {
-      this.formSalads.value.selectIngredients[i].saladsIngredientsQuantity =
-      this.quantitySelectService.selectQuantity(operator, quantity);
+
+      this.formSalads.controls.selectIngredients[`controls`][i].patchValue({
+        saladsIngredientsQuantity: this.quantitySelectService.selectQuantity(operator, quantity)
+      });
 
     } else if (check[0] === 'idSaladsToppings') {
-      this.formSalads.value.selectToppings[i].saladsToppingsQuantity =
-      this.quantitySelectService.selectQuantity(operator, quantity);
+      this.formSalads.controls.selectToppings[`controls`][i].patchValue({
+        saladsToppingsQuantity: this.quantitySelectService.selectQuantity(operator, quantity)
+      });
     }
    }
 

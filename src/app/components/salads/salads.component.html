@@ -11,7 +11,7 @@
 
   <div class="notToggle" [ngClass]="{toggle: isToggle}">
 
-    <form [formGroup]="formSalads" (ngSubmit)="formSalads.valid && onSubmit()">
+    <form [formGroup]="formSalads" (ngSubmit)="formSalads.valid && onSubmit()" #saladsForm=ngForm>
       <h1>Sélectionner votre base</h1>
 
       <div formArrayName="selectBase">
@@ -31,7 +31,7 @@
            id="selectBase-{{ i }}">
         </div>
 
-        <div *ngIf="selectBase.errors">
+        <div *ngIf="saladsForm.submitted && selectBase.errors">
           <p>{{selectBase.errors['tooMuchBase']}}</p>
         </div>
       </div>
@@ -53,7 +53,7 @@
                 class="button is-rounded is-outlined is-mobile is-small"
                 name="remove-saladsIngredients-quantity"
                 type="button"
-                (click)="quantitySelect('-', i, ingredients.value.saladsIngredientsQuantity, ingredients)">
+                (click)="quantitySelect('-', i, ingredients['controls'].saladsIngredientsQuantity.value, ingredients)">
                   -
               </button>
 
@@ -61,16 +61,20 @@
                 type="number"
                 formControlName='saladsIngredientsQuantity'
                 name='selectIngredients-{{ i }}'
-                value="{{ingredients.value.saladsIngredientsQuantity}}">
+                value="{{ ingredients['controls'].saladsIngredientsQuantity.value }}">
 
               <button
                 class="button is-rounded is-outlined is-mobile is-small"
                 name="remove-saladsIngredients-quantity"
                 type="button"
-                (click)="quantitySelect('+', i, ingredients.value.saladsIngredientsQuantity, ingredients)">
+                (click)="quantitySelect('+', i, ingredients['controls'].saladsIngredientsQuantity.value, ingredients)">
                   +
                 </button>
             </div>
+        </div>
+
+        <div *ngIf="saladsForm.submitted && selectIngredients.errors">
+            <p>{{selectIngredients.errors['isRequired']}}</p>
         </div>
       </div>
 
@@ -91,20 +95,21 @@
                 class="button is-rounded is-outlined is-mobile is-small"
                 name="remove-saladsToppings-quantity"
                 type="button"
-                (click)="quantitySelect('-', i, toppings.value.saladsToppingsQuantity, toppings)">
+                (click)="quantitySelect('-', i, toppings['controls'].saladsToppingsQuantity.value, toppings)">
                   -
               </button>
 
               <input
                 type="number"
                 formControlName='saladsToppingsQuantity'
-                name='selectToppings-{{ i }}' value="{{toppings.value.saladsToppingsQuantity}}">
+                name='selectToppings-{{ i }}'
+                value="{{ toppings['controls'].saladsToppingsQuantity.value }}">
 
               <button
                 class="button is-rounded is-outlined is-mobile is-small"
                 name="remove-saladsToppings-quantity"
                 type="button"
-                (click)="quantitySelect('+', i, toppings.value.saladsToppingsQuantity, toppings)">
+                (click)="quantitySelect('+', i, toppings['controls'].saladsToppingsQuantity.value, toppings)">
                   +
                 </button>
             </div>

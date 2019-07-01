@@ -6,6 +6,7 @@ import { FormBuilder, FormArray } from '@angular/forms';
 import { OrderSalads } from 'src/app/class/order-salads';
 import {checkSaladsBase} from 'src/app/validators/saladsBaseValidators';
 import { checkSaladsIngredients } from 'src/app/validators/saladsIngredientsValidators';
+import { checkSaladsToppings } from 'src/app/validators/saladsToppingsValidators';
 
 @Component({
   selector: 'app-salads',
@@ -23,16 +24,10 @@ export class SaladsComponent implements OnInit {
   // To toggle Form
   isToggle: boolean;
 
-  // To control all formArray
-  enableSubmitArray: Array<boolean>;
-
-  // Enable submit button
-  enableSubmit: boolean;
-
   formSalads = this.fb.group({
       selectBase: this.fb.array([], checkSaladsBase()),
       selectIngredients: this.fb.array([], checkSaladsIngredients()),
-      selectToppings: this.fb.array([]),
+      selectToppings: this.fb.array([], checkSaladsToppings()),
       selectSauces: this.fb.array([])
   });
 

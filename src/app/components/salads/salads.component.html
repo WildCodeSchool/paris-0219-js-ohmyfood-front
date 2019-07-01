@@ -114,6 +114,10 @@
                 </button>
             </div>
         </div>
+
+        <div *ngIf="saladsForm.submitted && selectToppings.errors">
+            <p>{{selectToppings.errors['isRequired']}}</p>
+        </div>
       </div>
 
       <h1>Sélectionner votre sauce</h1>

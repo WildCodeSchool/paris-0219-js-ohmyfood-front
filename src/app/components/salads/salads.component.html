@@ -11,7 +11,7 @@
 
   <div class="notToggle" [ngClass]="{toggle: isToggle}">
 
-    <form [formGroup]="saladsFormTable" (ngSubmit)="saladsFormTable.valid && onSubmit()">
+    <form [formGroup]="formSalads" (ngSubmit)="formSalads.valid && onSubmit()">
       <h1>Sélectionner votre base</h1>
 
       <div formArrayName="selectBase">
@@ -26,9 +26,11 @@
 
            <input
            type="checkbox"
-           formControlName='saladsBaseQuantity' name='selectBase-{{ i }}'
-           >
+           formControlName="saladsBaseQuantity"
+           name="selectBase-{{ i }}"
+           id="selectBase-{{ i }}">
         </div>
+
         <div *ngIf="selectBase.errors">
           <p>{{selectBase.errors['tooMuchBase']}}</p>
         </div>
@@ -72,7 +74,7 @@
         </div>
       </div>
 
-      <h1>Sélectionner vos toppgins</h1>
+      <h1>Sélectionner vos toppings</h1>
 
       <div formArrayName="selectToppings">
         <div
@@ -81,7 +83,7 @@
           *ngFor="let toppings of selectToppings.controls ; let i = index">
 
             <label for="selectToppings-{{ i }}">
-              {{ toppings.value.saladsToppginsName }}<span>{{ toppings.value.saladsToppingsPriceTTC }} EUR</span>
+              {{ toppings.value.saladsToppingsName }}<span>{{ toppings.value.saladsToppingsPriceTTC }} EUR</span>
             </label>
 
             <div class="buttonQuantity">
@@ -106,6 +108,29 @@
                   +
                 </button>
             </div>
+        </div>
+      </div>
+
+      <h1>Sélectionner votre sauce</h1>
+
+      <div formArrayName="selectSauces">
+        <div
+          class="formLine"
+          [formGroupName]="i"
+          *ngFor="let sauces of selectSauces.controls ; let i = index">
+
+            <label for="saladsSaucesQuantity-{{ i }}">
+              {{ sauces.value.saladsSaucesName }}
+            </label>
+
+              <input
+                type="radio"
+                formControlName='saladsSaucesQuantity'
+                name='saladsSaucesQuantity'
+                value='{{sauces.value.saladsSaucesName}}'
+                id="saladsSaucesQuantity-{{ i }}"
+                (ngModelChange)="getSauce()">
+
         </div>
       </div>
 

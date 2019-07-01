@@ -12,10 +12,10 @@ import {checkSaladsBase} from 'src/app/validators/saladsBaseValidators';
   styleUrls: ['./salads.component.scss']
 })
 export class SaladsComponent implements OnInit {
-  saladsSaucesList;
-  saladsIngredientsList;
-  saladsBaseList;
-  saladsToppingsList;
+  saladsSaucesList: object;
+  saladsIngredientsList: object;
+  saladsBaseList: object;
+  saladsToppingsList: object;
 
   selectSaladsBase: object;
 
@@ -26,7 +26,7 @@ export class SaladsComponent implements OnInit {
   enableSubmit: boolean;
 
 
-  saladsFormTable = this.fb.group({
+  formSalads = this.fb.group({
       selectBase: this.fb.array([], checkSaladsBase()),
       selectIngredients: this.fb.array([]),
       selectToppings: this.fb.array([]),
@@ -50,17 +50,17 @@ export class SaladsComponent implements OnInit {
           this.saladsBaseList[key].saladsBasePriceTTC = this.saladsBaseList[key].saladsBasePriceTTC.toFixed(2);
         }
       }
-      const selectBase = this.saladsFormTable.get('selectBase') as FormArray;
+      const selectBase = this.formSalads.get('selectBase') as FormArray;
 
       for (const key in this.saladsBaseList) {
         if (this.saladsBaseList.hasOwnProperty(key)) {
-          const saladsBaseFormTable = this.fb.group({
+          const saladsBaseForm = this.fb.group({
             idSaladsBase: [ this.saladsBaseList[key].idSaladsBase],
             saladsBaseName: [ this.saladsBaseList[key].saladsBaseName],
             saladsBasePriceTTC: [ this.saladsBaseList[key].saladsBasePriceTTC],
             saladsBaseQuantity: [false]
           });
-          selectBase.push(saladsBaseFormTable);
+          selectBase.push(saladsBaseForm);
         }
       }
       basesSubscription.unsubscribe();
@@ -74,17 +74,17 @@ export class SaladsComponent implements OnInit {
           this.saladsIngredientsList[key].saladsIngredientsPriceTTC = this.saladsIngredientsList[key].saladsIngredientsPriceTTC.toFixed(2);
         }
       }
-      const selectIngredients = this.saladsFormTable.get('selectIngredients') as FormArray; // Declare key as form array
+      const selectIngredients = this.formSalads.get('selectIngredients') as FormArray; // Declare key as form array
 
       for (const key in this.saladsIngredientsList) { // create form for each object from data base
         if (this.saladsIngredientsList.hasOwnProperty(key)) {
-          const saladsIngredientsFormTable = this.fb.group({
+          const saladsIngredientsForm = this.fb.group({
             idSaladsIngredients: [ this.saladsIngredientsList[key].idSaladsIngredients],
             saladsIngredientsName: [ this.saladsIngredientsList[key].saladsIngredientsName],
             saladsIngredientsPriceTTC: [ this.saladsIngredientsList[key].saladsIngredientsPriceTTC],
             saladsIngredientsQuantity: [0]
           });
-          selectIngredients.push(saladsIngredientsFormTable); // push all form in the formArray
+          selectIngredients.push(saladsIngredientsForm); // push all form in the formArray
         }
       }
       ingredientsSubscription.unsubscribe(); // Unsubscription to Observable
@@ -93,15 +93,16 @@ export class SaladsComponent implements OnInit {
     const saucesSubscription = this.saladsDataService.addSaladsSauces().subscribe(sauces => {
       this.saladsSaucesList = sauces;
 
-      const selectSauces = this.saladsFormTable.get('selectSauces') as FormArray;
+      const selectSauces = this.formSalads.get('selectSauces') as FormArray;
 
       for (const key in this.saladsSaucesList) {
         if (this.saladsSaucesList.hasOwnProperty(key)) {
-          const saladsSaucesFormTable = this.fb.group({
+          const saladsSaucesForm = this.fb.group({
             idSaladsSauces: [ this.saladsSaucesList[key].idSaladsSauces],
             saladsSaucesName: [ this.saladsSaucesList[key].saladsSaucesName],
+            saladsSaucesQuantity: [ false ]
           });
-          selectSauces.push(saladsSaucesFormTable);
+          selectSauces.push(saladsSaucesForm);
         }
       }
       saucesSubscription.unsubscribe();
@@ -115,17 +116,17 @@ export class SaladsComponent implements OnInit {
           this.saladsToppingsList[key].saladsToppingsPriceTTC = this.saladsToppingsList[key].saladsToppingsPriceTTC.toFixed(2);
         }
       }
-      const selectToppings = this.saladsFormTable.get('selectToppings') as FormArray;
+      const selectToppings = this.formSalads.get('selectToppings') as FormArray;
 
       for (const key in this.saladsToppingsList) {
         if (this.saladsToppingsList.hasOwnProperty(key)) {
-          const saladsToppingsFormTable = this.fb.group({
+          const saladsToppingsForm = this.fb.group({
             idSaladsToppings: [ this.saladsToppingsList[key].idSaladsToppings],
             saladsToppingsName: [ this.saladsToppingsList[key].saladsToppingsName],
             saladsToppingsPriceTTC: [ this.saladsToppingsList[key].saladsToppingsPriceTTC],
             saladsToppingsQuantity: [0]
           });
-          selectToppings.push(saladsToppingsFormTable);
+          selectToppings.push(saladsToppingsForm);
         }
       }
       toppingsSubscription.unsubscribe();
@@ -133,28 +134,30 @@ export class SaladsComponent implements OnInit {
   }
 
   get selectBase(): FormArray {
-    return this.saladsFormTable.get('selectBase') as FormArray;
+    return this.formSalads.get('selectBase') as FormArray;
   }
 
   get selectIngredients(): FormArray {
-    return this.saladsFormTable.get('selectIngredients') as FormArray;
+    return this.formSalads.get('selectIngredients') as FormArray;
   }
 
   get selectSauces(): FormArray {
-    return this.saladsFormTable.get('selectSauces') as FormArray;
+    return this.formSalads.get('selectSauces') as FormArray;
   }
 
   get selectToppings(): FormArray {
-    return this.saladsFormTable.get('selectToppings') as FormArray;
+    return this.formSalads.get('selectToppings') as FormArray;
   }
 
   onSubmit() {
 // tslint:disable-next-line: no-shadowed-variable
-    const OrderSalads = this.saladsFormTable.value;
+    const OrderSalads = this.formSalads.value;
 
     console.log(OrderSalads);
 
     this.saladsDataService.createOrderSalads(OrderSalads);
+
+    this.resetFormSalads();
 
     this.enableSubmit = false;
   }
@@ -163,11 +166,11 @@ export class SaladsComponent implements OnInit {
     const check = Object.getOwnPropertyNames(saladsComponent.value); // to check what quantity have to change
 
     if (check[0] === 'idSaladsIngredients') {
-      this.saladsFormTable.value.selectIngredients[i].saladsIngredientsQuantity =
+      this.formSalads.value.selectIngredients[i].saladsIngredientsQuantity =
       this.quantitySelectService.selectQuantity(operator, quantity);
 
     } else if (check[0] === 'idSaladsToppings') {
-      this.saladsFormTable.value.selectToppings[i].saladsToppingsQuantity =
+      this.formSalads.value.selectToppings[i].saladsToppingsQuantity =
       this.quantitySelectService.selectQuantity(operator, quantity);
     }
    }
@@ -175,5 +178,37 @@ export class SaladsComponent implements OnInit {
    toggleFormSalads($event) {
     $event.preventDefault();
     this.isToggle = this.ToggleForm.toggleForm(this.isToggle);
+  }
+
+  resetFormSalads() {
+    for (const key in this.formSalads.value) {
+      if (this.formSalads.value.hasOwnProperty(key)) {
+
+        if (key === 'selectBase') {
+          this.formSalads.controls[key].controls.map(
+            result => result.controls.saladsBaseQuantity.reset(false)
+          );
+
+        } else if (key === 'selectIngredients') {
+            this.formSalads.controls[key].controls.map(
+              result => result.controls.saladsIngredientsQuantity.reset(0)
+            );
+
+        } else if (key === 'selectToppings') {
+            this.formSalads.controls[key].controls.map(
+              result => result.controls.saladsToppingsQuantity.reset(0)
+                );
+
+        } else if (key === 'selectSauces') {
+            this.formSalads.controls[key].controls.map(
+              result => result.controls.saladsSaucesQuantity.reset(false)
+                );
+        }
+      }
+    }
+  }
+
+  getSauce() {
+    console.log('je me lance');
   }
 }

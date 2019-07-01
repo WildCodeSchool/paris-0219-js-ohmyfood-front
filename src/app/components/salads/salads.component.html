@@ -127,9 +127,9 @@
                 type="radio"
                 formControlName='saladsSaucesQuantity'
                 name='saladsSaucesQuantity'
-                value='{{sauces.value.saladsSaucesName}}'
                 id="saladsSaucesQuantity-{{ i }}"
-                (ngModelChange)="getSauce()">
+                value="{{sauces.value.saladsSaucesName}}"
+                (ngModelChange)="getSauce(i)">
 
         </div>
       </div>

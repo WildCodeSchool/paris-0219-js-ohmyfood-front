@@ -185,22 +185,22 @@ export class SaladsComponent implements OnInit {
       if (this.formSalads.value.hasOwnProperty(key)) {
 
         if (key === 'selectBase') {
-          this.formSalads.controls[key].controls.map(
+          this.formSalads.controls[key][`controls`].map(
             result => result.controls.saladsBaseQuantity.reset(false)
           );
 
         } else if (key === 'selectIngredients') {
-            this.formSalads.controls[key].controls.map(
+            this.formSalads.controls[key][`controls`].map(
               result => result.controls.saladsIngredientsQuantity.reset(0)
             );
 
         } else if (key === 'selectToppings') {
-            this.formSalads.controls[key].controls.map(
+            this.formSalads.controls[key][`controls`].map(
               result => result.controls.saladsToppingsQuantity.reset(0)
                 );
 
         } else if (key === 'selectSauces') {
-            this.formSalads.controls[key].controls.map(
+            this.formSalads.controls[key][`controls`].map(
               result => result.controls.saladsSaucesQuantity.reset(false)
                 );
         }
@@ -208,7 +208,14 @@ export class SaladsComponent implements OnInit {
     }
   }
 
-  getSauce() {
-    console.log('je me lance');
+  // To get user's sauces choice
+  getSauce(i: number) {
+    for (const key in this.formSalads.value.selectSauces) {
+      if (this.formSalads.value.selectSauces.hasOwnProperty(key)) {
+        if (i !== +key) {
+          this.formSalads.value.selectSauces[key].saladsSaucesQuantity = false;
+        }
+      }
+    }
   }
 }

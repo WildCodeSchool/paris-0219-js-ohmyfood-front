@@ -1,18 +1,29 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, SimpleChange } from '@angular/core';
+import { LoginService } from 'src/app/services/login.service';
+import { IsLogged } from 'src/app/services/IsLogged.service';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-navbar2',
   templateUrl: './navbar2.component.html',
   styleUrls: ['./navbar2.component.scss']
 })
-export class Navbar2Component  {
+export class Navbar2Component {
+  userInfoObject: Object;
+  isLogForNavbar: boolean;
 
-  // @ViewChild('navBurger', {static: true}) navBurger: ElementRef<any>;
-  // @ViewChild('navMenu', {static: true}) navMenu: ElementRef<any>;
+  constructor(
+    private loginService: LoginService,
+    private isLogged: IsLogged
+  ) {}
 
-  // toggleNavbar() {
-  //     this.navBurger.nativeElement.classList.toggle('is-active');
-  //     this.navMenu.nativeElement.classList.toggle('is-active');
-  // }
+  ngOnInit() {
+  }
+
+  ngOnChange() {
+    if (this.loginService.userInfoObject !== {}) {
+      console.log("WWUSOHRGUGFEIHIRGBTUIBRIHIROIUERBFUGRFBU")
+    }
+  }
 }
 

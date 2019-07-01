@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoginService } from 'src/app/services/login.service';
+import { IsLogged } from 'src/app/services/IsLogged.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -10,7 +12,11 @@ import { LoginService } from 'src/app/services/login.service';
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private loginService: LoginService) { }
+  constructor(
+    private fb: FormBuilder, 
+    private loginService: LoginService,
+    private router: Router,
+    private isLogged: IsLogged ) { }
 
   ngOnInit() {
     this.initForm();
@@ -38,7 +44,17 @@ export class LoginComponent implements OnInit {
 
   routeProtected() {
     this.loginService.routeProtection().then(res => {
-      console.log('the protect route is called : ' + res)
+      this.isLogged.log = true;
+      this.isLogged.canActivate;
+      this.loginService.getClientInformation().then(res => {
+        this.loginService.userInfoObject = {
+          lastname: res['0'].lastname,
+          firstname: res['0'].firstname,
+          mail: res['0'].mail
+        }
+        console.log(this.loginService.userInfoObject)
+      })
+      this.router.navigateByUrl("/homeOrderPage");
     });
   }
   

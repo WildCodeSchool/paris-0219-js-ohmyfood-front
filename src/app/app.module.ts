@@ -22,7 +22,7 @@ import { BasketComponent } from './components/basket/basket.component';
 import { AdminPagesComponent } from './pages/admin-pages/admin-pages.component';
 import { BeveragesFormAdminComponent } from './components/beverages-form-admin/beverages-form-admin.component';
 import { AuthClientPageComponent } from './pages/authent/auth-client-page/auth-client-page.component';
-import { AuthClientComponent } from './components/authent/auth-client/auth-client.component';
+import { LoginComponent } from './components/authent/login/login.component';
 import { AuthentCreateComponent } from './components/authent/authent-create/authent-create.component';
 import { AuthCreateAddressComponent } from './components/authent/auth-create-address/auth-create-address.component';
 import { HomeOrderComponent } from './components/home-order/home-order.component';
@@ -46,7 +46,7 @@ import { HomeComponent } from './components/home/home.component';
     AdminPagesComponent,
     BeveragesFormAdminComponent,
     AuthClientPageComponent,
-    AuthClientComponent,
+    LoginComponent,
     AuthentCreateComponent,
     AuthCreateAddressComponent,
     HomeOrderComponent,

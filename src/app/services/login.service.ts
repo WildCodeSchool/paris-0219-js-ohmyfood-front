@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { tap } from 'rxjs/operators';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -8,12 +7,17 @@ import { tap } from 'rxjs/operators';
 export class LoginService {
   loginObject;
   url = 'http://localhost:3000/login';
-
+  urlProtected = 'http://localhost:3000/login/protected'
   constructor(private http: HttpClient) { }
 
-  loginCheck(email: string, password: string) {
-    return this.http.post<{access_token: string}>(this.url, {email, password}).pipe(tap(res => {
-      localStorage.setItem('access_token', res.access_token);
-    }))
+  loginCheck() {
+    return this.http.post(this.url, this.loginObject, {responseType: "text"})
+}
+
+  routeProtection() {
+    const token = localStorage.getItem("token");
+    return this.http.post(this.urlProtected,{
+      headers: {"Authorization": `Bearer ${token}`}
+    });
   }
 }

@@ -1,4 +1,4 @@
-<form [formGroup]="authClientForm">
+<form [formGroup]="loginForm">
   <h2>Bienvenue chez OHMYFOOD</h2>
   <input 
     type="text" 
@@ -12,7 +12,7 @@
     formControlName="psswClient"
     required
   >
-  <button type="submit">Ok</button>
+  <button type="submit" (click)="onSubmit()">Ok</button>
 </form>
 <p>Pas de compte?</p>
 <a href="#">Inscrivez-vous !</a>

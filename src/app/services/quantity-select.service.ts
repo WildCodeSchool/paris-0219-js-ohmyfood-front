@@ -19,4 +19,9 @@ export class QuantitySelectService {
       return quantity;
     }
   }
+
+  updatePrice(quantity, price) {
+    let newPrice = 0;
+    return newPrice = quantity * price;
+  }
 }

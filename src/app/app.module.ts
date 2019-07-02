@@ -6,7 +6,6 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { PizzaPageComponent } from './pages/pizza-page/pizza-page.component';
-import { SaladsSaucesPageComponent } from './pages/salads-sauces-page/salads-sauces-page.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { HomeOrderPageComponent } from './pages/home-order-page/home-order-page.component';
 
@@ -15,7 +14,6 @@ import { PizzasFormComponent } from './components/pizzas-form/pizzas-form.compon
 import { BeveragesFormComponent } from './components/beverages-form/beverages-form.component';
 import { DessertsFormComponent } from './components/desserts-form/desserts-form.component';
 import { FooterComponent } from './components/footer/footer.component';
-import { SaladsSaucesComponent } from './components/salads-sauces/salads-sauces.component';
 import { RouterModule } from '@angular/router';
 import { Navbar2Component } from './components/navbar2/navbar2.component';
 import { BasketComponent } from './components/basket/basket.component';
@@ -24,15 +22,15 @@ import { BeveragesFormAdminComponent } from './components/beverages-form-admin/b
 import { AuthClientPageComponent } from './pages/authent/auth-client-page/auth-client-page.component';
 import { LoginComponent } from './components/authent/login/login.component';
 import { AuthentCreateComponent } from './components/authent/authent-create/authent-create.component';
+import { SaladsFormComponent } from './components/salads-form/salads-form.component';
 import { AuthCreateAddressComponent } from './components/authent/auth-create-address/auth-create-address.component';
 import { HomeOrderComponent } from './components/home-order/home-order.component';
 import { HomeComponent } from './components/home/home.component';
+import { SaladPageComponent } from './pages/salad-page/salad-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    SaladsSaucesComponent,
-    SaladsSaucesPageComponent,
     DessertsFormComponent,
     PizzasFormAdminComponent,
     PizzaPageComponent,
@@ -48,9 +46,11 @@ import { HomeComponent } from './components/home/home.component';
     AuthClientPageComponent,
     LoginComponent,
     AuthentCreateComponent,
+    SaladsFormComponent,
     AuthCreateAddressComponent,
     HomeOrderComponent,
-    HomeComponent
+    HomeComponent,
+    SaladPageComponent
   ],
   imports: [
     AppRoutingModule,

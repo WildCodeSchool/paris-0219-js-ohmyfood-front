@@ -6,7 +6,7 @@ import { HomePageComponent } from './pages/home-page/home-page.component';
 import { HomeOrderPageComponent } from './pages/home-order-page/home-order-page.component';
 import { AdminPagesComponent } from './pages/admin-pages/admin-pages.component';
 import { AuthClientPageComponent } from './pages/authent/auth-client-page/auth-client-page.component';
-import { SaladsFormComponent } from './components/salads-form/salads-form.component';
+import { SaladPageComponent } from './pages/salad-page/salad-page.component';
 
 const routes: Routes = [
   {
@@ -32,8 +32,8 @@ const routes: Routes = [
     component: PizzaPageComponent
   },
   {
-    path: 'salades',
-    component: SaladsFormComponent
+    path: 'saladePage',
+    component: SaladPageComponent
   }
 ];
 

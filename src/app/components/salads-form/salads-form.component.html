@@ -136,7 +136,7 @@
                 name='saladsSaucesQuantity'
                 id="saladsSaucesQuantity-{{ i }}"
                 value="{{sauces.value.saladsSaucesName}}"
-                (ngModelChange)="getSauce(i)">
+                (ngModelChange)="getSauce(i, saladsForm.submitted)">
 
         </div>
 

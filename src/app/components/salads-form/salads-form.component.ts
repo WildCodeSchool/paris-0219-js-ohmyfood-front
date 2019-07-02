@@ -3,7 +3,6 @@ import { SaladsDatasService } from 'src/app/services/salads-datas.service';
 import { QuantitySelectService } from 'src/app/services/quantity-select.service';
 import { ToggleFormService } from 'src/app/services/toggle-form.service';
 import { FormBuilder, FormArray } from '@angular/forms';
-import { OrderSalads } from 'src/app/class/order-salads';
 import {checkSaladsBase} from 'src/app/validators/saladsBaseValidators';
 import { checkSaladsIngredients } from 'src/app/validators/saladsIngredientsValidators';
 
@@ -153,10 +152,7 @@ export class SaladsFormComponent implements OnInit {
   }
 
   onSubmit() {
-// tslint:disable-next-line: no-shadowed-variable
     const OrderSalads = this.formSalads.value;
-
-    console.log(OrderSalads);
 
     this.saladsDataService.createOrderSalads(OrderSalads);
 
@@ -226,23 +222,24 @@ export class SaladsFormComponent implements OnInit {
   }
 
   // To get user's sauces choice
-  getSauce(i: number) {
-    let count = 0;
+  getSauce(index: number, formSubmit: boolean) {
+    let count = 0; // To count how many value = 0 to display message
 
-    for (const key in this.formSalads.controls.selectSauces[`controls`]) {
-      if (this.formSalads.controls.selectSauces[`controls`].hasOwnProperty(key)) {
-        if (i !== +key) {
-          this.formSalads.value.selectSauces[key].saladsSaucesQuantity = false;
-        }
-        if (this.formSalads.value.selectSauces[key].saladsSaucesQuantity === false) {
-          count ++;
+    const length = this.formSalads.controls.selectSauces[`controls`].length; // To get array length
 
-          if (count === this.formSalads.controls.selectSauces[`controls`].length || count === 0) {
-            this.displaySaucesMessage = true;
+    for (let i = 0; i < length; i ++) {
+      if (index !== i && !formSubmit) {
+        this.formSalads.controls.selectSauces[`controls`][i].value.saladsSaucesQuantity = false;
+      }
 
-          } else {
-            this.displaySaucesMessage = false;
-          }
+      if (this.formSalads.controls.selectSauces[`controls`][i].value.saladsSaucesQuantity === false) {
+        count ++;
+
+        if (count === this.formSalads.controls.selectSauces[`controls`].length || count === 0) {
+          this.displaySaucesMessage = true;
+
+        } else {
+          this.displaySaucesMessage = false;
         }
       }
     }

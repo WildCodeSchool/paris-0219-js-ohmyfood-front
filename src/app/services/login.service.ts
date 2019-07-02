@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class LoginService {
-  booleanLoggedIn = false;
+  booleanLoggedIn;
   loginObject: Object;
   url = 'http://localhost:3000/login';
   urlProtected = 'http://localhost:3000/login/protected';

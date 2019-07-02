@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CanActivate } from '@angular/router';
-import { LoginService } from './login.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -8,16 +8,15 @@ import { LoginService } from './login.service';
 export class OnlyLoggedInUsersGuardService implements CanActivate {
   
   constructor(
-    private loginService: LoginService
+    private router: Router
   ) {}
 
   canActivate(): boolean {
-    const logIn = this.loginService.booleanLoggedIn;
-    if (logIn === true) {
-      console.log('GUARD UNLOCKED')
+    if (localStorage.getItem('userLastName') != undefined) {
       return true
     } else {
-      console.log('SHALL NOT PASS')
+      this.router.navigateByUrl('authClientPage');
+      window.alert("Connectez-vous pour avoir accès aux commandes en ligne")
       return false
     }
   }

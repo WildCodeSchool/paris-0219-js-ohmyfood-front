@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Output, EventEmitter } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { OrderSalads } from '../class/order-salads';
@@ -19,6 +19,9 @@ export class SaladsDatasService {
   userSauces: SaladsSauces;
 
   userChoice: Array<OrderSalads> = [];
+
+  @Output()
+  public getSalads: EventEmitter<any> = new EventEmitter();
 
   constructor(private http: HttpClient) { }
 
@@ -93,5 +96,6 @@ export class SaladsDatasService {
       this.userSauces
     );
     this.userChoice.push(userSaladsComposed);
+    this.getSalads.emit(this.userChoice);
   }
 }

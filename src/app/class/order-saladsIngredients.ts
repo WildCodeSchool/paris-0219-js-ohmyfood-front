@@ -1,8 +1,8 @@
 export class SaladsIngredients {
   constructor(
-    public idSaladsIngredients: Array<[]>,
+    public idSaladsIngredients: number,
     public saladsIngredientsName: string,
-    public saladsIngredientsPrice: number,
+    public saladsIngredientsPriceTTC: string,
     public saladsIngredientsQuantity: number
   ) {}
 }

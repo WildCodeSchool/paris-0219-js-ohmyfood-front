@@ -1,6 +1,6 @@
 export class SaladsSauces {
   constructor(
-    public idSaladsSauces: Array<[]>,
+    public idSaladsSauces: number,
     public saladsSaucesName: string
   ) {}
 }

@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormArray } from '@angular/forms';
 import { OrderPizzas } from '../class/order-pizzas';
 import { OrderBeverage } from '../class/order-beverage';
 import { OrderDessert } from '../class/order-dessert';
+import { OrderSalads } from '../class/order-salads';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +21,46 @@ export class CreateFormBasketService {
         pizzasQuantity: [formToCreate.pizzQuantity]
       });
       return pizzChoice;
+
+    } else if (formToCreate instanceof OrderSalads) {
+
+      const saladChoice = this.fb.group({
+        multiBases: this.fb.array([]),
+        multiIngredients: this.fb.array([]),
+        multiToppings: this.fb.array([]),
+        idSaladsSauces: formToCreate.orderSaladsSauces.idSaladsSauces
+      });
+
+      const multiBases = saladChoice.get('multiBases') as FormArray;
+
+      for (const iterator of formToCreate.orderSaladsBases) {
+          const base = this.fb.group({
+            idSaladsBase: iterator.idSaladsBases,
+            multiBasesQuantity: iterator.saladsBasesQuantity
+          });
+          multiBases.push(base);
+      }
+
+      const multiIngredients = saladChoice.get('multiIngredients') as FormArray;
+
+      for (const iterator of formToCreate.orderSaladsIngredients) {
+        const ingredient = this.fb.group({
+          idSaladsIngredients: iterator.idSaladsIngredients,
+          multiIngredientsQuantity: iterator.saladsIngredientsQuantity
+        });
+        multiIngredients.push(ingredient);
+      }
+
+      const multiToppings = saladChoice.get('multiToppings') as FormArray;
+
+      for (const iterator of formToCreate.orderSaladsToppings) {
+        const topping = this.fb.group({
+          idSaladsToppings: iterator.idSaladsToppings,
+          multiToppingsQuantity: iterator.saladsToppingsQuantity
+        });
+        multiToppings.push(topping);
+      }
+      return saladChoice;
 
     } else if (formToCreate instanceof OrderBeverage) {
       const drinksChoice = this.fb.group({

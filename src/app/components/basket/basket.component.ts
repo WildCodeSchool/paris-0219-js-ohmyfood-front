@@ -1,13 +1,15 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { PizzasDataService } from 'src/app/services/pizzas-data.service';
 import { OrderPizzas } from 'src/app/class/order-pizzas';
-import { FormGroup, FormBuilder, FormArray, Form } from '@angular/forms';
+import { FormBuilder, FormArray } from '@angular/forms';
 import { QuantitySelectService } from 'src/app/services/quantity-select.service';
 import { CreateFormBasketService } from 'src/app/services/create-form-basket.service';
 import { OrderBeverage } from 'src/app/class/order-beverage';
 import { BeveragesDataService } from 'src/app/services/beverages-data.service';
 import { OrderDessert } from 'src/app/class/order-dessert';
 import { DessertsDataService } from 'src/app/services/desserts-data.service';
+import { OrderSalads } from 'src/app/class/order-salads';
+import { SaladsDatasService } from 'src/app/services/salads-datas.service';
 
 @Component({
   selector: 'app-basket',
@@ -21,6 +23,7 @@ export class BasketComponent implements OnInit, OnDestroy {
   enableSubmit: boolean;
 
   userPizzaChoice: Array<OrderPizzas>; // Get data from service
+  userSaladChoice: Array<OrderSalads>;
   userBeveragesChoice: Array<OrderBeverage>;
   userDessertsChoice: Array<OrderDessert>;
 
@@ -32,6 +35,7 @@ export class BasketComponent implements OnInit, OnDestroy {
 
   finalOrderForm = this.formBuilder.group({
     pizza: this.formBuilder.array([]),
+    salad: this.formBuilder.array([]),
     beverage: this.formBuilder.array([]),
     dessert: this.formBuilder.array([])
   });
@@ -42,12 +46,13 @@ export class BasketComponent implements OnInit, OnDestroy {
     private dessertData: DessertsDataService,
     private formBuilder: FormBuilder,
     private quantityService: QuantitySelectService,
-    private createForm: CreateFormBasketService
+    private createForm: CreateFormBasketService,
+    private saladsData: SaladsDatasService
     ) { }
 
   ngOnInit() {
     // creation of formArray pizzas
-    this.pizzasData.getUserPizzas.subscribe(pizzasChoice => {
+    this.pizzasData.getUserPizzas.subscribe((pizzasChoice: any) => {
       this.userPizzaChoice = pizzasChoice;
 
       const pizza = this.finalOrderForm.get('pizza') as FormArray;
@@ -70,7 +75,7 @@ export class BasketComponent implements OnInit, OnDestroy {
     });
 
     // Creation of FormArray beverages
-    this.beverageData.getUserBeverages.subscribe(beveragesChoice => {
+    this.beverageData.getUserBeverages.subscribe((beveragesChoice: any) => {
       this.userBeveragesChoice = beveragesChoice;
 
       const beverage = this.finalOrderForm.get('beverage') as FormArray;
@@ -92,7 +97,7 @@ export class BasketComponent implements OnInit, OnDestroy {
       this.totalBasket();
     });
     // Creation of FormArray desserts
-    this.dessertData.getUserDesserts.subscribe(dessertsChoice => {
+    this.dessertData.getUserDesserts.subscribe((dessertsChoice: any) => {
       this.userDessertsChoice = dessertsChoice;
 
       const dessert = this.finalOrderForm.get('dessert') as FormArray;
@@ -113,6 +118,21 @@ export class BasketComponent implements OnInit, OnDestroy {
       this.enableSubmit = true;
       this.totalBasket();
     });
+
+    // Creation of FormArray salads
+    this.saladsData.getSalads.subscribe((userSaladsChoice: any) => {
+      this.userSaladChoice = userSaladsChoice;
+
+      const salad = this.finalOrderForm.get('salad') as FormArray;
+
+      for (const key in this.userSaladChoice) {
+        if (this.userSaladChoice.hasOwnProperty(key)) {
+          salad.push(this.createForm.createOrderForm(this.userSaladChoice[key]));
+        }
+      }
+      console.log(this.finalOrderForm);
+    });
+
   }
 
   displayToggleBasket(event) {
@@ -128,6 +148,10 @@ export class BasketComponent implements OnInit, OnDestroy {
     return this.finalOrderForm.get('pizza') as FormArray;
   }
 
+  get salad(): FormArray {
+    return this.finalOrderForm.get('salad') as FormArray;
+  }
+
   get beverage(): FormArray {
     return this.finalOrderForm.get('beverage') as FormArray;
   }
@@ -138,6 +162,7 @@ export class BasketComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     const finalOrder = this.finalOrderForm.value;
+    console.log(finalOrder);
 
     this.resetBasket();
   }

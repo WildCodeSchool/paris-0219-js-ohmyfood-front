@@ -1,6 +1,6 @@
 import { NgModule, Component } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-
+import { IsLogged } from '../app/services/IsLogged.service';
 import { PizzaPageComponent } from './pages/pizza-page/pizza-page.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { HomeOrderPageComponent } from './pages/home-order-page/home-order-page.component';
@@ -13,7 +13,9 @@ const routes: Routes = [
     path: '', redirectTo: 'homePage', pathMatch: 'full'
   },
   {
-    path: 'admin', component: AdminPagesComponent
+    path: 'admin', 
+    component: AdminPagesComponent,
+    canActivate: [IsLogged]
   },
   {
     path: 'homePage',
@@ -21,7 +23,8 @@ const routes: Routes = [
   },
   {
     path: 'homeOrderPage',
-    component: HomeOrderPageComponent
+    component: HomeOrderPageComponent,
+    canActivate: [IsLogged]
   },
   {
     path: 'authClientPage',
@@ -29,11 +32,18 @@ const routes: Routes = [
   },
   {
     path: 'pizzaPage',
-    component: PizzaPageComponent
+    component: PizzaPageComponent,
+    canActivate: [IsLogged]
   },
   {
+<<<<<<< HEAD
+    path: 'salades-sauce',
+    component: SaladsSaucesPageComponent,
+    canActivate: [IsLogged]
+=======
     path: 'saladePage',
     component: SaladPageComponent
+>>>>>>> d0909a6d933565c5d0d6c4e6eca898b7a3e1edb8
   }
 ];
 

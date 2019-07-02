@@ -115,9 +115,7 @@
             </div>
         </div>
 
-        <div *ngIf="saladsForm.submitted && selectToppings.errors">
-            <p>{{selectToppings.errors['isRequired']}}</p>
-        </div>
+        <p *ngIf="displayToppingsMessage">Attention, vous n'avez pas séléctionner de toppings</p>
       </div>
 
       <h1>Sélectionner votre sauce</h1>
@@ -143,6 +141,8 @@
         </div>
 
         <p *ngIf="displaySaucesMessage">Attention, vous n'avez pas séléctionner de sauces</p>
+
+        <button type="button" (click)="resetSauces()">Supprimer la sauce</button>
       </div>
 
       <button type='submit'> Ajouter au panier </button>

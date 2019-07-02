@@ -6,8 +6,6 @@ import { FormBuilder, FormArray } from '@angular/forms';
 import { OrderSalads } from 'src/app/class/order-salads';
 import {checkSaladsBase} from 'src/app/validators/saladsBaseValidators';
 import { checkSaladsIngredients } from 'src/app/validators/saladsIngredientsValidators';
-import { checkSaladsToppings } from 'src/app/validators/saladsToppingsValidators';
-import { checkSaladsSauces } from 'src/app/validators/saladsSaucesValidators';
 
 @Component({
   selector: 'app-salads',
@@ -25,13 +23,14 @@ export class SaladsComponent implements OnInit {
   // To toggle Form
   isToggle: boolean;
 
-  // To display saucesMessage
+  // To display saucesMessage and toppingsMessage
   displaySaucesMessage = true;
+  displayToppingsMessage = true;
 
   formSalads = this.fb.group({
       selectBase: this.fb.array([], checkSaladsBase()),
       selectIngredients: this.fb.array([], checkSaladsIngredients()),
-      selectToppings: this.fb.array([], checkSaladsToppings()),
+      selectToppings: this.fb.array([]),
       selectSauces: this.fb.array([])
   });
 
@@ -159,12 +158,16 @@ export class SaladsComponent implements OnInit {
 
     this.saladsDataService.createOrderSalads(OrderSalads);
 
+    this.displayToppingsMessage = true;
     this.displaySaucesMessage = true;
+
     this.resetFormSalads();
   }
 
-  quantitySelect(operator, i, quantity, saladsComponent) {
+  quantitySelect(operator: string, i: number, quantity: number, saladsComponent: any) {
     const check = Object.getOwnPropertyNames(saladsComponent.value); // to check what quantity have to change
+
+    const reducer = (accumulator: number, currentValue: number) => accumulator + currentValue; // method to calculate max of an array
 
     if (check[0] === 'idSaladsIngredients') {
 
@@ -176,11 +179,18 @@ export class SaladsComponent implements OnInit {
       this.formSalads.controls.selectToppings[`controls`][i].patchValue({
         saladsToppingsQuantity: this.quantitySelectService.selectQuantity(operator, quantity)
       });
-      console.log(this.formSalads.controls.selectToppings[`controls`]);
+
+      // Get toppings quantity in an array
+      let totalToppings = this.formSalads.controls.selectToppings.value.map(
+        (toppingsTotal: any) => toppingsTotal.saladsToppingsQuantity
+        );
+
+      totalToppings = totalToppings.reduce(reducer); // To count total Toppings to display message or not
+      totalToppings > 0 ? this.displayToppingsMessage = false : this.displayToppingsMessage = true;
     }
    }
 
-   toggleFormSalads($event) {
+   toggleFormSalads($event: any) {
     $event.preventDefault();
     this.isToggle = this.ToggleForm.toggleForm(this.isToggle);
   }
@@ -191,22 +201,22 @@ export class SaladsComponent implements OnInit {
 
         if (key === 'selectBase') {
           this.formSalads.controls[key][`controls`].map(
-            result => result.controls.saladsBaseQuantity.reset(false)
+            (result: any) => result.controls.saladsBaseQuantity.reset(false)
           );
 
         } else if (key === 'selectIngredients') {
             this.formSalads.controls[key][`controls`].map(
-              result => result.controls.saladsIngredientsQuantity.reset(0)
+              (result: any) => result.controls.saladsIngredientsQuantity.reset(0)
             );
 
         } else if (key === 'selectToppings') {
             this.formSalads.controls[key][`controls`].map(
-              result => result.controls.saladsToppingsQuantity.reset(0)
+              (result: any) => result.controls.saladsToppingsQuantity.reset(0)
                 );
 
         } else if (key === 'selectSauces') {
             this.formSalads.controls[key][`controls`].map(
-              result => result.controls.saladsSaucesQuantity.reset(false)
+              (result: any) => result.controls.saladsSaucesQuantity.reset(false)
                 );
         }
       }
@@ -234,6 +244,12 @@ export class SaladsComponent implements OnInit {
         }
       }
     }
-    console.log(this.displaySaucesMessage);
+  }
+
+  // Method to reset sauces before submit form
+  resetSauces() {
+    this.formSalads.controls.selectSauces[`controls`].map(
+      (sauces: any) => sauces.controls.saladsSaucesQuantity.reset(false)
+    );
   }
 }

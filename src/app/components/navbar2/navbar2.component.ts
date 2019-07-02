@@ -1,5 +1,7 @@
-import { Component, OnInit, SimpleChange } from '@angular/core';
+import { Component } from '@angular/core';
 import { LoginService } from 'src/app/services/login.service';
+import { Router } from '@angular/router';
+import { OnlyLoggedInUsersGuardService } from 'src/app/services/only-logged-in-users-guard.service';
 
 @Component({
   selector: 'app-navbar2',
@@ -12,10 +14,11 @@ export class Navbar2Component {
     firstname: '', 
     mail: ''
   }
-  userInfoGet: boolean = false;
 
   constructor(
-    private loginService: LoginService
+    private loginService: LoginService, 
+    private router: Router,
+    private onlyLoggedInUsersGuardService: OnlyLoggedInUsersGuardService
   ) {}
 
   ngOnInit() {
@@ -33,6 +36,17 @@ export class Navbar2Component {
         mail: localStorage.getItem('userMail')
       };
     })
+  }
+
+  logOut() {
+    localStorage.clear();
+    this.loginService.booleanLoggedIn = false;
+    this.userInfoObject = {
+      lastname: '',
+      firstname: '', 
+      mail: ''
+    }
+    this.router.navigateByUrl('/');
   }
 }
 

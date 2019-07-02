@@ -7,7 +7,11 @@ import { LoginService } from 'src/app/services/login.service';
   styleUrls: ['./navbar2.component.scss']
 })
 export class Navbar2Component {
-  userInfoObject: Object;
+  userInfoObject = {
+    lastname: '',
+    firstname: '', 
+    mail: ''
+  }
   userInfoGet: boolean = false;
 
   constructor(

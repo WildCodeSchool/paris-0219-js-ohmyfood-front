@@ -52,14 +52,11 @@ export class LoginComponent implements OnInit {
           firstname: res['0'].firstname,
           mail: res['0'].mail
         }
-        this.loginService.transfertUserFn(userInfoObject);
         localStorage.setItem('userLastName', userInfoObject.lastname);
         localStorage.setItem('userFirstName', userInfoObject.firstname);
         localStorage.setItem('userMail', userInfoObject.mail);
-        this.loginService.getClientInformation().then(() => {
-          this.router.navigateByUrl("/homeOrderPage")
-          location.reload()
-        })
+        this.loginService.transfertUserFn(userInfoObject);
+        this.router.navigateByUrl('homeOrderPage');
       })
     });
   }

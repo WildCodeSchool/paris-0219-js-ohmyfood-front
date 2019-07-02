@@ -8,11 +8,12 @@ import {checkSaladsBase} from 'src/app/validators/saladsBaseValidators';
 import { checkSaladsIngredients } from 'src/app/validators/saladsIngredientsValidators';
 
 @Component({
-  selector: 'app-salads',
-  templateUrl: './salads.component.html',
-  styleUrls: ['./salads.component.scss']
+  selector: 'app-salads-form',
+  templateUrl: './salads-form.component.html',
+  styleUrls: ['./salads-form.component.scss']
 })
-export class SaladsComponent implements OnInit {
+export class SaladsFormComponent implements OnInit {
+  // Object to get data from databases
   saladsSaucesList: object;
   saladsIngredientsList: object;
   saladsBaseList: object;
@@ -27,6 +28,7 @@ export class SaladsComponent implements OnInit {
   displaySaucesMessage = true;
   displayToppingsMessage = true;
 
+  // Reactive Form
   formSalads = this.fb.group({
       selectBase: this.fb.array([], checkSaladsBase()),
       selectIngredients: this.fb.array([], checkSaladsIngredients()),

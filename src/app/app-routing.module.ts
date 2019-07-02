@@ -2,13 +2,11 @@ import { NgModule, Component } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { PizzaPageComponent } from './pages/pizza-page/pizza-page.component';
-import { SaladsSaucesPageComponent } from './pages/salads-sauces-page/salads-sauces-page.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { HomeOrderPageComponent } from './pages/home-order-page/home-order-page.component';
 import { AdminPagesComponent } from './pages/admin-pages/admin-pages.component';
 import { AuthClientPageComponent } from './pages/authent/auth-client-page/auth-client-page.component';
-import { SaladsIngredientsComponent } from './components/salads-ingredients/salads-ingredients.component';
-import { SaladsComponent } from './components/salads/salads.component';
+import { SaladsFormComponent } from './components/salads-form/salads-form.component';
 
 const routes: Routes = [
   {
@@ -34,16 +32,8 @@ const routes: Routes = [
     component: PizzaPageComponent
   },
   {
-    path: 'salades-sauce',
-    component: SaladsSaucesPageComponent
-  },
-  {
-    path: 'salades-ingredients',
-    component: SaladsIngredientsComponent
-  },
-  {
     path: 'salades',
-    component: SaladsComponent
+    component: SaladsFormComponent
   }
 ];
 

@@ -37,8 +37,7 @@ export class SaladsDatasService {
   }
 
   createOrderSalads(formResult: any) {
-    console.log(formResult);
-    const formResultKey = Object.getOwnPropertyNames(formResult);
+    const formResultKey = Object.getOwnPropertyNames(formResult); // To check key of formResult and create instance according to key
 
     if (formResultKey[0] === 'selectBase') {
       formResult.selectBase.map((base: any) => {
@@ -94,6 +93,5 @@ export class SaladsDatasService {
       this.userSauces
     );
     this.userChoice.push(userSaladsComposed);
-    console.log(this.userChoice);
   }
 }

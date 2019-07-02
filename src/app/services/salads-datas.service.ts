@@ -2,6 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { OrderSalads } from '../class/order-salads';
+import { SaladsBases } from '../class/order-saladsBases';
+import { SaladsIngredients } from '../class/order-saladsIngredients';
+import { SaladsToppings } from '../class/order-saladsToppings';
+import { SaladsSauces } from '../class/order-saladsSauces';
 
 @Injectable({
   providedIn: 'root'
@@ -9,12 +13,12 @@ import { OrderSalads } from '../class/order-salads';
 export class SaladsDatasService {
   private basePath = 'http://localhost:3000';
 
-  saladsSaucesFormTable;
-  saladsIngredientsFormTable;
-  saladsBasesFormTable;
-  saladsToppingsFormTable;
+  userBase: Array<SaladsBases> = [];
+  userIngredients: Array<SaladsIngredients> = [];
+  userToppings: Array<SaladsToppings> = [];
+  userSauces: SaladsSauces;
 
-  userChoice: Array<OrderSalads> = [];
+  userChoice: OrderSalads;
 
   constructor(private http: HttpClient) { }
 
@@ -32,15 +36,63 @@ export class SaladsDatasService {
     return this.http.get<any>(`${this.basePath}/saladsToppings`);
   }
 
-  createOrderSalads(formResult) {
-    for (const key in formResult) {
-     if (formResult.hasOwnProperty(key)) {
-       formResult[key].map(test => {
-         if (test.saladsIngredientsQuantity > 0) {
+  createOrderSalads(formResult: any) {
+    console.log(formResult);
+    const formResultKey = Object.getOwnPropertyNames(formResult);
 
-         }
-       })
+    if (formResultKey[0] === 'selectBase') {
+      formResult.selectBase.map((base: any) => {
+        if (base.saladsBaseQuantity) {
+          const saladsBase = new SaladsBases(base.idSaladsBase, base.saladsBaseName, base.saladsBasePriceTTC, 1);
+          this.userBase.push(saladsBase);
+        }
+      });
      }
-    }
+
+    if (formResultKey[1] === 'selectIngredients') {
+      formResult.selectIngredients.map((ingredients: any) => {
+        if (ingredients.saladsIngredientsQuantity) {
+          const saladsIngredients = new SaladsIngredients(
+            ingredients.idSaladsIngredients,
+            ingredients.saladsIngredientsName,
+            ingredients.saladsIngredientsPriceTTC,
+            ingredients.saladsIngredientsQuantity
+          );
+          this.userIngredients.push(saladsIngredients);
+        }
+      });
+     }
+
+    if (formResultKey[2] === 'selectToppings') {
+      formResult.selectToppings.map((toppings: any) => {
+        if (toppings.saladsToppingsQuantity) {
+          const saladsToppings = new SaladsToppings(
+            toppings.idSaladsToppings,
+            toppings.saladsToppingsName,
+            toppings.saladsToppingsPriceTTC,
+            toppings.saladsToppingsQuantity
+          );
+          this.userToppings.push(saladsToppings);
+        }
+      });
+     }
+
+    if (formResultKey[3] === 'selectSauces') {
+      formResult.selectSauces.map((sauces: any) => {
+        if (sauces.saladsSaucesQuantity) {
+          this.userSauces = new SaladsSauces(
+            sauces.idSaladsSauces,
+            sauces.saladsSaucesName,
+          );
+        }
+      });
+     }
+    this.userChoice = new OrderSalads(
+      this.userBase,
+      this.userIngredients,
+      this.userToppings,
+      this.userSauces
+    );
+    console.log(this.userChoice);
   }
 }

@@ -36,6 +36,14 @@ export class Navbar2Component {
     })
   }
 
+  checkIfUserLogged() {
+    if (localStorage.getItem('userLastName') == undefined) {
+      this.router.navigateByUrl('authClientPage')
+    } else {
+      this.router.navigateByUrl('homeOrderPage')
+    }
+  }
+
   logOut() {
     localStorage.clear();
     this.userInfoObject = {

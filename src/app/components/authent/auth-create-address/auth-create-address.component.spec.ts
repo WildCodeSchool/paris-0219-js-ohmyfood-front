@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SaladsSaucesPageComponent } from './salads-sauces-page.component';
+import { AuthCreateAddressComponent } from './auth-create-address.component';
 
-describe('SaladsSaucesPageComponent', () => {
-  let component: SaladsSaucesPageComponent;
-  let fixture: ComponentFixture<SaladsSaucesPageComponent>;
+describe('AuthCreateAddressComponent', () => {
+  let component: AuthCreateAddressComponent;
+  let fixture: ComponentFixture<AuthCreateAddressComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SaladsSaucesPageComponent ]
+      declarations: [ AuthCreateAddressComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SaladsSaucesPageComponent);
+    fixture = TestBed.createComponent(AuthCreateAddressComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

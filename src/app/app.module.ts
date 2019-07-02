@@ -18,10 +18,15 @@ import { RouterModule } from '@angular/router';
 import { Navbar2Component } from './components/navbar2/navbar2.component';
 import { BasketComponent } from './components/basket/basket.component';
 import { AdminPagesComponent } from './pages/admin-pages/admin-pages.component';
+import { BeveragesFormAdminComponent } from './components/beverages-form-admin/beverages-form-admin.component';
 import { AuthClientPageComponent } from './pages/authent/auth-client-page/auth-client-page.component';
 import { AuthClientComponent } from './components/authent/auth-client/auth-client.component';
 import { AuthentCreateComponent } from './components/authent/authent-create/authent-create.component';
 import { SaladsFormComponent } from './components/salads-form/salads-form.component';
+import { AuthCreateAddressComponent } from './components/authent/auth-create-address/auth-create-address.component';
+import { HomeOrderComponent } from './components/home-order/home-order.component';
+import { HomeComponent } from './components/home/home.component';
+import { SaladPageComponent } from './pages/salad-page/salad-page.component';
 
 @NgModule({
   declarations: [
@@ -37,11 +42,15 @@ import { SaladsFormComponent } from './components/salads-form/salads-form.compon
     Navbar2Component,
     BasketComponent,
     AdminPagesComponent,
+    BeveragesFormAdminComponent,
     AuthClientPageComponent,
     AuthClientComponent,
     AuthentCreateComponent,
     SaladsFormComponent,
-
+    AuthCreateAddressComponent,
+    HomeOrderComponent,
+    HomeComponent,
+    SaladPageComponent
   ],
   imports: [
     AppRoutingModule,

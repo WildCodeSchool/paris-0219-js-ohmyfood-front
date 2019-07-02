@@ -18,7 +18,7 @@ export class SaladsDatasService {
   userToppings: Array<SaladsToppings> = [];
   userSauces: SaladsSauces;
 
-  userChoice: OrderSalads;
+  userChoice: Array<OrderSalads> = [];
 
   constructor(private http: HttpClient) { }
 
@@ -87,12 +87,13 @@ export class SaladsDatasService {
         }
       });
      }
-    this.userChoice = new OrderSalads(
+    const userSaladsComposed = new OrderSalads(
       this.userBase,
       this.userIngredients,
       this.userToppings,
       this.userSauces
     );
+    this.userChoice.push(userSaladsComposed);
     console.log(this.userChoice);
   }
 }

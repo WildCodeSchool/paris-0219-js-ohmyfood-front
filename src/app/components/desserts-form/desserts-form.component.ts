@@ -34,7 +34,7 @@ export class DessertsFormComponent implements OnInit {
 
   ngOnInit() {
     // Get Data from API
-    const subscription = this.dessertData.getDesserts()
+    this.dessertData.getDesserts()
     .subscribe(dessert => {
       this.dessertsList = dessert;
 
@@ -57,7 +57,6 @@ export class DessertsFormComponent implements OnInit {
           selectedDessert.push(dessertForm); // push form in formArray
         }
       }
-      subscription.unsubscribe();
     });
   }
 

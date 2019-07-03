@@ -55,7 +55,7 @@
             Votre salade composée
           </label>
 
-          <h3>Vos bases</h3>
+          <h5>Vos bases</h5>
 
           <div *ngFor="let bases of salads.value.multiBases">
             <p>
@@ -63,7 +63,7 @@
             </p>
           </div>
 
-          <h3>Vos ingrédients</h3>
+          <h5>Vos ingrédients</h5>
 
           <div *ngFor="let ingredients of salads.value.multiIngredients">
             <p>
@@ -71,7 +71,7 @@
             </p>
           </div>
 
-          <h3>Vos toppings</h3>
+          <h5>Vos toppings</h5>
 
           <div *ngFor="let toppings of salads.value.multiToppings">
             <p>
@@ -79,7 +79,7 @@
             </p>
           </div>
 
-          <h3>Votre sauce</h3>
+          <h5>Votre sauce</h5>
 
           <p>{{ salads.value.multiSauces[i].saucesName }}</p>
         </div>

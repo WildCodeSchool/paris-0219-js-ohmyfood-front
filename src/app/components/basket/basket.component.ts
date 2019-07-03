@@ -60,7 +60,6 @@ export class BasketComponent implements OnInit {
           }
         }
       }
-      this.enableSubmit = true;
       this.totalBasket();
     });
 
@@ -78,7 +77,6 @@ export class BasketComponent implements OnInit {
           }
         }
       }
-      this.enableSubmit = true;
       this.totalBasket();
     });
     // Creation of FormArray desserts
@@ -95,7 +93,6 @@ export class BasketComponent implements OnInit {
           }
         }
       }
-      this.enableSubmit = true;
       this.totalBasket();
     });
 
@@ -145,11 +142,12 @@ export class BasketComponent implements OnInit {
     if (check[0] === 'idPizzas') {
       // give value of selectQuantity result to calculate price behind
       quantity =
-      this.finalOrderForm.value.pizza[index].pizzasQuantity = this.quantityService.selectQuantity(operator, quantity);
+      this.finalOrderForm.value.pizza[index].pizzasQuantity =
+      this.quantityService.selectQuantity(operator, quantity);
 
       if (operator === '+') {
-        this.finalOrderForm.value.pizza[index].pizzasPriceTotal = (this.finalOrderForm.value.pizza[index].pizzasPriceTotal / (quantity - 1))
-        * quantity;
+        this.finalOrderForm.value.pizza[index].pizzasPriceTotal =
+        (this.finalOrderForm.value.pizza[index].pizzasPriceTotal / (quantity - 1)) * quantity;
 
       } else {
         this.finalOrderForm.value.pizza[index].pizzasPriceTotal =
@@ -208,12 +206,7 @@ export class BasketComponent implements OnInit {
 
       this.totalBasket();
     }
-
-    if (this.pizza.controls.length === 0 &&
-      this.beverage.controls.length === 0 &&
-      this.dessert.controls.length === 0) {
-        this.enableSubmit = false;
-    }
+    this.total < 15 ? this.enableSubmit = false : this.enableSubmit = true;
   }
 
   resetBasket() {

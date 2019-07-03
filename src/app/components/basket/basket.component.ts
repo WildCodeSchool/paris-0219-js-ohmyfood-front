@@ -124,8 +124,8 @@ export class BasketComponent implements OnInit {
       const salad = this.finalOrderForm.get('salad') as FormArray;
       salad.push(this.createForm.createOrderForm(userSaladsChoice));
 
+      console.log(this.finalOrderForm.controls.salad[`controls`]);
     });
-
   }
 
   displayToggleBasket(event) {

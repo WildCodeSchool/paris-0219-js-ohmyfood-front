@@ -18,6 +18,8 @@ export class SaladsDatasService {
   userToppings: Array<SaladsToppings> = [];
   userSauces: SaladsSauces;
 
+  totalPriceSaladsComposed: Array<number> = [];
+
   userChoice: Array<OrderSalads> = [];
 
   @Output()
@@ -52,6 +54,9 @@ export class SaladsDatasService {
             1
           );
           this.userBase.push(saladsBase);
+          this.totalPriceSaladsComposed.push(
+            +saladsBase.saladsBasePriceTTC * saladsBase.saladsBasesQuantity
+            );
         }
       });
      }
@@ -66,6 +71,9 @@ export class SaladsDatasService {
             ingredients.saladsIngredientsQuantity
           );
           this.userIngredients.push(saladsIngredients);
+          this.totalPriceSaladsComposed.push(
+            +saladsIngredients.saladsIngredientsPriceTTC * saladsIngredients.saladsIngredientsQuantity
+            );
         }
       });
      }
@@ -80,6 +88,9 @@ export class SaladsDatasService {
             toppings.saladsToppingsQuantity
           );
           this.userToppings.push(saladsToppings);
+          this.totalPriceSaladsComposed.push(
+            +saladsToppings.saladsToppingsPriceTTC * saladsToppings.saladsToppingsQuantity
+            );
         }
       });
      }
@@ -94,11 +105,18 @@ export class SaladsDatasService {
         }
       });
      }
+
+    // To calculate salad composed total price
+    const reducer = (accumulator, currentValue) => accumulator + currentValue;
+
+    const finalPrice = this.totalPriceSaladsComposed.reduce(reducer);
+
     const userSaladsComposed = new OrderSalads(
       this.userBase,
       this.userIngredients,
       this.userToppings,
-      this.userSauces
+      this.userSauces,
+      finalPrice
     );
     this.getSalads.emit(userSaladsComposed);
 
@@ -106,6 +124,7 @@ export class SaladsDatasService {
     this.userBase = [];
     this.userIngredients = [];
     this.userToppings = [];
+    this.totalPriceSaladsComposed = [];
     this.userSauces = null;
   }
 }

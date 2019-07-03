@@ -22,11 +22,6 @@ export class BasketComponent implements OnInit {
 
   enableSubmit: boolean;
 
-  userPizzaChoice: Array<OrderPizzas>; // Get data from service
-  userSaladChoice: Array<OrderSalads>;
-  userBeveragesChoice: Array<OrderBeverage>;
-  userDessertsChoice: Array<OrderDessert>;
-
   totalArray: Array<number> = []; // Use to calculate total price
 
   initPrice: boolean;
@@ -53,15 +48,10 @@ export class BasketComponent implements OnInit {
   ngOnInit() {
     // creation of formArray pizzas
     this.pizzasData.getUserPizzas.subscribe((pizzasChoice: any) => {
-      this.userPizzaChoice = pizzasChoice;
 
       const pizza = this.finalOrderForm.get('pizza') as FormArray;
 
-      for (const key in this.userPizzaChoice) {
-        if (this.userPizzaChoice.hasOwnProperty(key)) {
-          pizza.push(this.createForm.createOrderForm(this.userPizzaChoice[key]));
-        }
-      }
+      pizza.push(this.createForm.createOrderForm(pizzasChoice));
 
       for (let i = 0; i < pizza.value.length; i ++) {
         for (let j = i + 1 ; j < pizza.value.length; j ++ ) {
@@ -76,15 +66,10 @@ export class BasketComponent implements OnInit {
 
     // Creation of FormArray beverages
     this.beverageData.getUserBeverages.subscribe((beveragesChoice: any) => {
-      this.userBeveragesChoice = beveragesChoice;
 
       const beverage = this.finalOrderForm.get('beverage') as FormArray;
 
-      for (const key in this.userBeveragesChoice) {
-        if (this.userBeveragesChoice.hasOwnProperty(key)) {
-          beverage.push(this.createForm.createOrderForm(this.userBeveragesChoice[key]));
-        }
-      }
+      beverage.push(this.createForm.createOrderForm(beveragesChoice));
 
       for (let i = 0; i < beverage.value.length; i ++) {
         for (let j = i + 1 ; j < beverage.value.length; j ++ ) {
@@ -98,15 +83,10 @@ export class BasketComponent implements OnInit {
     });
     // Creation of FormArray desserts
     this.dessertData.getUserDesserts.subscribe((dessertsChoice: any) => {
-      this.userDessertsChoice = dessertsChoice;
 
       const dessert = this.finalOrderForm.get('dessert') as FormArray;
 
-      for (const key in this.userDessertsChoice) {
-        if (this.userDessertsChoice.hasOwnProperty(key)) {
-          dessert.push(this.createForm.createOrderForm(this.userDessertsChoice[key]));
-        }
-      }
+      dessert.push(this.createForm.createOrderForm(dessertsChoice));
 
       for (let i = 0; i < dessert.value.length; i ++) {
         for (let j = i + 1 ; j < dessert.value.length; j ++ ) {
@@ -123,8 +103,6 @@ export class BasketComponent implements OnInit {
     this.saladsData.getSalads.subscribe((userSaladsChoice: any) => {
       const salad = this.finalOrderForm.get('salad') as FormArray;
       salad.push(this.createForm.createOrderForm(userSaladsChoice));
-
-      console.log(this.finalOrderForm.controls.salad[`controls`]);
     });
   }
 
@@ -169,53 +147,63 @@ export class BasketComponent implements OnInit {
       quantity =
       this.finalOrderForm.value.pizza[index].pizzasQuantity = this.quantityService.selectQuantity(operator, quantity);
 
-      this.finalOrderForm.value.pizza[index].pizzasPriceTotal =
-      this.quantityService.updatePrice(this.userPizzaChoice[index].pizzPrice, quantity); // update price according to quantity
+      if (operator === '+') {
+        this.finalOrderForm.value.pizza[index].pizzasPriceTotal = (this.finalOrderForm.value.pizza[index].pizzasPriceTotal / (quantity - 1))
+        * quantity;
 
-      // update quantity in userPizzaChoice
-      this.userPizzaChoice[index].pizzQuantity = this.finalOrderForm.value.pizza[index].pizzasQuantity;
+      } else {
+        this.finalOrderForm.value.pizza[index].pizzasPriceTotal =
+        (this.finalOrderForm.value.pizza[index].pizzasPriceTotal / (quantity + 1)) * quantity;
+      }
 
       const pizza = this.finalOrderForm.get('pizza') as FormArray;
 
       if (pizza.controls[index].value.pizzasQuantity === 0) {
         pizza.removeAt(index); // remove object from form array when quantity = 0
-        this.pizzasData.userChoice.splice(index, 1); // remove object from service's array to be update data
       }
 
       this.totalBasket();
 
     } else if (check[0] === 'idBeverages') {
         quantity =
-        this.finalOrderForm.value.beverage[index].bevQuantity = this.quantityService.selectQuantity(operator, quantity);
+        this.finalOrderForm.value.beverage[index].bevQuantity =
+        this.quantityService.selectQuantity(operator, quantity);
 
-        this.finalOrderForm.value.beverage[index].bevPriceTotal =
-        this.quantityService.updatePrice(this.userBeveragesChoice[index].bevPrice, quantity);
+        if (operator === '+') {
+          this.finalOrderForm.value.beverage[index].bevPriceTotal =
+          (this.finalOrderForm.value.beverage[index].bevPriceTotal / (quantity - 1)) * quantity;
 
-        this.userBeveragesChoice[index].bevQuantity = this.finalOrderForm.value.beverage[index].bevQuantity;
+        } else {
+          this.finalOrderForm.value.beverage[index].bevPriceTotal =
+          (this.finalOrderForm.value.beverage[index].bevPriceTotal / (quantity + 1)) * quantity;
+        }
 
         const beverage = this.finalOrderForm.get('beverage') as FormArray;
 
         if (beverage.controls[index].value.bevQuantity === 0) {
           beverage.removeAt(index); // remove object from form array when quantity = 0
-          this.beverageData.userChoice.splice(index, 1);
         }
 
         this.totalBasket();
 
     } else if (check[0] === 'idDesserts') {
       quantity =
-      this.finalOrderForm.value.dessert[index].dessQuantity = this.quantityService.selectQuantity(operator, quantity);
+      this.finalOrderForm.value.dessert[index].dessQuantity =
+      this.quantityService.selectQuantity(operator, quantity);
 
-      this.finalOrderForm.value.dessert[index].dessPriceTotal =
-      this.quantityService.updatePrice(this.userDessertsChoice[index].dessPrice, quantity);
+      if (operator === '+') {
+        this.finalOrderForm.value.dessert[index].dessPriceTotal =
+        (this.finalOrderForm.value.dessert[index].dessPriceTotal / (quantity - 1)) * quantity;
 
-      this.userDessertsChoice[index].dessQuantity = this.finalOrderForm.value.dessert[index].dessQuantity;
+      } else {
+        this.finalOrderForm.value.dessert[index].dessPriceTotal =
+        (this.finalOrderForm.value.dessert[index].dessPriceTotal / (quantity + 1)) * quantity;
+      }
 
       const dessert = this.finalOrderForm.get('dessert') as FormArray;
 
       if (dessert.controls[index].value.dessQuantity === 0) {
         dessert.removeAt(index); // remove object from form array when quantity = 0
-        this.dessertData.userChoice.splice(index, 1);
       }
 
       this.totalBasket();
@@ -244,10 +232,6 @@ export class BasketComponent implements OnInit {
     while (dessert.length > 0) {
       dessert.removeAt(0);
     }
-
-    this.pizzasData.userChoice.splice(0, this.pizzasData.userChoice.length);
-    this.beverageData.userChoice.splice(0, this.beverageData.userChoice.length);
-    this.dessertData.userChoice.splice(0, this.dessertData.userChoice.length);
     this.enableSubmit = false;
 
     this.totalBasket();

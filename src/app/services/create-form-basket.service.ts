@@ -110,17 +110,12 @@ export class CreateFormBasketService {
     const check = Object.getOwnPropertyNames(formToSort.value[i]); // get property of formToSort to know what form we have to sort
 
     if (check[0] === 'idPizzas') {
-      formToSort.value[i].pizzasPriceTotal = 0;
-      formToSort.value[i].pizzasQuantity = 0;
-
       formToSort.value[i].pizzasPriceTotal += formToSort.value[j].pizzasPriceTotal; // Sum of price
       formToSort.value[i].pizzasQuantity += formToSort.value[j].pizzasQuantity; // Sum of quantity
       formToSort.removeAt(j); // Remove duplicate
       return formToSort;
 
     } else if (check[0] === 'idBeverages') {
-      formToSort.value[i].bevPriceTotal = 0;
-      formToSort.value[i].bevQuantity = 0;
 
       formToSort.value[i].bevPriceTotal += formToSort.value[j].bevPriceTotal; // Sum of price
       formToSort.value[i].bevQuantity += formToSort.value[j].bevQuantity; // Sum of quantity
@@ -128,8 +123,6 @@ export class CreateFormBasketService {
       return formToSort;
 
     } else if (check[0] === 'idDesserts') {
-      formToSort.value[i].dessPriceTotal = 0;
-      formToSort.value[i].dessQuantity = 0;
 
       formToSort.value[i].dessPriceTotal += formToSort.value[j].dessPriceTotal; // Sum of price
       formToSort.value[i].dessQuantity += formToSort.value[j].dessQuantity; // Sum of quantity

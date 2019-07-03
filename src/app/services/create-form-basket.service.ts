@@ -28,7 +28,7 @@ export class CreateFormBasketService {
         multiBases: this.fb.array([]),
         multiIngredients: this.fb.array([]),
         multiToppings: this.fb.array([]),
-        idSaladsSauces: Number
+        multiSauces: this.fb.array([])
       });
 
       const multiBases = saladChoice.get('multiBases') as FormArray;
@@ -37,7 +37,9 @@ export class CreateFormBasketService {
 
         const base = this.fb.group({
           idSaladsBase: iterator.idSaladsBases,
-          multiBasesQuantity: iterator.saladsBasesQuantity
+          multiBasesQuantity: iterator.saladsBasesQuantity,
+          basesName: iterator.saladsBasesName,
+          basesPrice: iterator.saladsBasePriceTTC
         });
         multiBases.push(base);
       }
@@ -47,7 +49,9 @@ export class CreateFormBasketService {
       for (const iterator of formToCreate.orderSaladsIngredients) {
         const ingredient = this.fb.group({
           idSaladsIngredients: iterator.idSaladsIngredients,
-          multiIngredientsQuantity: iterator.saladsIngredientsQuantity
+          multiIngredientsQuantity: iterator.saladsIngredientsQuantity,
+          ingredientsName: iterator.saladsIngredientsName,
+          ingredientsPrice: iterator.saladsIngredientsPriceTTC
         });
         multiIngredients.push(ingredient);
       }
@@ -57,16 +61,22 @@ export class CreateFormBasketService {
       for (const iterator of formToCreate.orderSaladsToppings) {
         const topping = this.fb.group({
           idSaladsToppings: iterator.idSaladsToppings,
-          multiToppingsQuantity: iterator.saladsToppingsQuantity
+          multiToppingsQuantity: iterator.saladsToppingsQuantity,
+          toppingsName: iterator.saladsToppingsName,
+          toppinsPrice: iterator.saladsToppingsPriceTTC
         });
         multiToppings.push(topping);
       }
 
+      const multiSauces = saladChoice.get('multiSauces') as FormArray;
+
       if (formToCreate.orderSaladsSauces) {
-        saladChoice.patchValue({
-          idSaladsSauces: formToCreate.orderSaladsSauces.idSaladsSauces
-        });
-      }
+          const sauces = this.fb.group({
+            idSaladsSauces: formToCreate.orderSaladsSauces.idSaladsSauces,
+            saucesName: formToCreate.orderSaladsSauces.saladsSaucesName
+          });
+          multiSauces.push(sauces);
+        }
       return saladChoice;
 
     } else if (formToCreate instanceof OrderBeverage) {

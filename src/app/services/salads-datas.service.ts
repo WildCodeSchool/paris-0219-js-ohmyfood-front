@@ -95,7 +95,12 @@ export class SaladsDatasService {
       this.userToppings,
       this.userSauces
     );
-    this.userChoice.push(userSaladsComposed);
-    this.getSalads.emit(this.userChoice);
+    this.getSalads.emit(userSaladsComposed);
+
+    // To reinitialize value to avoid duplicate salad
+    this.userBase = [];
+    this.userIngredients = [];
+    this.userToppings = [];
+    this.userSauces = null;
   }
 }

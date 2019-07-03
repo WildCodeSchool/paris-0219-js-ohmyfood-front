@@ -1,8 +1,18 @@
 <div class="columns">
   <div class="cont d-flex flex-row column is-one-quarter">
     <a routerlink="">MENUS</a>
-    <a routerlink="">SALADES</a>
-    <a routerlink="">PIZZAS</a>
+    <a 
+      [routerLink]="['/saladePage']" 
+      routerLinkActive="router-link-active" 
+    >
+      SALADES
+    </a>
+    <a 
+      [routerLink]="['/pizzaPage']" 
+      routerLinkActive="router-link-active" 
+    >
+      PIZZAS
+    </a>
   </div>
   <div class="cont d-flex flex-row column is-three-quarter">
     <h2>COMMANDER</h2>

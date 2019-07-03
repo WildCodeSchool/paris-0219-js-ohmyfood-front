@@ -1,6 +1,11 @@
 <section class="buttonArea">
-  <button class="button has-text-centered">LIVRAISON</button>
-  <button class="button has-text-centered">A EMPORTER</button>
+  <button 
+    *ngFor="let button of buttons; let i = index"
+    class="button has-text-centered"
+    (click)="checkIfUserLogged(i)"
+  >
+   {{button | uppercase}}
+  </button>
 </section>
 <section class="buttonArea">
   <button (click)="footerFunction()" class="button has-text-centered" title="Go to footer">SUR PLACE

@@ -23,6 +23,8 @@ export class CreateFormBasketService {
       return pizzChoice;
 
     } else if (formToCreate instanceof OrderSalads) {
+      // To create saladForm, we need to create formGroup with form array for each part of Salad to get all data we need.
+      // We push this formGroup in finalOrderForm key 'salad'
 
       const saladChoice = this.fb.group({
         multiBases: this.fb.array([]),
@@ -39,7 +41,7 @@ export class CreateFormBasketService {
           idSaladsBase: iterator.idSaladsBases,
           multiBasesQuantity: iterator.saladsBasesQuantity,
           basesName: iterator.saladsBasesName,
-          basesPrice: iterator.saladsBasePriceTTC
+          basesPrice: +iterator.saladsBasePriceTTC * iterator.saladsBasesQuantity
         });
         multiBases.push(base);
       }
@@ -51,7 +53,7 @@ export class CreateFormBasketService {
           idSaladsIngredients: iterator.idSaladsIngredients,
           multiIngredientsQuantity: iterator.saladsIngredientsQuantity,
           ingredientsName: iterator.saladsIngredientsName,
-          ingredientsPrice: iterator.saladsIngredientsPriceTTC
+          ingredientsPrice: +iterator.saladsIngredientsPriceTTC * iterator.saladsIngredientsQuantity
         });
         multiIngredients.push(ingredient);
       }
@@ -63,7 +65,7 @@ export class CreateFormBasketService {
           idSaladsToppings: iterator.idSaladsToppings,
           multiToppingsQuantity: iterator.saladsToppingsQuantity,
           toppingsName: iterator.saladsToppingsName,
-          toppingsPrice: iterator.saladsToppingsPriceTTC
+          toppingsPrice: +iterator.saladsToppingsPriceTTC * iterator.saladsToppingsQuantity
         });
         multiToppings.push(topping);
       }
@@ -74,6 +76,11 @@ export class CreateFormBasketService {
           const sauces = this.fb.group({
             idSaladsSauces: formToCreate.orderSaladsSauces.idSaladsSauces,
             saucesName: formToCreate.orderSaladsSauces.saladsSaucesName
+          });
+          multiSauces.push(sauces);
+        } else {
+          const sauces = this.fb.group({
+            saucesName: 'Pas de sauces'
           });
           multiSauces.push(sauces);
         }
@@ -101,7 +108,6 @@ export class CreateFormBasketService {
 
   sortOrderForm(formToSort, i, j) {
     const check = Object.getOwnPropertyNames(formToSort.value[i]); // get property of formToSort to know what form we have to sort
-    console.log(formToSort);
 
     if (check[0] === 'idPizzas') {
       formToSort.value[i].pizzasPriceTotal = 0;

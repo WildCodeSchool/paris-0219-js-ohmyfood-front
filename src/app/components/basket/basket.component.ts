@@ -121,16 +121,9 @@ export class BasketComponent implements OnInit, OnDestroy {
 
     // Creation of FormArray salads
     this.saladsData.getSalads.subscribe((userSaladsChoice: any) => {
-      this.userSaladChoice = userSaladsChoice;
-
       const salad = this.finalOrderForm.get('salad') as FormArray;
+      salad.push(this.createForm.createOrderForm(userSaladsChoice));
 
-      for (const key in this.userSaladChoice) {
-        if (this.userSaladChoice.hasOwnProperty(key)) {
-          salad.push(this.createForm.createOrderForm(this.userSaladChoice[key]));
-        }
-      }
-      console.log(this.finalOrderForm);
     });
 
   }
@@ -168,7 +161,7 @@ export class BasketComponent implements OnInit, OnDestroy {
   }
 
   // method to update basket quantity and service's userChoice to have good values in basketComponent
-  quantitySelect(operator, index, quantity, ingredient) {
+  quantitySelect(operator: string, index: number, quantity: number, ingredient: string) {
     const check = Object.getOwnPropertyNames(ingredient);
 
     if (check[0] === 'idPizzas') {

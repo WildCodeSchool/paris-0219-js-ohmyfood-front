@@ -6,12 +6,18 @@ import { HttpClient } from '@angular/common/http';
 })
 export class AuthCreateClientService {
   createClientObject;
-  url = 'http://localhost:3000/users';
+  createClientAddressObject;
 
+  url = 'http://localhost:3000/users';
+  urlAddress = 'http://localhost:3000/userAddress'
   constructor(private http: HttpClient) { }
 
   addClient() {
     return this.http.post(this.url, this.createClientObject, { responseType: 'text' });
+  }
+
+  addClientAddress() {
+    return this.http.post(this.url, this.createClientAddressObject, { responseType: 'text' });
   }
 
 }

@@ -1,8 +1,8 @@
 export class SaladsToppings {
   constructor(
-    private idSaladsToppongs: Array<object>,
-    private saladsToppingsName: string,
-    private saladsToppingsPrice: number,
-    private saladsToppingsQuantity: number
+    public idSaladsToppongs: number,
+    public saladsToppingsName: string,
+    public saladsToppingsPrice: string,
+    public saladsToppingsQuantity: number
   ) {}
 }

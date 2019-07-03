@@ -28,17 +28,18 @@ export class CreateFormBasketService {
         multiBases: this.fb.array([]),
         multiIngredients: this.fb.array([]),
         multiToppings: this.fb.array([]),
-        idSaladsSauces: formToCreate.orderSaladsSauces.idSaladsSauces
+        idSaladsSauces: Number
       });
 
       const multiBases = saladChoice.get('multiBases') as FormArray;
 
       for (const iterator of formToCreate.orderSaladsBases) {
-          const base = this.fb.group({
-            idSaladsBase: iterator.idSaladsBases,
-            multiBasesQuantity: iterator.saladsBasesQuantity
-          });
-          multiBases.push(base);
+
+        const base = this.fb.group({
+          idSaladsBase: iterator.idSaladsBases,
+          multiBasesQuantity: iterator.saladsBasesQuantity
+        });
+        multiBases.push(base);
       }
 
       const multiIngredients = saladChoice.get('multiIngredients') as FormArray;
@@ -59,6 +60,12 @@ export class CreateFormBasketService {
           multiToppingsQuantity: iterator.saladsToppingsQuantity
         });
         multiToppings.push(topping);
+      }
+
+      if (formToCreate.orderSaladsSauces) {
+        saladChoice.patchValue({
+          idSaladsSauces: formToCreate.orderSaladsSauces.idSaladsSauces
+        });
       }
       return saladChoice;
 
@@ -84,6 +91,7 @@ export class CreateFormBasketService {
 
   sortOrderForm(formToSort, i, j) {
     const check = Object.getOwnPropertyNames(formToSort.value[i]); // get property of formToSort to know what form we have to sort
+    console.log(formToSort);
 
     if (check[0] === 'idPizzas') {
       formToSort.value[i].pizzasPriceTotal = 0;

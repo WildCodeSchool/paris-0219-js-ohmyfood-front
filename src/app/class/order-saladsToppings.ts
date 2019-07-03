@@ -2,7 +2,7 @@ export class SaladsToppings {
   constructor(
     public idSaladsToppings: number,
     public saladsToppingsName: string,
-    public saladsToppingsPrice: string,
+    public saladsToppingsPriceTTC: string,
     public saladsToppingsQuantity: number
   ) {}
 }

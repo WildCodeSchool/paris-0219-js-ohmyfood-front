@@ -63,7 +63,7 @@ export class CreateFormBasketService {
           idSaladsToppings: iterator.idSaladsToppings,
           multiToppingsQuantity: iterator.saladsToppingsQuantity,
           toppingsName: iterator.saladsToppingsName,
-          toppinsPrice: iterator.saladsToppingsPriceTTC
+          toppingsPrice: iterator.saladsToppingsPriceTTC
         });
         multiToppings.push(topping);
       }

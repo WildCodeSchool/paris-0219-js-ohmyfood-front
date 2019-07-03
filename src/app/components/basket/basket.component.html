@@ -52,7 +52,7 @@
       <div formArrayName="salad">
         <div [formGroupName]="i" *ngFor="let salads of salad.controls ; let i = index">
           <label for="saladName-{{i}}">
-            Votre salade composée
+            Votre salade composée<span>{{ salads.value.saladsComposedTotalPrice }}</span>
           </label>
 
           <button
@@ -103,7 +103,7 @@
 
           <h5>Votre sauce</h5>
 
-          <p>{{ salads.value.multiSauces[i].saucesName }}</p>
+          <p>{{ salads.value.multiSauces[0].saucesName }}</p>
         </div>
       </div>
 

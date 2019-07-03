@@ -8,7 +8,7 @@
   </button>
 </section>
 <section class="buttonArea">
-  <button (click)="footerFunction()" class="button has-text-centered" title="Go to footer">SUR PLACE
+  <button (click)="goToFooter()" class="button has-text-centered" title="Go to footer">SUR PLACE
   </button>
 </section>
 
@@ -40,7 +40,12 @@
 </section>
 <section>
   <h2>Menu / Cartes</h2>
-  <div class="columns d-flex flex-row">
+
+  <ul>
+    <li *ngFor="let saladsBase of saladsBaseList">{{ saladsBase.saladsBaseName }}</li>
+  </ul>
+
+  <!-- <div class="columns d-flex flex-row">
     <div class="column is-4">
       <img src="../../../assets/img/BarASaladeMenu.jpg" alt="BarASaladeMenu"/>
     </div>
@@ -50,7 +55,7 @@
     <div class="column is-4">
       <img id="menus" src="../../../assets/img/Menus.png" alt="Menus"/>
     </div>
-  </div>
+  </div> -->
 </section>
 <section>
   <h3>Evènements Spéciaux</h3>

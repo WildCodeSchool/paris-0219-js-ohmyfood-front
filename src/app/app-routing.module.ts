@@ -1,3 +1,4 @@
+import { FooterComponent } from './components/footer/footer.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { PizzaPageComponent } from './pages/pizza-page/pizza-page.component';
@@ -11,18 +12,22 @@ import { OnlyLoggedInUsersGuardService } from './services/only-logged-in-users-g
 
 const routes: Routes = [
   {
-    path: '', 
-    redirectTo: 'homePage', 
+    path: '',
+    redirectTo: 'homePage',
     pathMatch: 'full'
   },
   {
-    path: 'admin', 
+    path: 'admin',
     component: AdminPagesComponent,
     canActivate: [OnlyLoggedInUsersGuardService]
   },
   {
     path: 'homePage',
     component: HomePageComponent
+  },
+  {
+    path: 'footer',
+    component: FooterComponent
   },
   {
     path: 'homeOrderPage',
@@ -34,7 +39,7 @@ const routes: Routes = [
     component: AuthClientPageComponent
   },
   {
-    path: 'createClientPage', 
+    path: 'createClientPage',
     component: AuthentCreateComponent
   },
   {

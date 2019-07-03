@@ -8,7 +8,7 @@ constructor(
   public orderSaladsBases: Array<SaladsBases>,
   public orderSaladsIngredients: Array<SaladsIngredients>,
   public orderSaladsToppings: Array<SaladsToppings>,
-  public orderSaladsSauces: SaladsSauces
-
+  public orderSaladsSauces: SaladsSauces,
+  public orderSaladsTotalPrice: number
   ) {}
 }

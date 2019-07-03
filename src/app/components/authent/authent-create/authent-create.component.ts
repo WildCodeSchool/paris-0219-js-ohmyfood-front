@@ -47,10 +47,6 @@ export class AuthentCreateComponent implements OnInit {
       };
       if (confirm(`Êtes-vous sûr de soumettre ces informations ?`)) {
         const addClient = this.authCreateClientService.addClient().subscribe(_ => {
-          /* const getPizzaObs = this.authCreateClientService.getPizzas().subscribe(data => {
-            this.createClientObject = data;
-            getPizzaObs.unsubscribe();
-          });*/
           this.authCreateForm.reset();
           addClient.unsubscribe();
         });

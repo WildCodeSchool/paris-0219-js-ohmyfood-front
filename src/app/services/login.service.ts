@@ -5,18 +5,20 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class LoginService {
+  booleanLoggedIn;
   loginObject: Object;
   url = 'http://localhost:3000/login';
   urlProtected = 'http://localhost:3000/login/protected';
   urlUser = 'http://localhost:3000/users/userInfos';
-  userInfoObject: Object;
-  transfertObject;
+  userInfoObject;
+
   @Output() transfertUser: EventEmitter<any> = new EventEmitter;
+  @Output() transfertUserRight: EventEmitter<any> = new EventEmitter;
 
   constructor(private http: HttpClient) { }
 
   getClientInformation() {
-    return this.http.get(this.urlUser).toPromise();
+    return this.http.get(this.urlUser).toPromise()
   }
 
   loginCheck() {
@@ -24,13 +26,16 @@ export class LoginService {
   }
 
   transfertUserFn(param) {
-    this.transfertUser.emit(param)
+    this.transfertUser.emit(param);
+  }
+
+  transfertUserRightFn(right) {
+    this.transfertUserRight.emit(right);
   }
 
   routeProtection() {
     const token = JSON.parse(localStorage.getItem("token")).token;
     const header = {headers: {'Authorization' : `Bearer ${token}`}}
-    return this.http.post(this.urlProtected, token, header)
-    .toPromise();
+    return this.http.post(this.urlProtected, token, header).toPromise()
   }
 }

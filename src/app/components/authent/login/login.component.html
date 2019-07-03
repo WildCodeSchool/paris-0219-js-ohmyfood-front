@@ -15,4 +15,9 @@
   <button type="submit" (click)="onSubmit()">Ok</button>
 </form>
 <p>Pas de compte?</p>
-<a href="#">Inscrivez-vous !</a>
+<a 
+  [routerLink]="['/createClientPage']" 
+  routerLinkActive="router-link-active" 
+>
+  Inscrivez-vous !
+</a>

@@ -1,5 +1,6 @@
-import { Component, OnInit, SimpleChange } from '@angular/core';
+import { Component } from '@angular/core';
 import { LoginService } from 'src/app/services/login.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar2',
@@ -12,10 +13,12 @@ export class Navbar2Component {
     firstname: '', 
     mail: ''
   }
-  userInfoGet: boolean = false;
+
+  booleanAdminLogged = 0;
 
   constructor(
-    private loginService: LoginService
+    private loginService: LoginService, 
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -26,6 +29,11 @@ export class Navbar2Component {
         mail: localStorage.getItem('userMail')
       };
     }
+
+    this.loginService.transfertUserRight.subscribe(_ => {
+      this.booleanAdminLogged = 1;
+    })
+
     this.loginService.transfertUser.subscribe(_ => { // on client logged
       this.userInfoObject = {
         lastname: localStorage.getItem('userLastName'),
@@ -33,6 +41,26 @@ export class Navbar2Component {
         mail: localStorage.getItem('userMail')
       };
     })
+  }
+
+  checkIfUserLogged() {
+    if (localStorage.getItem('userLastName') == undefined) {
+      this.router.navigateByUrl('authClientPage');
+    } else {
+      this.router.navigateByUrl('homeOrderPage');
+    }
+  }
+
+  logOut() {
+    this.loginService.booleanLoggedIn = 0;
+    this.booleanAdminLogged = 0;
+    localStorage.clear();
+    this.userInfoObject = {
+      lastname: '',
+      firstname: '', 
+      mail: ''
+    }
+    this.router.navigateByUrl('/');
   }
 }
 

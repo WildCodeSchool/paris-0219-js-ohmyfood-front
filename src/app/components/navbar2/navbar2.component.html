@@ -10,12 +10,31 @@
   </div>
 
   <div class="column is-4">
-    <span>{{userInfoObject['lastname']}}</span>
-    <span>{{userInfoObject['firstname']}}</span>
-    <span>{{userInfoObject['mail']}}</span>
-    <p id='order'>COMMANDER</p>
-    <span>Mon compte</span>
-    <span><i class="fa fa-user fa-2x"></i></span>
+    <span>Bienvenue {{userInfoObject['lastname']}} </span>
+    <span>{{userInfoObject['firstname']}}</span><br>
+    <button 
+      class="button" 
+      (click)="logOut()" 
+      *ngIf="userInfoObject['lastname'] !== ''"
+    >
+      DECONNEXION
+    </button>
+    <button
+      class="button"
+      *ngIf="userInfoObject['lastname'] === ''"
+      [routerLink]="['/authClientPage']" 
+      routerLinkActive="router-link-active"
+    >
+      CONNEXION
+    </button>
+    <p 
+      id='order' 
+      (click)="checkIfUserLogged()"
+    >
+      COMMANDER
+    </p>
+    <span *ngIf="userInfoObject['lastname'] !== ''">Mon compte<i class="fa fa-user fa-2x"></i></span>
+    <span *ngIf="booleanAdminLogged === 1"> * ADMIN *</span>
   </div>
 
 </div>

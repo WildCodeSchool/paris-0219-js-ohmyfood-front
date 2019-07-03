@@ -1,7 +1,6 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoginService } from 'src/app/services/login.service';
-import { IsLogged } from 'src/app/services/IsLogged.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -16,7 +15,7 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder, 
     private loginService: LoginService,
     private router: Router,
-    private isLogged: IsLogged ) { }
+  ) { }
 
   ngOnInit() {
     this.initForm();
@@ -44,20 +43,24 @@ export class LoginComponent implements OnInit {
 
   routeProtected() {
     this.loginService.routeProtection().then(res => {
-      this.isLogged.log = true;
-      this.isLogged.canActivate;
       this.loginService.getClientInformation().then(res => {
+        console.log(res)
         const userInfoObject = {
           lastname: res['0'].lastname,
           firstname: res['0'].firstname,
-          mail: res['0'].mail
+          mail: res['0'].mail, 
+          userRight: res['0'].userRight
         }
+        if (userInfoObject.userRight === 1) {
+          this.loginService.transfertUserRightFn(userInfoObject.userRight);
+        }
+
         localStorage.setItem('userLastName', userInfoObject.lastname);
         localStorage.setItem('userFirstName', userInfoObject.firstname);
         localStorage.setItem('userMail', userInfoObject.mail);
         this.loginService.transfertUserFn(userInfoObject);
         this.router.navigateByUrl('homeOrderPage');
-      })
+      });
     });
   }
   

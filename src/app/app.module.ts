@@ -27,6 +27,7 @@ import { AuthCreateAddressComponent } from './components/authent/auth-create-add
 import { HomeOrderComponent } from './components/home-order/home-order.component';
 import { HomeComponent } from './components/home/home.component';
 import { SaladPageComponent } from './pages/salad-page/salad-page.component';
+import { OnlyLoggedInUsersGuardService } from './services/only-logged-in-users-guard.service';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,7 @@ import { SaladPageComponent } from './pages/salad-page/salad-page.component';
     ReactiveFormsModule,
     RouterModule,
   ],
-  providers: [],
+  providers: [OnlyLoggedInUsersGuardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

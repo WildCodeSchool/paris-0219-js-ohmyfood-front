@@ -45,7 +45,12 @@ export class SaladsDatasService {
     if (formResultKey[0] === 'selectBase') {
       formResult.selectBase.map((base: any) => {
         if (base.saladsBaseQuantity) {
-          const saladsBase = new SaladsBases(base.idSaladsBase, base.saladsBaseName, base.saladsBasePriceTTC, 1);
+          const saladsBase = new SaladsBases(
+            base.idSaladsBase,
+            base.saladsBaseName,
+            base.saladsBasePriceTTC,
+            1
+          );
           this.userBase.push(saladsBase);
         }
       });

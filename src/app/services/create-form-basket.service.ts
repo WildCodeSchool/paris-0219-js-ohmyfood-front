@@ -30,7 +30,8 @@ export class CreateFormBasketService {
         multiBases: this.fb.array([]),
         multiIngredients: this.fb.array([]),
         multiToppings: this.fb.array([]),
-        multiSauces: this.fb.array([])
+        multiSauces: this.fb.array([]),
+        saladsComposedQuantity: 1
       });
 
       const multiBases = saladChoice.get('multiBases') as FormArray;

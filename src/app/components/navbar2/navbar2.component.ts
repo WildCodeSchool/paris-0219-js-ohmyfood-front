@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { LoginService } from 'src/app/services/login.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-navbar2',
@@ -18,7 +18,8 @@ export class Navbar2Component {
 
   constructor(
     private loginService: LoginService, 
-    private router: Router
+    private router: Router, 
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
@@ -59,6 +60,10 @@ export class Navbar2Component {
       lastname: '',
       firstname: '', 
       mail: ''
+    }
+    
+    if (this.route.snapshot._routerState.url === "/homePage") {
+      window.location.reload()
     }
     this.router.navigateByUrl('/');
   }

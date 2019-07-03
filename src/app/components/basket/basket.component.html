@@ -1,13 +1,17 @@
 <div class="basket" [ngClass]="{basketToggle: isToggleBasket}">
-  <div class="rubanToggle d-flex flex-column">
-    <a 
+  <div 
+    class="rubanToggle d-flex flex-column"
+  >
+    <a
       class="arrowToggle d-flex" 
       [ngClass]="{arrowToggleAnimation: isToggleBasket}"
       (click)="displayToggleBasket($event)"
     >
-      <i class="fa fa-arrow-circle-right fa-3x"></i>
+      <i 
+        class="fa fa-arrow-circle-right fa-3x"
+      ></i>
     </a>
-    <p class="reverseText d-flex">Récapitulatif de votre commande</p>
+    <p class="reverseText">Récapitulatif de votre commande</p>
   </div>
 
   <div class="inlineBasket d-flex flex-row">
@@ -30,94 +34,110 @@
       </ul>
     </div>
     <p id="orderStatus">Statut de la commande : </p>
-    <form [formGroup]="finalOrderForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="finalOrderForm" (ngSubmit)="onSubmit()" class="formular">
       <div formArrayName="pizza">
-        <div [formGroupName]="i" *ngFor="let pizzas of pizza.controls; let i = index">
+        <div [formGroupName]="i" *ngFor="let pizzas of pizza.controls; let i = index" class="displayElement">
           <label for="pizzName-{{i}}">
-            {{ pizzas.value.pizzasName }}<span>{{ pizzas.value.pizzasPriceTotal }} EUR</span>
+            <span>{{ pizzas.value.pizzasName }}</span>
+            <span>{{ pizzas.value.pizzasPriceTotal }} EUR</span>
           </label>
 
-          <button
-            class="button is-outlined is-mobile"
-            name="add-pizzas-quantity"
-            type="button"
-            (click)="quantitySelect('-', i, pizzas.value.pizzasQuantity, pizzas.value)">
+          <div class="quantityButton">
+            <button
+              class="button is-outlined is-mobile"
+              name="add-pizzas-quantity"
+              type="button"
+              (click)="quantitySelect('-', i, pizzas.value.pizzasQuantity, pizzas.value)"
+            >
               -
-          </button>
-
-          <input
-            type="text"
-            name="pizzasQuantity-{{i}}"
-            formControlName="pizzasQuantity"
-            value="{{pizzas.value.pizzasQuantity}}"/>
-
-          <button
-            class="button is-outlined is-mobile"
-            name="add-pizzas-quantity"
-            type="button"
-            (click)="quantitySelect('+', i, pizzas.value.pizzasQuantity, pizzas.value)">
+            </button>
+            
+            <input
+              type="text"
+              name="pizzasQuantity-{{i}}"
+              formControlName="pizzasQuantity"
+              value="{{pizzas.value.pizzasQuantity}}"
+            />
+            
+            <button
+              class="button is-outlined is-mobile"
+              name="add-pizzas-quantity"
+              type="button"
+              (click)="quantitySelect('+', i, pizzas.value.pizzasQuantity, pizzas.value)"
+            >
               +
-          </button>
+            </button>
+          </div>
         </div>
       </div>
 
       <div formArrayName="beverage">
-        <div [formGroupName]="i" *ngFor="let beverages of beverage.controls; let i = index">
+        <div [formGroupName]="i" *ngFor="let beverages of beverage.controls; let i = index" class="displayElement">
           <label for="bevName-{{i}}">
-            {{ beverages.value.bevName }}<span>{{ beverages.value.bevPriceTotal }} EUR</span>
+            <span>{{ beverages.value.bevName }}</span>
+            <span>{{ beverages.value.bevPriceTotal }} EUR</span>
           </label>
-
-          <button
-            class="button is-outlined is-mobile"
-            name="add-beverage-quantity"
-            type="button"
-            (click)="quantitySelect('-', i, beverages.value.bevQuantity, beverages.value)">
+          <div class="quantityButton">
+            <button
+              class="button is-outlined is-mobile"
+              name="add-beverage-quantity"
+              type="button"
+              (click)="quantitySelect('-', i, beverages.value.bevQuantity, beverages.value)"
+            >
               -
-          </button>
-
-          <input
-            type="text"
-            name="beveragesQuantity-{{i}}"
-            formControlName="bevQuantity"
-            value="{{beverages.value.bevQuantity}}"/>
-
-          <button
-            class="button is-outlined is-mobile"
-            name="add-beverages-quantity"
-            type="button"
-            (click)="quantitySelect('+', i, beverages.value.bevQuantity, beverages.value)">
+            </button>
+          
+            <input
+              type="text"
+              name="beveragesQuantity-{{i}}"
+              formControlName="bevQuantity"
+              value="{{beverages.value.bevQuantity}}"
+            />
+          
+            <button
+              class="button is-outlined is-mobile"
+              name="add-beverages-quantity"
+              type="button"
+              (click)="quantitySelect('+', i, beverages.value.bevQuantity, beverages.value)"
+            >
               +
-          </button>
+            </button>
+          </div>
         </div>
       </div>
 
       <div formArrayName="dessert">
-        <div [formGroupName]="i" *ngFor="let desserts of dessert.controls; let i = index">
+        <div [formGroupName]="i" *ngFor="let desserts of dessert.controls; let i = index" class="displayElement">
           <label for="bevName-{{i}}">
-            {{ desserts.value.dessName }}<span>{{ desserts.value.dessPriceTotal }} EUR</span>
+            <span>{{ desserts.value.dessName }}</span>
+            <span>{{ desserts.value.dessPriceTotal }} EUR</span>
           </label>
+          <div class="quantityButton">
+            <button
+              class="button is-outlined is-mobile"
+              name="add-dessert-quantity"
+              type="button"
+              (click)="quantitySelect('-', i, desserts.value.dessQuantity, desserts.value)"
+            >
+                -
+            </button>
 
-          <button
-            class="button is-outlined is-mobile"
-            name="add-dessert-quantity"
-            type="button"
-            (click)="quantitySelect('-', i, desserts.value.dessQuantity, desserts.value)">
-              -
-          </button>
+            <input
+              type="text"
+              name="dessertsQuantity-{{i}}"
+              formControlName="dessQuantity"
+              value="{{desserts.value.dessQuantity}}"
+            />
 
-          <input
-            type="text"
-            name="dessertsQuantity-{{i}}"
-            formControlName="dessQuantity"
-            value="{{desserts.value.dessQuantity}}"/>
-
-          <button
-            class="button is-outlined is-mobile"
-            name="add-desserts-quantity"
-            type="button"
-            (click)="quantitySelect('+', i, desserts.value.dessQuantity, desserts.value)">
-              +
-          </button>
+            <button
+              class="button is-outlined is-mobile"
+              name="add-desserts-quantity"
+              type="button"
+              (click)="quantitySelect('+', i, desserts.value.dessQuantity, desserts.value)"
+            >
+                +
+            </button>
+          </div>
         </div>
       </div>
 

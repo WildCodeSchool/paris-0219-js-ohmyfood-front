@@ -2,11 +2,12 @@
 
 .arrowToggle {
     align-items: center;
+    display: block;
     height: 10vh;
     justify-content: center;
     transition-duration: .5s;
     transform: rotate(-180deg);
-    z-index: 1;
+    z-index: 100;
 }
 
 .basket {
@@ -20,17 +21,22 @@
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
     border-radius: 10px;
-    z-index: 30;
     transition-duration: .5s;
+    z-index: 30;
 }
 
 .button {
     border-radius: 50%;
-    font-size: 1.2rem;
-    height: 35px;
-    margin-top: 3px;
-    vertical-align: middle;
-    width: 35px;
+    font-size: 1.1rem;
+    height: 29px;
+    width: 29px;
+}
+
+//formGroupName
+
+.displayElement {
+    display: flex;
+    justify-content: space-between;
 }
 
 .headerBasket {
@@ -42,20 +48,29 @@
     justify-content: center;
     position: absolute;
     top: 10px;
+    margin-left:0;
+    text-align: center;
+    width: 100%;
 }
 
 input[type=text] {
     border-radius: 50%;
-    font-size: 1.2rem;
-    margin: 0 15px;
+    font-size: 1.3rem;
+    margin: 0 9px;
     text-align: center;
-    width: 7.5%;
+    width: 23%;
 }
 
 input[type=text]::-webkit-inner-spin-button,
 input[type=text]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+
+label {
+    display: flex;
+    justify-content: space-between;
+    width: 67%;
 }
 
 .livrAndStatus {
@@ -73,21 +88,21 @@ p {
     text-align: center;
 }
 
+.quantityButton {
+    width: 31%;
+}
+
 .reverseText {
-    align-items: center;
-    border-right: 1px solid white;
-    color: white;
-    font-size: 1rem;
-    font-weight: bolder;
-    justify-content: center;
-    height: 90vh;
-    text-orientation: upright;
-    writing-mode: vertical-rl;
+    display: none;
 }
 
 .rubanToggle {
     justify-content: space-around;
     width: 10%;
+}
+
+span:nth-child(1) {
+    margin-left: 5%;
 }
 
 #totalOrderText {
@@ -100,12 +115,26 @@ ul li {
 
 @media screen and (min-width: 720px) {
     .basket {
-        width: 60vw;
-        right: -54vw;
+        width: 100vw;
+        right: -90vw;
+    }
+    
+    .inlineBasket {
+        margin-left: 10%;
+        width: 90%;
     }
 
     .reverseText {
-        font-size: 1em;
+        align-items: center;
+        border-right: 1px solid white;
+        color: white;
+        display: flex;
+        font-size: 1rem;
+        font-weight: bolder;
+        justify-content: center;
+        height: 90vh;
+        text-orientation: upright;
+        writing-mode: vertical-rl;
     }
 }
 

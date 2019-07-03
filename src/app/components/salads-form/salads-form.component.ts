@@ -23,6 +23,11 @@ export class SaladsFormComponent implements OnInit {
   // To toggle Form
   isToggle: boolean;
 
+  isToggleBase: boolean;
+  isToggleSauce: boolean;
+  isToggleToppings: boolean;
+  isToggleIngredients: boolean;
+
   // To display saucesMessage and toppingsMessage
   displaySaucesMessage = true;
   displayToppingsMessage = true;
@@ -188,9 +193,23 @@ export class SaladsFormComponent implements OnInit {
     }
    }
 
-   toggleFormSalads($event: any) {
-    $event.preventDefault();
-    this.isToggle = this.ToggleForm.toggleForm(this.isToggle);
+   toggleFormSalads($event: any, params: any) {
+     console.log(params);
+     $event.preventDefault();
+
+     if (params === 'form') {
+      this.isToggle = this.ToggleForm.toggleForm(this.isToggle);
+     } else if (params === 'base') {
+        this.isToggleBase = this.ToggleForm.toggleForm(this.isToggleBase);
+    } else if ( params === 'toppings') {
+        this.isToggleToppings = this.ToggleForm.toggleForm(this.isToggleToppings);
+    } else if ( params === 'ingredients') {
+        this.isToggleIngredients = this.ToggleForm.toggleForm(this.isToggleIngredients);
+    } else if ( params === 'sauce') {
+      this.isToggleSauce = this.ToggleForm.toggleForm(this.isToggleSauce);
+    }
+
+
   }
 
   resetFormSalads() {

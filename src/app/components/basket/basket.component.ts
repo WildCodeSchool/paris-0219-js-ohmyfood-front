@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { PizzasDataService } from 'src/app/services/pizzas-data.service';
 import { OrderPizzas } from 'src/app/class/order-pizzas';
 import { FormBuilder, FormArray } from '@angular/forms';
@@ -16,7 +16,7 @@ import { SaladsDatasService } from 'src/app/services/salads-datas.service';
   templateUrl: './basket.component.html',
   styleUrls: ['./basket.component.scss']
 })
-export class BasketComponent implements OnInit, OnDestroy {
+export class BasketComponent implements OnInit {
 
   isToggleBasket: boolean;
 
@@ -272,12 +272,6 @@ export class BasketComponent implements OnInit, OnDestroy {
     }
 
     this.totalArray.length === 0 ? this.total = 0 : this.total = this.totalArray.reduce(reducer);
-  }
-
-  ngOnDestroy() {
-    this.pizzasData.getUserPizzas.unsubscribe();
-    this.beverageData.getUserBeverages.unsubscribe();
-    this.dessertData.getUserDesserts.unsubscribe();
   }
 
 }

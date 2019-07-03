@@ -49,6 +49,42 @@
         </div>
       </div>
 
+      <div formArrayName="salad">
+        <div [formGroupName]="i" *ngFor="let salads of salad.controls ; let i = index">
+          <label for="saladName-{{i}}">
+            Votre salade composée
+          </label>
+
+          <h3>Vos bases</h3>
+
+          <div *ngFor="let bases of salads.value.multiBases">
+            <p>
+              {{ bases.basesName }}<span>{{ bases.basesPrice }} EUR</span>
+            </p>
+          </div>
+
+          <h3>Vos ingrédients</h3>
+
+          <div *ngFor="let ingredients of salads.value.multiIngredients">
+            <p>
+              {{ ingredients.ingredientsName}}<span>{{ ingredients.ingredientsPrice }} EUR</span>
+            </p>
+          </div>
+
+          <h3>Vos toppings</h3>
+
+          <div *ngFor="let toppings of salads.value.multiToppings">
+            <p>
+              {{ toppings.toppingsName}}<span>{{ toppings.toppingsPrice }} EUR</span>
+            </p>
+          </div>
+
+          <h3>Votre sauce</h3>
+
+          <p>{{ salads.value.multiSauces[i].saucesName }}</p>
+        </div>
+      </div>
+
       <div formArrayName="beverage">
         <div [formGroupName]="i" *ngFor="let beverages of beverage.controls; let i = index">
           <label for="bevName-{{i}}">

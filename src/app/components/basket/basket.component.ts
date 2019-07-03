@@ -1,14 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { PizzasDataService } from 'src/app/services/pizzas-data.service';
-import { OrderPizzas } from 'src/app/class/order-pizzas';
 import { FormBuilder, FormArray } from '@angular/forms';
 import { QuantitySelectService } from 'src/app/services/quantity-select.service';
 import { CreateFormBasketService } from 'src/app/services/create-form-basket.service';
-import { OrderBeverage } from 'src/app/class/order-beverage';
 import { BeveragesDataService } from 'src/app/services/beverages-data.service';
-import { OrderDessert } from 'src/app/class/order-dessert';
 import { DessertsDataService } from 'src/app/services/desserts-data.service';
-import { OrderSalads } from 'src/app/class/order-salads';
 import { SaladsDatasService } from 'src/app/services/salads-datas.service';
 
 @Component({
@@ -18,13 +14,11 @@ import { SaladsDatasService } from 'src/app/services/salads-datas.service';
 })
 export class BasketComponent implements OnInit {
 
-  isToggleBasket: boolean;
+  isToggleBasket: boolean; // To toggle basket
 
-  enableSubmit: boolean;
+  enableSubmit: boolean; // To enable submit button
 
   totalArray: Array<number> = []; // Use to calculate total price
-
-  initPrice: boolean;
 
   total: number; // final result
 
@@ -48,9 +42,7 @@ export class BasketComponent implements OnInit {
   ngOnInit() {
     // creation of formArray pizzas
     this.pizzasData.getUserPizzas.subscribe((pizzasChoice: any) => {
-
       const pizza = this.finalOrderForm.get('pizza') as FormArray;
-
       pizza.push(this.createForm.createOrderForm(pizzasChoice));
 
       for (let i = 0; i < pizza.value.length; i ++) {
@@ -65,9 +57,7 @@ export class BasketComponent implements OnInit {
 
     // Creation of FormArray beverages
     this.beverageData.getUserBeverages.subscribe((beveragesChoice: any) => {
-
       const beverage = this.finalOrderForm.get('beverage') as FormArray;
-
       beverage.push(this.createForm.createOrderForm(beveragesChoice));
 
       for (let i = 0; i < beverage.value.length; i ++) {
@@ -81,9 +71,7 @@ export class BasketComponent implements OnInit {
     });
     // Creation of FormArray desserts
     this.dessertData.getUserDesserts.subscribe((dessertsChoice: any) => {
-
       const dessert = this.finalOrderForm.get('dessert') as FormArray;
-
       dessert.push(this.createForm.createOrderForm(dessertsChoice));
 
       for (let i = 0; i < dessert.value.length; i ++) {
@@ -100,6 +88,7 @@ export class BasketComponent implements OnInit {
     this.saladsData.getSalads.subscribe((userSaladsChoice: any) => {
       const salad = this.finalOrderForm.get('salad') as FormArray;
       salad.push(this.createForm.createOrderForm(userSaladsChoice));
+      this.totalBasket();
     });
   }
 
@@ -130,7 +119,6 @@ export class BasketComponent implements OnInit {
 
   onSubmit() {
     const finalOrder = this.finalOrderForm.value;
-    console.log(finalOrder);
 
     this.resetBasket();
   }
@@ -159,7 +147,6 @@ export class BasketComponent implements OnInit {
       if (pizza.controls[index].value.pizzasQuantity === 0) {
         pizza.removeAt(index); // remove object from form array when quantity = 0
       }
-
       this.totalBasket();
 
     } else if (check[0] === 'idBeverages') {
@@ -181,7 +168,6 @@ export class BasketComponent implements OnInit {
         if (beverage.controls[index].value.bevQuantity === 0) {
           beverage.removeAt(index); // remove object from form array when quantity = 0
         }
-
         this.totalBasket();
 
     } else if (check[0] === 'idDesserts') {
@@ -203,19 +189,45 @@ export class BasketComponent implements OnInit {
       if (dessert.controls[index].value.dessQuantity === 0) {
         dessert.removeAt(index); // remove object from form array when quantity = 0
       }
+      this.totalBasket();
 
+    } else if (check[0] === 'multiBases' ) {
+      quantity =
+      this.finalOrderForm.value.salad[index].saladsComposedQuantity =
+      this.quantityService.selectQuantity(operator, quantity);
+
+      if (operator === '+') {
+        this.finalOrderForm.value.salad[index].saladsComposedTotalPrice =
+        (this.finalOrderForm.value.salad[index].saladsComposedTotalPrice / (quantity - 1)) * quantity;
+
+      } else {
+        this.finalOrderForm.value.salad[index].saladsComposedTotalPrice =
+        (this.finalOrderForm.value.salad[index].saladsComposedTotalPrice / (quantity + 1)) * quantity;
+      }
+
+      const salad = this.finalOrderForm.get('salad') as FormArray;
+
+      if (salad.controls[index].value.saladsComposedQuantity === 0) {
+        salad.removeAt(index); // remove object from form array when quantity = 0
+      }
       this.totalBasket();
     }
-    this.total < 15 ? this.enableSubmit = false : this.enableSubmit = true;
+    this.total < 15 ? this.enableSubmit = false : this.enableSubmit = true; // Disable submit button
   }
 
   resetBasket() {
     const pizza = this.finalOrderForm.get('pizza') as FormArray;
+    const salad = this.finalOrderForm.get('salad') as FormArray;
     const beverage = this.finalOrderForm.get('beverage') as FormArray;
     const dessert = this.finalOrderForm.get('dessert') as FormArray;
 
+    // Reset all formArray
     while (pizza.length > 0) {
       pizza.removeAt(0);
+    }
+
+    while (salad.length > 0) {
+      salad.removeAt(0);
     }
 
     while (beverage.length > 0) {
@@ -225,8 +237,6 @@ export class BasketComponent implements OnInit {
     while (dessert.length > 0) {
       dessert.removeAt(0);
     }
-    this.enableSubmit = false;
-
     this.totalBasket();
   }
 
@@ -236,6 +246,7 @@ export class BasketComponent implements OnInit {
 
     const reducer = (accumulator, currentValue) => accumulator + currentValue; // Method to calculate max of an array
 
+    // Update array of total price with all values from finalOrderForm
     for (const iterator of this.pizza.value) {
       this.totalArray.push(iterator.pizzasPriceTotal);
     }
@@ -248,7 +259,12 @@ export class BasketComponent implements OnInit {
       this.totalArray.push(iterator.dessPriceTotal);
     }
 
-    this.totalArray.length === 0 ? this.total = 0 : this.total = this.totalArray.reduce(reducer);
+    for (const iterator of this.salad.value) {
+      this.totalArray.push(iterator.saladsComposedTotalPrice);
+    }
+
+    this.totalArray.length === 0 ? this.total = 0 : this.total = this.totalArray.reduce(reducer); // Total price
+    this.total < 15 ? this.enableSubmit = false : this.enableSubmit = true; // If total price < 15, disable submit button
   }
 
 }

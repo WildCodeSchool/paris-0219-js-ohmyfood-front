@@ -59,7 +59,7 @@
             class="button is-rounded is-outlined is-mobile is-small"
             name="add-pizzas-quantity"
             type="button"
-            (click)="quantitySelect('-', i, salad.value.saladsComposedQuantity, salads.value)">
+            (click)="quantitySelect('-', i, salads.value.saladsComposedQuantity, salads.value)">
               -
           </button>
 
@@ -171,6 +171,7 @@
 
       <button type="button" (click)="resetBasket()">Videz votre panier</button>
     </form>
+
     <p>
       TOTAL de votre commande {{ total }} EUR
     </p>

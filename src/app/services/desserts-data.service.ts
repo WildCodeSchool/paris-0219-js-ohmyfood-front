@@ -35,4 +35,13 @@ export class DessertsDataService {
     }
   }
 
+  createOrderDessertsSessionStorage(object: any) {
+    return new OrderDessert(
+      object.idDesserts,
+      object.dessName,
+      object.dessPriceTotal / object.dessQuantity, // We divide priceTotal by quantity to get good value in basket
+      object.dessQuantity
+    );
+  }
+
 }

@@ -12,7 +12,7 @@ export class HomeComponent {
 
   checkIfUserLogged(i) {
     let index = i;
-    if (localStorage.getItem('userLastName') == undefined) {
+    if (sessionStorage.getItem('userLastName') == undefined) {
       return this.router.navigateByUrl('authClientPage')
     } 
     if (index === 0) {

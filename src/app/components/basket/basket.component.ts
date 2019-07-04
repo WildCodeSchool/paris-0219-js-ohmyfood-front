@@ -6,6 +6,9 @@ import { CreateFormBasketService } from 'src/app/services/create-form-basket.ser
 import { BeveragesDataService } from 'src/app/services/beverages-data.service';
 import { DessertsDataService } from 'src/app/services/desserts-data.service';
 import { SaladsDatasService } from 'src/app/services/salads-datas.service';
+import { JsonPipe } from '@angular/common';
+import { OrderBeverage } from 'src/app/class/order-beverage';
+import { BasketSessionStorageService } from 'src/app/services/basket-session-storage.service';
 
 @Component({
   selector: 'app-basket',
@@ -36,10 +39,40 @@ export class BasketComponent implements OnInit {
     private formBuilder: FormBuilder,
     private quantityService: QuantitySelectService,
     private createForm: CreateFormBasketService,
-    private saladsData: SaladsDatasService
+    private saladsData: SaladsDatasService,
+    private localStorage: BasketSessionStorageService
     ) { }
 
   ngOnInit() {
+
+    // Get item from local storage to update basket
+    const storageBeverages = sessionStorage.getItem('beverages') ? // If there is key in session storage, get it in variable
+    JSON.parse(sessionStorage.getItem('beverages')) : [];
+
+    // Create Form group to push it in formArray of final order to update basket with good value
+    const beverages = this.finalOrderForm.get('beverage') as FormArray;
+
+    for (const iterator of storageBeverages) {
+      const bev = new OrderBeverage(iterator.
+        idBeverages,
+        iterator.bevName,
+        iterator.bevPriceTotal / iterator.bevQuantity, // We divide priceTotal by quantity to get good value in basket
+        iterator.bevQuantity
+      );
+      beverages.push(this.createForm.createOrderForm(bev));
+
+    }
+
+    // Sort form array to avoid duplicate
+    for (let i = 0; i < beverages.value.length; i ++) {
+      for (let j = i + 1 ; j < beverages.value.length; j ++ ) {
+        if (beverages.value[i].bevName === beverages.value[j].bevName) {
+          this.createForm.sortOrderForm(beverages, i, j);
+        }
+      }
+    }
+    this.totalBasket();
+
     // creation of formArray pizzas
     this.pizzasData.getUserPizzas.subscribe((pizzasChoice: any) => {
       const pizza = this.finalOrderForm.get('pizza') as FormArray;
@@ -67,6 +100,8 @@ export class BasketComponent implements OnInit {
           }
         }
       }
+      this.localStorage.saveToLocalStorage(null, this.finalOrderForm.value.beverage);
+
       this.totalBasket();
     });
     // Creation of FormArray desserts
@@ -168,6 +203,8 @@ export class BasketComponent implements OnInit {
         if (beverage.controls[index].value.bevQuantity === 0) {
           beverage.removeAt(index); // remove object from form array when quantity = 0
         }
+
+        this.localStorage.saveToLocalStorage(null, this.finalOrderForm.value.beverage);
         this.totalBasket();
 
     } else if (check[0] === 'idDesserts') {
@@ -237,6 +274,8 @@ export class BasketComponent implements OnInit {
     while (dessert.length > 0) {
       dessert.removeAt(0);
     }
+
+    this.localStorage.saveToLocalStorage('reset', this.finalOrderForm.value.beverage);
     this.totalBasket();
   }
 
@@ -266,5 +305,4 @@ export class BasketComponent implements OnInit {
     this.totalArray.length === 0 ? this.total = 0 : this.total = this.totalArray.reduce(reducer); // Total price
     this.total < 15 ? this.enableSubmit = false : this.enableSubmit = true; // If total price < 15, disable submit button
   }
-
 }

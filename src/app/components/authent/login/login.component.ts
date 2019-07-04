@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
         password: this.loginForm.value.psswClient
       }
       this.loginService.loginCheck().then(res => {
-        localStorage.setItem('token', res)
+        sessionStorage.setItem('token', res)
         this.routeProtected();
       });
     }
@@ -44,7 +44,6 @@ export class LoginComponent implements OnInit {
   routeProtected() {
     this.loginService.routeProtection().then(res => {
       this.loginService.getClientInformation().then(res => {
-        console.log(res)
         const userInfoObject = {
           lastname: res['0'].lastname,
           firstname: res['0'].firstname,
@@ -55,9 +54,9 @@ export class LoginComponent implements OnInit {
           this.loginService.transfertUserRightFn(userInfoObject.userRight);
         }
 
-        localStorage.setItem('userLastName', userInfoObject.lastname);
-        localStorage.setItem('userFirstName', userInfoObject.firstname);
-        localStorage.setItem('userMail', userInfoObject.mail);
+        sessionStorage.setItem('userLastName', userInfoObject.lastname);
+        sessionStorage.setItem('userFirstName', userInfoObject.firstname);
+        sessionStorage.setItem('userMail', userInfoObject.mail);
         this.loginService.transfertUserFn(userInfoObject);
         this.router.navigateByUrl('homeOrderPage');
       });

@@ -27,7 +27,7 @@ export class HomeComponent implements OnInit {
 
   checkIfUserLogged(i) {
     const index = i;
-    if (localStorage.getItem('userLastName') === undefined) {
+    if (sessionStorage.getItem('userLastName') === undefined) {
       return this.router.navigateByUrl('authClientPage');
     }
     if (index === 0) {

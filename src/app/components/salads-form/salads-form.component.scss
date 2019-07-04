@@ -14,6 +14,7 @@ a {
   h1 {
     font-size: 2em;
     text-align: center;
+
   }
 
   p {
@@ -28,9 +29,15 @@ a {
     text-decoration: none;
   }
 }
+.saladsTitle {
+  border-top-left-radius: 50px;
+}
 .button {
   border: solid 1px $green;
   margin: 0 auto;
+  width: 200px;
+  height: 40px;
+  position: relative;
   transition-duration: 500ms;
 
   &:hover {

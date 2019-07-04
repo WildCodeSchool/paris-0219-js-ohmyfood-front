@@ -43,18 +43,25 @@
 
 <div class="columns">
 
-<div class="column">
+<div class="column is-offset-2">
 
 <div id="flag"><span class="titlemenu">BAR A SALADE</span></div>
   <ul>
     <li *ngFor="let saladsBase of saladsBaseList">{{ saladsBase.saladsBaseName }}</li>
+    <br>
+    <li *ngFor="let saladsIngredient of saladsIngredientList">{{ saladsIngredient.saladsIngredientsName }}</li>
+    <br>
+    <li *ngFor="let saladsTopping of saladsToppingList">{{ saladsTopping.saladsToppingsName }}</li>
+    <br>
+    <li *ngFor="let saladsSauces of saladsSauceList">{{ saladsSauces.saladsSaucesName }}</li>
+    <br>
   </ul>
 </div>
 
 <div class="column">
     <div id="flag"><span class="titlemenu">NOS PIZZAS</span></div>
       <ul>
-        <li *ngFor="let saladsBase of saladsBaseList">{{ saladsBase.saladsBaseName }}</li>
+        <li *ngFor="let pizzasList of pizzasList">{{ pizzasList.pizzName }} &nbsp; &nbsp; {{pizzasList.pizzPriceTTC }} EUR</li>
       </ul>
 </div>
 

@@ -44,7 +44,6 @@ export class LoginComponent implements OnInit {
   routeProtected() {
     this.loginService.routeProtection().then(res => {
       this.loginService.getClientInformation().then(res => {
-
         const userInfoObject = {
           lastname: res['0'].lastname,
           firstname: res['0'].firstname,

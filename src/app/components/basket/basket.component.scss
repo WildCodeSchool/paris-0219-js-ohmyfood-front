@@ -56,9 +56,9 @@
 input[type=text] {
     border-radius: 50%;
     font-size: 1.3rem;
-    margin: 0 9px;
+    margin: 0 4px;
     text-align: center;
-    width: 23%;
+    width: 34%;
 }
 
 input[type=text]::-webkit-inner-spin-button,
@@ -67,10 +67,24 @@ input[type=text]::-webkit-outer-spin-button {
   margin: 0;
 }
 
+.formular {
+    overflow-y: scroll;
+    height: 74vh;
+}
+
+.formular::-webkit-scrollbar { width: 0 !important }
+
+.formular { overflow: -moz-scrollbars-none; }
+
+.formular { -ms-overflow-style: none; }
+
+
+
 label {
-    display: flex;
-    justify-content: space-between;
-    width: 67%;
+    display: block;
+    margin-left: 20px;
+    text-align: left;
+    width: 60%;
 }
 
 .livrAndStatus {
@@ -84,12 +98,17 @@ label {
     width: 100%;
 }
 
+.overScrollForm {
+    height: 74vh;
+}
+
 p {
     text-align: center;
 }
 
 .quantityButton {
-    width: 31%;
+    width: 32%;
+    margin-right: 5%;
 }
 
 .reverseText {
@@ -101,7 +120,8 @@ p {
     width: 10%;
 }
 
-span:nth-child(1) {
+span {
+    display: block;
     margin-left: 5%;
 }
 
@@ -119,9 +139,48 @@ ul li {
         right: -90vw;
     }
     
+    .formular {
+        height: 80vh;
+    }
+
+    label {
+        display: flex;
+        justify-content: space-between;
+        margin-left: 0;
+        text-align: unset;
+        width: 67%;
+    }
+
     .inlineBasket {
         margin-left: 10%;
         width: 90%;
+    }
+
+    input[type=text] {
+        margin: 0 9px;
+        width: 23%;
+    }
+
+    .overScrollForm {
+        height: 80vh;
+    }
+
+    .quantityButton {
+        width: 31%;
+        margin-right: 0;
+    }
+
+    span {
+        display: inline;
+        margin-left: 0;
+    }
+
+    span:nth-child(0) {
+        font-weight: bolder;
+    }
+
+    span:nth-child(1) {
+        margin-left: 5%;
     }
 
     .reverseText {
@@ -142,6 +201,10 @@ ul li {
     .basket {
         width: 40vw;
         right: -36.5vw;
+    }
+
+    .formular, .overScrollForm {
+        height: 76vh;
     }
 }
 

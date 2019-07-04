@@ -61,8 +61,8 @@ export class Navbar2Component {
       firstname: '', 
       mail: ''
     }
-    
-    if (this.route.snapshot._routerState.url === "/homePage") {
+
+    if (location.pathname === "/homePage") {
       window.location.reload()
     }
     this.router.navigateByUrl('/');

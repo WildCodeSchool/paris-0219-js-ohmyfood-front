@@ -53,14 +53,8 @@ export class BasketComponent implements OnInit {
     const beverages = this.finalOrderForm.get('beverage') as FormArray;
 
     for (const iterator of storageBeverages) {
-      const bev = new OrderBeverage(iterator.
-        idBeverages,
-        iterator.bevName,
-        iterator.bevPriceTotal / iterator.bevQuantity, // We divide priceTotal by quantity to get good value in basket
-        iterator.bevQuantity
-      );
-      beverages.push(this.createForm.createOrderForm(bev));
-
+      const bev = this.beverageData.createOrderBeverageSessionStorage(iterator); // Create orderBeverage
+      beverages.push(this.createForm.createOrderForm(bev)); // Create formGroup with object and push it in formArray
     }
 
     // Sort form array to avoid duplicate

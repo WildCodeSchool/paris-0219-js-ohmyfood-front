@@ -34,6 +34,15 @@ export class BeveragesDataService {
       }
     }
   }
+
+  createOrderBeverageSessionStorage(object: any) {
+    return new OrderBeverage(
+      object.idBeverages,
+      object.bevName,
+      object.bevPriceTotal / object.bevQuantity, // We divide priceTotal by quantity to get good value in basket
+      object.bevQuantity
+    );
+  }
 }
 
 

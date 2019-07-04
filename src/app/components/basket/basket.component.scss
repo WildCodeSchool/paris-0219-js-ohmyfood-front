@@ -1,5 +1,15 @@
 @import '../../../styles/colors.scss';
 
+.arrowToggle {
+    align-items: center;
+    display: block;
+    height: 10vh;
+    justify-content: center;
+    transition-duration: .5s;
+    transform: rotate(-180deg);
+    z-index: 100;
+}
+
 .basket {
     width: 100vw;
     height: 100vh;
@@ -7,37 +17,26 @@
     color: white;
     position: fixed;
     top: 0;
-    right: -95vw;
+    right: -91vw;
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
     border-radius: 10px;
-    z-index: 30;
     transition-duration: .5s;
+    z-index: 30;
 }
 
-.basket::before {
-    content: "";
-    position: absolute;
-    right: 100%;
-    top: calc( 50% - 300px );
-    width: 0;
-    height: 0;
-	border-top:  300px solid transparent;
-	border-right: 40px solid $green;
-	border-bottom: 300px solid transparent;
+.button {
+    border-radius: 50%;
+    font-size: 1.1rem;
+    height: 29px;
+    width: 29px;
 }
 
-.basket::after {
-    border-top:  320px solid transparent;
-	border-right: 45px solid white;
-	border-bottom: 320px solid transparent;
-    content: "";
-    position: absolute;
-    right: 100%;
-    top: calc( 50% - 320px );
-    width: 0;
-    height: 0;
-    z-index: -1;
+//formGroupName
+
+.displayElement {
+    display: flex;
+    justify-content: space-between;
 }
 
 .headerBasket {
@@ -49,12 +48,29 @@
     justify-content: center;
     position: absolute;
     top: 10px;
+    margin-left:0;
+    text-align: center;
+    width: 100%;
 }
 
-input[type=number]::-webkit-inner-spin-button,
-input[type=number]::-webkit-outer-spin-button {
+input[type=text] {
+    border-radius: 50%;
+    font-size: 1.3rem;
+    margin: 0 9px;
+    text-align: center;
+    width: 23%;
+}
+
+input[type=text]::-webkit-inner-spin-button,
+input[type=text]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+
+label {
+    display: flex;
+    justify-content: space-between;
+    width: 67%;
 }
 
 .livrAndStatus {
@@ -64,22 +80,33 @@ input[type=number]::-webkit-outer-spin-button {
 
 #orderStatus {
     color: red;
+    display: block;
+    width: 100%;
 }
 
 p {
     text-align: center;
 }
 
+.quantityButton {
+    width: 31%;
+}
+
 .reverseText {
-    border-right: 1px solid white;
-    color: white;
-    font-size: 1rem;
-    font-weight: bolder;
-    justify-content: center;
-    height: 100vh;
-    text-orientation: upright;
+    display: none;
+}
+
+.rubanToggle {
+    justify-content: space-around;
     width: 10%;
-    writing-mode: vertical-rl;
+}
+
+span:nth-child(1) {
+    margin-left: 5%;
+}
+
+#totalOrderText {
+    width: 100%;
 }
 
 ul li {
@@ -88,22 +115,40 @@ ul li {
 
 @media screen and (min-width: 720px) {
     .basket {
-        width: 60vw;
-        right: -57vw;
+        width: 100vw;
+        right: -90vw;
+    }
+    
+    .inlineBasket {
+        margin-left: 10%;
+        width: 90%;
     }
 
     .reverseText {
-        font-size: 1em;
+        align-items: center;
+        border-right: 1px solid white;
+        color: white;
+        display: flex;
+        font-size: 1rem;
+        font-weight: bolder;
+        justify-content: center;
+        height: 90vh;
+        text-orientation: upright;
+        writing-mode: vertical-rl;
     }
 }
 
 @media screen and (min-width: 928px) {
     .basket {
         width: 40vw;
-        right: -38vw;
+        right: -36.5vw;
     }
 }
 
 .basketToggle {
     right: 0;
+}
+
+.arrowToggleAnimation {
+    transform: rotate(0deg);
 }

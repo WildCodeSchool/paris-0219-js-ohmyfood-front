@@ -12,7 +12,7 @@ export class OnlyLoggedInUsersGuardService implements CanActivate {
   ) {}
 
   canActivate(): boolean {
-    if (localStorage.getItem('userLastName') != undefined) {
+    if (sessionStorage.getItem('userLastName') != undefined) {
       return true
     } else {
       this.router.navigateByUrl('authClientPage');

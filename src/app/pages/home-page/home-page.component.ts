@@ -12,7 +12,7 @@ export class HomePageComponent {
   constructor(private loginService: LoginService) {}
 
   ngOnInit() {
-    if (localStorage.getItem('userLastName') != undefined) { //on page refresh with logged user
+    if (sessionStorage.getItem('userLastName') != undefined) { //on page refresh with logged user
       this.booleanLoggedHome = true;
     }
 

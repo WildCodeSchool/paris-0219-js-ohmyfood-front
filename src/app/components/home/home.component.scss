@@ -41,6 +41,57 @@ p {
     font-size: 2rem;
 }
 
+.titlemenu {
+    margin: 0;
+    color: white;
+    font-size: 2vh;
+    color:white;
+    text-shadow:
+        -1px -1px 0 #000,
+        1px -1px 0 #000,
+        -1px 1px 0 #000,
+        1px 1px 0 #000;
+}
+
+#flag {
+    width: 200px;
+    height: 40px;
+    position: relative;
+    background: #93BA79;
+  }
+
+  #flag:after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 0;
+    border-left: 20px solid white;
+    border-top: 20px solid transparent;
+    border-bottom: 20px solid transparent;
+  }
+
+  #flag:before {
+    content: "";
+    position: absolute;
+    right: 0px;
+    bottom: 0;
+    width: 0;
+    height: 0;
+    border-top: 20px solid transparent;
+    border-right: 20px solid white;
+    border-bottom: 20px solid transparent;
+  }
+
+span.titlemenu {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
 @media all and (max-width: 600px) {
     
     .buttonArea .button {

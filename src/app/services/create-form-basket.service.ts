@@ -31,7 +31,7 @@ export class CreateFormBasketService {
         multiIngredients: this.fb.array([]),
         multiToppings: this.fb.array([]),
         multiSauces: this.fb.array([]),
-        saladsComposedQuantity: 1,
+        saladsComposedQuantity: formToCreate.orderSaladsQuantity,
         saladsComposedTotalPrice: formToCreate.orderSaladsTotalPrice
       });
 
@@ -43,7 +43,7 @@ export class CreateFormBasketService {
           idSaladsBase: iterator.idSaladsBases,
           multiBasesQuantity: iterator.saladsBasesQuantity,
           basesName: iterator.saladsBasesName,
-          basesPrice: +iterator.saladsBasePriceTTC * iterator.saladsBasesQuantity
+          basesPrice: +iterator.saladsBasesPriceTTC * iterator.saladsBasesQuantity
         });
         multiBases.push(base);
       }

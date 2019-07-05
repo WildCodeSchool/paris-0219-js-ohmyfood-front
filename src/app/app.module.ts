@@ -28,6 +28,8 @@ import { HomeOrderComponent } from './components/home-order/home-order.component
 import { HomeComponent } from './components/home/home.component';
 import { SaladPageComponent } from './pages/salad-page/salad-page.component';
 import { OnlyLoggedInUsersGuardService } from './services/only-logged-in-users-guard.service';
+import { DetailOrderPageComponent } from './pages/detail-order-page/detail-order-page.component';
+import { DetailOrderComponent } from './components/detail-order/detail-order.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +53,9 @@ import { OnlyLoggedInUsersGuardService } from './services/only-logged-in-users-g
     AuthCreateAddressComponent,
     HomeOrderComponent,
     HomeComponent,
-    SaladPageComponent
+    SaladPageComponent,
+    DetailOrderPageComponent,
+    DetailOrderComponent
   ],
   imports: [
     AppRoutingModule,

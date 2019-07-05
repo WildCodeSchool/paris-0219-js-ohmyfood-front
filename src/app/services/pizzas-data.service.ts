@@ -19,7 +19,7 @@ export class PizzasDataService {
     return this.http.get(this.pizzasRoute);
   }
 
-   createOrderPizzas(formResult) { // create object with OrderDessert Class
+   createOrderPizzas(formResult: object) { // create object with OrderDessert Class
     for (const key in formResult) {
       if (formResult.hasOwnProperty(key)) {
         formResult[key].map(test => {
@@ -33,5 +33,14 @@ export class PizzasDataService {
         );
       }
     }
+  }
+
+  createOrderPizzasSessionStorage(object: any) {
+    return new OrderPizzas(
+      object.idPizzas,
+      object.pizzasName,
+      object.pizzasPriceTotal / object.pizzasQuantity, // We divide priceTotal by quantity to get good value in basket
+      object.pizzasQuantity
+    );
   }
 }

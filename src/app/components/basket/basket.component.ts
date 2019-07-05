@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PizzasDataService } from 'src/app/services/pizzas-data.service';
-import { FormBuilder, FormArray } from '@angular/forms';
+import { FormBuilder, FormArray, Form } from '@angular/forms';
 import { QuantitySelectService } from 'src/app/services/quantity-select.service';
 import { CreateFormBasketService } from 'src/app/services/create-form-basket.service';
 import { BeveragesDataService } from 'src/app/services/beverages-data.service';
@@ -53,18 +53,27 @@ export class BasketComponent implements OnInit {
     const storageDesserts = sessionStorage.getItem('desserts') ?
     JSON.parse(sessionStorage.getItem('desserts')) : [];
 
+    const storagePizzas = sessionStorage.getItem('pizzas') ?
+    JSON.parse(sessionStorage.getItem('pizzas')) : [];
+
     // Create Form group to push it in formArray of final order to update basket with good value
     const beverages = this.finalOrderForm.get('beverage') as FormArray;
     const desserts = this.finalOrderForm.get('dessert') as FormArray;
+    const pizzas = this.finalOrderForm.get('pizza') as FormArray;
 
-    for (const iterator of storageBeverages) {
-      const bev = this.beverageData.createOrderBeverageSessionStorage(iterator); // Create orderBeverage
+    for (const beverage of storageBeverages) {
+      const bev = this.beverageData.createOrderBeverageSessionStorage(beverage); // Create orderBeverage
       beverages.push(this.createForm.createOrderForm(bev)); // Create formGroup with object and push it in formArray
     }
 
-    for (const iterator of storageDesserts) {
-      const dess = this.dessertData.createOrderDessertsSessionStorage(iterator);
+    for (const dessert of storageDesserts) {
+      const dess = this.dessertData.createOrderDessertsSessionStorage(dessert);
       desserts.push(this.createForm.createOrderForm(dess));
+    }
+
+    for (const pizza of storagePizzas) {
+      const pizz = this.pizzasData.createOrderPizzasSessionStorage(pizza);
+      pizzas.push(this.createForm.createOrderForm(pizz));
     }
 
     // Sort form array to avoid duplicate
@@ -83,6 +92,15 @@ export class BasketComponent implements OnInit {
         }
       }
     }
+
+    for (let i = 0; i < pizzas.value.length; i ++) {
+      for (let j = i + 1 ; j < pizzas.value.length; j ++ ) {
+        if (pizzas.value[i].dessName === pizzas.value[j].dessName) {
+          this.createForm.sortOrderForm(pizzas, i, j);
+        }
+      }
+    }
+
     this.totalBasket();
 
     // creation of formArray pizzas
@@ -97,6 +115,7 @@ export class BasketComponent implements OnInit {
           }
         }
       }
+      this.sessionStorage.saveToSessionStorage(this.finalOrderForm.value.pizza);
       this.totalBasket();
     });
 
@@ -112,7 +131,7 @@ export class BasketComponent implements OnInit {
           }
         }
       }
-      this.sessionStorage.saveToSessionStorage(null, this.finalOrderForm.value.beverage);
+      this.sessionStorage.saveToSessionStorage(this.finalOrderForm.value.beverage);
       this.totalBasket();
     });
     // Creation of FormArray desserts
@@ -127,7 +146,7 @@ export class BasketComponent implements OnInit {
           }
         }
       }
-      this.sessionStorage.saveToSessionStorage(null, this.finalOrderForm.value.dessert);
+      this.sessionStorage.saveToSessionStorage(this.finalOrderForm.value.dessert);
       this.totalBasket();
     });
 
@@ -193,7 +212,10 @@ export class BasketComponent implements OnInit {
 
       if (pizza.controls[index].value.pizzasQuantity === 0) {
         pizza.removeAt(index); // remove object from form array when quantity = 0
+        this.sessionStorage.clearSessionStorage(this.finalOrderForm.value);
       }
+
+      this.sessionStorage.saveToSessionStorage(this.finalOrderForm.value.pizza);
       this.totalBasket();
 
     } else if (check[0] === 'idBeverages') {
@@ -214,9 +236,10 @@ export class BasketComponent implements OnInit {
 
         if (beverage.controls[index].value.bevQuantity === 0) {
           beverage.removeAt(index); // remove object from form array when quantity = 0
+          this.sessionStorage.clearSessionStorage(this.finalOrderForm.value);
         }
 
-        this.sessionStorage.saveToSessionStorage(null, this.finalOrderForm.value.beverage);
+        this.sessionStorage.saveToSessionStorage(this.finalOrderForm.value.beverage);
         this.totalBasket();
 
     } else if (check[0] === 'idDesserts') {
@@ -237,8 +260,9 @@ export class BasketComponent implements OnInit {
 
       if (dessert.controls[index].value.dessQuantity === 0) {
         dessert.removeAt(index); // remove object from form array when quantity = 0
+        this.sessionStorage.clearSessionStorage(this.finalOrderForm.value);
       }
-      this.sessionStorage.saveToSessionStorage(null, this.finalOrderForm.value.dessert);
+      this.sessionStorage.saveToSessionStorage(this.finalOrderForm.value.dessert);
       this.totalBasket();
 
     } else if (check[0] === 'multiBases' ) {
@@ -288,8 +312,9 @@ export class BasketComponent implements OnInit {
       dessert.removeAt(0);
     }
 
-    this.sessionStorage.saveToSessionStorage('reset', this.finalOrderForm.value.beverage);
-    this.sessionStorage.saveToSessionStorage('reset', this.finalOrderForm.value.dessert);
+    this.sessionStorage.clearSessionStorage(this.finalOrderForm.value.beverage);
+    this.sessionStorage.clearSessionStorage(this.finalOrderForm.value.dessert);
+    this.sessionStorage.clearSessionStorage(this.finalOrderForm.value.pizza);
     this.totalBasket();
   }
 

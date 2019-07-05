@@ -12,7 +12,7 @@ export class CreateFormBasketService {
 
   constructor(private fb: FormBuilder) { }
 
-  createOrderForm(formToCreate) {
+  createOrderForm(formToCreate: object) {
     if (formToCreate instanceof OrderPizzas) {
       const pizzChoice = this.fb.group({
         idPizzas: [formToCreate.idPizzas],
@@ -108,7 +108,7 @@ export class CreateFormBasketService {
     }
   }
 
-  sortOrderForm(formToSort, i, j) {
+  sortOrderForm(formToSort: any, i: number, j: number) {
     const check = Object.getOwnPropertyNames(formToSort.value[i]); // get property of formToSort to know what form we have to sort
 
     if (check[0] === 'idPizzas') {

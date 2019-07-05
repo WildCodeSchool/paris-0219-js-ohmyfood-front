@@ -1,29 +1,23 @@
 @import '../../../styles/colors.scss';
 
+.dessertsTitle {
+  text-align: center;
+  background-image: url('../../../assets/img/RibbonOhMyFoodEmpty.svg'),  url('../../../assets/img/RibbonOhMyFoodNormal.svg');
+  background-repeat: no-repeat, no-repeat;
+  background-position: center, center;
+  background-size: 97% 90%, 100% 100%;
+  width: 571px;
+  padding: 29px;
+  margin: auto;
+
+}
+
 a {
-  align-items: center;
-  border: solid 1px $green;
-  border-radius: 50px;
-  color: inherit;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  margin-bottom: 2vh;
   text-decoration: none;
+  color: black;
 
-  h1 {
-    font-size: 2em;
-    text-align: center;
-  }
-
-  p {
-    font-size: 1em;
-    font-style: normal;
-  }
-
-  &:hover {
-    box-shadow: 0 1px 1px  rgb(68, 160, 68);
-    color: inherit;
+  &:hover{
+    color: black;
     cursor: pointer;
     text-decoration: none;
   }

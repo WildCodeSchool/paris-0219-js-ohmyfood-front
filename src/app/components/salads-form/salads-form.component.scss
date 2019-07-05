@@ -1,88 +1,26 @@
 @import '../../../styles/colors.scss';
 
 
-// .saladsTitle {
-//   align-items: center;
-//   border: solid 1px $green;
-//   border-radius: 50px;
-//   color: inherit;
-//   display: flex;
-//   flex-direction: column;
-//   justify-content: center;
-//   margin-bottom: 2vh;
-//   text-decoration: none;
-
-//   h1 {
-//     font-size: 2em;
-//     text-align: center;
-//   }
-
-//   p {
-//     font-size: 15px;
-//     font-style: normal;
-//   }
-//   &:hover {
-//     box-shadow: 0 1px 1px  rgb(68, 160, 68);
-//     color: inherit;
-//     cursor: pointer;
-//     text-decoration: none;
-//   }
-// }
-
 /* Main part of the ribbon */
 a {
   text-decoration: none;
   color: black;
 
   &:hover{
+    color: black;
     cursor: pointer;
     text-decoration: none;
   }
 }
 .saladsTitle {
-  display: inline-block;
-  position: relative;
-  z-index: initial;
-  background: #393636;
-  color: white;
   text-align: center;
-  padding: 10px 30px;
-  text-shadow: 1px 1px 1px  rgba(0,0,0,0.55);
-  font-size: 32px;
-  margin: 40px auto;
-  width: 100%;
-  height: 180px;
-
-
-  &::before {
-    content: '';
-    border-color:  transparent transparent transparent white;
-    border-style: solid;
-    border-width: 90px 60px;
-    height: 0;
-    width: 0;
-    position: absolute;
-    z-index: 1;
-    float: left;
-    top: 40px;
-    left: 0;
-    top: 0;
-
-  }
-
-  &::after {
-    content:'';
-    border-color: transparent  white transparent transparent;
-    border-style: solid;
-    border-width: 90px 60px;
-    height: 0;
-    width: 0;
-    position: absolute;
-    z-index: 1;
-    bottom: 50px;
-    right: 0;
-    top: 0;
-  }
+  background-image: url('../../../assets/img/RibbonOhMyFoodEmpty.svg'),  url('../../../assets/img/RibbonOhMyFoodNormal.svg');
+  background-repeat: no-repeat, no-repeat;
+  background-position: center, center;
+  background-size: 97% 90%, 100% 100%;
+  width: 571px;
+  padding: 29px;
+  margin: auto;
 }
 .button {
   border: solid 1px $green;
@@ -171,36 +109,3 @@ section {
   margin: 6vh auto;
   max-height: 1500px;
 }
-
-// .saladsBaseTitle {
-
-// #pointer {
-//   width: 200px;
-//   height: 40px;
-//   position: relative;
-//   background: red;
-// }
-// #pointer:after {
-//   content: "";
-//   position: absolute;
-//   left: 0;
-//   bottom: 0;
-//   width: 0;
-//   height: 0;
-//   border-left: 20px solid white;
-//   border-top: 20px solid transparent;
-//   border-bottom: 20px solid transparent;
-// }
-// #pointer:before {
-//   content: "";
-//   position: absolute;
-//   right: -20px;
-//   bottom: 0;
-//   width: 0;
-//   height: 0;
-//   border-left: 20px solid red;
-//   border-top: 20px solid transparent;
-//   border-bottom: 20px solid transparent;
-// }
-
-// }

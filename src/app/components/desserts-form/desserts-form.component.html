@@ -1,14 +1,15 @@
 <section>
-  <a href (click)="toggleFormDessert($event)">
-    <h1 class="dessertsTitle">
-      DESSERTS
-    </h1>
+  <div class="dessertsTitle">
+    <a href (click)="toggleFormDessert($event)">
+      <h1>
+        DESSERTS
+      </h1>
 
-    <p>
-      Cliquez pour découvrir nos desserts
-    </p>
-  </a>
-
+      <p>
+        Cliquez pour découvrir nos desserts
+      </p>
+    </a>
+  </div>
   <div class="notToggle" [ngClass]="{toggle: isToggle}">
     <div class="header">
       <h3 class="desserts">

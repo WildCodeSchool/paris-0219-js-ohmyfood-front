@@ -1,13 +1,13 @@
 <div class="basket" [ngClass]="{basketToggle: isToggleBasket}">
-  <div 
+  <div
     class="rubanToggle d-flex flex-column"
   >
     <a
-      class="arrowToggle d-flex" 
+      class="arrowToggle d-flex"
       [ngClass]="{arrowToggleAnimation: isToggleBasket}"
       (click)="displayToggleBasket($event)"
     >
-      <i 
+      <i
         class="fa fa-arrow-circle-right fa-3x"
       ></i>
     </a>
@@ -35,15 +35,15 @@
     </div>
     <p id="orderStatus">Statut de la commande : </p>
     <div class="overScrollForm">
-      <form 
-        [formGroup]="finalOrderForm" 
-        (ngSubmit)="onSubmit()" 
+      <form
+        [formGroup]="finalOrderForm"
+        (ngSubmit)="onSubmit()"
         class="formular"
       >
         <div formArrayName="pizza">
-          <div 
-            [formGroupName]="i" 
-            *ngFor="let pizzas of pizza.controls; let i = index" 
+          <div
+            [formGroupName]="i"
+            *ngFor="let pizzas of pizza.controls; let i = index"
             class="displayElement"
           >
             <label for="pizzName-{{i}}">
@@ -60,14 +60,14 @@
               >
                 -
               </button>
-              
+
               <input
                 type="text"
                 name="pizzasQuantity-{{i}}"
                 formControlName="pizzasQuantity"
                 value="{{pizzas.value.pizzasQuantity}}"
               />
-              
+
               <button
                 class="button is-outlined is-mobile"
                 name="add-pizzas-quantity"
@@ -80,10 +80,68 @@
           </div>
         </div>
 
+        <div formArrayName="salad">
+          <div [formGroupName]="i" *ngFor="let salads of salad.controls ; let i = index">
+            <label for="saladName-{{i}}">
+              Votre salade composée<span>{{ salads.value.saladsComposedTotalPrice }}</span>
+            </label>
+
+            <button
+              class="button is-rounded is-outlined is-mobile is-small"
+              name="add-pizzas-quantity"
+              type="button"
+              (click)="quantitySelect('-', i, salads.value.saladsComposedQuantity, salads.value)">
+                -
+            </button>
+
+            <input
+              type="number"
+              name="saladsComposedQuantity-{{i}}"
+              formControlName="saladsComposedQuantity"
+              value="{{salads.value.saladsComposedQuantity}}"/>
+
+            <button
+              class="button is-rounded is-outlined is-mobile is-small"
+              name="add-pizzas-quantity"
+              type="button"
+              (click)="quantitySelect('+', i, salads.value.saladsComposedQuantity, salads.value)">
+                +
+            </button>
+
+            <h5>Vos bases</h5>
+
+            <div *ngFor="let bases of salads.value.multiBases">
+              <p>
+                {{ bases.basesName }}<span>{{ bases.basesPrice }} EUR</span>
+              </p>
+            </div>
+
+            <h5>Vos ingrédients</h5>
+
+            <div *ngFor="let ingredients of salads.value.multiIngredients">
+              <p>
+                {{ ingredients.ingredientsName}}<span>{{ ingredients.ingredientsPrice }} EUR</span>
+              </p>
+            </div>
+
+            <h5>Vos toppings</h5>
+
+            <div *ngFor="let toppings of salads.value.multiToppings">
+              <p>
+                {{ toppings.toppingsName}}<span>{{ toppings.toppingsPrice }} EUR</span>
+              </p>
+            </div>
+
+            <h5>Votre sauce</h5>
+
+            <p>{{ salads.value.multiSauces[0].saucesName }}</p>
+          </div>
+        </div>
+
         <div formArrayName="beverage">
-          <div 
-            [formGroupName]="i" 
-            *ngFor="let beverages of beverage.controls; let i = index" 
+          <div
+            [formGroupName]="i"
+            *ngFor="let beverages of beverage.controls; let i = index"
             class="displayElement"
           >
             <label for="bevName-{{i}}">
@@ -99,14 +157,14 @@
               >
                 -
               </button>
-            
+
               <input
                 type="text"
                 name="beveragesQuantity-{{i}}"
                 formControlName="bevQuantity"
                 value="{{beverages.value.bevQuantity}}"
               />
-            
+
               <button
                 class="button is-outlined is-mobile"
                 name="add-beverages-quantity"
@@ -120,9 +178,9 @@
         </div>
 
         <div formArrayName="dessert">
-          <div 
-            [formGroupName]="i" 
-            *ngFor="let desserts of dessert.controls; let i = index" 
+          <div
+            [formGroupName]="i"
+            *ngFor="let desserts of dessert.controls; let i = index"
             class="displayElement"
           >
             <label for="bevName-{{i}}">
@@ -161,7 +219,7 @@
         <button type="submit" [disabled]="!enableSubmit">Validez votre panier</button>
 
         <button type="button" (click)="resetBasket()">Videz votre panier</button>
-      </form>    
+      </form>
     </div>
     <p id="totalOrderText">
       TOTAL de votre commande {{ total }} EUR

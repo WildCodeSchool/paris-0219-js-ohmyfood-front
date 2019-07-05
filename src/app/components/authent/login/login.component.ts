@@ -12,7 +12,7 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
 
   constructor(
-    private fb: FormBuilder, 
+    private fb: FormBuilder,
     private loginService: LoginService,
     private router: Router,
   ) { }
@@ -47,7 +47,7 @@ export class LoginComponent implements OnInit {
         const userInfoObject = {
           lastname: res['0'].lastname,
           firstname: res['0'].firstname,
-          mail: res['0'].mail, 
+          mail: res['0'].mail,
           userRight: res['0'].userRight
         }
         if (userInfoObject.userRight === 1) {
@@ -62,5 +62,5 @@ export class LoginComponent implements OnInit {
       });
     });
   }
-  
+
 }

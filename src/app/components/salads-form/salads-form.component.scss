@@ -1,42 +1,94 @@
 @import '../../../styles/colors.scss';
 
+
+// .saladsTitle {
+//   align-items: center;
+//   border: solid 1px $green;
+//   border-radius: 50px;
+//   color: inherit;
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: center;
+//   margin-bottom: 2vh;
+//   text-decoration: none;
+
+//   h1 {
+//     font-size: 2em;
+//     text-align: center;
+//   }
+
+//   p {
+//     font-size: 15px;
+//     font-style: normal;
+//   }
+//   &:hover {
+//     box-shadow: 0 1px 1px  rgb(68, 160, 68);
+//     color: inherit;
+//     cursor: pointer;
+//     text-decoration: none;
+//   }
+// }
+
+/* Main part of the ribbon */
 a {
-  align-items: center;
-  border: solid 1px $green;
-  border-radius: 50px;
-  color: inherit;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  margin-bottom: 2vh;
   text-decoration: none;
+  color: black;
 
-  h1 {
-    font-size: 2em;
-    text-align: center;
-
-  }
-
-  p {
-    font-size: 1em;
-    font-style: normal;
-  }
-
-  &:hover {
-    box-shadow: 0 1px 1px  rgb(68, 160, 68);
-    color: inherit;
+  &:hover{
     cursor: pointer;
     text-decoration: none;
   }
 }
 .saladsTitle {
-  border-top-left-radius: 50px;
+  display: inline-block;
+  position: relative;
+  z-index: initial;
+  background: #393636;
+  color: white;
+  text-align: center;
+  padding: 10px 30px;
+  text-shadow: 1px 1px 1px  rgba(0,0,0,0.55);
+  font-size: 32px;
+  margin: 40px auto;
+  width: 100%;
+  height: 180px;
+
+
+  &::before {
+    content: '';
+    border-color:  transparent transparent transparent white;
+    border-style: solid;
+    border-width: 90px 60px;
+    height: 0;
+    width: 0;
+    position: absolute;
+    z-index: 1;
+    float: left;
+    top: 40px;
+    left: 0;
+    top: 0;
+
+  }
+
+  &::after {
+    content:'';
+    border-color: transparent  white transparent transparent;
+    border-style: solid;
+    border-width: 90px 60px;
+    height: 0;
+    width: 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 50px;
+    right: 0;
+    top: 0;
+  }
 }
 .button {
   border: solid 1px $green;
   margin: 0 auto;
-  width: 200px;
-  height: 40px;
+  width: 40px;
+  height: 25px;
   position: relative;
   transition-duration: 500ms;
 

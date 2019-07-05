@@ -1,6 +1,7 @@
 <section>
+  <div class="saladsTitle">
     <a href (click)="toggleFormSalads($event, 'form')">
-      <h1 class="saladsTitle">
+      <h1>
         SALADS COMPOSEE
       </h1>
 
@@ -8,13 +9,13 @@
         Cliquez pour découvrir nos ingredients de salade
       </p>
     </a>
-
+  </div>
     <div class="notToggle" [ngClass]="{toggle: isToggle}">
 
       <form [formGroup]="formSalads" (ngSubmit)="formSalads.valid && onSubmit()" #saladsForm=ngForm>
       <div class="header">
       <a href (click)="toggleFormSalads($event, 'base')">
-        <h1 class="saladsTitle">
+        <h1 class="">
           Sélectionner votre Base
         </h1>
       </a>
@@ -44,7 +45,7 @@
       </div>
 
          <a href (click)="toggleFormSalads($event, 'ingredients')">
-          <h1 class="saladsTitle">
+          <h1 class="">
             Sélectionner vos ingredients
           </h1>
         </a>
@@ -92,7 +93,7 @@
 
 
         <a href (click)="toggleFormSalads($event, 'toppings')">
-            <h1 class="saladsTitle">
+            <h1 class="">
               Sélectionner vos toppings
             </h1>
           </a>
@@ -136,7 +137,7 @@
           </div>
         </div>
         <a href (click)="toggleFormSalads($event, 'sauce')">
-            <h1 class="saladsTitle">
+            <h1 class="">
               Sélectionner votre sauce
             </h1>
           </a>

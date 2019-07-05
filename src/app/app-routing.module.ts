@@ -12,12 +12,12 @@ import { DetailOrderPageComponent } from './pages/detail-order-page/detail-order
 
 const routes: Routes = [
   {
-    path: '', 
-    redirectTo: 'homePage', 
+    path: '',
+    redirectTo: 'homePage',
     pathMatch: 'full'
   },
   {
-    path: 'admin', 
+    path: 'admin',
     component: AdminPagesComponent,
     canActivate: [OnlyLoggedInUsersGuardService]
   },
@@ -35,7 +35,7 @@ const routes: Routes = [
     component: AuthClientPageComponent
   },
   {
-    path: 'createClientPage', 
+    path: 'createClientPage',
     component: AuthentCreateComponent
   },
   {
@@ -49,7 +49,7 @@ const routes: Routes = [
     canActivate: [OnlyLoggedInUsersGuardService]
   },
   {
-    path: 'detailOrderPage', 
+    path: 'detailOrderPage',
     component: DetailOrderPageComponent,
     canActivate: [OnlyLoggedInUsersGuardService]
   }

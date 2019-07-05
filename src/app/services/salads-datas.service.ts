@@ -43,7 +43,6 @@ export class SaladsDatasService {
 
   createOrderSalads(formResult: any) {
     const formResultKey = Object.getOwnPropertyNames(formResult); // To check key of formResult and create instance according to key
-
     if (formResultKey[0] === 'selectBase') {
       formResult.selectBase.map((base: any) => {
         if (base.saladsBaseQuantity) {
@@ -55,7 +54,7 @@ export class SaladsDatasService {
           );
           this.userBase.push(saladsBase);
           this.totalPriceSaladsComposed.push(
-            +saladsBase.saladsBasePriceTTC * saladsBase.saladsBasesQuantity
+            +saladsBase.saladsBasesPriceTTC * saladsBase.saladsBasesQuantity
             );
         }
       });
@@ -107,7 +106,7 @@ export class SaladsDatasService {
      }
 
     // To calculate salad composed total price
-    const reducer = (accumulator, currentValue) => accumulator + currentValue;
+    const reducer = (accumulator: number, currentValue: number) => accumulator + currentValue;
 
     const finalPrice = this.totalPriceSaladsComposed.reduce(reducer);
 
@@ -116,7 +115,8 @@ export class SaladsDatasService {
       this.userIngredients,
       this.userToppings,
       this.userSauces,
-      finalPrice
+      finalPrice,
+      1
     );
     this.getSalads.emit(userSaladsComposed);
 
@@ -126,5 +126,63 @@ export class SaladsDatasService {
     this.userToppings = [];
     this.totalPriceSaladsComposed = [];
     this.userSauces = null;
+  }
+
+  createOrderSaladsSessionStorage(object: any) {
+    for (let base of object.multiBases) {
+      base = new SaladsBases(
+        base.idSaladsBase,
+        base.basesName,
+        base.basesPrice,
+        base.multiBasesQuantity
+      );
+
+      this.userBase.push(base);
+    }
+
+    for (let ingredients of object.multiIngredients) {
+      ingredients = new SaladsIngredients(
+        ingredients.idSaladsIngredients,
+        ingredients.ingredientsName,
+        ingredients.ingredientsPrice,
+        ingredients.multiIngredientsQuantity
+      );
+
+      this.userIngredients.push(ingredients);
+    }
+
+    for (let toppings of object.multiToppings) {
+      toppings = new SaladsToppings(
+        toppings.idSaladsToppings,
+        toppings.toppingsName,
+        toppings.toppingsPrice,
+        toppings.multiToppingsQuantity
+      );
+      this.userToppings.push(toppings);
+    }
+
+    for (const sauces of object.multiSauces) {
+      this.userSauces = new SaladsSauces(
+        sauces.idSaladsSauces,
+        sauces.saucesName
+      );
+    }
+
+    const saladOrder = new OrderSalads(
+      this.userBase,
+      this.userIngredients,
+      this.userToppings,
+      this.userSauces,
+      object.saladsComposedTotalPrice,
+      object.saladsComposedQuantity
+    );
+
+    // To reinitialize value to avoid duplicate salad
+    this.userBase = [];
+    this.userIngredients = [];
+    this.userToppings = [];
+    this.userSauces = null;
+
+    return saladOrder;
   }
 }

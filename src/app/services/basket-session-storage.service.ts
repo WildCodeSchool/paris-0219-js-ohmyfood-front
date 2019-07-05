@@ -16,7 +16,6 @@ export class BasketSessionStorageService {
     if (form.length > 0) {
       const check = Object.getOwnPropertyNames(form[0]);
       const finalCheck = check[0];
-      console.log(finalCheck);
 
       switch (finalCheck) {
       case 'idPizzas' :

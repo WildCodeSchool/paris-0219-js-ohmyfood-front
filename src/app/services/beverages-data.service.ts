@@ -22,7 +22,7 @@ export class BeveragesDataService {
   createOrderBeverage(formResult) { // create object with OrderBeverage Class
     for (const key in formResult) {
       if (formResult.hasOwnProperty(key)) {
-        formResult[key].map(test => {
+        formResult[key].map((test: any) => {
           if (test.bevQuantity > 0) {
             const beveragesChoice = new OrderBeverage(
               test.idBeverages, test.bevName, +test.bevPriceTTC, test.bevQuantity

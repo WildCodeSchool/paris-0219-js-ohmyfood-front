@@ -56,10 +56,24 @@ export class BasketComponent implements OnInit {
     const storagePizzas = sessionStorage.getItem('pizzas') ?
     JSON.parse(sessionStorage.getItem('pizzas')) : [];
 
+    const storageSalads = sessionStorage.getItem('salads') ?
+    JSON.parse(sessionStorage.getItem('salads')) : [];
+
     // Create Form group to push it in formArray of final order to update basket with good value
     const beverages = this.finalOrderForm.get('beverage') as FormArray;
     const desserts = this.finalOrderForm.get('dessert') as FormArray;
     const pizzas = this.finalOrderForm.get('pizza') as FormArray;
+    const salads = this.finalOrderForm.get('salad') as FormArray;
+
+    for (const pizza of storagePizzas) {
+      const pizz = this.pizzasData.createOrderPizzasSessionStorage(pizza);
+      pizzas.push(this.createForm.createOrderForm(pizz));
+    }
+
+    for (const saladComposed of storageSalads) {
+      const salad = this.saladsData.createOrderSaladsSessionStorage(saladComposed);
+      salads.push(this.createForm.createOrderForm(salad));
+    }
 
     for (const beverage of storageBeverages) {
       const bev = this.beverageData.createOrderBeverageSessionStorage(beverage); // Create orderBeverage
@@ -71,12 +85,15 @@ export class BasketComponent implements OnInit {
       desserts.push(this.createForm.createOrderForm(dess));
     }
 
-    for (const pizza of storagePizzas) {
-      const pizz = this.pizzasData.createOrderPizzasSessionStorage(pizza);
-      pizzas.push(this.createForm.createOrderForm(pizz));
+    // Sort form array to avoid duplicate
+    for (let i = 0; i < pizzas.value.length; i ++) {
+      for (let j = i + 1 ; j < pizzas.value.length; j ++ ) {
+        if (pizzas.value[i].dessName === pizzas.value[j].dessName) {
+          this.createForm.sortOrderForm(pizzas, i, j);
+        }
+      }
     }
 
-    // Sort form array to avoid duplicate
     for (let i = 0; i < beverages.value.length; i ++) {
       for (let j = i + 1 ; j < beverages.value.length; j ++ ) {
         if (beverages.value[i].bevName === beverages.value[j].bevName) {
@@ -89,14 +106,6 @@ export class BasketComponent implements OnInit {
       for (let j = i + 1 ; j < desserts.value.length; j ++ ) {
         if (desserts.value[i].dessName === desserts.value[j].dessName) {
           this.createForm.sortOrderForm(desserts, i, j);
-        }
-      }
-    }
-
-    for (let i = 0; i < pizzas.value.length; i ++) {
-      for (let j = i + 1 ; j < pizzas.value.length; j ++ ) {
-        if (pizzas.value[i].dessName === pizzas.value[j].dessName) {
-          this.createForm.sortOrderForm(pizzas, i, j);
         }
       }
     }
@@ -155,6 +164,7 @@ export class BasketComponent implements OnInit {
       const salad = this.finalOrderForm.get('salad') as FormArray;
       salad.push(this.createForm.createOrderForm(userSaladsChoice));
       this.totalBasket();
+      this.sessionStorage.saveToSessionStorage(this.finalOrderForm.value.salad);
     });
   }
 
@@ -283,7 +293,9 @@ export class BasketComponent implements OnInit {
 
       if (salad.controls[index].value.saladsComposedQuantity === 0) {
         salad.removeAt(index); // remove object from form array when quantity = 0
+        this.sessionStorage.clearSessionStorage(this.finalOrderForm.value);
       }
+      this.sessionStorage.saveToSessionStorage(this.finalOrderForm.value.salad);
       this.totalBasket();
     }
     this.total < 15 ? this.enableSubmit = false : this.enableSubmit = true; // Disable submit button
@@ -315,6 +327,7 @@ export class BasketComponent implements OnInit {
     this.sessionStorage.clearSessionStorage(this.finalOrderForm.value.beverage);
     this.sessionStorage.clearSessionStorage(this.finalOrderForm.value.dessert);
     this.sessionStorage.clearSessionStorage(this.finalOrderForm.value.pizza);
+    this.sessionStorage.clearSessionStorage(this.finalOrderForm.value.salad);
     this.totalBasket();
   }
 
@@ -322,23 +335,23 @@ export class BasketComponent implements OnInit {
     this.totalArray = [];
     this.total = 0;
 
-    const reducer = (accumulator, currentValue) => accumulator + currentValue; // Method to calculate max of an array
+    const reducer = (accumulator: number, currentValue: number) => accumulator + currentValue; // Method to calculate max of an array
 
     // Update array of total price with all values from finalOrderForm
-    for (const iterator of this.pizza.value) {
-      this.totalArray.push(iterator.pizzasPriceTotal);
+    for (const pizza of this.pizza.value) {
+      this.totalArray.push(pizza.pizzasPriceTotal);
     }
 
-    for (const iterator of this.beverage.value) {
-      this.totalArray.push(iterator.bevPriceTotal);
+    for (const beverage of this.beverage.value) {
+      this.totalArray.push(beverage.bevPriceTotal);
     }
 
-    for (const iterator of this.dessert.value) {
-      this.totalArray.push(iterator.dessPriceTotal);
+    for (const dessert of this.dessert.value) {
+      this.totalArray.push(dessert.dessPriceTotal);
     }
 
-    for (const iterator of this.salad.value) {
-      this.totalArray.push(iterator.saladsComposedTotalPrice);
+    for (const salad of this.salad.value) {
+      this.totalArray.push(salad.saladsComposedTotalPrice);
     }
 
     this.totalArray.length === 0 ? this.total = 0 : this.total = this.totalArray.reduce(reducer); // Total price

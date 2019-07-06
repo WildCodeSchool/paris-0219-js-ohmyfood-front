@@ -335,7 +335,7 @@ export class BasketComponent implements OnInit {
 
     // Update array of total price with all values from finalOrderForm
     for (const pizza of this.pizza.value) {
-      this.totalArray.push(pizza.pizzasPriceTotal);
+      this.totalArray.push(pizza.pizzPriceTotal);
     }
 
     for (const beverage of this.beverage.value) {

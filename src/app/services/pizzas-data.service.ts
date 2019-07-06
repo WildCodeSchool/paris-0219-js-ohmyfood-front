@@ -38,9 +38,9 @@ export class PizzasDataService {
   createOrderPizzasSessionStorage(object: any) {
     return new OrderPizzas(
       object.idPizzas,
-      object.pizzasName,
-      object.pizzasPriceTotal / object.pizzasQuantity, // We divide priceTotal by quantity to get good value in basket
-      object.pizzasQuantity
+      object.pizzName,
+      object.pizzPriceTotal / object.pizzQuantity, // We divide priceTotal by quantity to get good value in basket
+      object.pizzQuantity
     );
   }
 }

@@ -11,8 +11,6 @@ import { ToggleFormService } from 'src/app/services/toggle-form.service';
 })
 export class PizzasFormComponent implements OnInit {
 
-  pizzasList: object;
-
   enableSubmit: boolean;
 
   isToggle: boolean;
@@ -31,23 +29,23 @@ export class PizzasFormComponent implements OnInit {
   ngOnInit() {
     this.pizzasData.getPizzas()
     .subscribe(pizzas => {
-      this.pizzasList = pizzas;
 
-      for (const key in this.pizzasList) {
-        if (this.pizzasList.hasOwnProperty(key)) {
-          this.pizzasList[key].pizzPriceTTC = this.pizzasList[key].pizzPriceTTC.toFixed(2);
+      for (const key in pizzas) {
+        if (pizzas.hasOwnProperty(key)) {
+          pizzas[key].pizzPriceTTC = pizzas[key].pizzPriceTTC.toFixed(2);
         }
       }
 
       const selectedPizzas = this.formPizzas.get('selectedPizzas') as FormArray;
 
-      for (const key in this.pizzasList) {
-        if (this.pizzasList.hasOwnProperty(key)) {
+      for (const key in pizzas) {
+        if (pizzas.hasOwnProperty(key)) {
           const pizzasForm = this.formBuilder.group({
-            idPizzas: [ this.pizzasList[key].idPizzas ],
-            pizzName: [ this.pizzasList[key].pizzName ],
-            pizzPriceTTC: [ this.pizzasList[key].pizzPriceTTC ],
-            pizzQuantity: [0]
+            idPizzas: pizzas[key].idPizzas,
+            pizzDesc: pizzas[key].pizzDesc,
+            pizzName: pizzas[key].pizzName,
+            pizzPriceTTC: pizzas[key].pizzPriceTTC,
+            pizzQuantity: 0
           });
           selectedPizzas.push(pizzasForm);
         }
@@ -69,7 +67,7 @@ export class PizzasFormComponent implements OnInit {
     this.enableSubmit = false;
   }
 
-  quantitySelect(operator, i, quantity) {
+  quantitySelect(operator: string, i: number, quantity: number) {
     this.formPizzas.value.selectedPizzas[i].pizzQuantity = this.quantitySelectService.selectQuantity(operator, quantity);
 
     if (this.formPizzas.value.selectedPizzas[i].pizzQuantity > 0) {

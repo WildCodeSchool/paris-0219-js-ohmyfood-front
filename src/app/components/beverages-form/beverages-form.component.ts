@@ -31,7 +31,7 @@ export class BeveragesFormComponent implements OnInit {
 
   ngOnInit() {
     // Get Data from API
-    this.beverageData.getBeverages()
+    const subscription = this.beverageData.getBeverages()
     .subscribe(beverages => {
 
       for (const key in beverages) {
@@ -53,6 +53,7 @@ export class BeveragesFormComponent implements OnInit {
           selectedBeverage.push(beverageForm); // push form in formArray
         }
       }
+      subscription.unsubscribe();
     });
   }
 

@@ -27,7 +27,7 @@ export class PizzasFormComponent implements OnInit {
     ) { }
 
   ngOnInit() {
-    this.pizzasData.getPizzas()
+    const subscription = this.pizzasData.getPizzas()
     .subscribe(pizzas => {
 
       for (const key in pizzas) {
@@ -50,6 +50,7 @@ export class PizzasFormComponent implements OnInit {
           selectedPizzas.push(pizzasForm);
         }
       }
+      subscription.unsubscribe();
     });
   }
 

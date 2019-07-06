@@ -25,10 +25,13 @@
           [formGroupName]="i"
           *ngFor="let pizzas of selectedPizzas.controls ; let i = index">
 
+          <div class="labelPizza">
             <label for="pizzas-{{ i }}">
               {{ pizzas.value.pizzName }}<span>{{ pizzas.value.pizzPriceTTC }} EUR</span>
             </label>
 
+            <p>{{ pizzas.value.pizzDesc }}</p>
+          </div>
             <div class="buttonQuantity">
               <button
                 class="button is-rounded is-outlined is-mobile is-small"

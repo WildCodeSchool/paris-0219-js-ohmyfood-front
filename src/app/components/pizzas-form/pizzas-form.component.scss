@@ -54,7 +54,7 @@ a {
   label {
     display: flex;
     justify-content: space-between;
-    width: 60%;
+    width: 87%;
   }
 }
 
@@ -80,6 +80,14 @@ a {
     font-size: 1.5em;
     text-align: center;
     width: 15vw;
+  }
+}
+
+.labelPizza {
+  width: 83%;
+
+  p {
+    font-size: 0.8em;
   }
 }
 

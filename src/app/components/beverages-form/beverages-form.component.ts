@@ -11,9 +11,6 @@ import { ToggleFormService } from 'src/app/services/toggle-form.service';
 })
 export class BeveragesFormComponent implements OnInit {
 
-  // Datas collection from database
-  beveragesList: object;
-
   // Enable submit button
   enableSubmit: boolean;
 
@@ -35,24 +32,23 @@ export class BeveragesFormComponent implements OnInit {
   ngOnInit() {
     // Get Data from API
     this.beverageData.getBeverages()
-    .subscribe(beverage => {
-      this.beveragesList = beverage;
+    .subscribe(beverages => {
 
-      for (const key in this.beveragesList) {
-        if (this.beveragesList.hasOwnProperty(key)) { // Check if object get key
-          this.beveragesList[key].bevPriceTTC = this.beveragesList[key].bevPriceTTC.toFixed(2); // Display price with 00:00 form
+      for (const key in beverages) {
+        if (beverages.hasOwnProperty(key)) { // Check if object get key
+          beverages[key].bevPriceTTC = beverages[key].bevPriceTTC.toFixed(2); // Display price with 00:00 form
         }
       }
 
       const selectedBeverage = this.formBeverage.get('selectedBeverage') as FormArray;
 
-      for (const key in this.beveragesList) { // loop to access key of object
-        if (this.beveragesList.hasOwnProperty(key)) {
+      for (const key in beverages) { // loop to access key of object
+        if (beverages.hasOwnProperty(key)) {
           const beverageForm = this.formBuilder.group({
-            idBeverages: [ this.beveragesList[key].idBeverages ],
-            bevName: [ this.beveragesList[key].bevName ],
-            bevPriceTTC: [this.beveragesList[key].bevPriceTTC ],
-            bevQuantity: [0]
+            idBeverages: beverages[key].idBeverages,
+            bevName: beverages[key].bevName,
+            bevPriceTTC: beverages[key].bevPriceTTC,
+            bevQuantity: 0
           });
           selectedBeverage.push(beverageForm); // push form in formArray
         }
@@ -75,7 +71,7 @@ export class BeveragesFormComponent implements OnInit {
     this.enableSubmit = false;
   }
 
-  quantitySelect(operator, i, quantity) {
+  quantitySelect(operator: string, i: number, quantity: number) {
    this.formBeverage.value.selectedBeverage[i].bevQuantity = this.quantitySelectService.selectQuantity(operator, quantity);
 
    if (this.formBeverage.value.selectedBeverage[i].bevQuantity > 0) {

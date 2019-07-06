@@ -11,9 +11,6 @@ import { ToggleFormService } from 'src/app/services/toggle-form.service';
 })
 export class DessertsFormComponent implements OnInit {
 
-  // Datas collection from database
-  dessertsList: object;
-
   // Enable submit button
   enableSubmit: boolean;
 
@@ -35,24 +32,23 @@ export class DessertsFormComponent implements OnInit {
   ngOnInit() {
     // Get Data from API
     this.dessertData.getDesserts()
-    .subscribe(dessert => {
-      this.dessertsList = dessert;
+    .subscribe(desserts => {
 
-      for (const key in this.dessertsList) {
-        if (this.dessertsList.hasOwnProperty(key)) { // Check if object get key
-          this.dessertsList[key].dessPriceTTC = this.dessertsList[key].dessPriceTTC.toFixed(2); // Display price with 00:00 form
+      for (const key in desserts) {
+        if (desserts.hasOwnProperty(key)) { // Check if object get key
+          desserts[key].dessPriceTTC = desserts[key].dessPriceTTC.toFixed(2); // Display price with 00:00 form
         }
       }
 
       const selectedDessert = this.formDessert.get('selectedDessert') as FormArray;
 
-      for (const key in this.dessertsList) { // loop to access key of object
-        if (this.dessertsList.hasOwnProperty(key)) {
+      for (const key in desserts) { // loop to access key of object
+        if (desserts.hasOwnProperty(key)) {
           const dessertForm = this.formBuilder.group({
-            idDesserts: [ this.dessertsList[key].idDesserts ],
-            dessName: [ this.dessertsList[key].dessName ],
-            dessPriceTTC: [this.dessertsList[key].dessPriceTTC ],
-            dessQuantity: [0]
+            idDesserts: desserts[key].idDesserts,
+            dessName: desserts[key].dessName,
+            dessPriceTTC: desserts[key].dessPriceTTC,
+            dessQuantity: 0
           });
           selectedDessert.push(dessertForm); // push form in formArray
         }
@@ -75,7 +71,7 @@ export class DessertsFormComponent implements OnInit {
     this.enableSubmit = false;
   }
 
-  quantitySelect(operator, i, quantity) {
+  quantitySelect(operator: string, i: number, quantity: number) {
    this.formDessert.value.selectedDessert[i].dessQuantity = this.quantitySelectService.selectQuantity(operator, quantity);
 
    if (this.formDessert.value.selectedDessert[i].dessQuantity > 0) {

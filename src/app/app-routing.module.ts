@@ -8,15 +8,16 @@ import { AuthClientPageComponent } from './pages/authent/auth-client-page/auth-c
 import { SaladPageComponent } from './pages/salad-page/salad-page.component';
 import { AuthentCreateComponent } from './components/authent/authent-create/authent-create.component';
 import { OnlyLoggedInUsersGuardService } from './services/only-logged-in-users-guard.service';
+import { MenuPageComponent } from './pages/menu-page/menu-page.component';
 
 const routes: Routes = [
   {
-    path: '', 
-    redirectTo: 'homePage', 
+    path: '',
+    redirectTo: 'homePage',
     pathMatch: 'full'
   },
   {
-    path: 'admin', 
+    path: 'admin',
     component: AdminPagesComponent,
     canActivate: [OnlyLoggedInUsersGuardService]
   },
@@ -34,7 +35,7 @@ const routes: Routes = [
     component: AuthClientPageComponent
   },
   {
-    path: 'createClientPage', 
+    path: 'createClientPage',
     component: AuthentCreateComponent
   },
   {
@@ -45,6 +46,11 @@ const routes: Routes = [
   {
     path: 'saladePage',
     component: SaladPageComponent,
+    canActivate: [OnlyLoggedInUsersGuardService]
+  },
+  {
+    path: 'menuPage',
+    component: MenuPageComponent,
     canActivate: [OnlyLoggedInUsersGuardService]
   }
 ];

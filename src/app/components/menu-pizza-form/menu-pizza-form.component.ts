@@ -7,6 +7,7 @@ import { BeveragesDataService } from 'src/app/services/beverages-data.service';
 import { DessertsDataService } from 'src/app/services/desserts-data.service';
 import { DatePipe } from '@angular/common';
 import { deliveryIntervalTime } from '../../validators/deliveryTimeValidators';
+import { quantityMenuPizzaControl } from 'src/app/validators/menuPizzaQuantityValidators';
 
 @Component({
   selector: 'app-menu-pizza-form',
@@ -38,14 +39,15 @@ export class MenuPizzaFormComponent implements OnInit {
   ngOnInit() {
     // Initialize form group
     this.pizzaMenuForm = this.formBuilder.group({
-      pizza: this.formBuilder.array([]),
+      pizza: this.formBuilder.array([], quantityMenuPizzaControl()),
       beverage: this.formBuilder.array([]),
       dessert: this.formBuilder.array([]),
-      pizzaMenuPrice: Number
-    },
-    {
-     validators: deliveryIntervalTime(this.controlDate)
-    });
+      pizzaMenuPrice: Number,
+      },
+      {
+      validators: deliveryIntervalTime(this.controlDate), // Validator time
+      }
+    );
 
     const menuSubscription = this.menuPrices.getMenuPrices()
     .subscribe((menuPrice: any) => {
@@ -109,7 +111,7 @@ export class MenuPizzaFormComponent implements OnInit {
   onSubmit() {
     const menuChoice = this.pizzaMenuForm.value;
 
-    console.log(menuChoice);
+    this.menuPrices.createOrderMenu(menuChoice);
   }
 
   getUserChoice(index: number, choice) {
@@ -117,24 +119,24 @@ export class MenuPizzaFormComponent implements OnInit {
     const check = Object.getOwnPropertyNames(choice);
 
     if (check[0] === 'idPizzas') {
-    const length = this.pizzaMenuForm.controls.pizza[`controls`].length; // To get array length
-
-    for (let i = 0; i < length; i ++) {
-      index !== i ?
-      this.pizzaMenuForm.controls.pizza[`controls`][i].value.pizzQuantity = 0 :
-      this.pizzaMenuForm.controls.pizza[`controls`][i].value.pizzQuantity = 1;
-      }
-
-    } else if (check[0] === 'idBeverages') {
-      const length = this.pizzaMenuForm.controls.beverage[`controls`].length; // To get array length
+      const length = this.pizzaMenuForm.controls.pizza[`controls`].length; // To get array length
 
       for (let i = 0; i < length; i ++) {
         index !== i ?
-        this.pizzaMenuForm.controls.beverage[`controls`][i].value.pizzQuantity = 0 :
-        this.pizzaMenuForm.controls.beverage[`controls`][i].value.pizzQuantity = 1;
+        this.pizzaMenuForm.controls.pizza[`controls`][i].value.pizzQuantity = 0 :
+        this.pizzaMenuForm.controls.pizza[`controls`][i].value.pizzQuantity = 1;
         }
 
-      } else if (check[0] === 'idDesserts') {
+    } else if (check[0] === 'idBeverages') {
+        const length = this.pizzaMenuForm.controls.beverage[`controls`].length; // To get array length
+
+        for (let i = 0; i < length; i ++) {
+          index !== i ?
+          this.pizzaMenuForm.controls.beverage[`controls`][i].value.bevQuantity = 0 :
+          this.pizzaMenuForm.controls.beverage[`controls`][i].value.bevQuantity = 1;
+          }
+
+    } else if (check[0] === 'idDesserts') {
         const length = this.pizzaMenuForm.controls.dessert[`controls`].length; // To get array length
 
         for (let i = 0; i < length; i ++) {
@@ -142,6 +144,6 @@ export class MenuPizzaFormComponent implements OnInit {
           this.pizzaMenuForm.controls.dessert[`controls`][i].value.dessQuantity = 0 :
           this.pizzaMenuForm.controls.dessert[`controls`][i].value.dessQuantity = 1;
           }
-      }
+    }
   }
 }

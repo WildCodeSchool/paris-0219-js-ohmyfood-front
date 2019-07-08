@@ -25,10 +25,12 @@ a {
 .button {
   border: solid 1px $green;
   margin: 0 auto;
-  width: 40px;
+  width: 80px;
   height: 25px;
   position: relative;
   transition-duration: 500ms;
+  text-align: center;
+  float: initial;
 
   &:hover {
     background: $green;
@@ -38,8 +40,16 @@ a {
 
 .header {
   text-align: center;
+  transition: box-shadow .3s;
+  float: none;
 
+  &:hover {
+    box-shadow: 0 0 50px rgba(33,33,33,.2);
   }
+}
+h1.header {
+  font-size: 20px;
+}
 
 input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
@@ -108,4 +118,10 @@ section {
 .toggleSauce {
   margin: 6vh auto;
   max-height: 1500px;
+}
+
+
+input {
+  width: 5vw;
+  text-align: center;
 }

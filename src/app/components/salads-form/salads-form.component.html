@@ -15,7 +15,7 @@
       <form [formGroup]="formSalads" (ngSubmit)="formSalads.valid && onSubmit()" #saladsForm=ngForm>
       <div class="header">
       <a href (click)="toggleFormSalads($event, 'base')">
-        <h1 class="saladsToggle">
+        <h1 class="header">
           Sélectionner votre Base
         </h1>
       </a>
@@ -45,7 +45,7 @@
       </div>
 
          <a href (click)="toggleFormSalads($event, 'ingredients')">
-          <h1 class="saladsToggle">
+          <h1 class="header">
             Sélectionner vos ingredients
           </h1>
         </a>
@@ -93,7 +93,7 @@
 
 
         <a href (click)="toggleFormSalads($event, 'toppings')">
-            <h1 class="saladsToggle">
+            <h1 class="header">
               Sélectionner vos toppings
             </h1>
           </a>
@@ -137,7 +137,7 @@
           </div>
         </div>
         <a href (click)="toggleFormSalads($event, 'sauce')">
-            <h1 class="saladsToggle">
+            <h1 class="header">
               Sélectionner votre sauce
             </h1>
           </a>
@@ -165,11 +165,26 @@
 
             <p *ngIf="displaySaucesMessage">Attention, vous n'avez pas séléctionné de sauces</p>
 
-            <button type="button" (click)="resetSauces()">Supprimer la sauce</button>
+            <div class="submitSection">
+            <button
+            class="button is-hovered"
+            type="button"
+            (click)="resetSauces()"
+            >
+            Supprimer
+          </button>
           </div>
         </div>
-        <button type='submit'> Ajouter au panier </button>
       </div>
+    </div>
+    <div class="submitSections">
+      <button
+        class="button is-hovered"
+        type='submit'
+        >
+        Ajouter
+      </button>
+    </div>
     </form>
   </div>
 </section>

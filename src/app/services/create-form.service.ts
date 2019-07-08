@@ -17,7 +17,7 @@ export class CreateFormService {
       pizzDesc: object.pizzDesc,
       pizzName: object.pizzName,
       pizzPriceTTC: object.pizzPriceTTC,
-      pizzQuantity: 0,
+      pizzQuantity: 1,
       });
     return pizzasForm;
 
@@ -26,7 +26,7 @@ export class CreateFormService {
         idBeverages: object.idBeverages,
         bevName: object.bevName,
         bevPriceTTC: object.bevPriceTTC,
-        bevQuantity: 0,
+        bevQuantity: 1,
         });
       return beveragesForm;
 
@@ -35,7 +35,7 @@ export class CreateFormService {
         idDesserts: object.idDesserts,
         dessName: object.dessName,
         dessPriceTTC: object.dessPriceTTC,
-        dessQuantity: 0
+        dessQuantity: 1
       });
       return dessertsForm;
     }

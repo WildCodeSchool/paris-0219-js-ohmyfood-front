@@ -13,12 +13,13 @@
     <div class="notToggle" [ngClass]="{toggle: isToggle}">
 
       <form [formGroup]="formSalads" (ngSubmit)="formSalads.valid && onSubmit()" #saladsForm=ngForm>
-      <div class="header">
-      <a href (click)="toggleFormSalads($event, 'base')">
-        <h1 class="header">
-          Sélectionner votre Base
-        </h1>
-      </a>
+      <div class="head">
+        <div class="ldm">
+          <a href (click)="toggleFormSalads($event, 'base')">
+            <h1 class="header">
+              Sélectionner votre Base
+            </h1>
+          </a>
 
       <div class="notToggleBase" [ngClass]="{toggleBase: isToggleBase}">
         <div formArrayName="selectBase">
@@ -43,7 +44,53 @@
           </div>
         </div>
       </div>
+    </div>
+      <div class="ldm">
+      <a href (click)="toggleFormSalads($event, 'sauce')">
+          <h1 class="header">
+            Sélectionner votre sauce
+          </h1>
+        </a>
 
+          <div class="notToggleSauce" [ngClass]="{toggleSauce: isToggleSauce}">
+            <div formArrayName="selectSauces">
+              <div
+                class="formLine"
+                [formGroupName]="i"
+                *ngFor="let sauces of selectSauces.controls ; let i = index">
+
+                  <label for="saladsSaucesQuantity-{{ i }}">
+                    {{ sauces.value.saladsSaucesName }}
+                  </label>
+
+                    <input
+                      type="radio"
+                      formControlName='saladsSaucesQuantity'
+                      name='saladsSaucesQuantity'
+                      id="saladsSaucesQuantity-{{ i }}"
+                      value="{{sauces.value.saladsSaucesName}}"
+                      (ngModelChange)="getSauce(i, saladsForm.submitted)">
+
+              </div>
+
+              <p *ngIf="displaySaucesMessage">Attention, vous n'avez pas séléctionné de sauces</p>
+
+              <div class="submitSection">
+              <button
+              class="button is-hovered"
+              type="button"
+              (click)="resetSauces()"
+              >
+              Supprimer
+            </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+        <div class="sousContain">
+          <div class="wreck">
          <a href (click)="toggleFormSalads($event, 'ingredients')">
           <h1 class="header">
             Sélectionner vos ingredients
@@ -90,8 +137,9 @@
               <p>{{selectIngredients.errors['isRequired']}}</p>
           </div>
         </div>
+      </div>
 
-
+      <div class="wreck">
         <a href (click)="toggleFormSalads($event, 'toppings')">
             <h1 class="header">
               Sélectionner vos toppings
@@ -136,53 +184,15 @@
             <p *ngIf="displayToppingsMessage">Attention, vous n'avez pas séléctionné de toppings</p>
           </div>
         </div>
-        <a href (click)="toggleFormSalads($event, 'sauce')">
-            <h1 class="header">
-              Sélectionner votre sauce
-            </h1>
-          </a>
-
-        <div class="notToggleSauce" [ngClass]="{toggleSauce: isToggleSauce}">
-          <div formArrayName="selectSauces">
-            <div
-              class="formLine"
-              [formGroupName]="i"
-              *ngFor="let sauces of selectSauces.controls ; let i = index">
-
-                <label for="saladsSaucesQuantity-{{ i }}">
-                  {{ sauces.value.saladsSaucesName }}
-                </label>
-
-                  <input
-                    type="radio"
-                    formControlName='saladsSaucesQuantity'
-                    name='saladsSaucesQuantity'
-                    id="saladsSaucesQuantity-{{ i }}"
-                    value="{{sauces.value.saladsSaucesName}}"
-                    (ngModelChange)="getSauce(i, saladsForm.submitted)">
-
-            </div>
-
-            <p *ngIf="displaySaucesMessage">Attention, vous n'avez pas séléctionné de sauces</p>
-
-            <div class="submitSection">
-            <button
-            class="button is-hovered"
-            type="button"
-            (click)="resetSauces()"
-            >
-            Supprimer
-          </button>
-          </div>
         </div>
       </div>
-    </div>
+
     <div class="submitSections">
       <button
-        class="button is-hovered"
+        class="submitButton button is-rounded is-outlined"
         type='submit'
         >
-        Ajouter
+        Ajouter au panier
       </button>
     </div>
     </form>

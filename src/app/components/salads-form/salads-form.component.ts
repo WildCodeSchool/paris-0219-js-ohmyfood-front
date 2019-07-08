@@ -12,13 +12,6 @@ import { checkSaladsIngredients } from 'src/app/validators/saladsIngredientsVali
   styleUrls: ['./salads-form.component.scss']
 })
 export class SaladsFormComponent implements OnInit {
-  // Object to get data from databases
-  saladsSaucesList: object;
-  saladsIngredientsList: object;
-  saladsBaseList: object;
-  saladsToppingsList: object;
-
-  selectSaladsBase: object;
 
   // To toggle Form
   isToggle: boolean;
@@ -50,22 +43,21 @@ export class SaladsFormComponent implements OnInit {
 
   ngOnInit() {
     const basesSubscription = this.saladsDataService.addSaladsBases().subscribe(bases => {
-      this.saladsBaseList = bases;
 
-      for (const key in this.saladsBaseList) {
-        if (this.saladsBaseList.hasOwnProperty(key)) {
-          this.saladsBaseList[key].saladsBasePriceTTC = this.saladsBaseList[key].saladsBasePriceTTC.toFixed(2);
+      for (const key in bases) {
+        if (bases.hasOwnProperty(key)) {
+          bases[key].saladsBasePriceTTC = bases[key].saladsBasePriceTTC.toFixed(2);
         }
       }
       const selectBase = this.formSalads.get('selectBase') as FormArray;
 
-      for (const key in this.saladsBaseList) {
-        if (this.saladsBaseList.hasOwnProperty(key)) {
+      for (const key in bases) {
+        if (bases.hasOwnProperty(key)) {
           const saladsBaseForm = this.fb.group({
-            idSaladsBase: [ this.saladsBaseList[key].idSaladsBase],
-            saladsBaseName: [ this.saladsBaseList[key].saladsBaseName],
-            saladsBasePriceTTC: [ this.saladsBaseList[key].saladsBasePriceTTC],
-            saladsBaseQuantity: [false]
+            idSaladsBase: bases[key].idSaladsBase,
+            saladsBaseName: bases[key].saladsBaseName,
+            saladsBasePriceTTC: bases[key].saladsBasePriceTTC,
+            saladsBaseQuantity: false
           });
           selectBase.push(saladsBaseForm);
         }
@@ -74,22 +66,21 @@ export class SaladsFormComponent implements OnInit {
     });
 
     const ingredientsSubscription = this.saladsDataService.addSaladsIngredients().subscribe(ingredients => { // get ingredients from API
-      this.saladsIngredientsList = ingredients;
 
-      for (const key in this.saladsIngredientsList) { // Display price TTC with two digits after decimal point
-        if (this.saladsIngredientsList.hasOwnProperty(key)) {
-          this.saladsIngredientsList[key].saladsIngredientsPriceTTC = this.saladsIngredientsList[key].saladsIngredientsPriceTTC.toFixed(2);
+      for (const key in ingredients) { // Display price TTC with two digits after decimal point
+        if (ingredients.hasOwnProperty(key)) {
+          ingredients[key].saladsIngredientsPriceTTC = ingredients[key].saladsIngredientsPriceTTC.toFixed(2);
         }
       }
       const selectIngredients = this.formSalads.get('selectIngredients') as FormArray; // Declare key as form array
 
-      for (const key in this.saladsIngredientsList) { // create form for each object from data base
-        if (this.saladsIngredientsList.hasOwnProperty(key)) {
+      for (const key in ingredients) { // create form for each object from data base
+        if (ingredients.hasOwnProperty(key)) {
           const saladsIngredientsForm = this.fb.group({
-            idSaladsIngredients: [ this.saladsIngredientsList[key].idSaladsIngredients],
-            saladsIngredientsName: [ this.saladsIngredientsList[key].saladsIngredientsName],
-            saladsIngredientsPriceTTC: [ this.saladsIngredientsList[key].saladsIngredientsPriceTTC],
-            saladsIngredientsQuantity: [0]
+            idSaladsIngredients: ingredients[key].idSaladsIngredients,
+            saladsIngredientsName: ingredients[key].saladsIngredientsName,
+            saladsIngredientsPriceTTC: ingredients[key].saladsIngredientsPriceTTC,
+            saladsIngredientsQuantity: 0
           });
           selectIngredients.push(saladsIngredientsForm); // push all form in the formArray
         }
@@ -98,16 +89,15 @@ export class SaladsFormComponent implements OnInit {
     });
 
     const saucesSubscription = this.saladsDataService.addSaladsSauces().subscribe(sauces => {
-      this.saladsSaucesList = sauces;
 
       const selectSauces = this.formSalads.get('selectSauces') as FormArray;
 
-      for (const key in this.saladsSaucesList) {
-        if (this.saladsSaucesList.hasOwnProperty(key)) {
+      for (const key in sauces) {
+        if (sauces.hasOwnProperty(key)) {
           const saladsSaucesForm = this.fb.group({
-            idSaladsSauces: [ this.saladsSaucesList[key].idSaladsSauces],
-            saladsSaucesName: [ this.saladsSaucesList[key].saladsSaucesName],
-            saladsSaucesQuantity: [ false ]
+            idSaladsSauces: sauces[key].idSaladsSauces,
+            saladsSaucesName: sauces[key].saladsSaucesName,
+            saladsSaucesQuantity: false
           });
           selectSauces.push(saladsSaucesForm);
         }
@@ -116,22 +106,21 @@ export class SaladsFormComponent implements OnInit {
     });
 
     const toppingsSubscription = this.saladsDataService.addSaladsToppings().subscribe(toppings => {
-      this.saladsToppingsList = toppings;
 
-      for (const key in this.saladsToppingsList) {
-        if (this.saladsToppingsList.hasOwnProperty(key)) {
-          this.saladsToppingsList[key].saladsToppingsPriceTTC = this.saladsToppingsList[key].saladsToppingsPriceTTC.toFixed(2);
+      for (const key in toppings) {
+        if (toppings.hasOwnProperty(key)) {
+          toppings[key].saladsToppingsPriceTTC = toppings[key].saladsToppingsPriceTTC.toFixed(2);
         }
       }
       const selectToppings = this.formSalads.get('selectToppings') as FormArray;
 
-      for (const key in this.saladsToppingsList) {
-        if (this.saladsToppingsList.hasOwnProperty(key)) {
+      for (const key in toppings) {
+        if (toppings.hasOwnProperty(key)) {
           const saladsToppingsForm = this.fb.group({
-            idSaladsToppings: [ this.saladsToppingsList[key].idSaladsToppings],
-            saladsToppingsName: [ this.saladsToppingsList[key].saladsToppingsName],
-            saladsToppingsPriceTTC: [ this.saladsToppingsList[key].saladsToppingsPriceTTC],
-            saladsToppingsQuantity: [0]
+            idSaladsToppings: toppings[key].idSaladsToppings,
+            saladsToppingsName: toppings[key].saladsToppingsName,
+            saladsToppingsPriceTTC: toppings[key].saladsToppingsPriceTTC,
+            saladsToppingsQuantity: 0
           });
           selectToppings.push(saladsToppingsForm);
         }

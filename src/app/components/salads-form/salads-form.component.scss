@@ -1,6 +1,27 @@
 @import '../../../styles/colors.scss';
 
 
+
+.head {
+  text-align: center;
+  display: flex;
+
+  .ldm {
+    margin: 0 auto;
+  }
+}
+h1.header {
+  font-size: 20px;
+}
+
+.sousContain {
+  display: flex;
+  text-align: center;
+
+  .wreck {
+    margin: 0 auto;
+  }
+}
 /* Main part of the ribbon */
 a {
   text-decoration: none;
@@ -22,33 +43,20 @@ a {
   padding: 29px;
   margin: auto;
 }
+
 .button {
   border: solid 1px $green;
   margin: 0 auto;
-  width: 80px;
-  height: 25px;
-  position: relative;
   transition-duration: 500ms;
   text-align: center;
-  float: initial;
+
+
+
 
   &:hover {
     background: $green;
     color: whitesmoke;
   }
-}
-
-.header {
-  text-align: center;
-  transition: box-shadow .3s;
-  float: none;
-
-  &:hover {
-    box-shadow: 0 0 50px rgba(33,33,33,.2);
-  }
-}
-h1.header {
-  font-size: 20px;
 }
 
 input[type=number]::-webkit-inner-spin-button,
@@ -64,10 +72,7 @@ input[type=number]::-webkit-outer-spin-button {
   transition-duration: 1000ms;
 }
 
-section {
-  margin: 0 auto;
-  width: 50vw;
-}
+
 
 .toggle {
   margin: 5vh auto;
@@ -123,5 +128,19 @@ section {
 
 input {
   width: 5vw;
+  text-align: center;
+}
+
+.submitSection {
+
+
+  .submitButton {
+    float: right;
+    right: 90px;
+  }
+}
+
+.buttonQuantity {
+  display: flex;
   text-align: center;
 }

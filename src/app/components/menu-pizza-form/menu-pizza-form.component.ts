@@ -91,4 +91,21 @@ export class MenuPizzaFormComponent implements OnInit {
   get dessert(): FormArray {
     return this.pizzaMenuForm.get('dessert') as FormArray;
   }
+
+  onSubmit() {
+    const menuChoice = this.pizzaMenuForm.value;
+
+    console.log(menuChoice);
+
+  }
+
+  getPizza(index: number) {
+    const length = this.pizzaMenuForm.controls.pizza[`controls`].length; // To get array length
+
+    for (let i = 0; i < length; i ++) {
+      index !== i ?
+      this.pizzaMenuForm.controls.pizza[`controls`][i].value.pizzQuantity = 0 :
+      this.pizzaMenuForm.controls.pizza[`controls`][i].value.pizzQuantity = 1;
+    }
+  }
 }

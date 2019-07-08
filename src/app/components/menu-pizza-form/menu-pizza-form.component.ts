@@ -1,17 +1,26 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuPricesDataService } from 'src/app/services/menu-prices-data.service';
-import { FormBuilder, FormArray } from '@angular/forms';
+import { FormBuilder, FormArray, FormGroup } from '@angular/forms';
 import { PizzasDataService } from 'src/app/services/pizzas-data.service';
 import { CreateFormService } from 'src/app/services/create-form.service';
 import { BeveragesDataService } from 'src/app/services/beverages-data.service';
 import { DessertsDataService } from 'src/app/services/desserts-data.service';
+import { DatePipe } from '@angular/common';
+import { deliveryIntervalTime } from '../../validators/deliveryTimeValidators';
 
 @Component({
   selector: 'app-menu-pizza-form',
   templateUrl: './menu-pizza-form.component.html',
-  styleUrls: ['./menu-pizza-form.component.scss']
+  styleUrls: ['./menu-pizza-form.component.scss'],
+  providers: [DatePipe]
 })
 export class MenuPizzaFormComponent implements OnInit {
+
+  date: Date = new Date(); // Date of the day
+
+  controlDate: string; // To convert date in format wanted
+
+  pizzaMenuForm: FormGroup;
 
   constructor(
     private menuPrices: MenuPricesDataService,
@@ -19,18 +28,25 @@ export class MenuPizzaFormComponent implements OnInit {
     private beverageData: BeveragesDataService,
     private dessertData: DessertsDataService,
     private createFormService: CreateFormService,
-    private formBuilder: FormBuilder
-    ) { }
+    private formBuilder: FormBuilder,
+    private datePipe: DatePipe
+    ) {
+        this.controlDate = this.datePipe.transform(this.date, 'H:mm:ss');
+      }
 
-    pizzaMenuForm = this.formBuilder.group({
+
+  ngOnInit() {
+    // Initialize form group
+    this.pizzaMenuForm = this.formBuilder.group({
       pizza: this.formBuilder.array([]),
       beverage: this.formBuilder.array([]),
       dessert: this.formBuilder.array([]),
       pizzaMenuPrice: Number
+    },
+    {
+     validators: deliveryIntervalTime(this.controlDate)
     });
 
-
-  ngOnInit() {
     const menuSubscription = this.menuPrices.getMenuPrices()
     .subscribe((menuPrice: any) => {
       this.pizzaMenuForm.controls.pizzaMenuPrice.patchValue({
@@ -94,7 +110,6 @@ export class MenuPizzaFormComponent implements OnInit {
     const menuChoice = this.pizzaMenuForm.value;
 
     console.log(menuChoice);
-
   }
 
   getUserChoice(index: number, choice) {

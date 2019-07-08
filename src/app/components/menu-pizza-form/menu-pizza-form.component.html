@@ -72,7 +72,11 @@
     <p>{{ pizzaMenuForm.value.pizzaMenuPrice.pizzaMenuPrice }} EUR TTC</p>
 
     <p *ngIf="menuPizza.submitted && menuPizza.errors">
-      {{ pizzaMenuForm.errors['notInTime']}}
+      {{ pizzaMenuForm.errors['notInTime'] }}
+    </p>
+
+    <p *ngIf="menuPizza.submitted && pizza.errors">
+      {{ pizza.errors['lessPizza'] }}
     </p>
 
     <button type="submit">Ajouter au panier</button>

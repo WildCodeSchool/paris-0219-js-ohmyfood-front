@@ -1,3 +1,36 @@
-<p>
-  menu-pizza-form works!
-</p>
+<section>
+  <a>
+    <h1>
+      MENUS PIZZAS
+    </h1>
+
+    <p>
+      Cliquez pour découvrir nos menus pizzas
+    </p>
+  </a>
+
+  <form [formGroup]="pizzaMenuForm" (ngSubmit)="onSubmit()">
+    <div formArrayName="pizza">
+      <div [formGroupName]="i"
+        *ngFor="let pizzas of pizza.controls; let i = index">
+
+          <label for="pizza-{{ i }}">
+            {{ pizzas.value.pizzName }}
+          </label>
+
+          <p>{{ pizzas.value.pizzDesc }}</p>
+
+          <input
+            type="radio"
+            formControlName="pizzQuantity"
+            name="pizzQuantity"
+            id="pizza-{{ i }}"
+            value="{{ pizzas.value.pizzQuantity }}"
+            (ngModelChange)="getPizza(i)">
+
+      </div>
+    </div>
+
+    <button type="submit">Ajouter au panier</button>
+  </form>
+</section>

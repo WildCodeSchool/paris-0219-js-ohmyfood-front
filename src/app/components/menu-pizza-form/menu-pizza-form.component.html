@@ -79,6 +79,14 @@
       {{ pizza.errors['lessPizza'] }}
     </p>
 
+    <p *ngIf="menuPizza.submitted && beverage.errors">
+      {{ beverage.errors['lessBeverage'] }}
+    </p>
+
+    <p *ngIf="menuPizza.submitted && dessert.errors">
+      {{ dessert.errors['lessDessert'] }}
+    </p>
+
     <button type="submit">Ajouter au panier</button>
   </form>
 </section>

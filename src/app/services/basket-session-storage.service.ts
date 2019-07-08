@@ -26,7 +26,6 @@ export class BasketSessionStorageService {
         break;
 
       case 'multiBases' :
-        console.log('TEST');
         sessionStorage.setItem('salads', JSON.stringify(form.map(
           (salads: OrderSalads[]) => salads)
           )

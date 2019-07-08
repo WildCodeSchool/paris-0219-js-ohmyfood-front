@@ -16,9 +16,9 @@ export class CreateFormBasketService {
     if (formToCreate instanceof OrderPizzas) {
       const pizzChoice = this.fb.group({
         idPizzas: [formToCreate.idPizzas],
-        pizzasName: [formToCreate.pizzName],
-        pizzasPriceTotal: [formToCreate.pizzPrice * formToCreate.pizzQuantity],
-        pizzasQuantity: [formToCreate.pizzQuantity]
+        pizzName: [formToCreate.pizzName],
+        pizzPriceTotal: [formToCreate.pizzPrice * formToCreate.pizzQuantity],
+        pizzQuantity: [formToCreate.pizzQuantity]
       });
       return pizzChoice;
 
@@ -110,10 +110,9 @@ export class CreateFormBasketService {
 
   sortOrderForm(formToSort: any, i: number, j: number) {
     const check = Object.getOwnPropertyNames(formToSort.value[i]); // get property of formToSort to know what form we have to sort
-
     if (check[0] === 'idPizzas') {
-      formToSort.value[i].pizzasPriceTotal += formToSort.value[j].pizzasPriceTotal; // Sum of price
-      formToSort.value[i].pizzasQuantity += formToSort.value[j].pizzasQuantity; // Sum of quantity
+      formToSort.value[i].pizzPriceTotal += formToSort.value[j].pizzPriceTotal; // Sum of price
+      formToSort.value[i].pizzQuantity += formToSort.value[j].pizzQuantity; // Sum of quantity
       formToSort.removeAt(j); // Remove duplicate
       return formToSort;
 

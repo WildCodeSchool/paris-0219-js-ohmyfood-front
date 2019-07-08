@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MenuPricesDataService } from 'src/app/services/menu-prices-data.service';
 
 @Component({
   selector: 'app-menu-pizza-form',
@@ -7,9 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MenuPizzaFormComponent implements OnInit {
 
-  constructor() { }
+  constructor(private menuPrices: MenuPricesDataService) { }
 
   ngOnInit() {
+    this.menuPrices.getMenuPrices()
+    .subscribe(menuPrice => console.log(menuPrice));
   }
-
 }

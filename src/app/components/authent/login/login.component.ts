@@ -51,7 +51,6 @@ export class LoginComponent implements OnInit {
 
   routeProtected() {
     this.loginService.routeProtection().then(res => {
-        console.log(res)
         const userInfoObject = {
           lastname: sessionStorage.getItem('userLastName'),
           firstname: sessionStorage.getItem('userFirstName'),

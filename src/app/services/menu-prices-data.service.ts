@@ -32,6 +32,6 @@ export class MenuPricesDataService {
       dessert[0],
       userMenuChoice[`pizzaMenuPrice`].pizzaMenuPrice
     );
-    this.getMenuPizza.emit(menuPizza);
+    this.getMenuPizza.emit(menuPizza); // Emit object to basketComponent
   }
 }

@@ -51,6 +51,7 @@ export class MenuPizzaFormComponent implements OnInit {
       }
     );
 
+    // Get Menu Price
     const menuSubscription = this.menuPrices.getMenuPrices()
     .subscribe((menuPrice: any) => {
       this.pizzaMenuForm.controls.pizzaMenuPrice.patchValue({
@@ -59,6 +60,7 @@ export class MenuPizzaFormComponent implements OnInit {
       menuSubscription.unsubscribe();
     });
 
+    // Get pizza data and create form group and push it in form Array
     const pizzSubscription = this.pizzaData.getPizzas()
     .subscribe((pizzas: any) => {
 
@@ -72,6 +74,7 @@ export class MenuPizzaFormComponent implements OnInit {
       pizzSubscription.unsubscribe();
     });
 
+    // Same thing for beverages
     const bevSubscription = this.beverageData.getBeverages()
     .subscribe((beverages: any) => {
 
@@ -85,6 +88,7 @@ export class MenuPizzaFormComponent implements OnInit {
       bevSubscription.unsubscribe();
     });
 
+    // Same thing for desserts
     const dessSubscription = this.dessertData.getDesserts()
     .subscribe((desserts: any) => {
       const dessert = this.pizzaMenuForm.get('dessert') as FormArray;

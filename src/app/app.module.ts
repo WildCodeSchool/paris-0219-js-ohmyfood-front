@@ -30,6 +30,8 @@ import { SaladPageComponent } from './pages/salad-page/salad-page.component';
 import { OnlyLoggedInUsersGuardService } from './services/only-logged-in-users-guard.service';
 import { MenuPageComponent } from './pages/menu-page/menu-page.component';
 import { MenuPizzaFormComponent } from './components/menu-pizza-form/menu-pizza-form.component';
+import { DetailOrderPageComponent } from './pages/detail-order-page/detail-order-page.component';
+import { DetailOrderComponent } from './components/detail-order/detail-order.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +57,9 @@ import { MenuPizzaFormComponent } from './components/menu-pizza-form/menu-pizza-
     HomeComponent,
     SaladPageComponent,
     MenuPageComponent,
-    MenuPizzaFormComponent
+    MenuPizzaFormComponent,
+    DetailOrderPageComponent,
+    DetailOrderComponent
   ],
   imports: [
     AppRoutingModule,

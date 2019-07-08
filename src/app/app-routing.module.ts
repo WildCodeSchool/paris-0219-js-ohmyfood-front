@@ -9,6 +9,7 @@ import { SaladPageComponent } from './pages/salad-page/salad-page.component';
 import { AuthentCreateComponent } from './components/authent/authent-create/authent-create.component';
 import { OnlyLoggedInUsersGuardService } from './services/only-logged-in-users-guard.service';
 import { MenuPageComponent } from './pages/menu-page/menu-page.component';
+import { DetailOrderPageComponent } from './pages/detail-order-page/detail-order-page.component';
 
 const routes: Routes = [
   {
@@ -51,6 +52,11 @@ const routes: Routes = [
   {
     path: 'menuPage',
     component: MenuPageComponent,
+    canActivate: [OnlyLoggedInUsersGuardService]
+  },
+  {
+    path: 'detailOrderPage',
+    component: DetailOrderPageComponent,
     canActivate: [OnlyLoggedInUsersGuardService]
   }
 ];

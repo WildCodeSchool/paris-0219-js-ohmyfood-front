@@ -17,10 +17,6 @@ export class LoginService {
 
   constructor(private http: HttpClient) { }
 
-  getClientInformation() {
-    return this.http.get(this.urlUser).toPromise()
-  }
-
   loginCheck() {
     return this.http.post(this.url, this.loginObject, {responseType: "text"}).toPromise()
   }

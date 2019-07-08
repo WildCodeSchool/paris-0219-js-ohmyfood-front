@@ -19,13 +19,13 @@ export class BeveragesDataService {
     return this.http.get(this.beveragesRoute);
   }
 
-  createOrderBeverage(formResult) { // create object with OrderBeverage Class
-    for (const key in formResult) {
-      if (formResult.hasOwnProperty(key)) {
-        formResult[key].map((test: any) => {
-          if (test.bevQuantity > 0) {
+  createOrderBeverage(userBeverageChoice: object) { // create object with OrderBeverage Class
+    for (const beverage in userBeverageChoice) {
+      if (userBeverageChoice.hasOwnProperty(beverage)) {
+        userBeverageChoice[beverage].map((userBeverage: any) => {
+          if (userBeverage.bevQuantity > 0) {
             const beveragesChoice = new OrderBeverage(
-              test.idBeverages, test.bevName, +test.bevPriceTTC, test.bevQuantity
+              userBeverage.idBeverages, userBeverage.bevName, +userBeverage.bevPriceTTC, userBeverage.bevQuantity
               );
             this.getUserBeverages.emit(beveragesChoice);
             }

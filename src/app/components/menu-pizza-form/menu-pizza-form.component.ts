@@ -76,8 +76,6 @@ export class MenuPizzaFormComponent implements OnInit {
       }
       dessSubscription.unsubscribe();
     });
-    console.log(this.pizzaMenuForm);
-
   }
 
   get pizza(): FormArray {
@@ -99,13 +97,36 @@ export class MenuPizzaFormComponent implements OnInit {
 
   }
 
-  getPizza(index: number) {
+  getUserChoice(index: number, choice) {
+
+    const check = Object.getOwnPropertyNames(choice);
+
+    if (check[0] === 'idPizzas') {
     const length = this.pizzaMenuForm.controls.pizza[`controls`].length; // To get array length
 
     for (let i = 0; i < length; i ++) {
       index !== i ?
       this.pizzaMenuForm.controls.pizza[`controls`][i].value.pizzQuantity = 0 :
       this.pizzaMenuForm.controls.pizza[`controls`][i].value.pizzQuantity = 1;
-    }
+      }
+
+    } else if (check[0] === 'idBeverages') {
+      const length = this.pizzaMenuForm.controls.beverage[`controls`].length; // To get array length
+
+      for (let i = 0; i < length; i ++) {
+        index !== i ?
+        this.pizzaMenuForm.controls.beverage[`controls`][i].value.pizzQuantity = 0 :
+        this.pizzaMenuForm.controls.beverage[`controls`][i].value.pizzQuantity = 1;
+        }
+
+      } else if (check[0] === 'idDesserts') {
+        const length = this.pizzaMenuForm.controls.dessert[`controls`].length; // To get array length
+
+        for (let i = 0; i < length; i ++) {
+          index !== i ?
+          this.pizzaMenuForm.controls.dessert[`controls`][i].value.dessQuantity = 0 :
+          this.pizzaMenuForm.controls.dessert[`controls`][i].value.dessQuantity = 1;
+          }
+      }
   }
 }

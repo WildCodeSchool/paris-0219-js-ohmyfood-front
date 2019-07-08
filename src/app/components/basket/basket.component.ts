@@ -10,6 +10,8 @@ import { BasketSessionStorageService } from 'src/app/services/basket-session-sto
 import { OrderBeverage } from 'src/app/class/order-beverage';
 import { OrderDessert } from 'src/app/class/order-dessert';
 import { OrderSalads } from 'src/app/class/order-salads';
+import { Router } from '@angular/router';
+import { FinalOrderService } from 'src/app/services/final-order.service';
 
 @Component({
   selector: 'app-basket',
@@ -41,7 +43,9 @@ export class BasketComponent implements OnInit {
     private quantityService: QuantitySelectService,
     private createForm: CreateFormBasketService,
     private saladsData: SaladsDatasService,
-    private sessionStorage: BasketSessionStorageService
+    private sessionStorage: BasketSessionStorageService,
+    private router: Router,
+    private finalOrder: FinalOrderService
     ) { }
 
   ngOnInit() {
@@ -190,8 +194,9 @@ export class BasketComponent implements OnInit {
   }
 
   onSubmit() {
-    const finalOrder = this.finalOrderForm.value;
-
+    const userFinalOrder = this.finalOrderForm.value;
+    this.finalOrder.transfertFinalOrder(userFinalOrder);
+    this.router.navigate(['detailOrderPage']);
     this.resetBasket();
   }
 

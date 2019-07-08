@@ -16,7 +16,8 @@ export class CreateFormService {
       idPizzas: object.idPizzas,
       pizzDesc: object.pizzDesc,
       pizzName: object.pizzName,
-      pizzPriceTTC: object.pizzPriceTTC
+      pizzPriceTTC: object.pizzPriceTTC,
+      pizzQuantity: 0,
       });
     return pizzasForm;
 
@@ -24,7 +25,8 @@ export class CreateFormService {
       const beveragesForm = this.fb.group({
         idBeverages: object.idBeverages,
         bevName: object.bevName,
-        bevPriceTTC: object.bevPriceTTC
+        bevPriceTTC: object.bevPriceTTC,
+        bevQuantity: 0,
         });
       return beveragesForm;
 
@@ -32,7 +34,8 @@ export class CreateFormService {
       const dessertsForm = this.fb.group({
         idDesserts: object.idDesserts,
         dessName: object.dessName,
-        dessPriceTTC: object.dessPriceTTC
+        dessPriceTTC: object.dessPriceTTC,
+        dessQuantity: 0
       });
       return dessertsForm;
     }

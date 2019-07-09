@@ -40,73 +40,91 @@ export class DetailOrderComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    // Get item from session storage if there is something in it
     if (sessionStorage.getItem('finalOrder')) {
       this.finalOrderRecap = JSON.parse(sessionStorage.getItem('finalOrder'));
     }
 
-    this.finalOrder.getFinalOrder.subscribe((userFinalOrder: any) => {
-      if (!sessionStorage.getItem('finalOrder')) {
-        sessionStorage.setItem('finalOrder', JSON.stringify(userFinalOrder));
-        this.finalOrderRecap = userFinalOrder;
-      } else {
-        const finalOrderStorage = JSON.parse(sessionStorage.getItem('finalOrder'));
-        const pizza = userFinalOrder.pizza;
-        const beverage = userFinalOrder.beverage;
-        const dessert = userFinalOrder.dessert;
+    // Subscribe to output from basket component
+    const finalOrderSubscription = this.finalOrder.getFinalOrder.subscribe((userFinalOrder: any) => {
+      let finalOrderStorage: any;
 
+      sessionStorage.getItem('finalOrder') ?
+      finalOrderStorage = JSON.parse(sessionStorage.getItem('finalOrder')) :
+      finalOrderStorage = [];
+
+      // Initialize variables to sort duplicate data
+      const pizza = userFinalOrder.pizza;
+      const salad = userFinalOrder.salad;
+      const beverage = userFinalOrder.beverage;
+      const dessert = userFinalOrder.dessert;
+
+      // For each key, group information to sort them behind
+      if (finalOrderStorage.salad !== undefined) {
+        finalOrderStorage.salad.map((salads: any) => {
+          salad.push(salads);
+        });
+      }
+
+      if (finalOrderStorage.pizza !== undefined) {
         finalOrderStorage.pizza.map((pizzas: any) => {
           pizza.push(pizzas);
         });
+      }
 
+      if (finalOrderStorage.beverage !== undefined) {
         finalOrderStorage.beverage.map((beverages: any) => {
           beverage.push(beverages);
         });
+      }
 
+      if (finalOrderStorage.dessert !== undefined) {
         finalOrderStorage.dessert.map((desserts: any) => {
           dessert.push(desserts);
         });
+      }
 
-        for (let i = 0; i < pizza.length; i ++ ) {
-          for (let j = i + 1; j < pizza.length; j ++) {
-            if (pizza[i].pizzName === pizza[j].pizzName) {
-              pizza[i].pizzQuantity += pizza[j].pizzQuantity;
-              pizza[i].pizzPriceTotal += pizza[j].pizzPriceTotal;
-              pizza.splice(j, 1);
-            }
+      // Sort array to avoid duplicate
+      for (let i = 0; i < pizza.length; i ++ ) {
+        for (let j = i + 1; j < pizza.length; j ++) {
+          if (pizza[i].pizzName === pizza[j].pizzName) {
+            pizza[i].pizzQuantity += pizza[j].pizzQuantity;
+            pizza[i].pizzPriceTotal += pizza[j].pizzPriceTotal;
+            pizza.splice(j, 1);
           }
         }
+      }
 
-        for (let i = 0; i < beverage.length; i ++ ) {
-          for (let j = i + 1; j < beverage.length; j ++) {
-            if (beverage[i].bevName === beverage[j].bevName) {
-              beverage[i].bevQuantity += beverage[j].bevQuantity;
-              beverage[i].bevPriceTotal += beverage[j].bevPriceTotal;
-              beverage.splice(j, 1);
-            }
+      for (let i = 0; i < beverage.length; i ++ ) {
+        for (let j = i + 1; j < beverage.length; j ++) {
+          if (beverage[i].bevName === beverage[j].bevName) {
+            beverage[i].bevQuantity += beverage[j].bevQuantity;
+            beverage[i].bevPriceTotal += beverage[j].bevPriceTotal;
+            beverage.splice(j, 1);
           }
         }
+      }
 
-        for (let i = 0; i < dessert.length; i ++ ) {
-          for (let j = i + 1; j < dessert.length; j ++) {
-            if (dessert[i].dessName === dessert[j].dessName) {
-              dessert[i].dessQuantity += dessert[j].dessQuantity;
-              dessert[i].dessPriceTotal += dessert[j].dessPriceTotal;
-              dessert.splice(j, 1);
-            }
+      for (let i = 0; i < dessert.length; i ++ ) {
+        for (let j = i + 1; j < dessert.length; j ++) {
+          if (dessert[i].dessName === dessert[j].dessName) {
+            dessert[i].dessQuantity += dessert[j].dessQuantity;
+            dessert[i].dessPriceTotal += dessert[j].dessPriceTotal;
+            dessert.splice(j, 1);
           }
         }
+      }
 
-        this.finalOrderRecap = new FinalOrder(
+      // Get good values
+      this.finalOrderRecap = new FinalOrder(
           pizza,
-          [],
+          salad,
           beverage,
           dessert
         );
 
-        sessionStorage.setItem('finalOrder', JSON.stringify(this.finalOrderRecap));
-
-        console.log(this.finalOrderRecap);
-      }
+      sessionStorage.setItem('finalOrder', JSON.stringify(this.finalOrderRecap)); // Save new finalOrder in session storage
+      finalOrderSubscription.unsubscribe();
     });
   }
 }

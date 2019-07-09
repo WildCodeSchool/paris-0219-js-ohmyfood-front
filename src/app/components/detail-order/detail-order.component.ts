@@ -51,7 +51,7 @@ export class DetailOrderComponent implements OnInit {
 
       sessionStorage.getItem('finalOrder') ?
       finalOrderStorage = JSON.parse(sessionStorage.getItem('finalOrder')) :
-      finalOrderStorage = [];
+      sessionStorage.setItem('finalOrder', JSON.stringify(userFinalOrder));
 
       // Initialize variables to sort duplicate data
       const pizza = userFinalOrder.pizza;
@@ -60,25 +60,25 @@ export class DetailOrderComponent implements OnInit {
       const dessert = userFinalOrder.dessert;
 
       // For each key, group information to sort them behind
-      if (finalOrderStorage.salad !== undefined) {
+      if (finalOrderStorage !== undefined) {
         finalOrderStorage.salad.map((salads: any) => {
           salad.push(salads);
         });
       }
 
-      if (finalOrderStorage.pizza !== undefined) {
+      if (finalOrderStorage !== undefined) {
         finalOrderStorage.pizza.map((pizzas: any) => {
           pizza.push(pizzas);
         });
       }
 
-      if (finalOrderStorage.beverage !== undefined) {
+      if (finalOrderStorage !== undefined) {
         finalOrderStorage.beverage.map((beverages: any) => {
           beverage.push(beverages);
         });
       }
 
-      if (finalOrderStorage.dessert !== undefined) {
+      if (finalOrderStorage !== undefined) {
         finalOrderStorage.dessert.map((desserts: any) => {
           dessert.push(desserts);
         });

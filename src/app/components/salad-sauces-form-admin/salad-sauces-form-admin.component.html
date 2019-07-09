@@ -1,0 +1,124 @@
+<p>Quelle action voulez-vous réaliser ?</p>
+<form [formGroup]="formCheck">
+  <label *ngFor="let action of actions; let i = index">
+    <input type="radio" 
+      value="{{ action }}"
+      name="sauceAction"
+      formControlName="sauceAction"
+    >
+      {{ action }}
+  </label>
+</form>
+<div *ngIf="formCheck.value.sauceAction === 'Ajouter'">
+  <form [formGroup]="sauceFormAdd">
+<!--Adding form-->
+    <label>
+    <p>Nom de la sauce à ajouter</p>
+    <input type="text" 
+      class="form-control" 
+      formControlName="sauceName" 
+      required
+    >
+    <div *ngIf="fA.sauceName.invalid && (fA.sauceName.dirty || fA.sauceName.touched)">
+      <div *ngIf="fA.sauceName.errors.required">
+        <p class="invalidText">*Le nom de la sauce est requis</p>
+      </div>
+      <div *ngIf="fA.sauceName.errors.minlength">
+        <p class="invalidText">*Le nom de la sauce doit contenir au moins 4 caractères</p>
+      </div>
+      <div *ngIf="fA.sauceName.errors.maxlength">
+        <p class="invalidText">*Le nom de la sauce ne doit pas dépasser les 45 caractères</p>
+      </div>
+    </div>
+    </label>
+
+    <label>
+      <p>Prix hors taxe</p>
+      <input type="text" 
+        class="form-control" 
+        formControlName="saucePriceHt" 
+        required
+      >
+      <div *ngIf="fA.saucePriceHt.invalid && (fA.saucePriceHt.dirty || fA.saucePriceHt.touched)">
+        <div *ngIf="fA.saucePriceHt.errors.required">
+          <p class="invalidText">*Le prix est requis</p>
+        </div>
+        <div *ngIf="fA.saucePriceHt.errors.pattern">
+          <p class="invalidText">*Le prix doit être inséré sous la forme XXX.XX</p>
+        </div>
+      </div>
+    </label>
+  </form>
+  <button type="submit" (click)="onSubmitAddForm()">AJOUTER LA SAUCE</button>
+</div>
+
+  <!--Modifier form-->
+<div *ngIf="formCheck.value.sauceAction === 'Modifier'">
+  <form [formGroup]="sauceFormPut">
+      <label>
+      <p>Nom de la sauce à modifier</p>
+      <input type="text" 
+        class="form-control" 
+        formControlName="sauceName" 
+        required
+      >
+      <div *ngIf="fM.sauceName.invalid && (fM.sauceName.dirty || fM.sauceName.touched)">
+        <div *ngIf="fM.sauceName.errors.required">
+          <p class="invalidText">*Le nom de la sauce est requis</p>
+        </div>
+        <div *ngIf="fM.sauceName.errors.minlength">
+          <p class="invalidText">*Le nom de la sauce doit contenir au moins 4 caractères</p>
+        </div>
+        <div *ngIf="fM.sauceName.errors.maxlength">
+          <p class="invalidText">*Le nom de la sauce ne doit pas dépasser les 45 caractères</p>
+        </div>
+      </div>
+      </label>
+
+      <label>
+        <p>Prix hors taxe</p>
+        <input type="text" 
+          class="form-control" 
+          formControlName="saucePriceHt" 
+          required
+        >
+        <div *ngIf="fM.saucePriceHt.invalid && (fM.saucePriceHt.dirty || fM.saucePriceHt.touched)">
+          <div *ngIf="fM.saucePriceHt.errors.required">
+            <p class="invalidText">*Le prix est requis</p>
+          </div>
+          <div *ngIf="fM.saucePriceHt.errors.pattern">
+            <p class="invalidText">*Le prix doit être inséré sous la forme XXX.XX</p>
+          </div>
+        </div>
+      </label>
+  </form>
+  <button type="submit" (click)="onSubmitPutForm()">MODIFIER LA SAUCE</button>
+</div>
+
+  <!--Delete form-->
+<div *ngIf="formCheck.value.sauceAction === 'Retirer'">
+  <form [formGroup]="sauceFormDel">
+      <label>
+        <p>Nom de la sauce à Supprimer</p>
+        <input type="text" 
+          class="form-control" 
+          formControlName="sauceName" 
+          required
+        >
+        <div *ngIf="fD.sauceName.invalid && (fD.sauceName.dirty || fD.sauceName.touched)">
+          <div *ngIf="fD.sauceName.errors.required">
+            <p class="invalidText">*Le nom de la sauce est requis</p>
+          </div>
+          <div *ngIf="fD.sauceName.errors.minlength">
+            <p class="invalidText">*Le nom de la sauce doit contenir au moins 4 caractères</p>
+          </div>
+          <div *ngIf="fD.sauceName.errors.maxlength">
+            <p class="invalidText">*Le nom de la sauce ne doit pas dépasser les 45 caractères</p>
+          </div>
+        </div>
+      </label>
+    <button type="submit" (click)="onSubmitDelForm()">SUPPRIMER LA SAUCE</button>
+  </form>
+</div>
+
+

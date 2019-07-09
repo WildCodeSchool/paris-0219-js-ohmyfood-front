@@ -32,6 +32,7 @@ import { DessertsFormAdminComponent } from './components/desserts-form-admin/des
 import { SaladToppingsFormAdminComponent } from './components/salad-toppings-form-admin/salad-toppings-form-admin.component';
 import { SaladIngredientsFormAdminComponent } from './components/salad-ingredients-form-admin/salad-ingredients-form-admin.component';
 import { SaladBaseFormAdminComponent } from './components/salad-base-form-admin/salad-base-form-admin.component';
+import { SaladSaucesFormAdminComponent } from './components/salad-sauces-form-admin/salad-sauces-form-admin.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,8 @@ import { SaladBaseFormAdminComponent } from './components/salad-base-form-admin/
     DessertsFormAdminComponent,
     SaladToppingsFormAdminComponent,
     SaladIngredientsFormAdminComponent,
-    SaladBaseFormAdminComponent
+    SaladBaseFormAdminComponent,
+    SaladSaucesFormAdminComponent
   ],
   imports: [
     AppRoutingModule,

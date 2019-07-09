@@ -1,9 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-<<<<<<< HEAD
-
-=======
->>>>>>> 0a90c5d83a7ab7bb9838a144a0f2594cb82660dd
 import { PizzaPageComponent } from './pages/pizza-page/pizza-page.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { HomeOrderPageComponent } from './pages/home-order-page/home-order-page.component';

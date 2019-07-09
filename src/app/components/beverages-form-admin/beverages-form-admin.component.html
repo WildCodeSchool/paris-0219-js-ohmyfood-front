@@ -97,7 +97,7 @@
 
   <!--Delete form-->
 <div *ngIf="formCheck.value.bevAction === 'Retirer'">
-  <form [formGroup]="bevFormDel">
+  <form [formGroup]="beverageFormDel">
       <label>
         <p>Nom de la boisson à Supprimer</p>
         <input type="text" 
@@ -120,3 +120,5 @@
     <button type="submit" (click)="onSubmitDelForm()">SUPPRIMER LA BOISSON</button>
   </form>
 </div>
+<p *ngFor="let dataBeverage of beverageDataObject; let i = index;">{{ dataBeverage.bevName }} {{ dataBeverage.bevPriceTTC }} EUR</p>
+

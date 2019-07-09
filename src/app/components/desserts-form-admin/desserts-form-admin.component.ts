@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DessertService } from 'src/app/services/dessert.service';
+import { DessertsDataService } from 'src/app/services/desserts-data.service';
 
 @Component({
   selector: 'app-desserts-form-admin',
@@ -13,15 +14,24 @@ export class DessertsFormAdminComponent implements OnInit {
   formCheck: FormGroup;
   regexPrice = /[0-9{1,3}]+[.]+[0-9]{2}/gm;
   dessertFormObject;
+  dessertDataObject;
   dessertFormAdd: FormGroup;
   dessertFormPut: FormGroup;
   dessertFormDel: FormGroup;
   valueAction = 'Ajouter';
 
-  constructor(private dessertService: DessertService, private fb: FormBuilder) { }
+  constructor(
+    private dessertService: DessertService, 
+    private fb: FormBuilder,
+    private dessertDataService: DessertsDataService
+  ) { }
 
   ngOnInit() {
     this.initForm();
+    const getDessertObs = this.dessertDataService.getDesserts().subscribe(data => {
+      this.dessertDataObject = data;
+      getDessertObs.unsubscribe();
+    });
   }
 
   // convenience getter for easy access to form fields
@@ -37,27 +47,31 @@ export class DessertsFormAdminComponent implements OnInit {
     })
 
     this.dessertFormAdd = this.fb.group({
-      dessertName: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(45)]],
+      dessName: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(45)]],
       dessPriceHt: ['', [Validators.required, Validators.pattern(this.regexPrice)]]
     });
     this.dessertFormPut = this.fb.group({
-      dessertName: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(45)]],
+      dessName: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(45)]],
       dessPriceHt: ['', [Validators.required, Validators.pattern(this.regexPrice)]]
     });
     this.dessertFormDel = this.fb.group({
-      dessertName: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(45)]],
+      dessName: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(45)]],
     });
   }
 
   onSubmitAddForm() {
     if (this.dessertFormAdd.valid) {
       this.dessertService.dessertFormObject = {
-        dessName: this.dessertFormAdd.value.dessertName,
-        dessPriceHt: parseFloat(this.dessertFormAdd.value.dessPriceHt),
+        dessName: this.dessertFormAdd.value.dessName,
+        dessPrice_ht: parseFloat(this.dessertFormAdd.value.dessPriceHt),
         idTax: 1
       };
-      if (confirm(`Êtes-vous certain d'ajouter le dessert ${this.dessertFormAdd.value.dessertName} ?`)) {
+      if (confirm(`Êtes-vous certain d'ajouter le dessert ${this.dessertFormAdd.value.dessName} ?`)) {
         const addDessertType = this.dessertService.addDessertType().subscribe(_ => {
+          const getDessertObs = this.dessertDataService.getDesserts().subscribe(data => {
+            this.dessertDataObject = data;
+            getDessertObs.unsubscribe();
+          });
           this.dessertFormAdd.reset();
           addDessertType.unsubscribe();
         });
@@ -68,12 +82,16 @@ export class DessertsFormAdminComponent implements OnInit {
   onSubmitPutForm() {
     if (this.dessertFormPut.valid) {
       this.dessertService.dessertFormObject = {
-        dessName: this.dessertFormPut.value.dessertName,
-        dessPriceHt: parseFloat(this.dessertFormPut.value.dessPriceHt),
+        dessName: this.dessertFormPut.value.dessName,
+        dessPrice_ht: parseFloat(this.dessertFormPut.value.dessPriceHt),
         idTax: 1
       };
-      if (confirm(`Êtes-vous certain de modifier le dessert ${this.dessertFormPut.value.dessertName} ?`)) {
+      if (confirm(`Êtes-vous certain de modifier le dessert ${this.dessertFormPut.value.dessName} ?`)) {
         const putDessertType = this.dessertService.putDessertType().subscribe(_ => {
+          const getDessertObs = this.dessertDataService.getDesserts().subscribe(data => {
+            this.dessertDataObject = data;
+            getDessertObs.unsubscribe();
+          });
           this.dessertFormPut.reset();
           putDessertType.unsubscribe();
         });
@@ -84,10 +102,14 @@ export class DessertsFormAdminComponent implements OnInit {
   onSubmitDelForm() {
     if (this.dessertFormDel.valid) {
       this.dessertService.dessertFormObject = {
-        dessName: this.dessertFormDel.value.dessertName
+        dessName: this.dessertFormDel.value.dessName
       };
-      if (confirm(`Êtes-vous certain de supprimer le dessert ${this.dessertFormDel.value.dessertName} ?`)) {
+      if (confirm(`Êtes-vous certain de supprimer le dessert ${this.dessertFormDel.value.dessName} ?`)) {
         const delDessertType = this.dessertService.delDessertType().subscribe(_ => {
+          const getDessertObs = this.dessertDataService.getDesserts().subscribe(data => {
+            this.dessertDataObject = data;
+            getDessertObs.unsubscribe();
+          });
           this.dessertFormDel.reset();
           delDessertType.unsubscribe();
         });

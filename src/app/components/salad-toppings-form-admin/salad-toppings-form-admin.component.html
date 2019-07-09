@@ -3,7 +3,7 @@
   <label *ngFor="let action of actions; let i = index">
     <input type="radio" 
       value="{{ action }}"
-      name="bevAction"
+      name="toppingAction"
       formControlName="toppingAction"
     >
       {{ action }}
@@ -20,7 +20,7 @@
       required
     >
     <div *ngIf="fA.topName.invalid && (fA.topName.dirty || fA.topName.touched)">
-      <div *ngIf="fA.bevName.errors.required">
+      <div *ngIf="fA.ingName.errors.required">
         <p class="invalidText">*Le nom du topping est requis</p>
       </div>
       <div *ngIf="fA.topName.errors.minlength">

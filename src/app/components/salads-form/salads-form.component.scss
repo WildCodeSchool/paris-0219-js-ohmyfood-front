@@ -2,23 +2,29 @@
 
 
 
+h1.header {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 20px;
+  border: 1px solid green;
+  border-radius: 30px;
+  padding: 1%;
+}
+
 .head {
   text-align: center;
   display: flex;
 
   .ldm {
+    width: 400px;
     margin: 0 auto;
   }
 }
-h1.header {
-  font-size: 20px;
-}
-
 .sousContain {
   display: flex;
   text-align: center;
 
   .wreck {
+    width: 400px;
     margin: 0 auto;
   }
 }
@@ -50,9 +56,6 @@ a {
   transition-duration: 500ms;
   text-align: center;
 
-
-
-
   &:hover {
     background: $green;
     color: whitesmoke;
@@ -71,8 +74,6 @@ input[type=number]::-webkit-outer-spin-button {
   padding: 0;
   transition-duration: 1000ms;
 }
-
-
 
 .toggle {
   margin: 5vh auto;
@@ -131,16 +132,176 @@ input {
   text-align: center;
 }
 
-.submitSection {
-
-
-  .submitButton {
-    float: right;
-    right: 90px;
-  }
+.submitSections {
+  display: flex;
+  padding: 40px;
 }
 
 .buttonQuantity {
   display: flex;
   text-align: center;
+}
+.formLine {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-right: 70px;
+
+
+  label {
+    display: flex;
+    justify-content: space-between;
+    width: 60%;
+  }
+}
+
+@media (max-width: 900px) {
+  h1.header {
+    width: 300px;
+  }
+
+  .saladsTitle {
+    text-align: center;
+    background-image: url('../../../assets/img/RibbonOhMyFoodEmpty.svg'),  url('../../../assets/img/RibbonOhMyFoodNormal.svg');
+    background-repeat: no-repeat, no-repeat;
+    background-position: center, center;
+    background-size: 97% 90%, 100% 100%;
+    width: 300px;
+    padding: 12px;
+    margin: 35px;
+    height: 72px;
+
+
+    h1 {
+      font-size: 20px;
+    }
+    p {
+      font-size: 10px
+    }
+  }
+  .contenaire {
+    padding: initial;
+    margin: 35px;
+    width: 300px;
+  }
+
+  .head {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .sousContain {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .notToggle {
+    max-height: 0;
+    overflow: hidden;
+    padding: 0;
+    transition-duration: 1000ms;
+  }
+
+  .toggle {
+    margin: 5vh auto;
+    max-height: 2500px;
+  }
+
+  .notToggleBase {
+    max-height: 0;
+    overflow: hidden;
+    padding: 0;
+    transition-duration: 1000ms;
+  }
+
+  .toggleBase {
+    margin: 6vh auto;
+    max-height: 500px;
+  }
+
+  .notToggleIngredients {
+    max-height: 0;
+    overflow: hidden;
+    padding: 0;
+    transition-duration: 1000ms;
+  }
+
+  .toggleIngredients {
+    margin: 6vh auto;
+    max-height: 1700px;
+  }
+  .notToggleToppings{
+    max-height: 0;
+    overflow: hidden;
+    padding: 0;
+    transition-duration: 1000ms;
+  }
+
+  .toggleToppings {
+    margin: 6vh auto;
+    max-height: 1700px;
+  }
+  .notToggleSauce {
+    max-height: 0;
+    overflow: hidden;
+    padding: 0;
+    transition-duration: 1000ms;
+  }
+
+  .toggleSauce {
+    margin: 6vh auto;
+    max-height: 1500px;
+  }
+  input {
+    width: 5vw;
+    text-align: center;
+  }
+  input[type=number]::-webkit-inner-spin-button,
+  input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+  }
+  input[type = checkbox],
+  input[type=radio] {
+    display: flex;
+    margin: 5px 15px;
+  }
+  a {
+    text-decoration: none;
+    color: black;
+
+    &:hover{
+      color: black;
+      cursor: pointer;
+      text-decoration: none;
+    }
+  }
+  .submitSections {
+    margin-left: 30px;
+  }
+
+
+  label {
+    align-items: center;
+    justify-content: space-around;
+    font-size: 0.9em;
+
+    span {
+      text-align: center;
+      width: 15px;
+    }
+  }
+  .wreck {
+    p {
+      margin-right: 30px;
+    }
+  }
+  .ldm {
+    p {
+      margin-right: 50px;
+    }
+  }
+  section {
+    margin-right: 50px;
+  }
 }

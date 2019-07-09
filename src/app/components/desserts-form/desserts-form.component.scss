@@ -118,7 +118,7 @@ section {
 
 // Media Queries //
 
-@media screen and(max-width: 900px) {
+@media (max-width: 900px) {
   .header {
     justify-content: space-around;
     margin: 0 auto 2vh auto;

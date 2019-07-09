@@ -32,22 +32,6 @@
     </div>
     </label>
 
-    <label>
-      <p>Prix hors taxe</p>
-      <input type="text" 
-        class="form-control" 
-        formControlName="saucePriceHt" 
-        required
-      >
-      <div *ngIf="fA.saucePriceHt.invalid && (fA.saucePriceHt.dirty || fA.saucePriceHt.touched)">
-        <div *ngIf="fA.saucePriceHt.errors.required">
-          <p class="invalidText">*Le prix est requis</p>
-        </div>
-        <div *ngIf="fA.saucePriceHt.errors.pattern">
-          <p class="invalidText">*Le prix doit être inséré sous la forme XXX.XX</p>
-        </div>
-      </div>
-    </label>
   </form>
   <button type="submit" (click)="onSubmitAddForm()">AJOUTER LA SAUCE</button>
 </div>
@@ -75,22 +59,6 @@
       </div>
       </label>
 
-      <label>
-        <p>Prix hors taxe</p>
-        <input type="text" 
-          class="form-control" 
-          formControlName="saucePriceHt" 
-          required
-        >
-        <div *ngIf="fM.saucePriceHt.invalid && (fM.saucePriceHt.dirty || fM.saucePriceHt.touched)">
-          <div *ngIf="fM.saucePriceHt.errors.required">
-            <p class="invalidText">*Le prix est requis</p>
-          </div>
-          <div *ngIf="fM.saucePriceHt.errors.pattern">
-            <p class="invalidText">*Le prix doit être inséré sous la forme XXX.XX</p>
-          </div>
-        </div>
-      </label>
   </form>
   <button type="submit" (click)="onSubmitPutForm()">MODIFIER LA SAUCE</button>
 </div>

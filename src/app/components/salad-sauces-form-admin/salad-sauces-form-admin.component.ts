@@ -38,11 +38,9 @@ export class SaladSaucesFormAdminComponent implements OnInit {
 
     this.sauceFormAdd = this.fb.group({
       saucesName: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(45)]],
-      saucesPriceHt: ['', [Validators.required, Validators.pattern(this.regexPrice)]]
     });
     this.sauceFormPut = this.fb.group({
       saucesName: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(45)]],
-      saucesPriceHt: ['', [Validators.required, Validators.pattern(this.regexPrice)]]
     });
     this.sauceFormDel = this.fb.group({
       saucesName: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(45)]],
@@ -53,8 +51,6 @@ export class SaladSaucesFormAdminComponent implements OnInit {
     if (this.sauceFormAdd.valid) {
       this.saladSauceService.sauceFormObject = {
         sauceName: this.sauceFormAdd.value.saladsSaucesName,
-        saucePriceHt: parseFloat(this.sauceFormAdd.value.saladsSaucesPriceHt),
-        idTax: 1
       };
       if (confirm(`Êtes-vous certain d'ajouter la sauce ${this.sauceFormAdd.value.saladsSaucesName} ?`)) {
         const addSauceType = this.saladSauceService.addSauceType().subscribe(_ => {
@@ -69,8 +65,6 @@ export class SaladSaucesFormAdminComponent implements OnInit {
     if (this.sauceFormPut.valid) {
       this.saladSauceService.sauceFormObject = {
         sauceName: this.sauceFormPut.value.saladsSaucesName,
-        saucePriceHt: parseFloat(this.sauceFormPut.value.saladsSaucesPriceHt),
-        idTax: 1
       };
       if (confirm(`Êtes-vous certain de modifier la sauce ${this.sauceFormPut.value.saladsSaucesName} ?`)) {
         const putSauceType = this.saladSauceService.putSauceType().subscribe(_ => {

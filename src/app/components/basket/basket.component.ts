@@ -117,7 +117,7 @@ export class BasketComponent implements OnInit {
     this.totalBasket();
 
     // creation of formArray pizzas
-    this.pizzasData.getUserPizzas.subscribe((pizzasChoice: any) => {
+    const pizzSubscription = this.pizzasData.getUserPizzas.subscribe((pizzasChoice: any) => {
       pizza.push(this.createForm.createOrderForm(pizzasChoice));
 
       for (let i = 0; i < pizza.value.length; i ++) {
@@ -129,10 +129,12 @@ export class BasketComponent implements OnInit {
       }
       this.sessionStorage.saveToSessionStorage(this.finalOrderForm.value.pizza);
       this.totalBasket();
+
+      pizzSubscription.unsubscribe();
     });
 
     // Creation of FormArray beverages
-    this.beverageData.getUserBeverages.subscribe((beveragesChoice: OrderBeverage) => {
+    const bevSubscription = this.beverageData.getUserBeverages.subscribe((beveragesChoice: OrderBeverage) => {
       beverage.push(this.createForm.createOrderForm(beveragesChoice));
 
       for (let i = 0; i < beverage.value.length; i ++) {
@@ -144,9 +146,11 @@ export class BasketComponent implements OnInit {
       }
       this.sessionStorage.saveToSessionStorage(this.finalOrderForm.value.beverage);
       this.totalBasket();
+
+      bevSubscription.unsubscribe();
     });
     // Creation of FormArray desserts
-    this.dessertData.getUserDesserts.subscribe((dessertsChoice: OrderDessert) => {
+    const dessSubscription = this.dessertData.getUserDesserts.subscribe((dessertsChoice: OrderDessert) => {
       dessert.push(this.createForm.createOrderForm(dessertsChoice));
 
       for (let i = 0; i < dessert.value.length; i ++) {
@@ -158,13 +162,17 @@ export class BasketComponent implements OnInit {
       }
       this.sessionStorage.saveToSessionStorage(this.finalOrderForm.value.dessert);
       this.totalBasket();
+
+      dessSubscription.unsubscribe();
     });
 
     // Creation of FormArray salads
-    this.saladsData.getSalads.subscribe((userSaladsChoice: OrderSalads) => {
+    const saladSubscription = this.saladsData.getSalads.subscribe((userSaladsChoice: OrderSalads) => {
       salad.push(this.createForm.createOrderForm(userSaladsChoice));
       this.totalBasket();
       this.sessionStorage.saveToSessionStorage(this.finalOrderForm.value.salad);
+
+      saladSubscription.unsubscribe();
     });
   }
 
@@ -195,7 +203,9 @@ export class BasketComponent implements OnInit {
 
   onSubmit() {
     const userFinalOrder = this.finalOrderForm.value;
+
     this.finalOrder.transfertFinalOrder(userFinalOrder);
+    this.finalOrderForm.reset();
     this.router.navigate(['detailOrderPage']);
     this.resetBasket();
   }

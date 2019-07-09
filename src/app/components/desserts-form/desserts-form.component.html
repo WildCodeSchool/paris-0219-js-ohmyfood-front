@@ -1,25 +1,69 @@
-<form [formGroup]="formDessert" (ngSubmit)="formDessert.valid && onSubmit()">
-  <div formArrayName="selectedDessert">
-    <div [formGroupName]="i" *ngFor="let dessert of formDessert.value.selectedDessert ; let i = index">
-        <label for="dessert-{{ i }}">{{ dessertsList[i].dessName }}, {{ dessertsList[i].dessPriceTTC }}€</label>
+<section>
+  <a href (click)="toggleFormDessert($event)">
+    <h1 class="dessertsTitle">
+      DESSERTS
+    </h1>
 
-        <button
-          name="remove-dessert-quantity"
-          type="button"
-          (click)="quantitySelect('-', i, dessert.dessQuantity)">-</button>
+    <p>
+      Cliquez pour découvrir nos desserts
+    </p>
+  </a>
 
-        <input
-          name="selectedDessert-{{ i }}"
-          formControlName="dessQuantity"
-          type="number"
-          [(ngModel)]="dessert.dessQuantity"/>
+  <div class="notToggle" [ngClass]="{toggle: isToggle}">
+    <div class="header">
+      <h3 class="desserts">
+        Nos Desserts<span>Prix</span>
+      </h3>
 
-        <button
-          name="add-dessert-quantity"
-          type="button"
-          (click)="quantitySelect('+', i, dessert.dessQuantity)">+</button>
+      <h3 class="quantity">Quantités</h3>
     </div>
-  </div>
 
-  <button [disabled]="!enableSubmit" type="submit">Ajouter au panier</button>
-</form>
+      <form [formGroup]="formDessert" (ngSubmit)="formDessert.valid && onSubmit()">
+        <div formArrayName="selectedDessert">
+          <div
+            class="formLine"
+            [formGroupName]="i"
+            *ngFor="let dessert of selectedDessert.controls ; let i = index">
+
+              <label for="dessert-{{ i }}">
+                {{ dessert.value.dessName }}<span>{{ dessert.value.dessPriceTTC }} EUR</span>
+              </label>
+
+              <div class="buttonQuantity">
+                <button
+                  class="button is-rounded is-outlined is-mobile is-small"
+                  name="remove-dessert-quantity"
+                  type="button"
+                  (click)="quantitySelect('-', i, dessert.value.dessQuantity)">
+                    -
+                </button>
+
+                <input
+                  class="input is-mobile is-small"
+                  name="selectedDessert-{{ i }}"
+                  formControlName="dessQuantity"
+                  type="number"
+                  value="{{dessert.value.dessQuantity}}"/>
+
+                <button
+                  class="button is-rounded is-outlined is-mobile is-small"
+                  name="add-dessert-quantity"
+                  type="button"
+                  (click)="quantitySelect('+', i, dessert.value.dessQuantity)">
+                    +
+                </button>
+              </div>
+          </div>
+        </div>
+
+        <div class="submitSection">
+          <button
+            class="submitButton button is-rounded is-outlined "
+            [disabled]="!enableSubmit"
+            type="submit">
+              Ajouter au panier
+          </button>
+        </div>
+      </form>
+    </div>
+</section>

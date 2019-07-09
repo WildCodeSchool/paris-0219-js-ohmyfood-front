@@ -1,0 +1,23 @@
+<form [formGroup]="loginForm">
+  <h2>Bienvenue chez OHMYFOOD</h2>
+  <input 
+    type="text" 
+    placeholder="E-Mail"
+    formControlName="emailClient"
+    required
+  >
+  <input 
+    type="text" 
+    placeholder="Mot de Passe"
+    formControlName="psswClient"
+    required
+  >
+  <button type="submit" (click)="onSubmit()">Ok</button>
+</form>
+<p>Pas de compte?</p>
+<a 
+  [routerLink]="['/createClientPage']" 
+  routerLinkActive="router-link-active" 
+>
+  Inscrivez-vous !
+</a>

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { DessertsDataService } from 'src/app/services/desserts-data.service';
 import { FormBuilder, FormArray } from '@angular/forms';
 import { QuantitySelectService } from 'src/app/services/quantity-select.service';
+import { ToggleFormService } from 'src/app/services/toggle-form.service';
+import { CreateFormService } from 'src/app/services/create-form.service';
 
 @Component({
   selector: 'app-desserts-form',
@@ -10,11 +12,11 @@ import { QuantitySelectService } from 'src/app/services/quantity-select.service'
 })
 export class DessertsFormComponent implements OnInit {
 
-  // Datas collection from database
-  dessertsList: object;
-
   // Enable submit button
   enableSubmit: boolean;
+
+  // To toggle Form
+  isToggle = false;
 
   // Reactive form
   formDessert = this.formBuilder.group({
@@ -23,36 +25,36 @@ export class DessertsFormComponent implements OnInit {
 
   constructor(
     private dessertData: DessertsDataService,
+    private createFormService: CreateFormService,
     private quantitySelectService: QuantitySelectService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private toggleService: ToggleFormService
     ) {}
 
   ngOnInit() {
     // Get Data from API
-    this.dessertData.getDesserts()
-    .subscribe(dessert => {
-      this.dessertsList = dessert;
+    const subscription = this.dessertData.getDesserts()
+    .subscribe(desserts => {
 
-      for (const key in this.dessertsList) {
-        if (this.dessertsList.hasOwnProperty(key)) { // Check if object get key
-          this.dessertsList[key].dessPriceTTC = this.dessertsList[key].dessPriceTTC.toFixed(2); // Display price with 00:00 form
+      for (const key in desserts) {
+        if (desserts.hasOwnProperty(key)) { // Check if object get key
+          desserts[key].dessPriceTTC = desserts[key].dessPriceTTC.toFixed(2); // Display price with 00:00 form
         }
       }
 
       const selectedDessert = this.formDessert.get('selectedDessert') as FormArray;
 
-      for (const key in this.dessertsList) { // loop to access key of object
-        if (this.dessertsList.hasOwnProperty(key)) {
-          const dessertForm = this.formBuilder.group({
-            idDesserts: [ this.dessertsList[key].idDesserts ],
-            dessName: [ this.dessertsList[key].dessName ],
-            dessPriceTTC: [this.dessertsList[key].dessPriceTTC ],
-            dessQuantity: [0]
-          });
-          selectedDessert.push(dessertForm); // push form in formArray
+      for (const key in desserts) { // loop to access key of object
+        if (desserts.hasOwnProperty(key)) {
+          selectedDessert.push(this.createFormService.createForm(desserts[key])); // push form in formArray
         }
       }
+      subscription.unsubscribe();
     });
+  }
+
+  get selectedDessert(): FormArray {
+    return this.formDessert.get('selectedDessert') as FormArray;
   }
 
   onSubmit() {
@@ -66,7 +68,7 @@ export class DessertsFormComponent implements OnInit {
     this.enableSubmit = false;
   }
 
-  quantitySelect(operator, i, quantity) {
+  quantitySelect(operator: string, i: number, quantity: number) {
    this.formDessert.value.selectedDessert[i].dessQuantity = this.quantitySelectService.selectQuantity(operator, quantity);
 
    if (this.formDessert.value.selectedDessert[i].dessQuantity > 0) {
@@ -84,5 +86,10 @@ export class DessertsFormComponent implements OnInit {
           );
       }
     }
+  }
+
+  toggleFormDessert($event) {
+    $event.preventDefault();
+    this.isToggle = this.toggleService.toggleForm(this.isToggle);
   }
 }

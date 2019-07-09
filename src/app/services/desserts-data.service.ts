@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Output, EventEmitter } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { OrderDessert } from '../class/order-dessert';
@@ -10,7 +10,8 @@ export class DessertsDataService {
 
   dessertsRoute = 'http://localhost:3000/desserts';
 
-  userChoice: Array<OrderDessert> = [];
+  @Output()
+  public getUserDesserts: EventEmitter<any> = new EventEmitter();
 
   constructor(private http: HttpClient) { }
 
@@ -18,33 +19,29 @@ export class DessertsDataService {
     return this.http.get(this.dessertsRoute);
   }
 
-  createOrderDessert(formResult) { // create object with OrderDessert Class
-    for (const key in formResult) {
-      if (formResult.hasOwnProperty(key)) {
-        formResult[key].map(test => {
-          if (test.dessQuantity > 0) {
-            const choice = new OrderDessert(test.idDesserts, test.dessName, test.dessPriceTTC * test.dessQuantity, test.dessQuantity);
-            this.userChoice.push(choice);
+  createOrderDessert(userDessertChoice: object) { // create object with OrderDessert Class
+    for (const dessert in userDessertChoice) {
+      if (userDessertChoice.hasOwnProperty(dessert)) {
+        userDessertChoice[dessert].map((userDessert: any) => {
+          if (userDessert.dessQuantity > 0) {
+            const dessertsChoice = new OrderDessert(
+              userDessert.idDesserts, userDessert.dessName, +userDessert.dessPriceTTC, userDessert.dessQuantity
+              );
+            this.getUserDesserts.emit(dessertsChoice);
             }
           }
         );
       }
     }
-    if (this.userChoice.length > 1) {
-      this.sortUserChoice();
-    }
   }
 
-  sortUserChoice() { // Remove duplicate choice
-    for (let i = 0; i < this.userChoice.length; i ++) {
-      for (let j = i + 1 ; j < this.userChoice.length; j ++ ) {
-        if (this.userChoice[i].dessName === this.userChoice[j].dessName) {
-          this.userChoice[i].dessPrice += this.userChoice[j].dessPrice; // Sum of price
-          this.userChoice[i].dessQuantity += this.userChoice[j].dessQuantity; // Sum of quantity
-          this.userChoice.splice(j, 1); // Remove duplicate
-        }
-      }
-    }
+  createOrderDessertsSessionStorage(object: any) {
+    return new OrderDessert(
+      object.idDesserts,
+      object.dessName,
+      object.dessPriceTotal / object.dessQuantity, // We divide priceTotal by quantity to get good value in basket
+      object.dessQuantity
+    );
   }
 
 }

@@ -1,0 +1,124 @@
+<p>Quelle action voulez-vous réaliser ?</p>
+<form [formGroup]="formCheck">
+  <label *ngFor="let action of actions; let i = index">
+    <input type="radio" 
+      value="{{ action }}"
+      name="dessAction"
+      formControlName="dessAction"
+    >
+      {{ action }}
+  </label>
+</form>
+<div *ngIf="formCheck.value.dessAction === 'Ajouter'">
+  <form [formGroup]="dessertFormAdd">
+<!--Adding form-->
+    <label>
+    <p>Nom du dessert à ajouter</p>
+    <input type="text" 
+      class="form-control" 
+      formControlName="dessName" 
+      required
+    >
+    <div *ngIf="fA.dessName.invalid && (fA.dessName.dirty || fA.dessName.touched)">
+      <div *ngIf="fA.dessName.errors.required">
+        <p class="invalidText">*Le nom du dessert est requis</p>
+      </div>
+      <div *ngIf="fA.dessName.errors.minlength">
+        <p class="invalidText">*Le nom du dessert doit contenir au moins 4 caractères</p>
+      </div>
+      <div *ngIf="fA.dessName.errors.maxlength">
+        <p class="invalidText">*Le nom du dessert ne doit pas dépasser les 45 caractères</p>
+      </div>
+    </div>
+    </label>
+
+    <label>
+      <p>Prix hors taxe</p>
+      <input type="text" 
+        class="form-control" 
+        formControlName="dessPriceHt" 
+        required
+      >
+      <div *ngIf="fA.dessPriceHt.invalid && (fA.dessPriceHt.dirty || fA.dessPriceHt.touched)">
+        <div *ngIf="fA.dessPriceHt.errors.required">
+          <p class="invalidText">*Le prix est requis</p>
+        </div>
+        <div *ngIf="fA.dessPriceHt.errors.pattern">
+          <p class="invalidText">*Le prix doit être inséré sous la forme XXX.XX</p>
+        </div>
+      </div>
+    </label>
+  </form>
+  <button type="submit" (click)="onSubmitAddForm()">AJOUTER LE DESSERT</button>
+</div>
+
+  <!--Modifier form-->
+<div *ngIf="formCheck.value.dessAction === 'Modifier'">
+  <form [formGroup]="dessertFormPut">
+      <label>
+      <p>Nom du dessert à modifier</p>
+      <input type="text" 
+        class="form-control" 
+        formControlName="dessName" 
+        required
+      >
+      <div *ngIf="fM.dessName.invalid && (fM.dessName.dirty || fM.dessName.touched)">
+        <div *ngIf="fM.dessName.errors.required">
+          <p class="invalidText">*Le nom du dessert est requis</p>
+        </div>
+        <div *ngIf="fM.dessName.errors.minlength">
+          <p class="invalidText">*Le nom du dessert doit contenir au moins 4 caractères</p>
+        </div>
+        <div *ngIf="fM.dessName.errors.maxlength">
+          <p class="invalidText">*Le nom du dessert ne doit pas dépasser les 45 caractères</p>
+        </div>
+      </div>
+      </label>
+
+      <label>
+        <p>Prix hors taxe</p>
+        <input type="text" 
+          class="form-control" 
+          formControlName="dessPriceHt" 
+          required
+        >
+        <div *ngIf="fM.dessPriceHt.invalid && (fM.dessPriceHt.dirty || fM.dessPriceHt.touched)">
+          <div *ngIf="fM.dessPriceHt.errors.required">
+            <p class="invalidText">*Le prix est requis</p>
+          </div>
+          <div *ngIf="fM.dessPriceHt.errors.pattern">
+            <p class="invalidText">*Le prix doit être inséré sous la forme XXX.XX</p>
+          </div>
+        </div>
+      </label>
+  </form>
+  <button type="submit" (click)="onSubmitPutForm()">MODIFIER LE DESSERT</button>
+</div>
+
+  <!--Delete form-->
+<div *ngIf="formCheck.value.dessAction === 'Retirer'">
+  <form [formGroup]="dessertFormDel">
+      <label>
+        <p>Nom du dessert à Supprimer</p>
+        <input type="text" 
+          class="form-control" 
+          formControlName="dessName" 
+          required
+        >
+        <div *ngIf="fD.dessName.invalid && (fD.dessName.dirty || fD.dessName.touched)">
+          <div *ngIf="fD.dessName.errors.required">
+            <p class="invalidText">*Le nom du dessert est requis</p>
+          </div>
+          <div *ngIf="fD.dessName.errors.minlength">
+            <p class="invalidText">*Le nom du dessert doit contenir au moins 4 caractères</p>
+          </div>
+          <div *ngIf="fD.dessName.errors.maxlength">
+            <p class="invalidText">*Le nom du dessert ne doit pas dépasser les 45 caractères</p>
+          </div>
+        </div>
+      </label>
+    <button type="submit" (click)="onSubmitDelForm()">SUPPRIMER LE DESSERT</button>
+  </form>
+</div>
+<p *ngFor="let dataDessert of dessertDataObject; let i = index;">{{ dataDessert.dessName }} {{ dataDessert.dessPriceTTC }} EUR</p>
+

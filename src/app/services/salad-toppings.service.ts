@@ -6,20 +6,20 @@ import { HttpClient } from '@angular/common/http';
 })
 export class SaladToppingsService {
 
-  saladFormObject;
+  toppingFormObject;
   url = 'http://localhost:3000/salads-toppings';
 
   constructor(private http: HttpClient) { }
 
-  addSaladType() {
-    return this.http.post(this.url, this.saladFormObject, { responseType: 'text' });
+  addToppingType() {
+    return this.http.post(this.url, this.toppingFormObject, { responseType: 'text' });
   }
 
-  putSaladType() {
-    return this.http.put(this.url, this.saladFormObject, { responseType: 'text'});
+  putToppingType() {
+    return this.http.put(this.url, this.toppingFormObject, { responseType: 'text'});
   }
 
-  delSaladType() {
-    return this.http.delete(`${this.url}/?saladsToppingsName=${this.saladFormObject.saladsToppingsName}`, { responseType: 'text'});
+  delToppingType() {
+    return this.http.delete(`${this.url}/?saladsToppingsName=${this.toppingFormObject.saladsToppingsName}`, { responseType: 'text'});
   }
 }

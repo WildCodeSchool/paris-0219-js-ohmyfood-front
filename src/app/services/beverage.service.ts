@@ -20,6 +20,6 @@ export class BeverageService {
   }
 
   delBeverageType() {
-    return this.http.delete(`${this.url}/?beverageName=${this.beverageFormObject.bevName}`, { responseType: 'text'});
+    return this.http.delete(`${this.url}/?bevName=${this.beverageFormObject.bevName}`, { responseType: 'text'});
   }
 }

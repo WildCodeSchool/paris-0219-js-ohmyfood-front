@@ -19,13 +19,13 @@ export class PizzasDataService {
     return this.http.get(this.pizzasRoute);
   }
 
-   createOrderPizzas(formResult: object) { // create object with OrderDessert Class
-    for (const key in formResult) {
-      if (formResult.hasOwnProperty(key)) {
-        formResult[key].map(test => {
-          if (test.pizzQuantity > 0) {
+   createOrderPizzas(userPizzaChoice: object) { // create object with OrderDessert Class
+    for (const pizza in userPizzaChoice) {
+      if (userPizzaChoice.hasOwnProperty(pizza)) {
+        userPizzaChoice[pizza].map((userPizza: any) => {
+          if (userPizza.pizzQuantity > 0) {
             const pizzasChoice = new OrderPizzas(
-              test.idPizzas, test.pizzName, +test.pizzPriceTTC, test.pizzQuantity
+              userPizza.idPizzas, userPizza.pizzName, +userPizza.pizzPriceTTC, userPizza.pizzQuantity
               );
             this.getUserPizzas.emit(pizzasChoice);
             }

@@ -50,61 +50,62 @@ export class DetailOrderComponent implements OnInit {
         this.finalOrderRecap = userFinalOrder;
       } else {
         const finalOrderStorage = JSON.parse(sessionStorage.getItem('finalOrder'));
-        const finalOrderTransition = {
-          pizza: [],
-          salad: [],
-          beverage: [],
-          dessert: [],
-        };
-        for (const key of Object.entries(userFinalOrder)) {
-          switch (key[0]) {
-            case 'pizza' :
-              finalOrderTransition.pizza.push(key[1]);
-              break;
-            case 'salad' :
-              finalOrderTransition.salad.push(key[1]);
-              break;
-            case 'beverage' :
-              finalOrderTransition.beverage.push(key[1]);
-              break;
-            case 'dessert' :
-              finalOrderTransition.dessert.push(key[1]);
-              break;
-            default: return null;
-          }
-        }
-        for (const key of Object.entries(finalOrderStorage)) {
-          switch (key[0]) {
-            case 'pizza' :
-              finalOrderTransition.pizza.push(key[1]);
-              break;
-            case 'salad' :
-              finalOrderTransition.salad.push(key[1]);
-              break;
-            case 'beverage' :
-              finalOrderTransition.beverage.push(key[1]);
-              break;
-            case 'dessert' :
-              finalOrderTransition.dessert.push(key[1]);
-              break;
-            default: return null;
-          }
-        }
+        const pizza = userFinalOrder.pizza;
+        const beverage = userFinalOrder.beverage;
+        const dessert = userFinalOrder.dessert;
 
-        let test = [... finalOrderTransition.pizza['0']];
-        const test2 = [... finalOrderTransition.pizza['1']];
-        test = test.map(a => {
-          return test2.map(y => {
-            if (a.idPizzas === y.idPizzas) {
-              a.pizzasPriceTotal += y.pizzasPriceTotal;
-              a.pizzasQuantity += y.pizzasQuantity;
-              return a;
-            }
-          });
+        finalOrderStorage.pizza.map((pizzas: any) => {
+          pizza.push(pizzas);
         });
-        console.log(test);
 
-        console.log(test2);
+        finalOrderStorage.beverage.map((beverages: any) => {
+          beverage.push(beverages);
+        });
+
+        finalOrderStorage.dessert.map((desserts: any) => {
+          dessert.push(desserts);
+        });
+
+        for (let i = 0; i < pizza.length; i ++ ) {
+          for (let j = i + 1; j < pizza.length; j ++) {
+            if (pizza[i].pizzName === pizza[j].pizzName) {
+              pizza[i].pizzQuantity += pizza[j].pizzQuantity;
+              pizza[i].pizzPriceTotal += pizza[j].pizzPriceTotal;
+              pizza.splice(j, 1);
+            }
+          }
+        }
+
+        for (let i = 0; i < beverage.length; i ++ ) {
+          for (let j = i + 1; j < beverage.length; j ++) {
+            if (beverage[i].bevName === beverage[j].bevName) {
+              beverage[i].bevQuantity += beverage[j].bevQuantity;
+              beverage[i].bevPriceTotal += beverage[j].bevPriceTotal;
+              beverage.splice(j, 1);
+            }
+          }
+        }
+
+        for (let i = 0; i < dessert.length; i ++ ) {
+          for (let j = i + 1; j < dessert.length; j ++) {
+            if (dessert[i].dessName === dessert[j].dessName) {
+              dessert[i].dessQuantity += dessert[j].dessQuantity;
+              dessert[i].dessPriceTotal += dessert[j].dessPriceTotal;
+              dessert.splice(j, 1);
+            }
+          }
+        }
+
+        this.finalOrderRecap = new FinalOrder(
+          pizza,
+          [],
+          beverage,
+          dessert
+        );
+
+        sessionStorage.setItem('finalOrder', JSON.stringify(this.finalOrderRecap));
+
+        console.log(this.finalOrderRecap);
       }
     });
   }

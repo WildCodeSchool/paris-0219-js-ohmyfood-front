@@ -223,7 +223,7 @@ export class BasketComponent implements OnInit {
 
       if (pizza.controls[index].value.pizzQuantity === 0) {
         pizza.removeAt(index); // remove object from form array when quantity = 0
-        this.sessionStorage.clearSessionStorage(this.finalOrderForm.value);
+        this.sessionStorage.clearSessionStorage(this.finalOrderForm.value.pizza, 'pizza');
       }
 
       this.sessionStorage.saveToSessionStorage(this.finalOrderForm.value.pizza);
@@ -247,7 +247,7 @@ export class BasketComponent implements OnInit {
 
         if (beverage.controls[index].value.bevQuantity === 0) {
           beverage.removeAt(index); // remove object from form array when quantity = 0
-          this.sessionStorage.clearSessionStorage(this.finalOrderForm.value);
+          this.sessionStorage.clearSessionStorage(this.finalOrderForm.value.beverage, 'beverage');
         }
 
         this.sessionStorage.saveToSessionStorage(this.finalOrderForm.value.beverage);
@@ -271,7 +271,7 @@ export class BasketComponent implements OnInit {
 
       if (dessert.controls[index].value.dessQuantity === 0) {
         dessert.removeAt(index); // remove object from form array when quantity = 0
-        this.sessionStorage.clearSessionStorage(this.finalOrderForm.value);
+        this.sessionStorage.clearSessionStorage(this.finalOrderForm.value.dessert, 'dessert');
       }
       this.sessionStorage.saveToSessionStorage(this.finalOrderForm.value.dessert);
       this.totalBasket();
@@ -294,7 +294,7 @@ export class BasketComponent implements OnInit {
 
       if (salad.controls[index].value.saladsComposedQuantity === 0) {
         salad.removeAt(index); // remove object from form array when quantity = 0
-        this.sessionStorage.clearSessionStorage(this.finalOrderForm.value);
+        this.sessionStorage.clearSessionStorage(this.finalOrderForm.value.salad, 'salad');
       }
       this.sessionStorage.saveToSessionStorage(this.finalOrderForm.value.salad);
       this.totalBasket();
@@ -325,10 +325,10 @@ export class BasketComponent implements OnInit {
       dessert.removeAt(0);
     }
 
-    this.sessionStorage.clearSessionStorage(this.finalOrderForm.value.beverage);
-    this.sessionStorage.clearSessionStorage(this.finalOrderForm.value.dessert);
-    this.sessionStorage.clearSessionStorage(this.finalOrderForm.value.pizza);
-    this.sessionStorage.clearSessionStorage(this.finalOrderForm.value.salad);
+    this.sessionStorage.clearSessionStorage(this.finalOrderForm.value.beverage, 'reset');
+    this.sessionStorage.clearSessionStorage(this.finalOrderForm.value.dessert, 'reset');
+    this.sessionStorage.clearSessionStorage(this.finalOrderForm.value.pizza, 'reset');
+    this.sessionStorage.clearSessionStorage(this.finalOrderForm.value.salad, 'reset');
     this.totalBasket();
   }
 

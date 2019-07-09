@@ -52,28 +52,29 @@ export class BasketSessionStorageService {
   }
 
 
-  clearSessionStorage(form: any) {
+  clearSessionStorage(form: any, arg: string) {
     // Remove all if user click on reset basket
-    if (form.length === 0) {
+
+    if (form.length === 0 && arg === 'reset') {
       sessionStorage.removeItem('pizzas');
       sessionStorage.removeItem('salads');
       sessionStorage.removeItem('beverages');
       sessionStorage.removeItem('desserts');
     } else {
         // Clear session storage according to user's choice
-        if (form.pizza.length === 0) {
+        if (arg === 'pizza') {
           sessionStorage.removeItem('pizzas');
         }
 
-        if (form.salad.length === 0) {
+        if (arg === 'salad') {
           sessionStorage.removeItem('salads');
         }
 
-        if (form.beverage.length === 0) {
+        if (arg === 'beverage') {
           sessionStorage.removeItem('beverages');
         }
 
-        if (form.dessert.length === 0) {
+        if (arg === 'dessert') {
           sessionStorage.removeItem('desserts');
         }
     }

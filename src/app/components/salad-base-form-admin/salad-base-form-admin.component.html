@@ -1,0 +1,124 @@
+<p>Quelle action voulez-vous réaliser ?</p>
+<form [formGroup]="formCheck">
+  <label *ngFor="let action of actions; let i = index">
+    <input type="radio" 
+      value="{{ action }}"
+      name="baseAction"
+      formControlName="baseAction"
+    >
+      {{ action }}
+  </label>
+</form>
+<div *ngIf="formCheck.value.baseAction === 'Ajouter'">
+  <form [formGroup]="baseFormAdd">
+<!--Adding form-->
+    <label>
+    <p>Nom de la base à ajouter</p>
+    <input type="text" 
+      class="form-control" 
+      formControlName="baseName" 
+      required
+    >
+    <div *ngIf="fA.baseName.invalid && (fA.baseName.dirty || fA.baseName.touched)">
+      <div *ngIf="fA.baseName.errors.required">
+        <p class="invalidText">*Le nom de la base est requis</p>
+      </div>
+      <div *ngIf="fA.baseName.errors.minlength">
+        <p class="invalidText">*Le nom de la base doit contenir au moins 4 caractères</p>
+      </div>
+      <div *ngIf="fA.baseName.errors.maxlength">
+        <p class="invalidText">*Le nom de la base ne doit pas dépasser les 45 caractères</p>
+      </div>
+    </div>
+    </label>
+
+    <label>
+      <p>Prix hors taxe</p>
+      <input type="text" 
+        class="form-control" 
+        formControlName="basePriceHt" 
+        required
+      >
+      <div *ngIf="fA.basePriceHt.invalid && (fA.basePriceHt.dirty || fA.basePriceHt.touched)">
+        <div *ngIf="fA.basePriceHt.errors.required">
+          <p class="invalidText">*Le prix est requis</p>
+        </div>
+        <div *ngIf="fA.basePriceHt.errors.pattern">
+          <p class="invalidText">*Le prix doit être inséré sous la forme XXX.XX</p>
+        </div>
+      </div>
+    </label>
+  </form>
+  <button type="submit" (click)="onSubmitAddForm()">AJOUTER LA BASE</button>
+</div>
+
+  <!--Modifier form-->
+<div *ngIf="formCheck.value.toppingAction === 'Modifier'">
+  <form [formGroup]="baseFormPut">
+      <label>
+      <p>Nom de la base à modifier</p>
+      <input type="text" 
+        class="form-control" 
+        formControlName="baseName" 
+        required
+      >
+      <div *ngIf="fM.baseName.invalid && (fM.baseName.dirty || fM.baseName.touched)">
+        <div *ngIf="fM.baseName.errors.required">
+          <p class="invalidText">*Le nom de la base est requis</p>
+        </div>
+        <div *ngIf="fM.baseName.errors.minlength">
+          <p class="invalidText">*Le nom de la base doit contenir au moins 4 caractères</p>
+        </div>
+        <div *ngIf="fM.baseName.errors.maxlength">
+          <p class="invalidText">*Le nom de la base ne doit pas dépasser les 45 caractères</p>
+        </div>
+      </div>
+      </label>
+
+      <label>
+        <p>Prix hors taxe</p>
+        <input type="text" 
+          class="form-control" 
+          formControlName="basePriceHt" 
+          required
+        >
+        <div *ngIf="fM.basePriceHt.invalid && (fM.basePriceHt.dirty || fM.basePriceHt.touched)">
+          <div *ngIf="fM.basePriceHt.errors.required">
+            <p class="invalidText">*Le prix est requis</p>
+          </div>
+          <div *ngIf="fM.basePriceHt.errors.pattern">
+            <p class="invalidText">*Le prix doit être inséré sous la forme XXX.XX</p>
+          </div>
+        </div>
+      </label>
+  </form>
+  <button type="submit" (click)="onSubmitPutForm()">MODIFIER LA BASE</button>
+</div>
+
+  <!--Delete form-->
+<div *ngIf="formCheck.value.baseAction === 'Retirer'">
+  <form [formGroup]="baseFormDel">
+      <label>
+        <p>Nom de la base à Supprimer</p>
+        <input type="text" 
+          class="form-control" 
+          formControlName="baseName" 
+          required
+        >
+        <div *ngIf="fD.baseName.invalid && (fD.baseName.dirty || fD.baseName.touched)">
+          <div *ngIf="fD.baseName.errors.required">
+            <p class="invalidText">*Le nom de la base est requis</p>
+          </div>
+          <div *ngIf="fD.baseName.errors.minlength">
+            <p class="invalidText">*Le nom de la base doit contenir au moins 4 caractères</p>
+          </div>
+          <div *ngIf="fD.baseName.errors.maxlength">
+            <p class="invalidText">*Le nom de la base ne doit pas dépasser les 45 caractères</p>
+          </div>
+        </div>
+      </label>
+    <button type="submit" (click)="onSubmitDelForm()">SUPPRIMER LA BASE</button>
+  </form>
+</div>
+
+

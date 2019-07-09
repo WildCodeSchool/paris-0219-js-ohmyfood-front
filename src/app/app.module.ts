@@ -31,6 +31,7 @@ import { OnlyLoggedInUsersGuardService } from './services/only-logged-in-users-g
 import { DessertsFormAdminComponent } from './components/desserts-form-admin/desserts-form-admin.component';
 import { SaladToppingsFormAdminComponent } from './components/salad-toppings-form-admin/salad-toppings-form-admin.component';
 import { SaladIngredientsFormAdminComponent } from './components/salad-ingredients-form-admin/salad-ingredients-form-admin.component';
+import { SaladBaseFormAdminComponent } from './components/salad-base-form-admin/salad-base-form-admin.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import { SaladIngredientsFormAdminComponent } from './components/salad-ingredien
     SaladPageComponent,
     DessertsFormAdminComponent,
     SaladToppingsFormAdminComponent,
-    SaladIngredientsFormAdminComponent
+    SaladIngredientsFormAdminComponent,
+    SaladBaseFormAdminComponent
   ],
   imports: [
     AppRoutingModule,

@@ -20,7 +20,7 @@
       required
     >
     <div *ngIf="fA.topName.invalid && (fA.topName.dirty || fA.topName.touched)">
-      <div *ngIf="fA.ingName.errors.required">
+      <div *ngIf="fA.topName.errors.required">
         <p class="invalidText">*Le nom du topping est requis</p>
       </div>
       <div *ngIf="fA.topName.errors.minlength">

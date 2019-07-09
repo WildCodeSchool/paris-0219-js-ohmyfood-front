@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
-export class SaladService {
+export class SaladToppingsService {
 
   saladFormObject;
   url = 'http://localhost:3000/salads-toppings';

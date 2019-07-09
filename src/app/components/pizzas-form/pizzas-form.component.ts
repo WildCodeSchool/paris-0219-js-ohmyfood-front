@@ -3,6 +3,7 @@ import { PizzasDataService } from 'src/app/services/pizzas-data.service';
 import { FormArray, FormBuilder } from '@angular/forms';
 import { QuantitySelectService } from 'src/app/services/quantity-select.service';
 import { ToggleFormService } from 'src/app/services/toggle-form.service';
+import { CreateFormService } from 'src/app/services/create-form.service';
 
 @Component({
   selector: 'app-pizzas-form',
@@ -21,6 +22,7 @@ export class PizzasFormComponent implements OnInit {
 
   constructor(
     private pizzasData: PizzasDataService,
+    private createFormService: CreateFormService,
     private formBuilder: FormBuilder,
     private quantitySelectService: QuantitySelectService,
     private toggleService: ToggleFormService
@@ -40,14 +42,7 @@ export class PizzasFormComponent implements OnInit {
 
       for (const key in pizzas) {
         if (pizzas.hasOwnProperty(key)) {
-          const pizzasForm = this.formBuilder.group({
-            idPizzas: pizzas[key].idPizzas,
-            pizzDesc: pizzas[key].pizzDesc,
-            pizzName: pizzas[key].pizzName,
-            pizzPriceTTC: pizzas[key].pizzPriceTTC,
-            pizzQuantity: 0
-          });
-          selectedPizzas.push(pizzasForm);
+          selectedPizzas.push(this.createFormService.createForm(pizzas[key]));
         }
       }
       subscription.unsubscribe();
@@ -63,7 +58,7 @@ export class PizzasFormComponent implements OnInit {
 
     this.pizzasData.createOrderPizzas(orderPizzas);
 
-    this.resetFormDessert();
+    this.resetFormPizzas();
 
     this.enableSubmit = false;
   }
@@ -78,11 +73,11 @@ export class PizzasFormComponent implements OnInit {
     }
   }
 
-  resetFormDessert() {
+  resetFormPizzas() {
     for (const key in this.formPizzas.value) {
       if (this.formPizzas.value.hasOwnProperty(key)) {
         this.formPizzas.value[key].map(
-          resetQuantity => resetQuantity.pizzQuantity = 0
+          (resetQuantity: any) => resetQuantity.pizzQuantity = 0
           );
       }
     }

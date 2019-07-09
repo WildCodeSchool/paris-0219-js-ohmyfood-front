@@ -97,7 +97,7 @@
 
   <!--Delete form-->
 <div *ngIf="formCheck.value.dessAction === 'Retirer'">
-  <form [formGroup]="dessFormDel">
+  <form [formGroup]="dessertFormDel">
       <label>
         <p>Nom du dessert à Supprimer</p>
         <input type="text" 
@@ -120,3 +120,5 @@
     <button type="submit" (click)="onSubmitDelForm()">SUPPRIMER LE DESSERT</button>
   </form>
 </div>
+<p *ngFor="let dataDessert of dessertDataObject; let i = index;">{{ dataDessert.dessName }} {{ dataDessert.dessPriceTTC }} EUR</p>
+

@@ -9,6 +9,7 @@ import { OrderDessert } from 'src/app/class/order-dessert';
 import { DessertsDataService } from 'src/app/services/desserts-data.service';
 import { FinalOrder } from 'src/app/class/final-order';
 import { FinalOrderService } from 'src/app/services/final-order.service';
+import { PizzaService } from 'src/app/services/pizza.service';
 
 @Component({
   selector: 'app-detail-order',
@@ -31,11 +32,7 @@ export class DetailOrderComponent implements OnInit {
   total: number; // final result
 
   constructor(
-    private pizzasData: PizzasDataService,
-    private beverageData: BeveragesDataService,
-    private dessertData: DessertsDataService,
-    private quantityService: QuantitySelectService,
-    private createForm: CreateFormBasketService,
+    private pizzaService: PizzaService,
     private finalOrder: FinalOrderService
   ) { }
 
@@ -147,22 +144,28 @@ export class DetailOrderComponent implements OnInit {
     
     let abrevElTypeQtt = abrevElType + 'Quantity';
     let abrevElTypeTotPrice;
-    if (abrevElType === 'salad') {
+    if (elType === 'salad') {
       abrevElTypeTotPrice = abrevElType + 'TotalPrice'
     }else {
       abrevElTypeTotPrice = abrevElType + 'PriceTotal'
     }
+    let elementPrice = this.finalOrderRecap[`${elType}`][`${i}`][`${abrevElTypeTotPrice}`] / quantity;
 
     if (operator === '+') {
       this.finalOrderRecap[`${elType}`][`${i}`][`${abrevElTypeQtt}`] += 1;
-      this.finalOrderRecap[`${elType}`][`${i}`][`${abrevElTypeTotPrice}`] -= this.finalOrderRecap[`${elType}`][`${i}`][`${abrevElTypeTotPrice}`]*(quantity +1)
+      this.finalOrderRecap[`${elType}`][`${i}`][`${abrevElTypeTotPrice}`] = elementPrice * (quantity + 1)
     }
     if (operator === '-') {
-      if (quantity > 0) {
+      if (quantity > 1) {
         this.finalOrderRecap[`${elType}`][`${i}`][`${abrevElTypeQtt}`] -= 1;
-        this.finalOrderRecap[`${elType}`][`${i}`][`${abrevElTypeTotPrice}`] -= this.finalOrderRecap[`${elType}`][`${i}`][`${abrevElTypeTotPrice}`]*(quantity -1)
-      }else {
-
+        this.finalOrderRecap[`${elType}`][`${i}`][`${abrevElTypeTotPrice}`] = elementPrice * (quantity - 1)
+      } else {
+        let speechConfirm = `Etes-vous sûr de vouloir supprimer `;
+        elType === 'salad' ? speechConfirm += `la salade n° ${i + 1}?`
+        : speechConfirm += `${this.finalOrderRecap[`${elType}`][`${i}`][`${abrevElType}Name`]}?`;
+        if(confirm(speechConfirm)) {
+          this.finalOrderRecap[`${elType}`].splice(i, 1)
+        }
       }
     }
     sessionStorage.setItem('finalOrder', JSON.stringify(this.finalOrderRecap))

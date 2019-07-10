@@ -73,11 +73,10 @@ export class MenuSaladFormComponent implements OnInit {
       ]
     });
 
-    const saladSubscription = this.saladData.getSaladsForMenu.subscribe((saladComposed: OrderSalads) => {
+    this.saladData.getSaladsForMenu.subscribe((saladComposed: OrderSalads) => {
       this.saladMenuForm.controls.salad.patchValue(
         saladComposed
       );
-      saladSubscription.unsubscribe();
     });
 
     // Get menu price
@@ -125,7 +124,9 @@ export class MenuSaladFormComponent implements OnInit {
 
   onSubmit() {
     const saladMenuChoice = this.saladMenuForm.value;
-    console.log(saladMenuChoice);
+
+    this.menuPrices.createOrderMenu(saladMenuChoice);
+
     this.saladMenuForm.reset(this.saladMenuForm.value);
   }
 

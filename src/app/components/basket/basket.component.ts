@@ -24,8 +24,6 @@ export class BasketComponent implements OnInit {
 
   isToggleBasket: boolean; // To toggle basket
 
-  enableSubmit: boolean; // To enable submit button
-
   totalArray: Array<number> = []; // Use to calculate total price
 
   total: number; // final result
@@ -232,6 +230,8 @@ export class BasketComponent implements OnInit {
   quantitySelect(operator: string, index: number, quantity: number, ingredient: string) {
     const check = Object.getOwnPropertyNames(ingredient);
 
+    console.log(check);
+
     if (check[0] === 'idPizzas') {
       // give value of selectQuantity result to calculate price behind
       quantity =
@@ -326,8 +326,30 @@ export class BasketComponent implements OnInit {
       }
       this.sessionStorage.saveToSessionStorage(this.finalOrderForm.value.salad);
       this.totalBasket();
+
+    } else if (check[0] === 'pizza') {
+      quantity =
+      this.finalOrderForm.value.menuPizza[index].menuPizzQuantity =
+      this.quantityService.selectQuantity(operator, quantity);
+
+      if (operator === '+') {
+        this.finalOrderForm.value.menuPizza[index].menuPizzPrice =
+        (this.finalOrderForm.value.menuPizza[index].menuPizzPrice / (quantity - 1)) * quantity;
+
+      } else {
+        this.finalOrderForm.value.menuPizza[index].menuPizzPrice =
+        (this.finalOrderForm.value.menuPizza[index].menuPizzPrice / (quantity + 1)) * quantity;
+      }
+
+      const menuPizza = this.finalOrderForm.get('menuPizza') as FormArray;
+
+      if (menuPizza.controls[index].value.menuPizzQuantity === 0) {
+        menuPizza.removeAt(index); // remove object from form array when quantity = 0
+        this.sessionStorage.clearSessionStorage(this.finalOrderForm.value.menuPizza, 'menuPizza');
+      }
+      this.sessionStorage.saveToSessionStorage(this.finalOrderForm.value.menuPizza);
+      this.totalBasket();
     }
-    this.total < 15 ? this.enableSubmit = false : this.enableSubmit = true; // Disable submit button
   }
 
   resetBasket() {
@@ -335,6 +357,7 @@ export class BasketComponent implements OnInit {
     const salad = this.finalOrderForm.get('salad') as FormArray;
     const beverage = this.finalOrderForm.get('beverage') as FormArray;
     const dessert = this.finalOrderForm.get('dessert') as FormArray;
+    const menuPizza = this.finalOrderForm.get('menuPizza') as FormArray;
 
     // Reset all formArray
     while (pizza.length > 0) {
@@ -353,10 +376,15 @@ export class BasketComponent implements OnInit {
       dessert.removeAt(0);
     }
 
+    while (menuPizza.length > 0) {
+      menuPizza.removeAt(0);
+    }
+
     this.sessionStorage.clearSessionStorage(this.finalOrderForm.value.beverage, 'reset');
     this.sessionStorage.clearSessionStorage(this.finalOrderForm.value.dessert, 'reset');
     this.sessionStorage.clearSessionStorage(this.finalOrderForm.value.pizza, 'reset');
     this.sessionStorage.clearSessionStorage(this.finalOrderForm.value.salad, 'reset');
+    this.sessionStorage.clearSessionStorage(this.finalOrderForm.value.menuPizza, 'reset');
     this.totalBasket();
   }
 
@@ -388,6 +416,5 @@ export class BasketComponent implements OnInit {
     }
 
     this.totalArray.length === 0 ? this.total = 0 : this.total = this.totalArray.reduce(reducer); // Total price
-    this.total < 15 ? this.enableSubmit = false : this.enableSubmit = true; // If total price < 15, disable submit button
   }
 }

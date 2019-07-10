@@ -29,6 +29,8 @@
       </div>
     </div>
 
+    <button type="button" (click)="resetBevOrDess('beverage')">Supprimer la boisson</button>
+
     <div formArrayName="dessert">
       <h5>Ciquez-ici pour découvrir nos desserts</h5>
 
@@ -49,7 +51,22 @@
       </div>
     </div>
 
+    <button type="button" (click)="resetBevOrDess('dessert')">Supprimer le dessert</button>
+
     <h5>Prix du menu</h5>
+
+    <p>
+      {{ saladMenuForm.value.saladMenuPrice }} EUR plus le prix de votre salade qui est actuellement de
+      {{ saladMenuForm.value.salad.orderSaladsTotalPrice }} EUR.
+    </p>
+
+    <p>
+      Soit un total de {{ saladMenuForm.value.saladMenuPrice + saladMenuForm.value.salad.orderSaladsTotalPrice }} EUR
+    </p>
+
+    <p *ngIf="menuSalad.submitted && saladMenuForm.controls['salad'].errors">
+      {{ saladMenuForm.controls['salad'].errors['lessSalad'] }}
+    </p>
 
     <p *ngIf="menuSalad.submitted && saladMenuForm.errors">
       {{ saladMenuForm.errors['notInTime']}}

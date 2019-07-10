@@ -75,16 +75,8 @@
       {{ pizzaMenuForm.errors['notInTime'] }}
     </p>
 
-    <p *ngIf="menuPizza.submitted && pizza.errors">
-      {{ pizza.errors['lessPizza'] }}
-    </p>
-
-    <p *ngIf="menuPizza.submitted && beverage.errors">
-      {{ beverage.errors['lessBeverage'] }}
-    </p>
-
-    <p *ngIf="menuPizza.submitted && dessert.errors">
-      {{ dessert.errors['lessDessert'] }}
+    <p *ngIf="menuPizza.submitted && menuPizza.errors">
+      {{ pizzaMenuForm.errors['lessPizzAndBevAndDess']}}
     </p>
 
     <button type="submit">Ajouter au panier</button>

@@ -1,0 +1,15 @@
+form {
+    width: 100vw;
+}
+
+.formContent {
+    text-align: center;
+}
+ 
+label {
+    display: block;
+}
+
+input[type=text], input[type=password], input[type=number] {
+    width: 30%;
+}

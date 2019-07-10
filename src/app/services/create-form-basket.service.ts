@@ -112,7 +112,8 @@ export class CreateFormBasketService {
         pizza: formToCreate.pizza,
         beverage: formToCreate.beverage,
         dessert: formToCreate.dessert,
-        menuPizzPrice: formToCreate.menuPizzPrice
+        menuPizzPrice: formToCreate.menuPizzPrice,
+        menuPizzQuantity: formToCreate.menuPizzQuantity
       });
       return menuPizzChoice;
     }

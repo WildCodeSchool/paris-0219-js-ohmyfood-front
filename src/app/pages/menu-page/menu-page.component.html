@@ -4,6 +4,6 @@
 
 <app-menu-pizza-form *ngIf="displayMenuPizza"></app-menu-pizza-form>
 
-<app-menu-salad-form *ngIf="displayMenuSalad"></app-menu-salad-form>
+<app-menu-salad-form [isMenu]="displayMenuSalad" *ngIf="displayMenuSalad"></app-menu-salad-form>
 
 <app-basket></app-basket>

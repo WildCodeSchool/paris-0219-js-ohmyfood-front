@@ -2,6 +2,7 @@ import { Injectable, Output, EventEmitter } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { MenuPizza } from '../class/menu-pizza';
+import { FormGroup } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
@@ -33,5 +34,39 @@ export class MenuPricesDataService {
       userMenuChoice[`pizzaMenuPrice`].pizzaMenuPrice
     );
     this.getMenuPizza.emit(menuPizza); // Emit object to basketComponent
+  }
+
+  // Get choice of user in menu
+  getRadioButton(form: FormGroup, index: number, choice: object, check: string[]) {
+    if (check[0] === 'idPizzas') {
+      const length = form.controls.pizza[`controls`].length; // To get array length
+
+      for (let i = 0; i < length; i ++) {
+        index !== i ?
+        form.controls.pizza[`controls`][i].value.pizzQuantity = 0 :
+        form.controls.pizza[`controls`][i].value.pizzQuantity = 1;
+        }
+      return form;
+
+    } else if (check[0] === 'idBeverages') {
+        const length = form.controls.beverage[`controls`].length; // To get array length
+
+        for (let i = 0; i < length; i ++) {
+          index !== i ?
+          form.controls.beverage[`controls`][i].value.bevQuantity = 0 :
+          form.controls.beverage[`controls`][i].value.bevQuantity = 1;
+          }
+        return form;
+
+    } else if (check[0] === 'idDesserts') {
+        const length = form.controls.dessert[`controls`].length; // To get array length
+
+        for (let i = 0; i < length; i ++) {
+          index !== i ?
+          form.controls.dessert[`controls`][i].value.dessQuantity = 0 :
+          form.controls.dessert[`controls`][i].value.dessQuantity = 1;
+          }
+        return form;
+    }
   }
 }

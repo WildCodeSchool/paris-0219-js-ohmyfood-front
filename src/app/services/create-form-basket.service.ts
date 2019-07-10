@@ -5,6 +5,7 @@ import { OrderBeverage } from '../class/order-beverage';
 import { OrderDessert } from '../class/order-dessert';
 import { OrderSalads } from '../class/order-salads';
 import { MenuPizza } from '../class/menu-pizza';
+import { MenuSalad } from '../class/menu-salad';
 
 @Injectable({
   providedIn: 'root'
@@ -116,6 +117,15 @@ export class CreateFormBasketService {
         menuPizzQuantity: formToCreate.menuPizzQuantity
       });
       return menuPizzChoice;
+    } else if (formToCreate instanceof MenuSalad) {
+      const menuSaladChoice = this.fb.group({
+        salad: formToCreate.salad,
+        beverage: formToCreate.beverage,
+        dessert: formToCreate.dessert,
+        menuSaladPrice: formToCreate.menuSaladPrice,
+        menuSaladQuantity: formToCreate.menuSaladQuantity
+      });
+      return menuSaladChoice;
     }
   }
 

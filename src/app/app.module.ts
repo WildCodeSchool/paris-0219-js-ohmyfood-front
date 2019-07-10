@@ -33,6 +33,7 @@ import { MenuPizzaFormComponent } from './components/userForm/menu-pizza-form/me
 import { DessertsFormAdminComponent } from './components/admin/desserts-form-admin/desserts-form-admin.component';
 import { DetailOrderPageComponent } from './pages/detail-order-page/detail-order-page.component';
 import { DetailOrderComponent } from './components/detail-order/detail-order.component';
+import { MenuSaladFormComponent } from './components/userForm/menu-salad-form/menu-salad-form.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +62,8 @@ import { DetailOrderComponent } from './components/detail-order/detail-order.com
     MenuPizzaFormComponent,
     DessertsFormAdminComponent,
     DetailOrderPageComponent,
-    DetailOrderComponent
+    DetailOrderComponent,
+    MenuSaladFormComponent
   ],
   imports: [
     AppRoutingModule,

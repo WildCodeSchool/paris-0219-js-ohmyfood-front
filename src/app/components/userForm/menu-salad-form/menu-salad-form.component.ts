@@ -7,15 +7,22 @@ import { CreateFormService } from 'src/app/services/create-form.service';
 import { SaladsDatasService } from 'src/app/services/salads-datas.service';
 import { OrderSalads } from 'src/app/class/order-salads';
 import { checkBevAndDess } from 'src/app/validators/checkBevAndDess';
+import { DatePipe } from '@angular/common';
+import { deliveryIntervalTime } from 'src/app/validators/deliveryTimeValidators';
 
 @Component({
   selector: 'app-menu-salad-form',
   templateUrl: './menu-salad-form.component.html',
-  styleUrls: ['./menu-salad-form.component.scss']
+  styleUrls: ['./menu-salad-form.component.scss'],
+  providers: [DatePipe]
 })
 export class MenuSaladFormComponent implements OnInit {
 
   saladMenuForm: FormGroup;
+
+  date: Date = new Date();
+
+  controlDate: string; // To convert date in format wanted
 
   // To know if menu salad is clicked and transfert information to saladFormComponent
   // Get this information to menuPageComponent
@@ -28,8 +35,11 @@ export class MenuSaladFormComponent implements OnInit {
     private beverageData: BeveragesDataService,
     private dessertData: DessertsDataService,
     private formBuilder: FormBuilder,
-    private createFormService: CreateFormService
-  ) { }
+    private createFormService: CreateFormService,
+    private datePipe: DatePipe
+  ) {
+      this.controlDate = this.datePipe.transform(this.date, 'H:mm:ss');
+    }
 
   ngOnInit() {
     // Initialize form group
@@ -40,14 +50,16 @@ export class MenuSaladFormComponent implements OnInit {
       saladMenuPrice: Number,
     },
     {
-      validator: checkBevAndDess('beverage', 'dessert')
+      validator: [
+        checkBevAndDess('beverage', 'dessert'), // Validator quantity
+        deliveryIntervalTime(this.controlDate) // Validator time
+      ]
     });
 
     const saladSubscription = this.saladData.getSaladsForMenu.subscribe((saladComposed: OrderSalads) => {
       this.saladMenuForm.controls.salad.patchValue({
         saladComposed
       });
-      console.log(this.saladMenuForm);
       saladSubscription.unsubscribe();
     });
 
@@ -55,7 +67,6 @@ export class MenuSaladFormComponent implements OnInit {
     const menuSubscription = this.menuPrices.getMenuPrices()
     .subscribe((menuPrice: any) => {
       console.log(menuPrice);
-      console.log(this.saladMenuForm);
     });
 
     // get beverage data

@@ -129,5 +129,43 @@ export class DetailOrderComponent implements OnInit {
   }
 
   //html gestion
+
+  quantitySelect(operator: string, i: number, quantity: number, elType: string) {
+    let abrevElType = '';
+    switch (elType) {
+      case 'pizza': abrevElType = "pizz";
+        break;
+      case 'beverage': abrevElType = "bev";
+        break;
+      case 'dessert': abrevElType = "dess";
+        break;
+      case 'salad': abrevElType = "saladsComposed";
+        break;
+      default: null;
+        break;
+    }
+    
+    let abrevElTypeQtt = abrevElType + 'Quantity';
+    let abrevElTypeTotPrice;
+    if (abrevElType === 'salad') {
+      abrevElTypeTotPrice = abrevElType + 'TotalPrice'
+    }else {
+      abrevElTypeTotPrice = abrevElType + 'PriceTotal'
+    }
+
+    if (operator === '+') {
+      this.finalOrderRecap[`${elType}`][`${i}`][`${abrevElTypeQtt}`] += 1;
+      this.finalOrderRecap[`${elType}`][`${i}`][`${abrevElTypeTotPrice}`] -= this.finalOrderRecap[`${elType}`][`${i}`][`${abrevElTypeTotPrice}`]*(quantity +1)
+    }
+    if (operator === '-') {
+      if (quantity > 0) {
+        this.finalOrderRecap[`${elType}`][`${i}`][`${abrevElTypeQtt}`] -= 1;
+        this.finalOrderRecap[`${elType}`][`${i}`][`${abrevElTypeTotPrice}`] -= this.finalOrderRecap[`${elType}`][`${i}`][`${abrevElTypeTotPrice}`]*(quantity -1)
+      }else {
+
+      }
+    }
+    sessionStorage.setItem('finalOrder', JSON.stringify(this.finalOrderRecap))
+  }
 }
 

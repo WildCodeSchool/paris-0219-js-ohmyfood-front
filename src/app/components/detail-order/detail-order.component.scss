@@ -2,19 +2,16 @@
     text-align: center;
 }
 
+form {
+    text-align: center;
+    width: 90%;
+    margin-left: 5%;
+}
+
+label {
+    width: 100%;
+}
+
 .orderStatus {
     color: red;
-}
-
-ul, li {
-    display: inline-block;
-    width: 33%;
-}
-
-li:nth-child(1) {
-    width: 10%;
-}
-
-li:nth-child(2) {
-    width: 14%;
 }

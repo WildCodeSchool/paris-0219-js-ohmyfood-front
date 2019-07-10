@@ -9,6 +9,11 @@ import { OrderSalads } from 'src/app/class/order-salads';
 import { checkBevAndDess } from 'src/app/validators/checkBevAndDess';
 import { DatePipe } from '@angular/common';
 import { deliveryIntervalTime } from 'src/app/validators/deliveryTimeValidators';
+import { SaladsBases } from 'src/app/class/order-saladsBases';
+import { SaladsIngredients } from 'src/app/class/order-saladsIngredients';
+import { SaladsToppings } from 'src/app/class/order-saladsToppings';
+import { SaladsSauces } from 'src/app/class/order-saladsSauces';
+import { checkSaladInMenu } from 'src/app/validators/checkSaladInMenu';
 
 @Component({
   selector: 'app-menu-salad-form',
@@ -19,6 +24,9 @@ import { deliveryIntervalTime } from 'src/app/validators/deliveryTimeValidators'
 export class MenuSaladFormComponent implements OnInit {
 
   saladMenuForm: FormGroup;
+
+  // To get menu price from database
+  priceMenu: any[];
 
   date: Date = new Date();
 
@@ -36,7 +44,7 @@ export class MenuSaladFormComponent implements OnInit {
     private dessertData: DessertsDataService,
     private formBuilder: FormBuilder,
     private createFormService: CreateFormService,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
   ) {
       this.controlDate = this.datePipe.transform(this.date, 'H:mm:ss');
     }
@@ -44,10 +52,19 @@ export class MenuSaladFormComponent implements OnInit {
   ngOnInit() {
     // Initialize form group
     this.saladMenuForm = this.formBuilder.group({
-      salad: {},
+      salad: [
+        {
+          orderSaladsBases: SaladsBases,
+          orderSaladsIngredients: SaladsIngredients,
+          orderSaladsQuantity: Number,
+          orderSaladsToppings: SaladsToppings,
+          orderSaladsSauces: SaladsSauces,
+          orderSaladsTotalPrice: 0
+        }, checkSaladInMenu() // Validator to check if user create a salad
+      ],
       beverage: this.formBuilder.array([]),
       dessert: this.formBuilder.array([]),
-      saladMenuPrice: Number,
+      saladMenuPrice: 0,
     },
     {
       validator: [
@@ -57,16 +74,17 @@ export class MenuSaladFormComponent implements OnInit {
     });
 
     const saladSubscription = this.saladData.getSaladsForMenu.subscribe((saladComposed: OrderSalads) => {
-      this.saladMenuForm.controls.salad.patchValue({
+      this.saladMenuForm.controls.salad.patchValue(
         saladComposed
-      });
+      );
       saladSubscription.unsubscribe();
     });
 
     // Get menu price
     const menuSubscription = this.menuPrices.getMenuPrices()
     .subscribe((menuPrice: any) => {
-      console.log(menuPrice);
+      this.priceMenu = menuPrice;
+      menuSubscription.unsubscribe();
     });
 
     // get beverage data
@@ -106,15 +124,48 @@ export class MenuSaladFormComponent implements OnInit {
   }
 
   onSubmit() {
-    const saladMenuChoice = this.saladMenuForm;
+    const saladMenuChoice = this.saladMenuForm.value;
     console.log(saladMenuChoice);
+    this.saladMenuForm.reset(this.saladMenuForm.value);
   }
 
   getUserChoice(index: number, choice: object) {
+    // To check if user select beverage and/or dessert and patch value menu price
+    const bevPristine = this.saladMenuForm.controls.beverage.pristine;
+    const dessPristine = this.saladMenuForm.controls.dessert.pristine;
+
+    if (!bevPristine && dessPristine || bevPristine && !dessPristine) {
+      this.saladMenuForm.controls.saladMenuPrice.patchValue(
+        this.priceMenu[0].menuSaladOr
+      );
+
+    } else if (!bevPristine && !dessPristine) {
+        this.saladMenuForm.controls.saladMenuPrice.patchValue(
+          this.priceMenu[0].menuSaladAnd
+        );
+
+    } else {
+      this.saladMenuForm.controls.saladMenuPrice.patchValue(
+        0
+      );
+    }
+
     // To check wich object we have to change in method
     const check = Object.getOwnPropertyNames(choice);
-
     this.saladMenuForm = this.menuPrices.getRadioButton(this.saladMenuForm, index, choice, check);
+  }
+
+  resetBevOrDess(userChoice: string) {
+    if (userChoice === 'beverage') {
+      this.saladMenuForm.controls.beverage[`controls`].map(
+        (bev: any) => bev.controls.bevQuantity.reset(0)
+      );
+
+    } else if (userChoice === 'dessert') {
+      this.saladMenuForm.controls.dessert[`controls`].map(
+        (dess: any) => dess.controls.dessQuantity.reset(0)
+      );
+    }
   }
 
 }

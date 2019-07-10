@@ -6,6 +6,7 @@ import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
 import { CreateFormService } from 'src/app/services/create-form.service';
 import { SaladsDatasService } from 'src/app/services/salads-datas.service';
 import { OrderSalads } from 'src/app/class/order-salads';
+import { checkBevAndDess } from 'src/app/validators/checkBevAndDess';
 
 @Component({
   selector: 'app-menu-salad-form',
@@ -36,7 +37,10 @@ export class MenuSaladFormComponent implements OnInit {
       salad: {},
       beverage: this.formBuilder.array([]),
       dessert: this.formBuilder.array([]),
-      saladMenuPrice: Number
+      saladMenuPrice: Number,
+    },
+    {
+      validator: checkBevAndDess('beverage', 'dessert')
     });
 
     const saladSubscription = this.saladData.getSaladsForMenu.subscribe((saladComposed: OrderSalads) => {
@@ -51,6 +55,7 @@ export class MenuSaladFormComponent implements OnInit {
     const menuSubscription = this.menuPrices.getMenuPrices()
     .subscribe((menuPrice: any) => {
       console.log(menuPrice);
+      console.log(this.saladMenuForm);
     });
 
     // get beverage data

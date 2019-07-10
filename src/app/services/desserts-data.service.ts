@@ -19,13 +19,13 @@ export class DessertsDataService {
     return this.http.get(this.dessertsRoute);
   }
 
-  createOrderDessert(formResult) { // create object with OrderDessert Class
-    for (const key in formResult) {
-      if (formResult.hasOwnProperty(key)) {
-        formResult[key].map(test => {
-          if (test.dessQuantity > 0) {
+  createOrderDessert(userDessertChoice: object) { // create object with OrderDessert Class
+    for (const dessert in userDessertChoice) {
+      if (userDessertChoice.hasOwnProperty(dessert)) {
+        userDessertChoice[dessert].map((userDessert: any) => {
+          if (userDessert.dessQuantity > 0) {
             const dessertsChoice = new OrderDessert(
-              test.idDesserts, test.dessName, +test.dessPriceTTC, test.dessQuantity
+              userDessert.idDesserts, userDessert.dessName, +userDessert.dessPriceTTC, userDessert.dessQuantity
               );
             this.getUserDesserts.emit(dessertsChoice);
             }

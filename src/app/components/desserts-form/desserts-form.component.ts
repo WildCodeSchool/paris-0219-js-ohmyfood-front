@@ -3,6 +3,7 @@ import { DessertsDataService } from 'src/app/services/desserts-data.service';
 import { FormBuilder, FormArray } from '@angular/forms';
 import { QuantitySelectService } from 'src/app/services/quantity-select.service';
 import { ToggleFormService } from 'src/app/services/toggle-form.service';
+import { CreateFormService } from 'src/app/services/create-form.service';
 
 @Component({
   selector: 'app-desserts-form',
@@ -24,6 +25,7 @@ export class DessertsFormComponent implements OnInit {
 
   constructor(
     private dessertData: DessertsDataService,
+    private createFormService: CreateFormService,
     private quantitySelectService: QuantitySelectService,
     private formBuilder: FormBuilder,
     private toggleService: ToggleFormService
@@ -44,13 +46,7 @@ export class DessertsFormComponent implements OnInit {
 
       for (const key in desserts) { // loop to access key of object
         if (desserts.hasOwnProperty(key)) {
-          const dessertForm = this.formBuilder.group({
-            idDesserts: desserts[key].idDesserts,
-            dessName: desserts[key].dessName,
-            dessPriceTTC: desserts[key].dessPriceTTC,
-            dessQuantity: 0
-          });
-          selectedDessert.push(dessertForm); // push form in formArray
+          selectedDessert.push(this.createFormService.createForm(desserts[key])); // push form in formArray
         }
       }
       subscription.unsubscribe();

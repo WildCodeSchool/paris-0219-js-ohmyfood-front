@@ -36,6 +36,15 @@ export class MenuPricesDataService {
     this.getMenuPizza.emit(menuPizza); // Emit object to basketComponent
   }
 
+  createOrderMenuSessionStorage(object: any) {
+    return new MenuPizza(
+      object.pizza,
+      object.beverage,
+      object.dessert,
+      object.menuPizzPrice
+    );
+  }
+
   // Get choice of user in menu
   getRadioButton(form: FormGroup, index: number, choice: object, check: string[]) {
     if (check[0] === 'idPizzas') {

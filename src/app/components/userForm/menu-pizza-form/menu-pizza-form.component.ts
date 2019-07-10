@@ -121,7 +121,6 @@ export class MenuPizzaFormComponent implements OnInit {
   }
 
   getUserChoice(index: number, choice: object) {
-
   // To check wich object we have to change in method
   const check = Object.getOwnPropertyNames(choice);
 

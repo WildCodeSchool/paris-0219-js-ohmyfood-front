@@ -115,9 +115,9 @@ export class MenuPizzaFormComponent implements OnInit {
   }
 
   onSubmit() {
-    const menuChoice = this.pizzaMenuForm.value;
+    const pizzaMenuChoice = this.pizzaMenuForm.value;
 
-    this.menuPrices.createOrderMenu(menuChoice);
+    this.menuPrices.createOrderMenu(pizzaMenuChoice);
   }
 
   getUserChoice(index: number, choice) {

@@ -4,6 +4,7 @@ import { OrderPizzas } from '../class/order-pizzas';
 import { OrderBeverage } from '../class/order-beverage';
 import { OrderDessert } from '../class/order-dessert';
 import { OrderSalads } from '../class/order-salads';
+import { MenuPizza } from '../class/menu-pizza';
 
 @Injectable({
   providedIn: 'root'
@@ -15,10 +16,10 @@ export class CreateFormBasketService {
   createOrderForm(formToCreate: object) {
     if (formToCreate instanceof OrderPizzas) {
       const pizzChoice = this.fb.group({
-        idPizzas: [formToCreate.idPizzas],
-        pizzName: [formToCreate.pizzName],
-        pizzPriceTotal: [formToCreate.pizzPrice * formToCreate.pizzQuantity],
-        pizzQuantity: [formToCreate.pizzQuantity]
+        idPizzas: formToCreate.idPizzas,
+        pizzName: formToCreate.pizzName,
+        pizzPriceTotal: formToCreate.pizzPrice * formToCreate.pizzQuantity,
+        pizzQuantity: formToCreate.pizzQuantity
       });
       return pizzChoice;
 
@@ -90,21 +91,30 @@ export class CreateFormBasketService {
 
     } else if (formToCreate instanceof OrderBeverage) {
       const drinksChoice = this.fb.group({
-        idBeverages: [formToCreate.idBeverages],
-        bevName: [formToCreate.bevName],
-        bevPriceTotal: [formToCreate.bevPrice * formToCreate.bevQuantity],
-        bevQuantity: [formToCreate.bevQuantity]
+        idBeverages: formToCreate.idBeverages,
+        bevName: formToCreate.bevName,
+        bevPriceTotal: formToCreate.bevPrice * formToCreate.bevQuantity,
+        bevQuantity: formToCreate.bevQuantity
       });
       return drinksChoice;
 
     } else if (formToCreate instanceof OrderDessert) {
       const dessChoice = this.fb.group({
-        idDesserts: [formToCreate.idDesserts],
-        dessName: [formToCreate.dessName],
-        dessPriceTotal: [formToCreate.dessPrice * formToCreate.dessQuantity],
-        dessQuantity: [formToCreate.dessQuantity]
+        idDesserts: formToCreate.idDesserts,
+        dessName: formToCreate.dessName,
+        dessPriceTotal: formToCreate.dessPrice * formToCreate.dessQuantity,
+        dessQuantity: formToCreate.dessQuantity
       });
       return dessChoice;
+
+    } else if (formToCreate instanceof MenuPizza) {
+      const menuPizzChoice = this.fb.group({
+        pizza: formToCreate.pizza,
+        beverage: formToCreate.beverage,
+        dessert: formToCreate.dessert,
+        menuPizzPrice: formToCreate.menuPizzPrice
+      });
+      return menuPizzChoice;
     }
   }
 

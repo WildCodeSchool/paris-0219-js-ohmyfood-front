@@ -31,7 +31,8 @@ export class MenuPricesDataService {
       pizza[0],
       beverage[0],
       dessert[0],
-      userMenuChoice[`pizzaMenuPrice`].pizzaMenuPrice
+      userMenuChoice[`pizzaMenuPrice`].pizzaMenuPrice,
+      1
     );
     this.getMenuPizza.emit(menuPizza); // Emit object to basketComponent
   }
@@ -41,7 +42,8 @@ export class MenuPricesDataService {
       object.pizza,
       object.beverage,
       object.dessert,
-      object.menuPizzPrice
+      object.menuPizzPrice,
+      object.menuPizzQuantity
     );
   }
 

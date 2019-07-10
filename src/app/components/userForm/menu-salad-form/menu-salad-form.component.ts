@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { MenuPricesDataService } from 'src/app/services/menu-prices-data.service';
 import { BeveragesDataService } from 'src/app/services/beverages-data.service';
 import { DessertsDataService } from 'src/app/services/desserts-data.service';
 import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
 import { CreateFormService } from 'src/app/services/create-form.service';
+import { SaladsDatasService } from 'src/app/services/salads-datas.service';
+import { OrderSalads } from 'src/app/class/order-salads';
 
 @Component({
   selector: 'app-menu-salad-form',
@@ -14,8 +16,14 @@ export class MenuSaladFormComponent implements OnInit {
 
   saladMenuForm: FormGroup;
 
+  // To know if menu salad is clicked and transfert information to saladFormComponent
+  // Get this information to menuPageComponent
+  @Input()
+  isMenu: boolean;
+
   constructor(
     private menuPrices: MenuPricesDataService,
+    private saladData: SaladsDatasService,
     private beverageData: BeveragesDataService,
     private dessertData: DessertsDataService,
     private formBuilder: FormBuilder,
@@ -25,10 +33,18 @@ export class MenuSaladFormComponent implements OnInit {
   ngOnInit() {
     // Initialize form group
     this.saladMenuForm = this.formBuilder.group({
-      salad: '',
+      salad: {},
       beverage: this.formBuilder.array([]),
       dessert: this.formBuilder.array([]),
       saladMenuPrice: Number
+    });
+
+    const saladSubscription = this.saladData.getSaladsForMenu.subscribe((saladComposed: OrderSalads) => {
+      this.saladMenuForm.controls.salad.patchValue({
+        saladComposed
+      });
+      console.log(this.saladMenuForm);
+      saladSubscription.unsubscribe();
     });
 
     // Get menu price
@@ -63,7 +79,6 @@ export class MenuSaladFormComponent implements OnInit {
       }
       dessSubscription.unsubscribe();
     });
-    console.log(this.saladMenuForm);
   }
 
 }

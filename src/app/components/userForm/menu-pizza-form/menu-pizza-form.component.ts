@@ -120,36 +120,11 @@ export class MenuPizzaFormComponent implements OnInit {
     this.menuPrices.createOrderMenu(pizzaMenuChoice);
   }
 
-  getUserChoice(index: number, choice) {
+  getUserChoice(index: number, choice: object) {
 
-    const check = Object.getOwnPropertyNames(choice);
+  // To check wich object we have to change in method
+  const check = Object.getOwnPropertyNames(choice);
 
-    if (check[0] === 'idPizzas') {
-      const length = this.pizzaMenuForm.controls.pizza[`controls`].length; // To get array length
-
-      for (let i = 0; i < length; i ++) {
-        index !== i ?
-        this.pizzaMenuForm.controls.pizza[`controls`][i].value.pizzQuantity = 0 :
-        this.pizzaMenuForm.controls.pizza[`controls`][i].value.pizzQuantity = 1;
-        }
-
-    } else if (check[0] === 'idBeverages') {
-        const length = this.pizzaMenuForm.controls.beverage[`controls`].length; // To get array length
-
-        for (let i = 0; i < length; i ++) {
-          index !== i ?
-          this.pizzaMenuForm.controls.beverage[`controls`][i].value.bevQuantity = 0 :
-          this.pizzaMenuForm.controls.beverage[`controls`][i].value.bevQuantity = 1;
-          }
-
-    } else if (check[0] === 'idDesserts') {
-        const length = this.pizzaMenuForm.controls.dessert[`controls`].length; // To get array length
-
-        for (let i = 0; i < length; i ++) {
-          index !== i ?
-          this.pizzaMenuForm.controls.dessert[`controls`][i].value.dessQuantity = 0 :
-          this.pizzaMenuForm.controls.dessert[`controls`][i].value.dessQuantity = 1;
-          }
-    }
+  this.pizzaMenuForm = this.menuPrices.getRadioButton(this.pizzaMenuForm, index, choice, check);
   }
 }

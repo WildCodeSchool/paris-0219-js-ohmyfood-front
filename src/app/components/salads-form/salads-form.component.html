@@ -23,6 +23,11 @@
             </a>
 
             <div class="notToggleBase" [ngClass]="{toggleBase: isToggleBase}">
+                <h3 class="desserts">
+                    Nos Desserts<span>Prix</span>
+                  </h3>
+
+                  <h3 class="quantity">Quantités</h3>
               <div formArrayName="selectBase">
                 <div
                   class="formLine"
@@ -31,7 +36,7 @@
                 >
 
                   <label for="selectBase-{{ i }}">
-                    {{ base.value.saladsBaseName }}<span>{{ base.value.saladsBasePriceTTC }} EUR</span>
+                    <span class="styleWidth">{{ base.value.saladsBaseName }}</span><span class="styleWidthPrice">{{ base.value.saladsBasePriceTTC }} €</span>
                   </label>
 
                   <input
@@ -107,7 +112,7 @@
                   *ngFor="let ingredients of selectIngredients.controls ; let i = index">
 
                     <label for="selectIngredients-{{ i }}">
-                      {{ ingredients.value.saladsIngredientsName }}<span>{{ ingredients.value.saladsIngredientsPriceTTC }} EUR</span>
+                      <span class="styleWidth">{{ ingredients.value.saladsIngredientsName }}</span><span class="styleWidthPrice">{{ ingredients.value.saladsIngredientsPriceTTC }} €</span>
                     </label>
 
                     <div class="buttonQuantity">
@@ -155,7 +160,7 @@
                   *ngFor="let toppings of selectToppings.controls ; let i = index">
 
                     <label for="selectToppings-{{ i }}">
-                      {{ toppings.value.saladsToppingsName }}<span>{{ toppings.value.saladsToppingsPriceTTC }} EUR</span>
+                      <span class="styleWidth">{{ toppings.value.saladsToppingsName }}</span><span class="styleWidthPrice">{{ toppings.value.saladsToppingsPriceTTC }} €</span>
                     </label>
 
                     <div class="buttonQuantity">

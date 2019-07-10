@@ -119,6 +119,25 @@ section {
 // Media Queries //
 
 @media screen and(max-width: 900px) {
+  .beveragesTitle {
+    text-align: center;
+    background-image: url('../../../assets/img/RibbonOhMyFoodEmpty.svg'),  url('../../../assets/img/RibbonOhMyFoodNormal.svg');
+    background-repeat: no-repeat, no-repeat;
+    background-position: center, center;
+    background-size: 97% 90%, 100% 100%;
+    width: 300px;
+    padding: 12px;
+    margin: 35px;
+    height: 72px;
+
+    h1 {
+      font-size: 20px;
+    }
+    p {
+      font-size: 10px
+    }
+  }
+
   .header {
     justify-content: space-around;
     margin: 0 auto 2vh auto;
@@ -192,4 +211,101 @@ section {
     }
   }
 }
+@media (max-width: 320px) and ( max-height: 600px) {
+.beveragesTitle {
+  text-align: center;
+  background-image: url('../../../assets/img/RibbonOhMyFoodEmpty.svg'),  url('../../../assets/img/RibbonOhMyFoodNormal.svg');
+  background-repeat: no-repeat, no-repeat;
+  background-position: center, center;
+  background-size: 97% 90%, 100% 100%;
+  width: 240px;
+  padding: 18px;
+  margin-left: 13px;
+  height: 72px;
 
+
+    h1 {
+      font-size: 15px;
+    }
+    p {
+      font-size: 6px
+    }
+  }
+
+  h1.header {
+    width: 230px;
+    font-size: 15px;
+  }
+  .header {
+    justify-content: space-around;
+    margin: 1px 10px 0vh 0px;
+    width: 81vw;
+
+    .beverages {
+      font-size: 1em;
+      width: 55vw;
+
+      span {
+        text-align: center;
+        width: 10vw;
+      }
+    }
+
+    .quantity {
+      font-size: 1em;
+      text-align: center;
+      width: 20vw;
+    }
+  }
+
+  .buttonQuantity {
+    align-items: center;
+    justify-content: center;
+    width: 25vw;
+
+    button {
+      height: 3vh;
+      padding: 0px 2vw;
+    }
+
+    input {
+      font-size: 0.5em;
+    }
+  }
+
+  form {
+    margin: 0 auto;
+
+    .formLine {
+      align-items: center;
+
+      label {
+        align-items: center;
+        font-size: 0.7em;
+        width: 69%;
+
+        span {
+          text-align: center;
+          width: 16vw;
+        }
+      }
+    }
+  }
+
+  .notToggle {
+    width: 90vw;
+  }
+
+  section {
+    width: 100vw;
+  }
+
+  .submitSection {
+
+    .submitButton {
+        clear: both;
+        float: right;
+        width: 45vw;
+    }
+  }
+}

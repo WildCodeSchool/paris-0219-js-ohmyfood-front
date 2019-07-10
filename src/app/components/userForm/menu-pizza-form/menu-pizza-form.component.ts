@@ -7,9 +7,7 @@ import { BeveragesDataService } from 'src/app/services/beverages-data.service';
 import { DessertsDataService } from 'src/app/services/desserts-data.service';
 import { DatePipe } from '@angular/common';
 import { deliveryIntervalTime } from '../../../validators/deliveryTimeValidators';
-import { quantityMenuPizzaControl } from 'src/app/validators/menuPizzaQuantityValidators';
-import { quantityMenuBeverageControl } from 'src/app/validators/menuBeverageQuantityValidators';
-import { quantityMenuDessertControl } from '../../../validators/menuDessertQuantityValidators';
+import { quantityMenuPizzaControl } from 'src/app/validators/quantityMenuPizzaControl';
 
 @Component({
   selector: 'app-menu-pizza-form',
@@ -41,13 +39,16 @@ export class MenuPizzaFormComponent implements OnInit {
   ngOnInit() {
     // Initialize form group
     this.pizzaMenuForm = this.formBuilder.group({
-      pizza: this.formBuilder.array([], quantityMenuPizzaControl()),
-      beverage: this.formBuilder.array([], quantityMenuBeverageControl()),
-      dessert: this.formBuilder.array([], quantityMenuDessertControl()),
+      pizza: this.formBuilder.array([]),
+      beverage: this.formBuilder.array([]),
+      dessert: this.formBuilder.array([]),
       pizzaMenuPrice: Number,
       },
       {
-      validators: deliveryIntervalTime(this.controlDate), // Validator time
+      validators: [
+        deliveryIntervalTime(this.controlDate), // Validator time
+        quantityMenuPizzaControl('pizza', 'beverage', 'dessert') // Validator quantity
+        ],
       }
     );
 

@@ -11,6 +11,7 @@ import { SaladsSauces } from '../class/order-saladsSauces';
   providedIn: 'root'
 })
 export class SaladsDatasService {
+  // Route to back
   private basePath = 'http://localhost:3000';
 
   userBase: Array<SaladsBases> = [];
@@ -20,10 +21,11 @@ export class SaladsDatasService {
 
   totalPriceSaladsComposed: Array<number> = [];
 
-  userChoice: Array<OrderSalads> = [];
-
   @Output()
   public getSalads: EventEmitter<any> = new EventEmitter();
+
+  @Output()
+  public getSaladsForMenu: EventEmitter<any> = new EventEmitter();
 
   constructor(private http: HttpClient) { }
 
@@ -41,7 +43,7 @@ export class SaladsDatasService {
     return this.http.get<any>(`${this.basePath}/saladsToppings`);
   }
 
-  createOrderSalads(formResult: any) {
+  createOrderSalads(formResult: any, menu: boolean) {
     const formResultKey = Object.getOwnPropertyNames(formResult); // To check key of formResult and create instance according to key
     if (formResultKey[0] === 'selectBase') {
       formResult.selectBase.map((base: any) => {
@@ -118,7 +120,9 @@ export class SaladsDatasService {
       finalPrice,
       1
     );
-    this.getSalads.emit(userSaladsComposed);
+
+    // Emit userSaladsComposed in basket or in saladMenuComponent according to boolean in argument
+    menu ? this.getSaladsForMenu.emit(userSaladsComposed) : this.getSalads.emit(userSaladsComposed);
 
     // To reinitialize value to avoid duplicate salad
     this.userBase = [];

@@ -21,8 +21,8 @@ export class BeveragesFormAdminComponent implements OnInit {
   valueAction = 'Ajouter';
 
   constructor(
-    private beverageService: BeverageService, 
-    private fb: FormBuilder, 
+    private beverageService: BeverageService,
+    private fb: FormBuilder,
     private beveragesDataService: BeveragesDataService
   ) { }
 

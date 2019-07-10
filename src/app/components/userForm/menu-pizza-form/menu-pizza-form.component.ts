@@ -6,10 +6,10 @@ import { CreateFormService } from 'src/app/services/create-form.service';
 import { BeveragesDataService } from 'src/app/services/beverages-data.service';
 import { DessertsDataService } from 'src/app/services/desserts-data.service';
 import { DatePipe } from '@angular/common';
-import { deliveryIntervalTime } from '../../validators/deliveryTimeValidators';
+import { deliveryIntervalTime } from '../../../validators/deliveryTimeValidators';
 import { quantityMenuPizzaControl } from 'src/app/validators/menuPizzaQuantityValidators';
 import { quantityMenuBeverageControl } from 'src/app/validators/menuBeverageQuantityValidators';
-import { quantityMenuDessertControl } from '../../validators/menuDessertQuantityValidators';
+import { quantityMenuDessertControl } from '../../../validators/menuDessertQuantityValidators';
 
 @Component({
   selector: 'app-menu-pizza-form',

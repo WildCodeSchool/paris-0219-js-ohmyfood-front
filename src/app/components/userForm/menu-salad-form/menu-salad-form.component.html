@@ -51,6 +51,10 @@
 
     <h5>Prix du menu</h5>
 
+    <p *ngIf="menuSalad.submitted && saladMenuForm.errors">
+      {{ saladMenuForm.errors['lessBevOrDess']}}
+    </p>
+
     <button type="submit">Ajouter au panier</button>
   </form>
 </section>

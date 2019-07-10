@@ -70,6 +70,7 @@ export class BasketSessionStorageService {
       sessionStorage.removeItem('salads');
       sessionStorage.removeItem('beverages');
       sessionStorage.removeItem('desserts');
+      sessionStorage.removeItem('menuPizza');
     } else {
         // Clear session storage according to user's choice
         if (arg === 'pizza') {
@@ -86,6 +87,10 @@ export class BasketSessionStorageService {
 
         if (arg === 'dessert') {
           sessionStorage.removeItem('desserts');
+        }
+
+        if (arg === 'menuPizza') {
+          sessionStorage.removeItem('menuPizza');
         }
     }
   }

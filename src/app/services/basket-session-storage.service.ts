@@ -3,6 +3,7 @@ import { OrderDessert } from '../class/order-dessert';
 import { OrderBeverage } from '../class/order-beverage';
 import { OrderPizzas } from '../class/order-pizzas';
 import { OrderSalads } from '../class/order-salads';
+import { MenuPizza } from '../class/menu-pizza';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +17,7 @@ export class BasketSessionStorageService {
     if (form.length > 0) {
       const check = Object.getOwnPropertyNames(form[0]);
       const finalCheck = check[0];
+
 
       switch (finalCheck) {
       case 'idPizzas' :
@@ -45,6 +47,14 @@ export class BasketSessionStorageService {
           )
         );
         break;
+
+      case 'pizza' :
+        sessionStorage.setItem('menuPizza', JSON.stringify(form.map(
+          (menuPizz: MenuPizza[]) => menuPizz)
+          )
+        );
+        break;
+
       default:
       return null;
       }

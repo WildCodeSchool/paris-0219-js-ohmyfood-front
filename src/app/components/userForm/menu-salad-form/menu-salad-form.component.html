@@ -52,6 +52,10 @@
     <h5>Prix du menu</h5>
 
     <p *ngIf="menuSalad.submitted && saladMenuForm.errors">
+      {{ saladMenuForm.errors['notInTime']}}
+    </p>
+
+    <p *ngIf="menuSalad.submitted && saladMenuForm.errors">
       {{ saladMenuForm.errors['lessBevOrDess']}}
     </p>
 

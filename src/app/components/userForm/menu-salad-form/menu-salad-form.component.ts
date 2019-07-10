@@ -81,4 +81,24 @@ export class MenuSaladFormComponent implements OnInit {
     });
   }
 
+  get beverage(): FormArray {
+    return this.saladMenuForm.get('beverage') as FormArray;
+  }
+
+  get dessert(): FormArray {
+    return this.saladMenuForm.get('dessert') as FormArray;
+  }
+
+  onSubmit() {
+    const saladMenuChoice = this.saladMenuForm;
+    console.log(saladMenuChoice);
+  }
+
+  getUserChoice(index: number, choice: object) {
+    // To check wich object we have to change in method
+    const check = Object.getOwnPropertyNames(choice);
+
+    this.saladMenuForm = this.menuPrices.getRadioButton(this.saladMenuForm, index, choice, check);
+  }
+
 }

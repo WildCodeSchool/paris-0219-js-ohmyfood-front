@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { MenuPizza } from '../class/menu-pizza';
 import { FormGroup } from '@angular/forms';
+import { MenuSalad } from '../class/menu-salad';
 
 @Injectable({
   providedIn: 'root'
@@ -14,37 +15,71 @@ export class MenuPricesDataService {
   @Output()
   getMenuPizza: EventEmitter<any> = new EventEmitter();
 
+  @Output()
+  getMenuSalad: EventEmitter<any> = new EventEmitter();
+
   constructor(private http: HttpClient) { }
 
   getMenuPrices(): Observable<object> {
     return this.http.get(this.menuPricesRoute);
   }
 
-  createOrderMenu(userMenuChoice: object) {
+  createOrderMenu(userMenuChoice: any) {
     // Get each choice. Sort form result
-    const pizza = userMenuChoice[`pizza`].filter((userPizza: any) => userPizza.pizzQuantity > 0);
-    const beverage = userMenuChoice[`beverage`].filter((userBeverage: any) => userBeverage.bevQuantity > 0);
-    const dessert = userMenuChoice[`dessert`].filter((userDessert: any) => userDessert.dessQuantity > 0);
+    const check = Object.getOwnPropertyNames(userMenuChoice);
 
-    // Create instance of MenuPizza
-    const menuPizza = new MenuPizza(
-      pizza[0],
-      beverage[0],
-      dessert[0],
-      userMenuChoice[`pizzaMenuPrice`].pizzaMenuPrice,
-      1
-    );
-    this.getMenuPizza.emit(menuPizza); // Emit object to basketComponent
+    if (check[0] === 'pizza') {
+      const pizza = userMenuChoice[`pizza`].filter((userPizza: any) => userPizza.pizzQuantity > 0);
+      const beverage = userMenuChoice[`beverage`].filter((userBeverage: any) => userBeverage.bevQuantity > 0);
+      const dessert = userMenuChoice[`dessert`].filter((userDessert: any) => userDessert.dessQuantity > 0);
+
+      // Create instance of MenuPizza
+      const menuPizza = new MenuPizza(
+        pizza[0],
+        beverage[0],
+        dessert[0],
+        userMenuChoice.pizzaMenuPrice,
+        1
+      );
+      this.getMenuPizza.emit(menuPizza); // Emit object to basketComponent
+
+    } else if (check[0] === 'salad') {
+      const beverage = userMenuChoice[`beverage`].filter((userBeverage: any) => userBeverage.bevQuantity > 0);
+      const dessert = userMenuChoice[`dessert`].filter((userDessert: any) => userDessert.dessQuantity > 0);
+
+      // Create instance of MenuSalad
+      const menuSalad = new MenuSalad(
+        userMenuChoice.salad,
+        beverage[0],
+        dessert[0],
+        userMenuChoice.saladMenuPrice + userMenuChoice.salad.orderSaladsTotalPrice,
+        1
+      );
+      this.getMenuSalad.emit(menuSalad); // Emit object to basketComponent
+    }
   }
 
   createOrderMenuSessionStorage(object: any) {
-    return new MenuPizza(
-      object.pizza,
-      object.beverage,
-      object.dessert,
-      object.menuPizzPrice,
-      object.menuPizzQuantity
-    );
+    const check = Object.getOwnPropertyNames(object);
+
+    if (check[0] === 'pizza') {
+      return new MenuPizza(
+        object.pizza,
+        object.beverage,
+        object.dessert,
+        object.menuPizzPrice,
+        object.menuPizzQuantity
+      );
+
+    } else if (check[0] === 'salad') {
+      return new MenuSalad(
+        object.salad,
+        object.beverage,
+        object.dessert,
+        object.menuSaladPrice,
+        object.menuSaladQuantity
+      );
+    }
   }
 
   // Get choice of user in menu

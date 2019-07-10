@@ -54,7 +54,7 @@
             <div class="quantityButton">
               <button
                 class="button is-outlined is-mobile"
-                name="add-pizzas-quantity"
+                name="remove-pizzas-quantity"
                 type="button"
                 (click)="quantitySelect('-', i, pizzas.value.pizzQuantity, pizzas.value)"
               >
@@ -88,7 +88,7 @@
 
             <button
               class="button is-rounded is-outlined is-mobile is-small"
-              name="add-pizzas-quantity"
+              name="remove-salad-quantity"
               type="button"
               (click)="quantitySelect('-', i, salads.value.saladsComposedQuantity, salads.value)">
                 -
@@ -102,7 +102,7 @@
 
             <button
               class="button is-rounded is-outlined is-mobile is-small"
-              name="add-pizzas-quantity"
+              name="add-salad-quantity"
               type="button"
               (click)="quantitySelect('+', i, salads.value.saladsComposedQuantity, salads.value)">
                 +
@@ -151,7 +151,7 @@
             <div class="quantityButton">
               <button
                 class="button is-outlined is-mobile"
-                name="add-beverage-quantity"
+                name="remove-beverage-quantity"
                 type="button"
                 (click)="quantitySelect('-', i, beverages.value.bevQuantity, beverages.value)"
               >
@@ -190,7 +190,7 @@
             <div class="quantityButton">
               <button
                 class="button is-outlined is-mobile"
-                name="add-dessert-quantity"
+                name="remove-dessert-quantity"
                 type="button"
                 (click)="quantitySelect('-', i, desserts.value.dessQuantity, desserts.value)"
               >
@@ -227,7 +227,7 @@
               <div class="quantityButton">
                 <button
                   class="button is-outlined is-mobile"
-                  name="add-menuPizz-quantity"
+                  name="remove-menuPizz-quantity"
                   type="button"
                   (click)="quantitySelect('-', i, menuPizzas.value.menuPizzQuantity, menuPizzas.value)"
                 >
@@ -243,7 +243,7 @@
 
                 <button
                   class="button is-outlined is-mobile"
-                  name="add-desserts-quantity"
+                  name="add-menuPizz-quantity"
                   type="button"
                   (click)="quantitySelect('+', i, menuPizzas.value.menuPizzQuantity, menuPizzas.value)"
                 >
@@ -258,6 +258,71 @@
               <p>{{ menuPizzas.value.dessert.dessName }}</p>
           </div>
         </div>
+
+        <div formArrayName="menuSalad">
+            <div
+              [formGroupName]="i"
+              *ngFor="let menuSalads of menuSalad.controls; let i = index">
+                <label for="menuSaladName-{{i}}">
+                  Votre menu salade {{ menuSalads.value.menuSaladPrice }} EUR
+                </label>
+
+                <div class="quantityButton">
+                  <button
+                    class="button is-outlined is-mobile"
+                    name="remove-menuSalad-quantity"
+                    type="button"
+                    (click)="quantitySelect('-', i, menuSalads.value.menuSaladQuantity, menuSalads.value)"
+                  >
+                      -
+                  </button>
+
+                  <input
+                    type="text"
+                    name="menuSaladQuantity-{{i}}"
+                    formControlName="menuSaladQuantity"
+                    value="{{ menuSalads.value.menuSaladQuantity }}"
+                  />
+
+                  <button
+                    class="button is-outlined is-mobile"
+                    name="add-menuSalad-quantity"
+                    type="button"
+                    (click)="quantitySelect('+', i, menuSalads.value.menuSaladQuantity, menuSalads.value)"
+                  >
+                      +
+                  </button>
+                </div>
+
+                <p>Détail de votre salade</p>
+
+                <p>Vos bases</p>
+
+                <p *ngFor="let bases of menuSalads.value.salad.orderSaladsBases">
+                  {{ bases.saladsBasesName }}
+                </p>
+
+                <p>Vos ingrédients</p>
+
+                <p *ngFor="let ingredients of menuSalads.value.salad.orderSaladsIngredients">
+                  {{ ingredients.saladsIngredientsName }}
+                </p>
+
+                <p>Vos toppings</p>
+
+                <p *ngFor="let toppings of menuSalads.value.salad.orderSaladsToppings">
+                  {{ toppings.saladsToppingsName }}
+                </p>
+
+                <p>Votre sauce</p>
+
+                <p>{{ menuSalads.value.salad.orderSaladsSauces.saladsSaucesName }}</p>
+
+                <p>{{ menuSalads.value.beverage.bevName }}</p>
+
+                <p>{{ menuSalads.value.dessert.dessName }}</p>
+            </div>
+          </div>
 
         <button type="submit">Validez votre panier</button>
 

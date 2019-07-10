@@ -216,7 +216,44 @@
           </div>
         </div>
 
-        <button type="submit" [disabled]="!enableSubmit">Validez votre panier</button>
+        <div formArrayName="menuPizza">
+          <div
+            [formGroupName]="i"
+            *ngFor="let menuPizzas of menuPizza.controls; let i = index">
+              <label for="menuPizzaName-{{i}}">
+                Votre menu pizza {{ menuPizzas.value.menuPizzPrice }} EUR
+              </label>
+
+              <div class="quantityButton">
+                <button
+                  class="button is-outlined is-mobile"
+                  name="add-menuPizz-quantity"
+                  type="button"
+                  (click)="quantitySelect('-', i, menuPizzas.value.menuPizzQuantity, menuPizzas.value)"
+                >
+                    -
+                </button>
+
+                <input
+                  type="text"
+                  name="menuPizzQuantity-{{i}}"
+                  formControlName="menuPizzQuantity"
+                  value="{{ menuPizzas.value.menuPizzQuantity }}"
+                />
+
+                <button
+                  class="button is-outlined is-mobile"
+                  name="add-desserts-quantity"
+                  type="button"
+                  (click)="quantitySelect('+', i, menuPizzas.value.menuPizzQuantity, menuPizzas.value)"
+                >
+                    +
+                </button>
+              </div>
+          </div>
+        </div>
+
+        <button type="submit">Validez votre panier</button>
 
         <button type="button" (click)="resetBasket()">Videz votre panier</button>
       </form>

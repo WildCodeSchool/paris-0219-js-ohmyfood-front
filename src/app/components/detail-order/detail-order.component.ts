@@ -127,5 +127,7 @@ export class DetailOrderComponent implements OnInit {
       finalOrderSubscription.unsubscribe();
     });
   }
+
+  //html gestion
 }
 

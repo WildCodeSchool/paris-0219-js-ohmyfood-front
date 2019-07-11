@@ -5,7 +5,7 @@
     </h1>
   </a>
 
-  <form [formGroup]="pizzaMenuForm" (ngSubmit)="menuPizza.valid && onSubmit()" #menuPizza="ngForm">
+  <form [formGroup]="pizzaMenuForm" (ngSubmit)="onSubmit()" #menuPizza="ngForm">
     <div formArrayName="pizza">
         <h5>Cliquez-ici pour découvrir nos pizzas</h5>
       <div [formGroupName]="i"
@@ -69,7 +69,7 @@
 
     <h5>Prix du menu</h5>
 
-    <p>{{ pizzaMenuForm.value.pizzaMenuPrice.pizzaMenuPrice }} EUR TTC</p>
+    <p>{{ pizzaMenuForm.value.pizzaMenuPrice }} EUR TTC</p>
 
     <p *ngIf="menuPizza.submitted && menuPizza.errors">
       {{ pizzaMenuForm.errors['notInTime'] }}

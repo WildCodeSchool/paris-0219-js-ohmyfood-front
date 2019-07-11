@@ -55,9 +55,9 @@ export class MenuPizzaFormComponent implements OnInit {
     // Get Menu Price
     const menuSubscription = this.menuPrices.getMenuPrices()
     .subscribe((menuPrice: any) => {
-      this.pizzaMenuForm.controls.pizzaMenuPrice.patchValue({
-        pizzaMenuPrice: menuPrice[0].menuPizzPrice.toFixed(2)
-      });
+      this.pizzaMenuForm.controls.pizzaMenuPrice.patchValue(
+        menuPrice[0].menuPizzPrice.toFixed(2)
+      );
       menuSubscription.unsubscribe();
     });
 

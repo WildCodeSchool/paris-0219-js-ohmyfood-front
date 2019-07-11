@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { SaladIngredientsService } from 'src/app/services/salad-ingredients.service';
 import { SaladsDatasService } from 'src/app/services/salads-datas.service';
-import { ValueConverter } from '@angular/compiler/src/render3/view/template';
 
 @Component({
   selector: 'app-salad-ingredients-form-admin',

@@ -9,7 +9,7 @@ constructor(
   public orderSaladsIngredients: Array<SaladsIngredients>,
   public orderSaladsToppings: Array<SaladsToppings>,
   public orderSaladsSauces: SaladsSauces,
-  public orderSaladsTotalPrice: number,
+  public orderSaladsTotalPrice: string,
   public orderSaladsQuantity: number,
   ) {}
 }

@@ -52,7 +52,7 @@ export class MenuPricesDataService {
         userMenuChoice.salad,
         beverage[0],
         dessert[0],
-        userMenuChoice.saladMenuPrice + userMenuChoice.salad.orderSaladsTotalPrice,
+        userMenuChoice.saladMenuTotalPrice,
         1
       );
       this.getMenuSalad.emit(menuSalad); // Emit object to basketComponent

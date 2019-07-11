@@ -107,8 +107,8 @@ export class BasketComponent implements OnInit {
     }
 
     for (const menuSalads of storageMenuSalad) {
-      const menuSalasComposed = this.menuPrice.createOrderMenuSessionStorage(menuSalads);
-      menuSalad.push(this.createForm.createOrderForm(menuSalasComposed));
+      const menuSaladComposed = this.menuPrice.createOrderMenuSessionStorage(menuSalads);
+      menuSalad.push(this.createForm.createOrderForm(menuSaladComposed));
     }
 
     // Sort form array to avoid duplicate
@@ -135,7 +135,6 @@ export class BasketComponent implements OnInit {
         }
       }
     }
-
     this.totalBasket();
 
     // creation of formArray pizzas
@@ -439,33 +438,33 @@ export class BasketComponent implements OnInit {
     this.totalArray = [];
     this.total = 0;
 
+
     const reducer = (accumulator: number, currentValue: number) => accumulator + currentValue; // Method to calculate max of an array
 
     // Update array of total price with all values from finalOrderForm
     for (const pizza of this.pizza.value) {
-      this.totalArray.push(pizza.pizzPriceTotal);
+      this.totalArray.push(+pizza.pizzPriceTotal);
     }
 
     for (const beverage of this.beverage.value) {
-      this.totalArray.push(beverage.bevPriceTotal);
+      this.totalArray.push(+beverage.bevPriceTotal);
     }
 
     for (const dessert of this.dessert.value) {
-      this.totalArray.push(dessert.dessPriceTotal);
+      this.totalArray.push(+dessert.dessPriceTotal);
     }
 
     for (const salad of this.salad.value) {
-      this.totalArray.push(salad.saladsComposedTotalPrice);
+      this.totalArray.push(+salad.saladsComposedTotalPrice);
     }
 
     for (const menuPizz of this.menuPizza.value) {
-      this.totalArray.push(menuPizz.menuPizzPrice);
+      this.totalArray.push(+menuPizz.menuPizzPrice);
     }
 
     for (const menuSaladChoice of this.menuSalad.value) {
-      this.totalArray.push(menuSaladChoice.menuSaladPrice);
+      this.totalArray.push(+menuSaladChoice.menuSaladPrice);
     }
-
     this.totalArray.length === 0 ? this.total = 0 : this.total = this.totalArray.reduce(reducer); // Total price
   }
 }

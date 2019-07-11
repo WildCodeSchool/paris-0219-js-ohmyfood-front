@@ -30,6 +30,10 @@ import { OnlyLoggedInUsersGuardService } from './services/only-logged-in-users-g
 import { MenuPageComponent } from './pages/menu-page/menu-page.component';
 import { MenuPizzaFormComponent } from './components/menu-pizza-form/menu-pizza-form.component';
 import { DessertsFormAdminComponent } from './components/desserts-form-admin/desserts-form-admin.component';
+import { SaladToppingsFormAdminComponent } from './components/salad-toppings-form-admin/salad-toppings-form-admin.component';
+import { SaladIngredientsFormAdminComponent } from './components/salad-ingredients-form-admin/salad-ingredients-form-admin.component';
+import { SaladBaseFormAdminComponent } from './components/salad-base-form-admin/salad-base-form-admin.component';
+import { SaladSaucesFormAdminComponent } from './components/salad-sauces-form-admin/salad-sauces-form-admin.component';
 import { DetailOrderPageComponent } from './pages/detail-order-page/detail-order-page.component';
 import { DetailOrderComponent } from './components/detail-order/detail-order.component';
 import { CreateAccountPageComponent } from './pages/authent/create-account-page/create-account-page.component';
@@ -61,6 +65,10 @@ import { UserAccountComponent } from './components/user-account/user-account.com
     MenuPageComponent,
     MenuPizzaFormComponent,
     DessertsFormAdminComponent,
+    SaladToppingsFormAdminComponent,
+    SaladIngredientsFormAdminComponent,
+    SaladBaseFormAdminComponent,
+    SaladSaucesFormAdminComponent,
     DetailOrderPageComponent,
     DetailOrderComponent,
     CreateAccountPageComponent,

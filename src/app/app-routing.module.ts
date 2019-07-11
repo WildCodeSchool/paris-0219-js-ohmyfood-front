@@ -6,10 +6,11 @@ import { HomeOrderPageComponent } from './pages/home-order-page/home-order-page.
 import { AdminPagesComponent } from './pages/admin-pages/admin-pages.component';
 import { AuthClientPageComponent } from './pages/authent/auth-client-page/auth-client-page.component';
 import { SaladPageComponent } from './pages/salad-page/salad-page.component';
-import { AuthentCreateComponent } from './components/authent/authent-create/authent-create.component';
 import { OnlyLoggedInUsersGuardService } from './services/only-logged-in-users-guard.service';
 import { MenuPageComponent } from './pages/menu-page/menu-page.component';
 import { DetailOrderPageComponent } from './pages/detail-order-page/detail-order-page.component';
+import { CreateAccountPageComponent } from './pages/authent/create-account-page/create-account-page.component';
+import { UserAccountPageComponent } from './pages/user-account-page/user-account-page.component';
 
 const routes: Routes = [
   {
@@ -36,8 +37,8 @@ const routes: Routes = [
     component: AuthClientPageComponent
   },
   {
-    path: 'createClientPage',
-    component: AuthentCreateComponent
+    path: 'createAccountPage',
+    component: CreateAccountPageComponent
   },
   {
     path: 'pizzaPage',
@@ -57,6 +58,11 @@ const routes: Routes = [
   {
     path: 'detailOrderPage',
     component: DetailOrderPageComponent,
+    canActivate: [OnlyLoggedInUsersGuardService]
+  },
+  {
+    path: 'userAccountPage',
+    component: UserAccountPageComponent, 
     canActivate: [OnlyLoggedInUsersGuardService]
   }
 ];

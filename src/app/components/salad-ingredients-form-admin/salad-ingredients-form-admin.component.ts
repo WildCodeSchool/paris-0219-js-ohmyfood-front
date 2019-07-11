@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { SaladIngredientsService } from 'src/app/services/salad-ingredients.service';
+import { SaladsDatasService } from 'src/app/services/salads-datas.service';
+import { ValueConverter } from '@angular/compiler/src/render3/view/template';
 
 @Component({
   selector: 'app-salad-ingredients-form-admin',
@@ -13,15 +15,21 @@ export class SaladIngredientsFormAdminComponent implements OnInit {
   formCheck: FormGroup;
   regexPrice = /[0-9{1,3}]+[.]+[0-9]{2}/gm;
   ingredientFormObject;
+  ingredientDataObject;
   ingredientFormAdd: FormGroup;
   ingredientFormPut: FormGroup;
   ingredientFormDel: FormGroup;
+  tabStr = [];
   valueAction = 'Ajouter';
 
-  constructor(private saladIngredientService: SaladIngredientsService, private fb: FormBuilder) { }
+  constructor(private saladIngredientService: SaladIngredientsService,private saladsDataService: SaladsDatasService, private fb: FormBuilder) { }
 
   ngOnInit() {
     this.initForm();
+    const getIngredientObs = this.saladsDataService.addSaladsIngredients().subscribe(data => {
+      this.ingredientDataObject = data;
+      getIngredientObs.unsubscribe();
+    })
   }
 
   // convenience getter for easy access to form fields
@@ -42,6 +50,7 @@ export class SaladIngredientsFormAdminComponent implements OnInit {
     });
     this.ingredientFormPut = this.fb.group({
       ingredientName: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(45)]],
+      ingredientNewName: [''],
       ingredientPriceHt: ['', [Validators.required, Validators.pattern(this.regexPrice)]]
     });
     this.ingredientFormDel = this.fb.group({
@@ -52,12 +61,16 @@ export class SaladIngredientsFormAdminComponent implements OnInit {
   onSubmitAddForm() {
     if (this.ingredientFormAdd.valid) {
       this.saladIngredientService.ingredientFormObject = {
-        ingName: this.ingredientFormAdd.value.beverageName,
+        ingName: this.toJadenCase(this.ingredientFormAdd.value.beverageName),
         ingPriceHt: parseFloat(this.ingredientFormAdd.value.saladsIngredientsPriceHt),
         idTax: 1
       };
       if (confirm(`Êtes-vous certain d'ajouter l' ingredient ${this.ingredientFormAdd.value.saladsIngredientsName} ?`)) {
         const addIngredientType = this.saladIngredientService.addIngredientType().subscribe(_ => {
+          const getIngredientObs = this.saladsDataService.addSaladsIngredients().subscribe(data => {
+            this.ingredientDataObject = data;
+            getIngredientObs.unsubscribe();
+          });
           this.ingredientFormAdd.reset();
           addIngredientType.unsubscribe();
         });
@@ -68,12 +81,21 @@ export class SaladIngredientsFormAdminComponent implements OnInit {
   onSubmitPutForm() {
     if (this.ingredientFormPut.valid) {
       this.saladIngredientService.ingredientFormObject = {
-        ingName: this.ingredientFormPut.value.beverageName,
-        ingPriceHt: parseFloat(this.ingredientFormPut.value.saladsIngredientsPriceHt),
+        ingName: this.toJadenCase(this.ingredientFormPut.value.beverageName),
         idTax: 1
       };
+      if (this.ingredientFormPut.value.ingredientNewName !== '') {
+        this.saladIngredientService.ingredientFormObject.saladsIngredientName += '|' + this.toJadenCase(this.ingredientFormPut.value.ingredientNewName)
+      }
+      if (this.ingredientFormPut.value.ingredientPriceHt !== '') {
+        this.saladIngredientService.ingredientFormObject.ingredientPriceHt = parseFloat(this.ingredientFormPut.value.ingredientPriceHt)
+      }
       if (confirm(`Êtes-vous certain de modifier l' ingredient ${this.ingredientFormPut.value.saladsIngredientName} ?`)) {
         const putIngredientType = this.saladIngredientService.putIngredientType().subscribe(_ => {
+          const getIngredientObs = this.saladsDataService.addSaladsIngredients().subscribe(data => {
+            this.ingredientDataObject = data;
+            getIngredientObs.unsubscribe();
+          });
           this.ingredientFormPut.reset();
           putIngredientType.unsubscribe();
         });
@@ -84,14 +106,24 @@ export class SaladIngredientsFormAdminComponent implements OnInit {
   onSubmitDelForm() {
     if (this.ingredientFormDel.valid) {
       this.saladIngredientService.ingredientFormObject = {
-        ingName: this.ingredientFormDel.value.Name
+        ingName: this.toJadenCase(this.ingredientFormDel.value.Name)
       };
       if (confirm(`Êtes-vous certain de supprimer l' ingredient ${this.ingredientFormDel.value.saladsIngredientsName} ?`)) {
         const delIngredientType = this.saladIngredientService.delIngredientType().subscribe(_ => {
+          const getIngredientObs = this.saladsDataService.addSaladsIngredients().subscribe(data => {
+            this.ingredientDataObject = data;
+            getIngredientObs.unsubscribe();
+          });
           this.ingredientFormDel.reset();
           delIngredientType.unsubscribe();
         });
       }
     }
+  }
+
+  toJadenCase(strin) {
+    this.tabStr = strin.split(' ');
+    this.tabStr = this.tabStr.map(word => word.charAt(0).toUpperCase() + word.slice(1));
+    return this.tabStr.join(' ');
   }
 }

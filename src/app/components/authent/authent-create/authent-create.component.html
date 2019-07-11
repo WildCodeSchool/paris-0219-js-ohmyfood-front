@@ -121,13 +121,13 @@
     </label>
     <div *ngIf="fC.address1.invalid && (fC.address1.dirty || fC.address1.touched)">
       <div *ngIf="fC.address1.errors.required">
-        <p class="invalidText">*Votre nom est requis</p>
+        <p class="invalidText">*Votre adresse est requise</p>
       </div>
       <div *ngIf="fC.address1.errors.minlength">
-        <p class="invalidText">*Votre nom doit contenir au moins 4 caractères</p>
+        <p class="invalidText">*Votre adresse doit contenir au moins 4 caractères</p>
       </div>
       <div *ngIf="fC.address1.errors.maxlength">
-        <p class="invalidText">*Votre nom ne doit pas dépasser les 45 caractères</p>
+        <p class="invalidText">*Votre adresse ne doit pas dépasser les 45 caractères</p>
       </div>
     </div>
     <label>
@@ -140,14 +140,11 @@
       >
     </label>
     <div *ngIf="fC.address2.invalid && (fC.address2.dirty || fC.address2.touched)">
-      <div *ngIf="fC.address2.errors.required">
-        <p class="invalidText">*Votre prénom est requis</p>
-      </div>
       <div *ngIf="fC.address2.errors.minlength">
-        <p class="invalidText">*Votre prénom doit contenir au moins 4 caractères</p>
+        <p class="invalidText">*Votre adresse doit contenir au moins 4 caractères</p>
       </div>
       <div *ngIf="fC.address2.errors.maxlength">
-        <p class="invalidText">*Votre prénom ne doit pas dépasser les 45 caractères</p>
+        <p class="invalidText">*Votre adresse ne doit pas dépasser les 45 caractères</p>
       </div>
     </div>
     <label>
@@ -161,13 +158,13 @@
     </label>
     <div *ngIf="fC.zipcode.invalid && (fC.zipcode.dirty || fC.zipcode.touched)">
       <div *ngIf="fC.zipcode.errors.required">
-        <p class="invalidText">*Votre zipcode est requis</p>
+        <p class="invalidText">*Votre code postal est requis</p>
       </div>
       <div *ngIf="fC.zipcode.errors.pattern">
-        <p class="invalidText">*Votre e-mail doit être de la forme xxx@xxx.xxx</p>
+        <p class="invalidText">*Votre code postal doit être sous la forme XXXXX</p>
       </div>
       <div *ngIf="fC.zipcode.errors.minlength">
-        <p class="invalidText">*Votre e-mail doit contenir au moins 4 caractères</p>
+        <p class="invalidText">*Votre code postal doit contenir 5 caractères</p>
       </div>
     </div>
     <label>
@@ -181,16 +178,13 @@
     </label>
     <div *ngIf="fC.city.invalid && (fC.city.dirty || fC.city.touched)">
       <div *ngIf="fC.city.errors.required">
-        <p class="invalidText">*Votre prénom est requis</p>
+        <p class="invalidText">*Votre ville est requise</p>
       </div>
       <div *ngIf="fC.city.errors.minlength">
-        <p class="invalidText">*Votre télécity doit se composer de 10 chiffres</p>
+        <p class="invalidText">*Votre ville doit au moins comporter 2 caractères</p>
       </div>
       <div *ngIf="fC.city.errors.maxlength">
-        <p class="invalidText">*Votre télécity doit se composer de 10 chiffres</p>
-      </div>
-      <div *ngIf="fC.city.errors.pattern">
-        <p class="invalidText">*Votre télécity ne doit comporter que des chiffres</p>
+        <p class="invalidText">*Votre ville ne doit pas dépasser les 255 caractères</p>
       </div>
     </div>
     <label>
@@ -204,15 +198,16 @@
     </label>
     <div *ngIf="fC.userFacturation.invalid && (fC.userFacturation.dirty || fC.userFacturation.touched)">
       <div *ngIf="fC.userFacturation.errors.required">
-        <p class="invalidText">*Votre mot de passe est requis</p>
+        <p class="invalidText">*Votre adresse de facturation est requise</p>
       </div>
       <div *ngIf="fC.userFacturation.errors.minlength">
-        <p class="invalidText">*Votre mot de passe doit au moins se composer de 7 caractères</p>
+        <p class="invalidText">*Votre adresse de facturation doit au moins se composer de 2 caractères</p>
       </div>
       <div *ngIf="fC.userFacturation.errors.maxlength">
-        <p class="invalidText">*Votre mot de passe ne doit pas excéder 15 caractères</p>
+        <p class="invalidText">*Votre adresse de facturation ne doit pas excéder 255 caractères</p>
       </div>
     </div>
-    <button type="submit" (click)="onSubmitCreateClientForm()">Ok</button>
+    <button type="submit" (click)="onSubmitCreateClientForm()">Créer mon compte</button>
+    <p>Un email confirmant votre inscrition vous sera envoyé dès que vous aurez validé ce formulaire à l'adresse mail que vous avez mentionné plus haut. <br> Nous vous remercions de votre confiance et vous souhaitons une très bonne expérience sur cette application.</p>
   </div>
 </form>

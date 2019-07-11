@@ -10,9 +10,136 @@
   </ul>
   <p id="orderStatus">Statut de la commande : {{ orderStatus }}</p>
   <div>
+    <h2>Pizzas</h2>
+    <ul>
+      <li *ngFor="let pizza of finalOrderRecap.pizza; let i = index">
+        {{ pizza.pizzName }} {{ pizza['pizzPriceTotal'] }}EUR 
+        <button
+          class="button is-rounded is-outlined is-mobile is-small"
+          type="button"
+          (click)="quantitySelect('-', i, pizza.pizzQuantity, 'pizza')"
+        >
+          -
+        </button>
 
+        {{ pizza.pizzQuantity }}
+
+        <button
+          class="button is-rounded is-outlined is-mobile is-small"
+          type="button"
+          (click)="quantitySelect('+', i, pizza.pizzQuantity, 'pizza')"
+        >
+          +
+        </button>
+      </li>
+    </ul>
+    <h2>Boissons</h2>
+    <ul>
+      <li *ngFor="let beverage of finalOrderRecap.beverage; let i = index">
+        {{ beverage.bevName }} {{ beverage['bevPriceTotal'] }} EUR 
+        <button
+          class="button is-rounded is-outlined is-mobile is-small"
+          type="button"
+          (click)="quantitySelect('-', i, beverage.bevQuantity, 'beverage')"
+        >
+          -
+        </button>
+
+        {{ beverage.bevQuantity }}
+
+        <button
+          class="button is-rounded is-outlined is-mobile is-small"
+          type="button"
+          (click)="quantitySelect('+', i, beverage.bevQuantity, 'beverage')"
+        >
+          +
+        </button>
+      </li>
+    </ul>
+    <h2>Desserts</h2>
+    <ul>
+      <li *ngFor="let dessert of finalOrderRecap.dessert; let i = index">
+        {{ dessert.dessName }} {{ dessert['dessPriceTotal'] }} EUR 
+        <button
+          class="button is-rounded is-outlined is-mobile is-small"
+          type="button"
+          (click)="quantitySelect('-', i, dessert.dessQuantity, 'dessert')"
+        >
+          -
+        </button>
+
+          {{ dessert.dessQuantity }}
+
+        <button
+          class="button is-rounded is-outlined is-mobile is-small"
+          type="button"
+          (click)="quantitySelect('+', i, dessert.dessQuantity, 'dessert')"
+        >
+          +
+        </button>
+      </li>
+    </ul>
+    <h2>Salades Composées</h2>
+    <ul>
+      <li *ngFor="let saladFor of finalOrderRecap.salad; let i = index">
+        <h3>Salade Composée n°{{i + 1}} {{saladFor['saladsComposedTotalPrice']}} EUR</h3>
+        <button
+          class="button is-rounded is-outlined is-mobile is-small"
+          type="button"
+          (click)="quantitySelect('-', i, saladFor['saladsComposedQuantity'], 'salad')"
+        >
+          -
+        </button>
+          {{saladFor['saladsComposedQuantity']}}
+        <button
+          class="button is-rounded is-outlined is-mobile is-small"
+          type="button"
+          (click)="quantitySelect('+', i, saladFor['saladsComposedQuantity'], 'salad')"
+        >
+          +
+        </button>
+        <ul>
+          <h4>Bases</h4>
+          <li *ngFor="let multiBases of saladFor['multiBases']">
+              {{multiBases.basesName}} {{multiBases.basesPrice}} EUR {{multiBases.multiBasesQuantity}}
+          </li>
+          <h4>Ingrédients</h4>
+          <li *ngFor="let multiIngredients of saladFor['multiIngredients']">
+              {{multiIngredients.ingredientsName}} {{multiIngredients.ingredientsPrice}} EUR {{multiIngredients.multiIngredientsQuantity}}
+          </li>
+          <h4>Toppings</h4>
+          <li *ngFor="let multiToppings of saladFor['multiToppings']">
+              {{multiToppings.toppingsName}} {{multiToppings.toppingsPrice}} EUR {{multiToppings.multiToppingsQuantity}}
+          </li>
+          <h4>Sauces</h4>
+          <li *ngFor="let multiSauces of saladFor['multiSauces']">
+              {{multiSauces.saucesName}}
+          </li>
+        </ul>
+      </li>
+
+    </ul>
   </div>
   <p>
     TOTAL de votre commande {{ total }} EUR
   </p>
+  <form>
+    <label>
+      <p>Adresse de Facturation</p>
+      <input type="text">
+    </label>
+    <label>
+      <p>Adresse de livraison</p>
+      <input type="text">
+    </label>
+    <label>
+      <p>Code postal</p>
+      <input type="text">
+    </label>
+    <label>
+      <p>Commentaires</p>
+      <textarea placeholder="Ex: Régina sans champignons..."></textarea>
+    </label>
+  </form>
+  <button type="submit">CONFIRMER LA COMMANDE</button>
 </div>

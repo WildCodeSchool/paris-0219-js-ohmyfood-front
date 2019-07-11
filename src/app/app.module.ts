@@ -23,7 +23,6 @@ import { AuthClientPageComponent } from './pages/authent/auth-client-page/auth-c
 import { LoginComponent } from './components/authent/login/login.component';
 import { AuthentCreateComponent } from './components/authent/authent-create/authent-create.component';
 import { SaladsFormComponent } from './components/salads-form/salads-form.component';
-import { AuthCreateAddressComponent } from './components/authent/auth-create-address/auth-create-address.component';
 import { HomeOrderComponent } from './components/home-order/home-order.component';
 import { HomeComponent } from './components/home/home.component';
 import { SaladPageComponent } from './pages/salad-page/salad-page.component';
@@ -33,6 +32,9 @@ import { MenuPizzaFormComponent } from './components/menu-pizza-form/menu-pizza-
 import { DessertsFormAdminComponent } from './components/desserts-form-admin/desserts-form-admin.component';
 import { DetailOrderPageComponent } from './pages/detail-order-page/detail-order-page.component';
 import { DetailOrderComponent } from './components/detail-order/detail-order.component';
+import { CreateAccountPageComponent } from './pages/authent/create-account-page/create-account-page.component';
+import { UserAccountPageComponent } from './pages/user-account-page/user-account-page.component';
+import { UserAccountComponent } from './components/user-account/user-account.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +55,6 @@ import { DetailOrderComponent } from './components/detail-order/detail-order.com
     LoginComponent,
     AuthentCreateComponent,
     SaladsFormComponent,
-    AuthCreateAddressComponent,
     HomeOrderComponent,
     HomeComponent,
     SaladPageComponent,
@@ -61,7 +62,10 @@ import { DetailOrderComponent } from './components/detail-order/detail-order.com
     MenuPizzaFormComponent,
     DessertsFormAdminComponent,
     DetailOrderPageComponent,
-    DetailOrderComponent
+    DetailOrderComponent,
+    CreateAccountPageComponent,
+    UserAccountPageComponent,
+    UserAccountComponent
   ],
   imports: [
     AppRoutingModule,

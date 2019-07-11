@@ -1,0 +1,28 @@
+h2, p {
+    text-align: center;
+    display: inline-block;
+    width: 45%;
+}
+
+h2 {
+    display: block;
+    height: 2vh;
+    width: 100%;
+}
+
+li {
+    width: 100%;
+}
+
+ul {
+    width: 80%;
+    margin-left: 10%;
+}
+
+.userAccountList {
+    width: 100vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+}

@@ -171,12 +171,10 @@ export class SaladsDatasService {
       this.userToppings.push(toppings);
     }
 
-    console.log(object.multiSauces);
     this.userSauces = new SaladsSauces(
         object.multiSauces.idSaladsSauces,
         object.multiSauces.saladsSaucesName
       );
-    console.log(this.userSauces);
 
     const saladOrder = new OrderSalads(
       this.userBase,

@@ -117,7 +117,7 @@ export class SaladsDatasService {
       this.userIngredients,
       this.userToppings,
       this.userSauces,
-      finalPrice,
+      finalPrice.toFixed(2),
       1
     );
 

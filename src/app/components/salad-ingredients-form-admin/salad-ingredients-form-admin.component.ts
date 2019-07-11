@@ -60,7 +60,7 @@ export class SaladIngredientsFormAdminComponent implements OnInit {
   onSubmitAddForm() {
     if (this.ingredientFormAdd.valid) {
       this.saladIngredientService.ingredientFormObject = {
-        ingName: this.toJadenCase(this.ingredientFormAdd.value.beverageName),
+        ingName: this.toJadenCase(this.ingredientFormAdd.value.saladsIngredientsName),
         ingPriceHt: parseFloat(this.ingredientFormAdd.value.saladsIngredientsPriceHt),
         idTax: 1
       };

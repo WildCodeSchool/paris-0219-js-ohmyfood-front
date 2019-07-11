@@ -33,6 +33,8 @@ import { DessertsFormAdminComponent } from './components/desserts-form-admin/des
 import { DetailOrderPageComponent } from './pages/detail-order-page/detail-order-page.component';
 import { DetailOrderComponent } from './components/detail-order/detail-order.component';
 import { CreateAccountPageComponent } from './pages/authent/create-account-page/create-account-page.component';
+import { UserAccountPageComponent } from './pages/user-account-page/user-account-page.component';
+import { UserAccountComponent } from './components/user-account/user-account.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +63,9 @@ import { CreateAccountPageComponent } from './pages/authent/create-account-page/
     DessertsFormAdminComponent,
     DetailOrderPageComponent,
     DetailOrderComponent,
-    CreateAccountPageComponent
+    CreateAccountPageComponent,
+    UserAccountPageComponent,
+    UserAccountComponent
   ],
   imports: [
     AppRoutingModule,

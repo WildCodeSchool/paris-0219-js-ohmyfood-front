@@ -10,6 +10,7 @@ import { OnlyLoggedInUsersGuardService } from './services/only-logged-in-users-g
 import { MenuPageComponent } from './pages/menu-page/menu-page.component';
 import { DetailOrderPageComponent } from './pages/detail-order-page/detail-order-page.component';
 import { CreateAccountPageComponent } from './pages/authent/create-account-page/create-account-page.component';
+import { UserAccountPageComponent } from './pages/user-account-page/user-account-page.component';
 
 const routes: Routes = [
   {
@@ -57,6 +58,11 @@ const routes: Routes = [
   {
     path: 'detailOrderPage',
     component: DetailOrderPageComponent,
+    canActivate: [OnlyLoggedInUsersGuardService]
+  },
+  {
+    path: 'userAccountPage',
+    component: UserAccountPageComponent, 
     canActivate: [OnlyLoggedInUsersGuardService]
   }
 ];

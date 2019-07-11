@@ -134,7 +134,7 @@
 
             <h5>Votre sauce</h5>
 
-            <p>{{ salads.value.multiSauces[0].saucesName }}</p>
+            <p>{{ salads.value.multiSauces.saladsSaucesName }}</p>
           </div>
         </div>
 
@@ -299,19 +299,19 @@
                 <p>Vos bases</p>
 
                 <p *ngFor="let bases of menuSalads.value.salad.orderSaladsBases">
-                  {{ bases.saladsBasesName }}
+                  {{ bases.saladsBasesName }}<span>{{ bases.saladsBasesQuantity }}</span>
                 </p>
 
                 <p>Vos ingrédients</p>
 
                 <p *ngFor="let ingredients of menuSalads.value.salad.orderSaladsIngredients">
-                  {{ ingredients.saladsIngredientsName }}
+                  {{ ingredients.saladsIngredientsName }}<span>{{ ingredients.saladsIngredientsQuantity }}</span>
                 </p>
 
                 <p>Vos toppings</p>
 
                 <p *ngFor="let toppings of menuSalads.value.salad.orderSaladsToppings">
-                  {{ toppings.saladsToppingsName }}
+                  {{ toppings.saladsToppingsName }}<span>{{ toppings.saladsToppingsQuantity }}</span>
                 </p>
 
                 <p>Votre sauce</p>

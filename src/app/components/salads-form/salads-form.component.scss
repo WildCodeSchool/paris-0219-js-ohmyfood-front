@@ -164,13 +164,17 @@ input {
     justify-content: space-between;
     width: 55%;
   }
+  .buttonDelete {
+    border-radius: 30px;
+  }
 }
 
 @media (max-width: 900px){
   h1.header {
-    width: 90%;
+    width: 70%;
     font-size: 15px;
     margin: 2% auto;
+    margin-left: 10%;
   }
 
   .saladsTitle {
@@ -180,9 +184,9 @@ input {
     background-position: center, center;
     background-size: 97% 90%, 100% 100%;
     width: 300px;
-    padding: 12px;
-    margin: 35px;
-    height: 72px;
+    padding: 18px;
+    margin-left: 7%;
+    height: 84px;
 
 
     h1 {
@@ -196,7 +200,7 @@ input {
   .contenaire {
     padding: initial;
     margin: 0%;
-    width: 300px;
+    width: 100%;
   }
 
   .head {
@@ -278,7 +282,8 @@ input {
   input[type = checkbox],
   input[type=radio] {
     display: flex;
-    margin: 5px 15px;
+    margin-left: 8%;
+
   }
   a {
     text-decoration: none;
@@ -290,10 +295,10 @@ input {
       text-decoration: none;
     }
   }
-  .submitSections {
-    margin-left: 30px;
-  }
 
+  .submitSections {
+    padding: 3%;
+  }
 
   label {
     align-items: center;
@@ -308,14 +313,20 @@ input {
   }
   .wreck {
     width: 90% !important;
+    margin-left: 13%;
+
     p {
-      margin-right: 30px;
+      margin-right: 10%;
+      padding-top: 10%;
     }
   }
   .ldm {
     width: 90% !important;
+    margin-left: 13%;
     p {
-      margin-right: 50px;
+      margin-right: 8%;
+      padding-top: 10%;
+
     }
   }
   .buttonQuantity {
@@ -324,9 +335,25 @@ input {
     width: 20%;
     margin-left: -23%;
   }
-  .checkbox {
-    margin-left: 24%;
+  .styleWidth {
+    min-width: 87%;
+    margin-left: -20%;
   }
+  .styleBaseWidth {
+    min-width: 87%;
+    margin-left: -10%;
+  }
+
+.styleWidthPrice {
+  white-space: nowrap;
+  width: 35%;
+}
+.styleWidthBasePrice {
+  white-space: nowrap;
+  width: 12%;
+
+}
+
 }
 @media (max-width: 320px) and ( max-height: 600px) {
   h1.header {

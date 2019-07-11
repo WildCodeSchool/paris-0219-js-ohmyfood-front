@@ -126,9 +126,9 @@ section {
     background-position: center, center;
     background-size: 97% 90%, 100% 100%;
     width: 300px;
-    padding: 12px;
-    margin: 35px;
-    height: 72px;
+    padding: 18px;
+    margin-left: 7%;
+    height: 84px;
 
     h1 {
       font-size: 20px;
@@ -144,7 +144,7 @@ section {
 
     .desserts {
       font-size: 1em;
-      width: 55vw;
+      width: 52vw;
 
       span {
         text-align: center;
@@ -155,14 +155,14 @@ section {
     .quantity {
       font-size: 1em;
       text-align: center;
-      width: 20vw;
+      width: 28vw;
     }
   }
 
   .buttonQuantity {
     align-items: center;
     justify-content: center;
-    width: 25vw;
+    width: 31vw;
 
     button {
       height: 3vh;
@@ -185,11 +185,11 @@ section {
       label {
         align-items: center;
         font-size: 0.7em;
-        width: 69%;
+        width: 62%;
 
         span {
           text-align: center;
-          width: 16vw;
+          width: 11vw;
         }
       }
     }
@@ -222,8 +222,9 @@ section {
   background-size: 97% 90%, 100% 100%;
   width: 240px;
   padding: 18px;
-  margin: 35px auto;
+  margin-left: 12%;
   height: 72px;
+
 
 
     h1 {

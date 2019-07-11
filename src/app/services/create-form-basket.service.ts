@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FormBuilder, FormArray } from '@angular/forms';
+import { FormBuilder, FormArray, FormGroup } from '@angular/forms';
 import { OrderPizzas } from '../class/order-pizzas';
 import { OrderBeverage } from '../class/order-beverage';
 import { OrderDessert } from '../class/order-dessert';
@@ -32,7 +32,7 @@ export class CreateFormBasketService {
         multiBases: this.fb.array([]),
         multiIngredients: this.fb.array([]),
         multiToppings: this.fb.array([]),
-        multiSauces: this.fb.array([]),
+        multiSauces: { },
         saladsComposedQuantity: formToCreate.orderSaladsQuantity,
         saladsComposedTotalPrice: formToCreate.orderSaladsTotalPrice
       });
@@ -74,19 +74,17 @@ export class CreateFormBasketService {
         multiToppings.push(topping);
       }
 
-      const multiSauces = saladChoice.get('multiSauces') as FormArray;
-
-      if (formToCreate.orderSaladsSauces) {
-          const sauces = this.fb.group({
+      if (formToCreate.orderSaladsSauces.idSaladsSauces !== null) {
+          saladChoice.controls.multiSauces.patchValue({
             idSaladsSauces: formToCreate.orderSaladsSauces.idSaladsSauces,
-            saucesName: formToCreate.orderSaladsSauces.saladsSaucesName
-          });
-          multiSauces.push(sauces);
+            saladsSaucesName: formToCreate.orderSaladsSauces.saladsSaucesName
+            });
+
         } else {
-          const sauces = this.fb.group({
-            saucesName: 'Pas de sauces'
+          saladChoice.controls.multiSauces.patchValue({
+            idSaladsSauces: null,
+            saladsSaucesName: 'Pas de sauce sélectionnée'
           });
-          multiSauces.push(sauces);
         }
       return saladChoice;
 
@@ -117,15 +115,57 @@ export class CreateFormBasketService {
         menuPizzQuantity: formToCreate.menuPizzQuantity
       });
       return menuPizzChoice;
+
     } else if (formToCreate instanceof MenuSalad) {
-      const menuSaladChoice = this.fb.group({
-        salad: formToCreate.salad,
-        beverage: formToCreate.beverage,
-        dessert: formToCreate.dessert,
-        menuSaladPrice: formToCreate.menuSaladPrice,
-        menuSaladQuantity: formToCreate.menuSaladQuantity
-      });
-      return menuSaladChoice;
+
+      let menuSaladChoice: FormGroup;
+
+      if ((formToCreate.beverage === undefined || formToCreate.beverage === null) &&
+          (formToCreate.dessert !== undefined || formToCreate.dessert !== null)) {
+
+        menuSaladChoice = this.fb.group({
+          salad: formToCreate.salad,
+          beverage: { bevName: 'Pas de boisson sélectionnée' },
+          dessert: formToCreate.dessert,
+          menuSaladPrice: formToCreate.menuSaladPrice,
+          menuSaladQuantity: formToCreate.menuSaladQuantity
+        });
+        return menuSaladChoice;
+
+      } else if ((formToCreate.dessert === undefined || formToCreate.dessert === null) &&
+          (formToCreate.beverage !== undefined || formToCreate.beverage !== null)) {
+
+        menuSaladChoice = this.fb.group({
+          salad: formToCreate.salad,
+          beverage: formToCreate.beverage,
+          dessert: { dessName: 'Pas de dessert sélectionné' },
+          menuSaladPrice: formToCreate.menuSaladPrice,
+          menuSaladQuantity: formToCreate.menuSaladQuantity
+        });
+        return menuSaladChoice;
+
+      } else if ((formToCreate.dessert === undefined || formToCreate.dessert === null) &&
+          (formToCreate.beverage === undefined || formToCreate.beverage === null)) {
+
+        menuSaladChoice = this.fb.group({
+          salad: formToCreate.salad,
+          beverage: { bevName: 'Pas de boisson sélectionnée' },
+          dessert: { dessName: 'Pas de dessert sélectionné' },
+          menuSaladPrice: formToCreate.menuSaladPrice,
+          menuSaladQuantity: formToCreate.menuSaladQuantity
+        });
+        return menuSaladChoice;
+
+      } else {
+        menuSaladChoice = this.fb.group({
+          salad: formToCreate.salad,
+          beverage: formToCreate.beverage,
+          dessert: formToCreate.dessert,
+          menuSaladPrice: formToCreate.menuSaladPrice,
+          menuSaladQuantity: formToCreate.menuSaladQuantity
+        });
+        return menuSaladChoice;
+      }
     }
   }
 

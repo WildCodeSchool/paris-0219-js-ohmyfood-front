@@ -97,14 +97,20 @@ export class SaladsDatasService {
      }
 
     if (formResultKey[3] === 'selectSauces') {
-      formResult.selectSauces.map((sauces: any) => {
+      for (const sauces of formResult.selectSauces) {
         if (sauces.saladsSaucesQuantity) {
           this.userSauces = new SaladsSauces(
             sauces.idSaladsSauces,
-            sauces.saladsSaucesName,
+            sauces.saladsSaucesName
           );
+          break;
         }
-      });
+
+        this.userSauces = new SaladsSauces(
+          null,
+          'Pas de sauce sélectionnée'
+        );
+      }
      }
 
     // To calculate salad composed total price

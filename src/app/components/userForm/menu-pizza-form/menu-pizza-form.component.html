@@ -5,7 +5,7 @@
     </h1>
   </a>
 
-  <form [formGroup]="pizzaMenuForm" (ngSubmit)="onSubmit()" #menuPizza="ngForm">
+  <form [formGroup]="pizzaMenuForm" (ngSubmit)="pizzaMenuForm.valid && onSubmit()" #menuPizza="ngForm">
     <div formArrayName="pizza">
         <h5>Cliquez-ici pour découvrir nos pizzas</h5>
       <div [formGroupName]="i"

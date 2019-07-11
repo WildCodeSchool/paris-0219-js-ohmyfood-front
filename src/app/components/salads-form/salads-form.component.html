@@ -23,11 +23,6 @@
             </a>
 
             <div class="notToggleBase" [ngClass]="{toggleBase: isToggleBase}">
-                <h3 class="desserts">
-                    Nos Desserts<span>Prix</span>
-                  </h3>
-
-                  <h3 class="quantity">Quantités</h3>
               <div formArrayName="selectBase">
                 <div
                   class="formLine"
@@ -36,7 +31,7 @@
                 >
 
                   <label for="selectBase-{{ i }}">
-                    <span class="styleWidth">{{ base.value.saladsBaseName }}</span><span class="styleWidthPrice">{{ base.value.saladsBasePriceTTC }} €</span>
+                    <span class="styleBaseWidth">{{ base.value.saladsBaseName }}</span><span class="styleWidthBasePrice">{{ base.value.saladsBasePriceTTC }} €</span>
                   </label>
 
                   <input

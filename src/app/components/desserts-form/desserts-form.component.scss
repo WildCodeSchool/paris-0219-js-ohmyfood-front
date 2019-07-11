@@ -48,7 +48,7 @@ a {
   label {
     display: flex;
     justify-content: space-between;
-    width: 60%;
+    width: 56%;
   }
 }
 
@@ -113,7 +113,7 @@ section {
 
 .toggle {
   margin: 5vh auto;
-  max-height: 600px;
+  max-height: 1000px;
 }
 
 // Media Queries //
@@ -179,6 +179,8 @@ section {
 
     .formLine {
       align-items: center;
+      justify-content: normal;
+
 
       label {
         align-items: center;
@@ -202,6 +204,7 @@ section {
   }
 
   .submitSection {
+    width: 95%;
 
     .submitButton {
         clear: both;
@@ -219,7 +222,7 @@ section {
   background-size: 97% 90%, 100% 100%;
   width: 240px;
   padding: 18px;
-  margin-left: 13px;
+  margin: 35px auto;
   height: 72px;
 
 
@@ -233,5 +236,76 @@ section {
   h1.header {
     width: 230px;
     font-size: 15px;
+  }
+  .desserts {
+    font-size: 1em;
+    width: 55vw;
+
+    span {
+      text-align: center;
+      width: 23vw;
+    }
+  }
+
+  .quantity {
+    font-size: 1em;
+    text-align: center;
+    width: 20vw;
+  }
+
+
+.buttonQuantity {
+  align-items: center;
+  justify-content: center;
+  width: 25vw;
+
+  button {
+    height: 3vh;
+    padding: 0px 2vw;
+  }
+
+  input {
+    font-size: 0.5em;
+  }
+}
+
+  form {
+    margin: 0 auto;
+
+    .formLine {
+      align-items: center;
+      justify-content: normal;
+
+
+      label {
+        align-items: center;
+        font-size: 0.7em;
+        width: 65%;
+
+        span {
+          display: inline-block;
+          text-align: center;
+          width: 23vw;
+        }
+      }
+    }
+  }
+
+  .notToggle {
+    width: 90vw;
+  }
+
+  section {
+    width: 100vw;
+  }
+
+  .submitSection {
+    width: 95%;
+
+    .submitButton {
+        clear: both;
+        float: right;
+        width: 45vw;
+    }
   }
 }

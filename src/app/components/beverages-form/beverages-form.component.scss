@@ -48,7 +48,7 @@ a {
   label {
     display: flex;
     justify-content: space-between;
-    width: 60%;
+    width: 56%;
   }
 }
 
@@ -127,7 +127,7 @@ section {
     background-size: 97% 90%, 100% 100%;
     width: 300px;
     padding: 12px;
-    margin: 35px;
+    margin: 35px auto;
     height: 72px;
 
     h1 {
@@ -180,6 +180,8 @@ section {
 
     .formLine {
       align-items: center;
+      justify-content: normal;
+
 
       label {
         align-items: center;
@@ -203,6 +205,7 @@ section {
   }
 
   .submitSection {
+    width: 95%;
 
     .submitButton {
         clear: both;
@@ -220,7 +223,7 @@ section {
   background-size: 97% 90%, 100% 100%;
   width: 240px;
   padding: 18px;
-  margin-left: 13px;
+  margin: 35px auto;
   height: 72px;
 
 
@@ -247,7 +250,7 @@ section {
 
       span {
         text-align: center;
-        width: 10vw;
+        width: 23vw;
       }
     }
 
@@ -278,15 +281,18 @@ section {
 
     .formLine {
       align-items: center;
+      justify-content: normal;
+
 
       label {
         align-items: center;
         font-size: 0.7em;
-        width: 69%;
+        width: 65%;
 
         span {
+          display: inline-block;
           text-align: center;
-          width: 16vw;
+          width: 23vw;
         }
       }
     }
@@ -301,6 +307,7 @@ section {
   }
 
   .submitSection {
+    width: 95%;
 
     .submitButton {
         clear: both;

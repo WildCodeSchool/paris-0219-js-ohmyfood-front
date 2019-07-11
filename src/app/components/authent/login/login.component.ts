@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   userRight = 0;
+  userIdLogged;
 
   constructor(
     private fb: FormBuilder,
@@ -37,6 +38,7 @@ export class LoginComponent implements OnInit {
       }
       this.loginService.loginCheck().then(res => {
         const objRes = JSON.parse(res);
+        this.userIdLogged = objRes.userId;
         if (objRes.userRight === 1) {
           this.userRight = 1;
         }

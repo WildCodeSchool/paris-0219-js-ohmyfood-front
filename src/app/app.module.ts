@@ -23,7 +23,6 @@ import { AuthClientPageComponent } from './pages/authent/auth-client-page/auth-c
 import { LoginComponent } from './components/authent/login/login.component';
 import { AuthentCreateComponent } from './components/authent/authent-create/authent-create.component';
 import { SaladsFormComponent } from './components/salads-form/salads-form.component';
-import { AuthCreateAddressComponent } from './components/authent/auth-create-address/auth-create-address.component';
 import { HomeOrderComponent } from './components/home-order/home-order.component';
 import { HomeComponent } from './components/home/home.component';
 import { SaladPageComponent } from './pages/salad-page/salad-page.component';
@@ -54,7 +53,6 @@ import { CreateAccountPageComponent } from './pages/authent/create-account-page/
     LoginComponent,
     AuthentCreateComponent,
     SaladsFormComponent,
-    AuthCreateAddressComponent,
     HomeOrderComponent,
     HomeComponent,
     SaladPageComponent,

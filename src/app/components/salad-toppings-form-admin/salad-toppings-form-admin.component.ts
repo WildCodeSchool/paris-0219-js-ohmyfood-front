@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { SaladToppingsService } from 'src/app/services/salad-toppings.service';
+import { SaladsDatasService } from 'src/app/services/salads-datas.service';
 
 @Component({
   selector: 'app-salad-toppings-form-admin',
@@ -13,15 +14,21 @@ export class SaladToppingsFormAdminComponent implements OnInit {
   formCheck: FormGroup;
   regexPrice = /[0-9{1,3}]+[.]+[0-9]{2}/gm;
   toppingFormObject;
+  toppingDataObject;
   toppingFormAdd: FormGroup;
   toppingFormPut: FormGroup;
   toppingFormDel: FormGroup;
+  tabStr = [];
   toppingAction = 'Ajouter';
 
-  constructor(private saladToppingService: SaladToppingsService, private fb: FormBuilder) { }
+  constructor(private saladToppingService: SaladToppingsService, private saladsDataService: SaladsDatasService, private fb: FormBuilder) { }
 
   ngOnInit() {
     this.initForm();
+    const getToppingObs = this.saladsDataService.addSaladsToppings().subscribe(data => {
+      this.saladsDataService = data;
+      getToppingObs.unsubscribe();
+    });
   }
 
   // convenience getter for easy access to form fields
@@ -42,6 +49,7 @@ export class SaladToppingsFormAdminComponent implements OnInit {
     });
     this.toppingFormPut = this.fb.group({
       toppingName: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(45)]],
+      toppingNewName: [''],
       toppingPriceHt: ['', [Validators.required, Validators.pattern(this.regexPrice)]]
     });
     this.toppingFormDel = this.fb.group({
@@ -52,12 +60,16 @@ export class SaladToppingsFormAdminComponent implements OnInit {
   onSubmitAddForm() {
     if (this.toppingFormAdd.valid) {
       this.saladToppingService.toppingFormObject = {
-        topName: this.toppingFormAdd.value.saladsToppingsName,
+        topName: this.toJadenCase(this.toppingFormAdd.value.saladsToppingsName),
         topPriceHt: parseFloat(this.toppingFormAdd.value.saladsToppingsPriceHt),
         idTax: 1
       };
       if (confirm(`Êtes-vous certain d'ajouter le topping ${this.toppingFormAdd.value.saladsToppingsName} ?`)) {
         const addToppingType = this.saladToppingService.addToppingType().subscribe(_ => {
+          const getToppingObs = this.saladsDataService.addSaladsToppings().subscribe(data => {
+            this.saladsDataService = data;
+            getToppingObs.unsubscribe();
+          });
           this.toppingFormAdd.reset();
           addToppingType.unsubscribe();
         });
@@ -68,12 +80,21 @@ export class SaladToppingsFormAdminComponent implements OnInit {
   onSubmitPutForm() {
     if (this.toppingFormPut.valid) {
       this.saladToppingService.toppingFormObject = {
-        topName: this.toppingFormPut.value.saladsToppingsName,
-        topPriceHt: parseFloat(this.toppingFormPut.value.saladsToppingsPriceHt),
+        topName: this.toJadenCase(this.toppingFormPut.value.saladsToppingsName),
         idTax: 1
       };
+      if (this.toppingFormPut.value.toppingNewName !== '') {
+        this.saladToppingService.toppingFormObject.toppingName += '|' + this.toJadenCase(this.toppingFormPut.value.toppingName)
+      }
+      if (this.toppingFormPut.value.toppingPriceHt !== '') {
+        this.saladToppingService.toppingFormObject.toppingPriceHt = parseFloat(this.toppingFormPut.value.toppingPriceHt)
+      }
       if (confirm(`Êtes-vous certain de modifier le topping ${this.toppingFormPut.value.saladsToppingsName} ?`)) {
         const putToppingType = this.saladToppingService.putToppingType().subscribe(_ => {
+          const getToppingObs = this.saladsDataService.addSaladsToppings().subscribe(data => {
+            this.toppingDataObject = data;
+            getToppingObs.unsubscribe();
+          });
           this.toppingFormPut.reset();
           putToppingType.unsubscribe();
         });
@@ -84,14 +105,24 @@ export class SaladToppingsFormAdminComponent implements OnInit {
   onSubmitDelForm() {
     if (this.toppingFormDel.valid) {
       this.saladToppingService.toppingFormObject = {
-        topName: this.toppingFormDel.value.saladsToppingsName
+        topName: this.toJadenCase(this.toppingFormDel.value.saladsToppingsName)
       };
       if (confirm(`Êtes-vous certain de supprimer le topping ${this.toppingFormDel.value.saladsToppingsName} ?`)) {
         const delToppingType = this.saladToppingService.delToppingType().subscribe(_ => {
+          const getToppingObs = this.saladsDataService.addSaladsToppings().subscribe(data => {
+            this.toppingDataObject = data;
+            getToppingObs.unsubscribe();
+          });
           this.toppingFormDel.reset();
           delToppingType.unsubscribe();
         });
       }
     }
+  }
+
+  toJadenCase(strin) {
+    this.tabStr = strin.split(' ');
+    this.tabStr = this.tabStr.map(word => word.charAt(0).toUpperCase() + word.slice(1));
+    return this.tabStr.join(' ');
   }
 }

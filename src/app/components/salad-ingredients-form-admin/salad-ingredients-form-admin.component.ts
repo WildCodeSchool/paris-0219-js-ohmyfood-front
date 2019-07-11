@@ -21,7 +21,7 @@ export class SaladIngredientsFormAdminComponent implements OnInit {
   tabStr = [];
   valueAction = 'Ajouter';
 
-  constructor(private saladIngredientService: SaladIngredientsService,private saladsDataService: SaladsDatasService, private fb: FormBuilder) { }
+  constructor(private saladIngredientService: SaladIngredientsService, private saladsDataService: SaladsDatasService, private fb: FormBuilder) { }
 
   ngOnInit() {
     this.initForm();

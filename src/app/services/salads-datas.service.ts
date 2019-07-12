@@ -181,7 +181,7 @@ export class SaladsDatasService {
       this.userIngredients,
       this.userToppings,
       this.userSauces,
-      object.saladsComposedTotalPrice,
+      object.saladsComposedPriceTotal,
       object.saladsComposedQuantity
     );
 

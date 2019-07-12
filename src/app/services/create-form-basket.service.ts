@@ -34,7 +34,7 @@ export class CreateFormBasketService {
         multiToppings: this.fb.array([]),
         multiSauces: { },
         saladsComposedQuantity: formToCreate.orderSaladsQuantity,
-        saladsComposedTotalPrice: formToCreate.orderSaladsTotalPrice
+        saladsComposedPriceTotal: formToCreate.orderSaladsPriceTotal
       });
 
       const multiBases = saladChoice.get('multiBases') as FormArray;
@@ -111,7 +111,7 @@ export class CreateFormBasketService {
         pizza: formToCreate.pizza,
         beverage: formToCreate.beverage,
         dessert: formToCreate.dessert,
-        menuPizzPrice: formToCreate.menuPizzPrice,
+        menuPizzPriceTotal: formToCreate.menuPizzPriceTotal,
         menuPizzQuantity: formToCreate.menuPizzQuantity
       });
       return menuPizzChoice;

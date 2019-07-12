@@ -82,12 +82,6 @@ input {
   text-align: center;
 }
 
-input[type=number]::-webkit-inner-spin-button,
-input[type=number]::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
 .notToggle {
   max-height: 0;
   margin: 5vh auto;

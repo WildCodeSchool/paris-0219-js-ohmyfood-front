@@ -188,7 +188,6 @@ export class SaladsFormComponent implements OnInit {
    }
 
    toggleFormSalads($event: any, params: any) {
-     console.log(params);
      $event.preventDefault();
 
      if (params === 'form') {

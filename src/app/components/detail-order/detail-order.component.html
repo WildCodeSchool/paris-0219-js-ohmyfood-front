@@ -13,7 +13,7 @@
     <h2>Pizzas</h2>
     <ul>
       <li *ngFor="let pizza of finalOrderRecap.pizza; let i = index">
-        {{ pizza.pizzName }} {{ pizza['pizzPriceTotal'] }}EUR 
+        {{ pizza.pizzName }} {{ pizza['pizzPriceTotal'] }}EUR
         <button
           class="button is-rounded is-outlined is-mobile is-small"
           type="button"
@@ -36,7 +36,7 @@
     <h2>Boissons</h2>
     <ul>
       <li *ngFor="let beverage of finalOrderRecap.beverage; let i = index">
-        {{ beverage.bevName }} {{ beverage['bevPriceTotal'] }} EUR 
+        {{ beverage.bevName }} {{ beverage['bevPriceTotal'] }} EUR
         <button
           class="button is-rounded is-outlined is-mobile is-small"
           type="button"
@@ -59,7 +59,7 @@
     <h2>Desserts</h2>
     <ul>
       <li *ngFor="let dessert of finalOrderRecap.dessert; let i = index">
-        {{ dessert.dessName }} {{ dessert['dessPriceTotal'] }} EUR 
+        {{ dessert.dessName }} {{ dessert['dessPriceTotal'] }} EUR
         <button
           class="button is-rounded is-outlined is-mobile is-small"
           type="button"
@@ -117,8 +117,50 @@
           </li>
         </ul>
       </li>
-
     </ul>
+
+    <ul>
+      <li *ngFor="let menuPizzas of finalOrderRecap.menuPizza; let i = index">
+        <h3>Menu pizza n°{{ i + 1 }} {{ menuPizzas['menuPizzPrice'] }} EUR</h3>
+
+        <button
+        class="button is-rounded is-outlined is-mobile is-small"
+        type="button"
+        (click)="quantitySelect('-', i, menuPizzas['menuPizzQuantity'], 'menuPizza')"
+      >
+        -
+      </button>
+        {{menuPizzas['menuPizzQuantity']}}
+      <button
+        class="button is-rounded is-outlined is-mobile is-small"
+        type="button"
+        (click)="quantitySelect('+', i, menuPizzas['menuPizzQuantity'], 'menuPizza')"
+      >
+        +
+      </button>
+
+        <ul>
+          <h4>Pizzas</h4>
+
+          <li>
+            {{ menuPizzas['pizza']['pizzName'] }} {{ menuPizzas['pizza']['pizzPriceTTC'] }} EUR {{ menuPizzas['pizza']['pizzQuantity'] }}
+          </li>
+
+          <h4>Boisons</h4>
+
+          <li>
+            {{ menuPizzas['beverage']['bevName'] }} {{ menuPizzas['beverage']['bevPriceTTC'] }} EUR {{ menuPizzas['beverage']['bevQuantity'] }}
+          </li>
+
+          <h4>Desserts</h4>
+
+          <li>
+            {{ menuPizzas['dessert']['dessName'] }} {{ menuPizzas['dessert']['dessPriceTTC'] }} EUR {{ menuPizzas['dessert']['dessQuantity'] }}
+          </li>
+        </ul>
+      </li>
+    </ul>
+
   </div>
   <p>
     TOTAL de votre commande {{ total }} EUR

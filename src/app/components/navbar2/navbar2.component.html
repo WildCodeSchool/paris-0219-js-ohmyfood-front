@@ -12,9 +12,9 @@
   <div class="column is-4">
     <span>Bienvenue {{userInfoObject['lastname']}} </span>
     <span>{{userInfoObject['firstname']}}</span><br>
-    <button 
-      class="button" 
-      (click)="logOut()" 
+    <button
+      class="button"
+      (click)="logOut()"
       *ngIf="userInfoObject['lastname'] !== ''"
     >
       DECONNEXION
@@ -22,13 +22,13 @@
     <button
       class="button"
       *ngIf="userInfoObject['lastname'] === ''"
-      [routerLink]="['/authClientPage']" 
+      [routerLink]="['/authClientPage']"
       routerLinkActive="router-link-active"
     >
       CONNEXION
     </button>
-    <p 
-      id='order' 
+    <p
+      id='order'
       (click)="checkIfUserLogged()"
     >
       COMMANDER
@@ -48,7 +48,6 @@
     <li><a href="#">Accueil</a></li>
     <li><a href="#">Menu</a></li>
     <li><a href="#">Livraison</a></li>
-    <li><a href="#">Avis</a></li>
     <li><a href="#">Contact</a></li>
   </ul>
 </div>

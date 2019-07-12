@@ -9,7 +9,7 @@ export class OrderSalads {
     public orderSaladsIngredients: Array<SaladsIngredients>,
     public orderSaladsToppings: Array<SaladsToppings>,
     public orderSaladsSauces: SaladsSauces,
-    public orderSaladsTotalPrice: string,
+    public orderSaladsPriceTotal: string,
     public orderSaladsQuantity: number,
   ) {}
 }

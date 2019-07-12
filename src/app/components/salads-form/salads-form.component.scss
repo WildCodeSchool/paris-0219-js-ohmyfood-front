@@ -1,37 +1,70 @@
 @import '../../../styles/colors.scss';
 
-a {
-  align-items: center;
-  border: solid 1px $green;
-  border-radius: 50px;
-  color: inherit;
+
+
+h1.header {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 20px;
+  border: 1px solid green;
+  border-radius: 30px;
+  padding: 1%;
+}
+.base {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  margin-bottom: 2vh;
-  text-decoration: none;
+  justify-content: space-between;
+  font-size: 1.5em;
+  width: 30vw;
 
-  h1 {
-    font-size: 2em;
+  span {
     text-align: center;
+    width: 6vw;
   }
+}
+.head {
+  text-align: center;
+  display: flex;
 
-  p {
-    font-size: 1em;
-    font-style: normal;
+  .ldm {
+    width: 40%;
+    margin: 0 auto;
   }
+}
+.sousContain {
+  display: flex;
+  text-align: center;
 
-  &:hover {
-    box-shadow: 0 1px 1px  rgb(68, 160, 68);
-    color: inherit;
+  .wreck {
+    width: 40%;
+    margin: 0 auto;
+  }
+}
+/* Main part of the ribbon */
+a {
+  text-decoration: none;
+  color: black;
+
+  &:hover{
+    color: black;
     cursor: pointer;
     text-decoration: none;
   }
 }
+.saladsTitle {
+  text-align: center;
+  background-image: url('../../../assets/img/RibbonOhMyFoodEmpty.svg'),  url('../../../assets/img/RibbonOhMyFoodNormal.svg');
+  background-repeat: no-repeat, no-repeat;
+  background-position: center, center;
+  background-size: 97% 90%, 100% 100%;
+  width: 571px;
+  padding: 29px;
+  margin: auto;
+}
+
 .button {
   border: solid 1px $green;
   margin: 0 auto;
   transition-duration: 500ms;
+  text-align: center;
 
   &:hover {
     background: $green;
@@ -39,8 +72,458 @@ a {
   }
 }
 
-input[type=number]::-webkit-inner-spin-button,
-input[type=number]::-webkit-outer-spin-button {
+.notToggle {
+  max-height: 0;
+  overflow: hidden;
+  padding: 0;
+  transition-duration: 1000ms;
+}
+
+.toggle {
+  margin: 5vh auto;
+  max-height: 2500px;
+}
+
+.notToggleBase {
+  max-height: 0;
+  overflow: hidden;
+  padding: 0;
+  transition-duration: 1000ms;
+}
+
+.toggleBase {
+  margin: 6vh auto;
+  max-height: 500px;
+}
+
+.notToggleIngredients {
+  max-height: 0;
+  overflow: hidden;
+  padding: 0;
+  transition-duration: 1000ms;
+}
+
+.toggleIngredients {
+  margin: 6vh auto;
+  max-height: 1700px;
+}
+.notToggleToppings{
+  max-height: 0;
+  overflow: hidden;
+  padding: 0;
+  transition-duration: 1000ms;
+}
+
+.toggleToppings {
+  margin: 6vh auto;
+  max-height: 1500px;
+}
+.notToggleSauce {
+  max-height: 0;
+  overflow: hidden;
+  padding: 0;
+  transition-duration: 1000ms;
+}
+
+.toggleSauce {
+  margin: 6vh auto;
+  max-height: 1500px;
+}
+
+
+input {
+  width: 5vw;
+  text-align: center;
+}
+
+.submitSections {
+  display: flex;
+  padding: 40px;
+}
+
+.buttonQuantity {
+  display: flex;
+  text-align: center;
+  white-space: nowrap;
+}
+.formLine {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  text-align: left;
+
+
+  label {
+    display: flex;
+    justify-content: space-between;
+    width: 55%;
+  }
+  .buttonDelete {
+    border-radius: 30px;
+  }
+}
+
+@media (max-width: 900px){
+  h1.header {
+    width: 70%;
+    font-size: 15px;
+    margin: 2% auto;
+    margin-left: 10%;
+  }
+
+  .saladsTitle {
+    text-align: center;
+    background-image: url('../../../assets/img/RibbonOhMyFoodEmpty.svg'),  url('../../../assets/img/RibbonOhMyFoodNormal.svg');
+    background-repeat: no-repeat, no-repeat;
+    background-position: center, center;
+    background-size: 97% 90%, 100% 100%;
+    width: 300px;
+    padding: 18px;
+    margin-left: 7%;
+    height: 84px;
+
+
+    h1 {
+      font-size: 20px;
+    }
+    p {
+      font-size: 10px
+    }
+  }
+
+  .contenaire {
+    padding: initial;
+    margin: 0%;
+    width: 100%;
+  }
+
+  .head {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .sousContain {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .notToggle {
+    max-height: 0;
+    overflow: hidden;
+    padding: 0;
+    transition-duration: 1000ms;
+  }
+
+  .toggle {
+    margin: 5vh auto;
+    max-height: 2500px;
+  }
+
+  .notToggleBase {
+    max-height: 0;
+    overflow: hidden;
+    padding: 0;
+    transition-duration: 1000ms;
+  }
+
+  .toggleBase {
+    margin: 6vh auto;
+    max-height: 500px;
+  }
+
+  .notToggleIngredients {
+    max-height: 0;
+    overflow: hidden;
+    padding: 0;
+    transition-duration: 1000ms;
+  }
+
+  .toggleIngredients {
+    margin: 6vh auto;
+    max-height: 1700px;
+  }
+  .notToggleToppings{
+    max-height: 0;
+    overflow: hidden;
+    padding: 0;
+    transition-duration: 1000ms;
+  }
+
+  .toggleToppings {
+    margin: 6vh auto;
+    max-height: 1700px;
+  }
+  .notToggleSauce {
+    max-height: 0;
+    overflow: hidden;
+    padding: 0;
+    transition-duration: 1000ms;
+  }
+
+  .toggleSauce {
+    margin: 6vh auto;
+    max-height: 1500px;
+  }
+  input {
+    width: 5vw;
+    text-align: center;
+  }
+  input[type=number]::-webkit-inner-spin-button,
+  input[type=number]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
   }
+  input[type = checkbox],
+  input[type=radio] {
+    display: flex;
+    margin-left: 8%;
+
+  }
+  a {
+    text-decoration: none;
+    color: black;
+
+    &:hover{
+      color: black;
+      cursor: pointer;
+      text-decoration: none;
+    }
+  }
+
+  .submitSections {
+    padding: 3%;
+  }
+
+  label {
+    align-items: center;
+    justify-content: space-around;
+    font-size: 0.9em;
+    text-align: left;
+
+    span {
+      text-align: left;
+      width: 40x;
+    }
+  }
+  .wreck {
+    width: 90% !important;
+    margin-left: 13%;
+
+    p {
+      margin-right: 10%;
+      padding-top: 10%;
+    }
+  }
+  .ldm {
+    width: 90% !important;
+    margin-left: 13%;
+    p {
+      margin-right: 8%;
+      padding-top: 10%;
+
+    }
+  }
+  .buttonQuantity {
+    display: flex;
+    text-align: center;
+    width: 20%;
+    margin-left: -23%;
+  }
+  .styleWidth {
+    min-width: 87%;
+    margin-left: -20%;
+  }
+  .styleBaseWidth {
+    min-width: 87%;
+    margin-left: -10%;
+  }
+
+.styleWidthPrice {
+  white-space: nowrap;
+  width: 35%;
+}
+.styleWidthBasePrice {
+  white-space: nowrap;
+  width: 12%;
+
+}
+
+}
+@media (max-width: 320px) and ( max-height: 600px) {
+  h1.header {
+    width: 90%;
+    font-size: 15px;
+    margin: 2% auto;
+  }
+
+  .saladsTitle {
+    text-align: center;
+    background-image: url('../../../assets/img/RibbonOhMyFoodEmpty.svg'),  url('../../../assets/img/RibbonOhMyFoodNormal.svg');
+    background-repeat: no-repeat, no-repeat;
+    background-position: center, center;
+    background-size: 97% 90%, 100% 100%;
+    width: 240px;
+    padding: 18px;
+    margin-left: 12%;
+    height: 72px;
+
+
+      h1 {
+        font-size: 15px;
+      }
+      p {
+        font-size: 6px
+      }
+    }
+  .styleWidth {
+    min-width: 87%;
+    margin-left: -20%;
+  }
+  .styleBaseWidth {
+    min-width: 87%;
+    margin-left: -4%;
+  }
+
+.styleWidthPrice {
+  white-space: nowrap;
+}
+.styleWidthBasePrice {
+  white-space: nowrap;
+  width: 4%;
+
+}
+  .contenaire {
+    padding: initial;
+    margin: 0%;
+    width: 300px;
+  }
+
+  .head {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+  .sousContain {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .wreck {
+      width: 306px;
+    }
+  }
+  .notToggle {
+    max-height: 0;
+    overflow: hidden;
+    padding: 0;
+    transition-duration: 1000ms;
+  }
+
+  .toggle {
+    margin: 5vh auto;
+    max-height: 2500px;
+  }
+
+  .notToggleBase {
+    max-height: 0;
+    overflow: hidden;
+    padding: 0;
+    transition-duration: 1000ms;
+  }
+
+  .toggleBase {
+    margin: 6vh auto;
+    max-height: 500px;
+  }
+
+  .notToggleIngredients {
+    max-height: 0;
+    overflow: hidden;
+    padding: 0;
+    transition-duration: 1000ms;
+  }
+
+  .toggleIngredients {
+    margin: 6vh auto;
+    max-height: 1700px;
+  }
+  .notToggleToppings{
+    max-height: 0;
+    overflow: hidden;
+    padding: 0;
+    transition-duration: 1000ms;
+  }
+
+  .toggleToppings {
+    margin: 6vh auto;
+    max-height: 1700px;
+  }
+  .notToggleSauce {
+    max-height: 0;
+    overflow: hidden;
+    padding: 0;
+    transition-duration: 1000ms;
+  }
+
+  .toggleSauce {
+    margin: 6vh auto;
+    max-height: 1500px;
+  }
+  input {
+    width: 5vw;
+    text-align: center;
+  }
+  input[type=number]::-webkit-inner-spin-button,
+  input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+  }
+  input[type = checkbox],
+  input[type=radio] {
+    display: flex;
+    margin: 5px 15px;
+  }
+  a {
+    text-decoration: none;
+    color: black;
+
+    &:hover{
+      color: black;
+      cursor: pointer;
+      text-decoration: none;
+    }
+  }
+  .submitSections {
+    margin-left: 10px;
+  }
+
+
+  label {
+    align-items: center;
+    justify-content: space-around;
+    font-size: 0.9em;
+    text-align: left;
+  }
+  .wreck {
+    width: 90% !important;
+    p {
+      margin-right: 30px;
+    }
+  }
+  .ldm {
+    width: 90% !important;
+    p {
+      margin-right: 50px;
+    }
+  }
+  .buttonQuantity {
+    display: flex;
+    text-align: center;
+    width: 20%;
+    margin-left: -23%;
+  }
+  .checkbox {
+    margin-left: 24%;
+  }
+}

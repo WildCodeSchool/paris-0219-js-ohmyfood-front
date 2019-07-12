@@ -1,151 +1,203 @@
 <section>
-  <a href (click)="toggleFormSalads($event)">
-    <h1 class="saladsTitle">
-      SALADS COMPOSEE
-    </h1>
+    <div class="saladsTitle">
+      <a href (click)="toggleFormSalads($event, 'form')">
+        <h1>
+          SALADS COMPOSEE
+        </h1>
 
-    <p>
-      Cliquez pour découvrir nos ingredients de salade
-    </p>
-  </a>
-
-  <div class="notToggle" [ngClass]="{toggle: isToggle}">
+        <p>
+          Cliquez pour découvrir nos ingredients de salade
+        </p>
+      </a>
+    </div>
+    <div class="notToggle" [ngClass]="{toggle: isToggle}">
 
     <form [formGroup]="formSalads" (ngSubmit)="formSalads.valid && onSubmit()" #saladsForm=ngForm>
-      <h1>Sélectionner votre base</h1>
+      <div class="contenaire">
+        <div class="head">
+          <div class="ldm">
+            <a href (click)="toggleFormSalads($event, 'base')">
+              <h1 class="header">
+                Sélectionner votre Base
+              </h1>
+            </a>
 
-      <div formArrayName="selectBase">
-        <div
-          class="formLine"
-          [formGroupName]="i"
-          *ngFor="let base of selectBase.controls ; let i = index">
+            <div class="notToggleBase" [ngClass]="{toggleBase: isToggleBase}">
+              <div formArrayName="selectBase">
+                <div
+                  class="formLine"
+                  [formGroupName]="i"
+                  *ngFor="let base of selectBase.controls ; let i = index"
+                >
 
-            <label for="selectBase-{{ i }}">
-              {{ base.value.saladsBaseName }}<span>{{ base.value.saladsBasePriceTTC }} EUR</span>
-            </label>
+                  <label for="selectBase-{{ i }}">
+                    <span class="styleBaseWidth">{{ base.value.saladsBaseName }}</span><span class="styleWidthBasePrice">{{ base.value.saladsBasePriceTTC }} €</span>
+                  </label>
 
-           <input
-           type="checkbox"
-           formControlName="saladsBaseQuantity"
-           name="selectBase-{{ i }}"
-           id="selectBase-{{ i }}">
-        </div>
+                  <input
+                  type="checkbox"
+                  formControlName="saladsBaseQuantity"
+                  name="selectBase-{{ i }}"
+                  id="selectBase-{{ i }}">
+                </div>
 
-        <div *ngIf="saladsForm.submitted && selectBase.errors">
-          <p>{{selectBase.errors['tooMuchBase']}}</p>
-        </div>
-      </div>
-
-      <h1>Sélectionner vos ingredients</h1>
-
-      <div formArrayName="selectIngredients">
-        <div
-          class="formLine"
-          [formGroupName]="i"
-          *ngFor="let ingredients of selectIngredients.controls ; let i = index">
-
-            <label for="selectIngredients-{{ i }}">
-              {{ ingredients.value.saladsIngredientsName }}<span>{{ ingredients.value.saladsIngredientsPriceTTC }} EUR</span>
-            </label>
-
-            <div class="buttonQuantity">
-              <button
-                class="button is-rounded is-outlined is-mobile is-small"
-                name="remove-saladsIngredients-quantity"
-                type="button"
-                (click)="quantitySelect('-', i, ingredients['controls'].saladsIngredientsQuantity.value, ingredients)">
-                  -
-              </button>
-
-              <input
-                type="number"
-                formControlName='saladsIngredientsQuantity'
-                name='selectIngredients-{{ i }}'
-                value="{{ ingredients['controls'].saladsIngredientsQuantity.value }}">
-
-              <button
-                class="button is-rounded is-outlined is-mobile is-small"
-                name="remove-saladsIngredients-quantity"
-                type="button"
-                (click)="quantitySelect('+', i, ingredients['controls'].saladsIngredientsQuantity.value, ingredients)">
-                  +
-                </button>
+                <div *ngIf="saladsForm.submitted && selectBase.errors">
+                  <p>{{selectBase.errors['tooMuchBase']}}</p>
+                </div>
+              </div>
             </div>
-        </div>
+          </div>
+        <div class="ldm">
+        <a href (click)="toggleFormSalads($event, 'sauce')">
+            <h1 class="header">
+              Sélectionner votre sauce
+            </h1>
+          </a>
 
-        <div *ngIf="saladsForm.submitted && selectIngredients.errors">
-            <p>{{selectIngredients.errors['isRequired']}}</p>
-        </div>
-      </div>
+            <div class="notToggleSauce" [ngClass]="{toggleSauce: isToggleSauce}">
+              <div formArrayName="selectSauces">
+                <div
+                  class="formLine"
+                  [formGroupName]="i"
+                  *ngFor="let sauces of selectSauces.controls ; let i = index">
 
-      <h1>Sélectionner vos toppings</h1>
+                    <label for="saladsSaucesQuantity-{{ i }}">
+                      {{ sauces.value.saladsSaucesName }}
+                    </label>
 
-      <div formArrayName="selectToppings">
-        <div
-          class="formLine"
-          [formGroupName]="i"
-          *ngFor="let toppings of selectToppings.controls ; let i = index">
+                      <input
+                        type="radio"
+                        formControlName='saladsSaucesQuantity'
+                        name='saladsSaucesQuantity'
+                        id="saladsSaucesQuantity-{{ i }}"
+                        value="{{sauces.value.saladsSaucesName}}"
+                        (ngModelChange)="getSauce(i, saladsForm.submitted)">
 
-            <label for="selectToppings-{{ i }}">
-              {{ toppings.value.saladsToppingsName }}<span>{{ toppings.value.saladsToppingsPriceTTC }} EUR</span>
-            </label>
+                </div>
 
-            <div class="buttonQuantity">
-              <button
-                class="button is-rounded is-outlined is-mobile is-small"
-                name="remove-saladsToppings-quantity"
+                <p class="style" *ngIf="displaySaucesMessage">Attention, vous n'avez pas séléctionné de sauces</p>
+
+                <div class="submitSection">
+                <button
+                class="buttonDelete button is-hovered"
                 type="button"
-                (click)="quantitySelect('-', i, toppings['controls'].saladsToppingsQuantity.value, toppings)">
-                  -
+                (click)="resetSauces()"
+                >
+                Supprimer
               </button>
-
-              <input
-                type="number"
-                formControlName='saladsToppingsQuantity'
-                name='selectToppings-{{ i }}'
-                value="{{ toppings['controls'].saladsToppingsQuantity.value }}">
-
-              <button
-                class="button is-rounded is-outlined is-mobile is-small"
-                name="remove-saladsToppings-quantity"
-                type="button"
-                (click)="quantitySelect('+', i, toppings['controls'].saladsToppingsQuantity.value, toppings)">
-                  +
-                </button>
+              </div>
             </div>
+          </div>
+        </div>
         </div>
 
-        <p *ngIf="displayToppingsMessage">Attention, vous n'avez pas séléctionné de toppings</p>
-      </div>
+        <div class="sousContain">
+          <div class="wreck">
+            <a href (click)="toggleFormSalads($event, 'ingredients')">
+              <h1 class="header">
+                Sélectionner vos ingredients
+              </h1>
+            </a>
 
-      <h1>Sélectionner votre sauce</h1>
+            <div class="notToggleIngredients" [ngClass]="{toggleIngredients: isToggleIngredients}">
+              <div formArrayName="selectIngredients">
+                <div
+                  class="formLine"
+                  [formGroupName]="i"
+                  *ngFor="let ingredients of selectIngredients.controls ; let i = index">
 
-      <div formArrayName="selectSauces">
-        <div
-          class="formLine"
-          [formGroupName]="i"
-          *ngFor="let sauces of selectSauces.controls ; let i = index">
+                    <label for="selectIngredients-{{ i }}">
+                      <span class="styleWidth">{{ ingredients.value.saladsIngredientsName }}</span><span class="styleWidthPrice">{{ ingredients.value.saladsIngredientsPriceTTC }} €</span>
+                    </label>
 
-            <label for="saladsSaucesQuantity-{{ i }}">
-              {{ sauces.value.saladsSaucesName }}
-            </label>
+                    <div class="buttonQuantity">
+                      <button
+                        class="button is-rounded is-outlined is-mobile is-small"
+                        name="remove-saladsIngredients-quantity"
+                        type="button"
+                        (click)="quantitySelect('-', i, ingredients['controls'].saladsIngredientsQuantity.value, ingredients)">
+                          -
+                      </button>
 
-              <input
-                type="radio"
-                formControlName='saladsSaucesQuantity'
-                name='saladsSaucesQuantity'
-                id="saladsSaucesQuantity-{{ i }}"
-                value="{{sauces.value.saladsSaucesName}}"
-                (ngModelChange)="getSauce(i, saladsForm.submitted)">
+                      <input
+                        type="text"
+                        formControlName='saladsIngredientsQuantity'
+                        name='selectIngredients-{{ i }}'
+                        value="{{ ingredients['controls'].saladsIngredientsQuantity.value }}">
 
+                      <button
+                        class="button is-rounded is-outlined is-mobile is-small"
+                        name="remove-saladsIngredients-quantity"
+                        type="button"
+                        (click)="quantitySelect('+', i, ingredients['controls'].saladsIngredientsQuantity.value, ingredients)">
+                          +
+                        </button>
+                    </div>
+                </div>
+              </div>
+              <div *ngIf="saladsForm.submitted && selectIngredients.errors">
+                  <p>{{selectIngredients.errors['isRequired']}}</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="wreck">
+            <a href (click)="toggleFormSalads($event, 'toppings')">
+                <h1 class="header">
+                  Sélectionner vos toppings
+                </h1>
+              </a>
+            <div class="notToggleToppings" [ngClass]="{toggleToppings: isToggleToppings}">
+              <div formArrayName="selectToppings">
+                <div
+                  class="formLine"
+                  [formGroupName]="i"
+                  *ngFor="let toppings of selectToppings.controls ; let i = index">
+
+                    <label for="selectToppings-{{ i }}">
+                      <span class="styleWidth">{{ toppings.value.saladsToppingsName }}</span><span class="styleWidthPrice">{{ toppings.value.saladsToppingsPriceTTC }} €</span>
+                    </label>
+
+                    <div class="buttonQuantity">
+                      <button
+                        class="button is-rounded is-outlined is-mobile is-small"
+                        name="remove-saladsToppings-quantity"
+                        type="button"
+                        (click)="quantitySelect('-', i, toppings['controls'].saladsToppingsQuantity.value, toppings)">
+                          -
+                      </button>
+
+                      <input
+                        type="text"
+                        formControlName='saladsToppingsQuantity'
+                        name='selectToppings-{{ i }}'
+                        value="{{ toppings['controls'].saladsToppingsQuantity.value }}">
+
+                      <button
+                        class="button is-rounded is-outlined is-mobile is-small"
+                        name="remove-saladsToppings-quantity"
+                        type="button"
+                        (click)="quantitySelect('+', i, toppings['controls'].saladsToppingsQuantity.value, toppings)">
+                          +
+                        </button>
+                    </div>
+                </div>
+
+                <p *ngIf="displayToppingsMessage">Attention, vous n'avez pas séléctionné de toppings</p>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <p *ngIf="displaySaucesMessage">Attention, vous n'avez pas séléctionné de sauces</p>
-
-        <button type="button" (click)="resetSauces()">Supprimer la sauce</button>
+        <div class="submitSections">
+          <button
+            class="submitButton button is-rounded is-outlined"
+            type='submit'
+            >
+            Ajouter au panier
+          </button>
+        </div>
       </div>
-
-      <button type='submit'> Ajouter au panier </button>
     </form>
   </div>
 </section>

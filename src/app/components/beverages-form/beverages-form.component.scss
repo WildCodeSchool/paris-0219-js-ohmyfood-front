@@ -1,34 +1,27 @@
 @import '../../../styles/colors.scss';
 
+.beveragesTitle {
+  text-align: center;
+  background-image: url('../../../assets/img/RibbonOhMyFoodEmpty.svg'),  url('../../../assets/img/RibbonOhMyFoodNormal.svg');
+  background-repeat: no-repeat, no-repeat;
+  background-position: center, center;
+  background-size: 97% 90%, 100% 100%;
+  width: 571px;
+  padding: 29px;
+  margin: auto;
+
+}
+
 a {
-  align-items: center;
-  border: solid 1px $green;
-  border-radius: 50px;
-  color: inherit;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  margin-bottom: 2vh;
   text-decoration: none;
+  color: black;
 
-  h1 {
-    font-size: 2em;
-    text-align: center;
-  }
-
-  p {
-    font-size: 1em;
-    font-style: normal;
-  }
-
-  &:hover {
-    box-shadow: 0 1px 1px  rgb(68, 160, 68);
-    color: inherit;
+  &:hover{
+    color: black;
     cursor: pointer;
     text-decoration: none;
   }
 }
-
 
 .button {
   border: solid 1px $green;
@@ -55,7 +48,7 @@ a {
   label {
     display: flex;
     justify-content: space-between;
-    width: 60%;
+    width: 56%;
   }
 }
 
@@ -89,12 +82,6 @@ input {
   text-align: center;
 }
 
-input[type=number]::-webkit-inner-spin-button,
-input[type=number]::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
 .notToggle {
   max-height: 0;
   margin: 0 auto;
@@ -126,6 +113,26 @@ section {
 // Media Queries //
 
 @media screen and(max-width: 900px) {
+  .beveragesTitle {
+    text-align: center;
+    background-image: url('../../../assets/img/RibbonOhMyFoodEmpty.svg'),  url('../../../assets/img/RibbonOhMyFoodNormal.svg');
+    background-repeat: no-repeat, no-repeat;
+    background-position: center, center;
+    background-size: 97% 90%, 100% 100%;
+    width: 300px;
+    padding: 18px;
+    margin-left: 7%;
+    height: 84px;
+
+
+    h1 {
+      font-size: 20px;
+    }
+    p {
+      font-size: 10px
+    }
+  }
+
   .header {
     justify-content: space-around;
     margin: 0 auto 2vh auto;
@@ -133,11 +140,112 @@ section {
 
     .beverages {
       font-size: 1em;
-      width: 55vw;
+      width: 52vw;
 
       span {
         text-align: center;
         width: 10vw;
+      }
+    }
+
+    .quantity {
+      font-size: 1em;
+      text-align: center;
+      width: 28vw;
+    }
+  }
+
+  .buttonQuantity {
+    align-items: center;
+    justify-content: center;
+    width: 31vw;
+
+    button {
+      height: 3vh;
+      padding: 0px 2vw;
+    }
+
+    input {
+      font-size: 0.5em;
+    }
+  }
+
+  form {
+    margin: 0 auto;
+
+    .formLine {
+      align-items: center;
+      justify-content: normal;
+
+
+      label {
+        align-items: center;
+        font-size: 0.7em;
+        width: 62%;
+
+        span {
+          text-align: center;
+          width: 11vw;
+        }
+      }
+    }
+  }
+
+  .notToggle {
+    width: 90vw;
+  }
+
+  section {
+    width: 100vw;
+  }
+
+  .submitSection {
+    width: 95%;
+
+    .submitButton {
+        clear: both;
+        float: right;
+        width: 45vw;
+    }
+  }
+}
+@media (max-width: 320px) and ( max-height: 600px) {
+.beveragesTitle {
+  text-align: center;
+  background-image: url('../../../assets/img/RibbonOhMyFoodEmpty.svg'),  url('../../../assets/img/RibbonOhMyFoodNormal.svg');
+  background-repeat: no-repeat, no-repeat;
+  background-position: center, center;
+  background-size: 97% 90%, 100% 100%;
+  width: 240px;
+  padding: 18px;
+  margin-left: 12%;
+  height: 72px;
+
+
+    h1 {
+      font-size: 15px;
+    }
+    p {
+      font-size: 6px
+    }
+  }
+
+  h1.header {
+    width: 230px;
+    font-size: 15px;
+  }
+  .header {
+    justify-content: space-around;
+    margin: 1px 10px 0vh 0px;
+    width: 81vw;
+
+    .beverages {
+      font-size: 1em;
+      width: 55vw;
+
+      span {
+        text-align: center;
+        width: 23vw;
       }
     }
 
@@ -168,15 +276,18 @@ section {
 
     .formLine {
       align-items: center;
+      justify-content: normal;
+
 
       label {
         align-items: center;
         font-size: 0.7em;
-        width: 69%;
+        width: 65%;
 
         span {
+          display: inline-block;
           text-align: center;
-          width: 16vw;
+          width: 23vw;
         }
       }
     }
@@ -191,6 +302,7 @@ section {
   }
 
   .submitSection {
+    width: 95%;
 
     .submitButton {
         clear: both;
@@ -199,4 +311,3 @@ section {
     }
   }
 }
-

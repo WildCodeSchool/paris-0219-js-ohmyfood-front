@@ -42,7 +42,7 @@ export class MenuPizzaFormComponent implements OnInit {
       pizza: this.formBuilder.array([]),
       beverage: this.formBuilder.array([]),
       dessert: this.formBuilder.array([]),
-      pizzaMenuPrice: Number,
+      pizzaMenuPriceTotal: Number,
       },
       {
       validators: [
@@ -55,7 +55,7 @@ export class MenuPizzaFormComponent implements OnInit {
     // Get Menu Price
     const menuSubscription = this.menuPrices.getMenuPrices()
     .subscribe((menuPrice: any) => {
-      this.pizzaMenuForm.controls.pizzaMenuPrice.patchValue(
+      this.pizzaMenuForm.controls.pizzaMenuPriceTotal.patchValue(
         menuPrice[0].menuPizzPrice.toFixed(2)
       );
       menuSubscription.unsubscribe();

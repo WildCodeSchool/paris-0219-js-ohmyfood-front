@@ -327,12 +327,12 @@ export class BasketComponent implements OnInit {
       this.quantityService.selectQuantity(operator, quantity);
 
       if (operator === '+') {
-        this.finalOrderForm.value.salad[index].saladsComposedTotalPrice =
-        (this.finalOrderForm.value.salad[index].saladsComposedTotalPrice / (quantity - 1)) * quantity;
+        this.finalOrderForm.value.salad[index].saladsComposedPriceTotal =
+        (this.finalOrderForm.value.salad[index].saladsComposedPriceTotal / (quantity - 1)) * quantity;
 
       } else {
-        this.finalOrderForm.value.salad[index].saladsComposedTotalPrice =
-        (this.finalOrderForm.value.salad[index].saladsComposedTotalPrice / (quantity + 1)) * quantity;
+        this.finalOrderForm.value.salad[index].saladsComposedPriceTotal =
+        (this.finalOrderForm.value.salad[index].saladsComposedPriceTotal / (quantity + 1)) * quantity;
       }
 
       const salad = this.finalOrderForm.get('salad') as FormArray;
@@ -350,12 +350,12 @@ export class BasketComponent implements OnInit {
       this.quantityService.selectQuantity(operator, quantity);
 
       if (operator === '+') {
-        this.finalOrderForm.value.menuPizza[index].menuPizzPrice =
-        (this.finalOrderForm.value.menuPizza[index].menuPizzPrice / (quantity - 1)) * quantity;
+        this.finalOrderForm.value.menuPizza[index].menuPizzPriceTotal =
+        (this.finalOrderForm.value.menuPizza[index].menuPizzPriceTotal / (quantity - 1)) * quantity;
 
       } else {
-        this.finalOrderForm.value.menuPizza[index].menuPizzPrice =
-        (this.finalOrderForm.value.menuPizza[index].menuPizzPrice / (quantity + 1)) * quantity;
+        this.finalOrderForm.value.menuPizza[index].menuPizzPriceTotal =
+        (this.finalOrderForm.value.menuPizza[index].menuPizzPriceTotal / (quantity + 1)) * quantity;
       }
 
       const menuPizza = this.finalOrderForm.get('menuPizza') as FormArray;
@@ -455,11 +455,11 @@ export class BasketComponent implements OnInit {
     }
 
     for (const salad of this.salad.value) {
-      this.totalArray.push(+salad.saladsComposedTotalPrice);
+      this.totalArray.push(+salad.saladsComposedPriceTotal);
     }
 
     for (const menuPizz of this.menuPizza.value) {
-      this.totalArray.push(+menuPizz.menuPizzPrice);
+      this.totalArray.push(+menuPizz.menuPizzPriceTotal);
     }
 
     for (const menuSaladChoice of this.menuSalad.value) {

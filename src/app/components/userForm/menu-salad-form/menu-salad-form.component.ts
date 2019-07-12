@@ -59,13 +59,13 @@ export class MenuSaladFormComponent implements OnInit {
           orderSaladsQuantity: Number,
           orderSaladsToppings: SaladsToppings,
           orderSaladsSauces: SaladsSauces,
-          orderSaladsTotalPrice: 0
+          orderSaladsPriceTotal: 0
         }, checkSaladInMenu() // Validator to check if user create a salad
       ],
       beverage: this.formBuilder.array([]),
       dessert: this.formBuilder.array([]),
       saladMenuPrice: 0,
-      saladMenuTotalPrice: 0
+      saladMenuPriceTotal: 0
     },
     {
       validator: [
@@ -83,7 +83,7 @@ export class MenuSaladFormComponent implements OnInit {
           orderSaladsQuantity: saladComposed.orderSaladsQuantity,
           orderSaladsToppings: saladComposed.orderSaladsToppings,
           orderSaladsSauces: 'Pas de sauce séléctionnée',
-          orderSaladsTotalPrice: saladComposed.orderSaladsTotalPrice
+          orderSaladsPriceTotal: saladComposed.orderSaladsPriceTotal
           }
         );
 
@@ -99,20 +99,21 @@ export class MenuSaladFormComponent implements OnInit {
 
       // If user choose beverage or dessert, total menu price = 1.50€ + salad composed price
       if (!bevPristine && dessPristine || bevPristine && !dessPristine) {
-        this.saladMenuForm.controls.saladMenuTotalPrice.patchValue(
-          (this.priceMenu[0].menuSaladOr + +saladComposed.orderSaladsTotalPrice).toFixed(2)
+        this.saladMenuForm.controls.saladMenuPriceTotal.patchValue(
+          (this.priceMenu[0].menuSaladOr + +saladComposed.orderSaladsPriceTotal).toFixed(2)
         );
 
         // If user choose beverage and dessert, total menu price = 3€ + salad composed price
       } else if (!bevPristine && !dessPristine) {
-          this.saladMenuForm.controls.saladMenuTotalPrice.patchValue(
-            (this.priceMenu[0].menuSaladAnd + +saladComposed.orderSaladsTotalPrice).toFixed(2)
+          this.saladMenuForm.controls.saladMenuPriceTotal.patchValue(
+            (this.priceMenu[0].menuSaladAnd + +saladComposed.orderSaladsPriceTotal).toFixed(2)
           );
 
           // If user didn't pick beverage or dessert, total menu price = salad composed price
       } else {
-        this.saladMenuForm.controls.saladMenuTotalPrice.patchValue(
-          saladComposed.orderSaladsTotalPrice
+        console.log(saladComposed);
+        this.saladMenuForm.controls.saladMenuPriceTotal.patchValue(
+          saladComposed.orderSaladsPriceTotal
         );
       }
 
@@ -180,8 +181,8 @@ export class MenuSaladFormComponent implements OnInit {
       );
 
       // patch value of total price menu
-      this.saladMenuForm.controls.saladMenuTotalPrice.patchValue(
-        (this.priceMenu[0].menuSaladOr + +this.saladMenuForm.value.salad.orderSaladsTotalPrice).toFixed(2)
+      this.saladMenuForm.controls.saladMenuPriceTotal.patchValue(
+        (this.priceMenu[0].menuSaladOr + +this.saladMenuForm.value.salad.orderSaladsPriceTotal).toFixed(2)
       );
 
     } else if (!bevPristine && !dessPristine) {
@@ -190,8 +191,8 @@ export class MenuSaladFormComponent implements OnInit {
         );
 
         // patch value of total price menu
-        this.saladMenuForm.controls.saladMenuTotalPrice.patchValue(
-          (this.priceMenu[0].menuSaladAnd + +this.saladMenuForm.value.salad.orderSaladsTotalPrice).toFixed(2)
+        this.saladMenuForm.controls.saladMenuPriceTotal.patchValue(
+          (this.priceMenu[0].menuSaladAnd + +this.saladMenuForm.value.salad.orderSaladsPriceTotal).toFixed(2)
         );
 
     } else {
@@ -200,8 +201,8 @@ export class MenuSaladFormComponent implements OnInit {
         );
 
         // patch value of total price menu
-        this.saladMenuForm.controls.saladMenuTotalPrice.patchValue(
-          this.saladMenuForm.value.salad.orderSaladsTotalPrice
+        this.saladMenuForm.controls.saladMenuPriceTotal.patchValue(
+          this.saladMenuForm.value.salad.orderSaladsPriceTotal
         );
     }
 

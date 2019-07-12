@@ -7,7 +7,7 @@
 
   <app-salads-form [menu]='isMenu'></app-salads-form>
 
-  <form [formGroup]="saladMenuForm" (ngSubmit)="saladMenuForm.valid && onSubmit()" #menuSalad="ngForm">
+  <form [formGroup]="saladMenuForm" (ngSubmit)="onSubmit()" #menuSalad="ngForm">
 
     <div formArrayName="beverage">
         <h5>Cliquez-ici pour découvrir nos boissons</h5>
@@ -57,11 +57,11 @@
 
     <p>
       {{ saladMenuForm.value.saladMenuPrice }} EUR plus le prix de votre salade qui est actuellement de
-      {{ saladMenuForm.value.salad.orderSaladsTotalPrice }} EUR.
+      {{ saladMenuForm.value.salad.orderSaladsPriceTotal }} EUR.
     </p>
 
     <p>
-      Soit un total de {{ saladMenuForm.value.saladMenuTotalPrice }} EUR
+      Soit un total de {{ saladMenuForm.value.saladMenuPriceTotal }} EUR
     </p>
 
     <p *ngIf="menuSalad.submitted && saladMenuForm.controls['salad'].errors">

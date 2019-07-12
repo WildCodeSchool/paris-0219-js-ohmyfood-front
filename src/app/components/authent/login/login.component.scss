@@ -1,0 +1,31 @@
+h2 {
+  text-align: center;
+  margin-top: 6%;
+}
+.contenaire {
+  flex-direction: column;
+  display: flex;
+  align-items: center;
+  padding: 2%;
+
+  input {
+    background-color: #B2D891;
+    width: 15%;
+  }
+}
+button {
+  display: block;
+  margin: auto;
+  background-color: #669D66;
+}
+.createAuthClient {
+  display: flex;
+  justify-content: center;
+  padding: 5%;
+
+  p {
+    padding-right: 3%;
+    text-align: center;
+    white-space: nowrap;
+  }
+}

@@ -10,7 +10,7 @@ import { MenuSalad } from '../class/menu-salad';
 })
 export class MenuPricesDataService {
 
-  menuPricesRoute = 'http://localhost:3000/menuPrices';
+  menusPriceRoute = 'http://localhost:3000/menusPrice';
 
   @Output()
   getMenuPizza: EventEmitter<any> = new EventEmitter();
@@ -21,7 +21,7 @@ export class MenuPricesDataService {
   constructor(private http: HttpClient) { }
 
   getMenuPrices(): Observable<object> {
-    return this.http.get(this.menuPricesRoute);
+    return this.http.get(this.menusPriceRoute);
   }
 
   createOrderMenu(userMenuChoice: any) {

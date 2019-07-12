@@ -41,6 +41,7 @@ export class DetailOrderComponent implements OnInit {
     if (sessionStorage.getItem('finalOrder')) {
       this.finalOrderRecap = JSON.parse(sessionStorage.getItem('finalOrder'));
     }
+    console.log(this.finalOrderRecap);
 
     // Subscribe to output from basket component
     const finalOrderSubscription = this.finalOrder.getFinalOrder.subscribe((userFinalOrder: any) => {
@@ -55,6 +56,10 @@ export class DetailOrderComponent implements OnInit {
       const salad = userFinalOrder.salad;
       const beverage = userFinalOrder.beverage;
       const dessert = userFinalOrder.dessert;
+      const menuPizza = userFinalOrder.menuPizza;
+      const menuSalad = userFinalOrder;
+
+      console.log(finalOrderStorage);
 
       // For each key, group information to sort them behind
       if (finalOrderStorage !== undefined) {
@@ -78,6 +83,18 @@ export class DetailOrderComponent implements OnInit {
       if (finalOrderStorage !== undefined) {
         finalOrderStorage.dessert.map((desserts: any) => {
           dessert.push(desserts);
+        });
+      }
+
+      if (finalOrderStorage !== undefined) {
+        finalOrderStorage.menuPizza.map((menusPizza: any) => {
+          menuPizza.push(menusPizza);
+        });
+      }
+
+      if (finalOrderStorage !== undefined) {
+        finalOrderStorage.menuSalad.map((menusSalad: any) => {
+          menuSalad.push(menusSalad);
         });
       }
 
@@ -117,7 +134,9 @@ export class DetailOrderComponent implements OnInit {
           pizza,
           salad,
           beverage,
-          dessert
+          dessert,
+          menuPizza,
+          menuSalad
         );
 
       sessionStorage.setItem('finalOrder', JSON.stringify(this.finalOrderRecap)); // Save new finalOrder in session storage
@@ -125,7 +144,7 @@ export class DetailOrderComponent implements OnInit {
     });
   }
 
-  //html gestion
+  // html gestion
 
   quantitySelect(operator: string, i: number, quantity: number, elType: string) {
     let abrevElType = '';
@@ -141,7 +160,7 @@ export class DetailOrderComponent implements OnInit {
       default: null;
         break;
     }
-    
+
     let abrevElTypeQtt = abrevElType + 'Quantity';
     let abrevElTypeTotPrice;
     if (elType === 'salad') {

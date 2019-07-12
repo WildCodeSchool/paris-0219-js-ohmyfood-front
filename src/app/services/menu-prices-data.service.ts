@@ -76,7 +76,7 @@ export class MenuPricesDataService {
         object.salad,
         object.beverage,
         object.dessert,
-        object.menuSaladPrice,
+        object.menuSaladPriceTotal,
         object.menuSaladQuantity
       );
     }

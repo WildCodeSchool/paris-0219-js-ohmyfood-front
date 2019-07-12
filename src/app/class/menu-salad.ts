@@ -7,7 +7,7 @@ export class MenuSalad {
     public salad: OrderSalads,
     public beverage: OrderBeverage,
     public dessert: OrderDessert,
-    public menuSaladPrice: number,
+    public menuSaladPriceTotal: number,
     public menuSaladQuantity: number
   ) {}
 }

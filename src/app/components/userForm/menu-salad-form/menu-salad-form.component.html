@@ -7,7 +7,7 @@
 
   <app-salads-form [menu]='isMenu'></app-salads-form>
 
-  <form [formGroup]="saladMenuForm" (ngSubmit)="onSubmit()" #menuSalad="ngForm">
+  <form [formGroup]="saladMenuForm" (ngSubmit)="menuSalad.valid && onSubmit()" #menuSalad="ngForm">
 
     <div formArrayName="beverage">
         <h5>Cliquez-ici pour découvrir nos boissons</h5>

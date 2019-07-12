@@ -127,7 +127,7 @@ export class CreateFormBasketService {
           salad: formToCreate.salad,
           beverage: { bevName: 'Pas de boisson sélectionnée' },
           dessert: formToCreate.dessert,
-          menuSaladPrice: formToCreate.menuSaladPrice,
+          menuSaladPriceTotal: formToCreate.menuSaladPriceTotal,
           menuSaladQuantity: formToCreate.menuSaladQuantity
         });
         return menuSaladChoice;
@@ -139,7 +139,7 @@ export class CreateFormBasketService {
           salad: formToCreate.salad,
           beverage: formToCreate.beverage,
           dessert: { dessName: 'Pas de dessert sélectionné' },
-          menuSaladPrice: formToCreate.menuSaladPrice,
+          menuSaladPriceTotal: formToCreate.menuSaladPriceTotal,
           menuSaladQuantity: formToCreate.menuSaladQuantity
         });
         return menuSaladChoice;
@@ -151,7 +151,7 @@ export class CreateFormBasketService {
           salad: formToCreate.salad,
           beverage: { bevName: 'Pas de boisson sélectionnée' },
           dessert: { dessName: 'Pas de dessert sélectionné' },
-          menuSaladPrice: formToCreate.menuSaladPrice,
+          menuSaladPriceTotal: formToCreate.menuSaladPriceTotal,
           menuSaladQuantity: formToCreate.menuSaladQuantity
         });
         return menuSaladChoice;
@@ -161,7 +161,7 @@ export class CreateFormBasketService {
           salad: formToCreate.salad,
           beverage: formToCreate.beverage,
           dessert: formToCreate.dessert,
-          menuSaladPrice: formToCreate.menuSaladPrice,
+          menuSaladPriceTotal: formToCreate.menuSaladPriceTotal,
           menuSaladQuantity: formToCreate.menuSaladQuantity
         });
         return menuSaladChoice;

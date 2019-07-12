@@ -373,12 +373,12 @@ export class BasketComponent implements OnInit {
       this.quantityService.selectQuantity(operator, quantity);
 
       if (operator === '+') {
-        this.finalOrderForm.value.menuSalad[index].menuSaladPrice =
-        (this.finalOrderForm.value.menuSalad[index].menuSaladPrice / (quantity - 1)) * quantity;
+        this.finalOrderForm.value.menuSalad[index].menuSaladPriceTotal =
+        (this.finalOrderForm.value.menuSalad[index].menuSaladPriceTotal / (quantity - 1)) * quantity;
 
       } else {
-        this.finalOrderForm.value.menuSalad[index].menuSaladPrice =
-        (this.finalOrderForm.value.menuSalad[index].menuSaladPrice / (quantity + 1)) * quantity;
+        this.finalOrderForm.value.menuSalad[index].menuSaladPriceTotal =
+        (this.finalOrderForm.value.menuSalad[index].menuSaladPriceTotal / (quantity + 1)) * quantity;
       }
 
       const menuSalad = this.finalOrderForm.get('menuSalad') as FormArray;
@@ -463,7 +463,7 @@ export class BasketComponent implements OnInit {
     }
 
     for (const menuSaladChoice of this.menuSalad.value) {
-      this.totalArray.push(+menuSaladChoice.menuSaladPrice);
+      this.totalArray.push(+menuSaladChoice.menuSaladPriceTotal);
     }
     this.totalArray.length === 0 ? this.total = 0 : this.total = this.totalArray.reduce(reducer); // Total price
   }

@@ -111,7 +111,6 @@ export class MenuSaladFormComponent implements OnInit {
 
           // If user didn't pick beverage or dessert, total menu price = salad composed price
       } else {
-        console.log(saladComposed);
         this.saladMenuForm.controls.saladMenuPriceTotal.patchValue(
           saladComposed.orderSaladsPriceTotal
         );

@@ -19,5 +19,6 @@ export class FinalOrderService {
       finalOrder.dessert
     );
     this.getFinalOrder.emit(finalOrder);
+    sessionStorage.setItem('finalOrder', JSON.stringify(finalOrder));
   }
 }

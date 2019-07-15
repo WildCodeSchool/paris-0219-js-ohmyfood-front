@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoginService } from 'src/app/services/login.service';
+import { UserAccountInformationsService } from '../../../services/user-account-informations.service'
 import { Router } from '@angular/router';
 
 @Component({
@@ -10,11 +11,14 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
+  userRight = 0;
+  userIdLogged;
 
   constructor(
-    private fb: FormBuilder, 
+    private fb: FormBuilder,
     private loginService: LoginService,
     private router: Router,
+    private userAccountService: UserAccountInformationsService
   ) { }
 
   ngOnInit() {
@@ -34,8 +38,17 @@ export class LoginComponent implements OnInit {
         mail: this.loginForm.value.emailClient,
         password: this.loginForm.value.psswClient
       }
+      this.userAccountService.userMail = this.loginService.loginObject['mail'];
       this.loginService.loginCheck().then(res => {
-        sessionStorage.setItem('token', res)
+        const objRes = JSON.parse(res);
+        this.userIdLogged = objRes.userId;
+        if (objRes.userRight === 1) {
+          this.userRight = 1;
+        }
+        sessionStorage.setItem('token', res.split(',')[0]+'}');
+        sessionStorage.setItem('userMail', objRes.userMail);
+        sessionStorage.setItem('userLastName', objRes.userLastName);
+        sessionStorage.setItem('userFirstName', objRes.userFirstName);
         this.routeProtected();
       });
     }
@@ -43,24 +56,17 @@ export class LoginComponent implements OnInit {
 
   routeProtected() {
     this.loginService.routeProtection().then(res => {
-      this.loginService.getClientInformation().then(res => {
         const userInfoObject = {
-          lastname: res['0'].lastname,
-          firstname: res['0'].firstname,
-          mail: res['0'].mail, 
-          userRight: res['0'].userRight
+          lastname: sessionStorage.getItem('userLastName'),
+          firstname: sessionStorage.getItem('userFirstName'),
+          mail: sessionStorage.getItem('userMail')
         }
-        if (userInfoObject.userRight === 1) {
-          this.loginService.transfertUserRightFn(userInfoObject.userRight);
+        if (this.userRight === 1) {
+          this.loginService.transfertUserRightFn(this.userRight);
         }
-
-        sessionStorage.setItem('userLastName', userInfoObject.lastname);
-        sessionStorage.setItem('userFirstName', userInfoObject.firstname);
-        sessionStorage.setItem('userMail', userInfoObject.mail);
         this.loginService.transfertUserFn(userInfoObject);
         this.router.navigateByUrl('homeOrderPage');
-      });
     });
   }
-  
+
 }

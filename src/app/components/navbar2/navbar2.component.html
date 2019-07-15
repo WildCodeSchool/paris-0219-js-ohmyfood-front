@@ -33,7 +33,11 @@
     >
       COMMANDER
     </p>
-    <span *ngIf="userInfoObject['lastname'] !== ''">Mon compte<i class="fa fa-user fa-2x"></i></span>
+    <span *ngIf="userInfoObject['lastname'] !== ''">
+      <a [routerLink]="['/userAccountPage']" routerLinkActive="router-link-active" >
+        Mon compte<i class="fa fa-user fa-2x"></i>
+      </a>
+    </span>
     <span *ngIf="booleanAdminLogged === 1"> * ADMIN *</span>
   </div>
 

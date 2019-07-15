@@ -6,7 +6,6 @@ import { Injectable } from '@angular/core';
 export class QuantitySelectService {
 
   selectQuantity(operator, quantity) {
-
     if (operator === '+') {
       quantity ++;
       return quantity;
@@ -18,10 +17,5 @@ export class QuantitySelectService {
     } else if (quantity === 0) {
       return quantity;
     }
-  }
-
-  updatePrice(quantity, price) {
-    let newPrice = 0;
-    return newPrice = quantity * price;
   }
 }

@@ -38,34 +38,41 @@
     <span class="sr-only">Suivant</span>
   </a>
 </section>
+
 <section>
   <h2>Menu / Cartes</h2>
 
 <div class="columns">
 
-<div class="column is-offset-2">
+<div class="column is-4">
 
 <div id="flag"><span class="titlemenu">BAR A SALADE</span></div>
-  <ul>
-    <li *ngFor="let saladsBase of saladsBaseList">{{ saladsBase.saladsBaseName }}</li>
-    <br>
-    <li *ngFor="let saladsIngredient of saladsIngredientList">{{ saladsIngredient.saladsIngredientsName }}</li>
-    <br>
-    <li *ngFor="let saladsTopping of saladsToppingList">{{ saladsTopping.saladsToppingsName }}</li>
-    <br>
-    <li *ngFor="let saladsSauces of saladsSauceList">{{ saladsSauces.saladsSaucesName }}</li>
-    <br>
-  </ul>
+
+  <div class="columns is-centered">
+      <div class="column is-4">
+        <ul>
+          <li *ngFor="let saladsBase of saladsBaseList">{{ saladsBase.saladsBaseName }}</li><br>***
+          <li *ngFor="let saladsTopping of saladsToppingList">{{ saladsTopping.saladsToppingsName }}</li><br>***
+          <li *ngFor="let saladsSauces of saladsSauceList">{{ saladsSauces.saladsSaucesName }}</li>
+        </ul>
+      </div>
+      <div class="column is-4">
+        <ul>
+          <li *ngFor="let saladsIngredient of saladsIngredientList">{{ saladsIngredient.saladsIngredientsName }}</li><br>
+        </ul>
+      </div>
+
+  </div>
 </div>
 
-<div class="column">
+<div class="column is-4">
     <div id="flag"><span class="titlemenu">NOS PIZZAS</span></div>
       <ul>
         <li *ngFor="let pizzasList of pizzasList">{{ pizzasList.pizzName }} &nbsp; &nbsp; {{pizzasList.pizzPriceTTC }} EUR</li>
       </ul>
 </div>
 
-<div class="column">
+<div class="column is-4">
     <div id="flag"><span class="titlemenu">NOS MENUS</span></div>
       <ul>
         <li *ngFor="let saladsBase of saladsBaseList">{{ saladsBase.saladsBaseName }}</li>
@@ -73,6 +80,10 @@
 </div>
 
 </div>
+
+</section>
+
+<section>
   <div class="columns d-flex flex-row">
     <div class="column is-4">
       <img src="../../../assets/img/BarASaladeMenu.jpg" alt="BarASaladeMenu"/>
@@ -86,6 +97,7 @@
   </div>
 
 </section>
+
 <section>
   <h3>Evènements Spéciaux</h3>
   <p>Possibilité de privatiser le restaurant</p>

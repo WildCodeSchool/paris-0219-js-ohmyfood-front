@@ -1,0 +1,9 @@
+<button type="button" (click)="menuChoice('pizza')">Voir le menu pizza</button>
+
+<button type="button" (click)="menuChoice('salad')">Voir le menu salad</button>
+
+<app-menu-pizza-form *ngIf="displayMenuPizza"></app-menu-pizza-form>
+
+<app-menu-salad-form [isMenu]="displayMenuSalad" *ngIf="displayMenuSalad"></app-menu-salad-form>
+
+<app-basket></app-basket>

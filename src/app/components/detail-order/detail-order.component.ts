@@ -10,6 +10,7 @@ import { DessertsDataService } from 'src/app/services/desserts-data.service';
 import { FinalOrder } from 'src/app/class/final-order';
 import { FinalOrderService } from 'src/app/services/final-order.service';
 import { PizzaService } from 'src/app/services/pizza.service';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-detail-order',
@@ -31,12 +32,16 @@ export class DetailOrderComponent implements OnInit {
 
   total: number; // final result
 
+  userDetailForm: FormGroup;
+
   constructor(
     private pizzaService: PizzaService,
-    private finalOrder: FinalOrderService
+    private finalOrder: FinalOrderService, 
+    private fb: FormBuilder
   ) { }
 
   ngOnInit() {
+    this.initForm();
     // Get item from session storage if there is something in it
     if (sessionStorage.getItem('finalOrder')) {
       this.finalOrderRecap = JSON.parse(sessionStorage.getItem('finalOrder'));
@@ -201,6 +206,10 @@ export class DetailOrderComponent implements OnInit {
       }
     }
     sessionStorage.setItem('finalOrder', JSON.stringify(this.finalOrderRecap));
+  }
+
+  initForm() {
+    this.userDetailForm = this.fb.
   }
 }
 

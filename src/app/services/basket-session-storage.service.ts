@@ -3,6 +3,8 @@ import { OrderDessert } from '../class/order-dessert';
 import { OrderBeverage } from '../class/order-beverage';
 import { OrderPizzas } from '../class/order-pizzas';
 import { OrderSalads } from '../class/order-salads';
+import { MenuPizza } from '../class/menu-pizza';
+import { MenuSalad } from '../class/menu-salad';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +14,6 @@ export class BasketSessionStorageService {
   constructor() { }
 
   saveToSessionStorage(form: object[]) {
-
     if (form.length > 0) {
       const check = Object.getOwnPropertyNames(form[0]);
       const finalCheck = check[0];
@@ -45,6 +46,21 @@ export class BasketSessionStorageService {
           )
         );
         break;
+
+      case 'pizza' :
+        sessionStorage.setItem('menuPizza', JSON.stringify(form.map(
+          (menuPizz: MenuPizza[]) => menuPizz)
+          )
+        );
+        break;
+
+      case 'salad' :
+        sessionStorage.setItem('menuSalad', JSON.stringify(form.map(
+          (menuSalad: MenuSalad[]) => menuSalad)
+          )
+        );
+        break;
+
       default:
       return null;
       }
@@ -60,6 +76,8 @@ export class BasketSessionStorageService {
       sessionStorage.removeItem('salads');
       sessionStorage.removeItem('beverages');
       sessionStorage.removeItem('desserts');
+      sessionStorage.removeItem('menuPizza');
+      sessionStorage.removeItem('menuSalad');
     } else {
         // Clear session storage according to user's choice
         if (arg === 'pizza') {
@@ -76,6 +94,14 @@ export class BasketSessionStorageService {
 
         if (arg === 'dessert') {
           sessionStorage.removeItem('desserts');
+        }
+
+        if (arg === 'menuPizza') {
+          sessionStorage.removeItem('menuPizza');
+        }
+
+        if (arg === 'menuSalad') {
+          sessionStorage.removeItem('menuSalad');
         }
     }
   }

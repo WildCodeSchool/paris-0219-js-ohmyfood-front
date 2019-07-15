@@ -1,56 +1,56 @@
 <section>
-  <div class="dessertsTitle">
-    <a href (click)="toggleFormDessert($event)">
-      <h1>
-        DESSERTS
-      </h1>
+  <div class="beveragesTitle">
+  <a href (click)="toggleFormBeverage($event)">
+    <h1 >
+      BOISSONS
+    </h1>
 
-      <p>
-        Cliquez pour découvrir nos desserts
-      </p>
-    </a>
-  </div>
+    <p>
+      Cliquez pour découvrir nos boissons
+    </p>
+  </a>
+</div>
   <div class="notToggle" [ngClass]="{toggle: isToggle}">
     <div class="header">
-      <h3 class="desserts">
-        Nos Desserts<span>Prix</span>
+      <h3 class="beverages">
+        Nos Boissons<span>Prix</span>
       </h3>
 
       <h3 class="quantity">Quantités</h3>
     </div>
 
-      <form [formGroup]="formDessert" (ngSubmit)="formDessert.valid && onSubmit()">
-        <div formArrayName="selectedDessert">
+      <form [formGroup]="formBeverage" (ngSubmit)="formBeverage.valid && onSubmit()">
+        <div formArrayName="selectedBeverage">
           <div
             class="formLine"
             [formGroupName]="i"
-            *ngFor="let dessert of selectedDessert.controls ; let i = index">
+            *ngFor="let beverage of selectedBeverage.controls ; let i = index">
 
-              <label for="dessert-{{ i }}">
-                {{ dessert.value.dessName }}<span>{{ dessert.value.dessPriceTTC }} €</span>
+              <label for="beverage-{{ i }}">
+                {{ beverage.value.bevName }}<span>{{ beverage.value.bevPriceTTC }} €</span>
               </label>
 
               <div class="buttonQuantity">
                 <button
                   class="button is-rounded is-outlined is-mobile is-small"
-                  name="remove-dessert-quantity"
+                  name="remove-beverage-quantity"
                   type="button"
-                  (click)="quantitySelect('-', i, dessert.value.dessQuantity)">
+                  (click)="quantitySelect('-', i, beverage.value.bevQuantity)">
                     -
                 </button>
 
                 <input
                   class="input is-mobile is-small"
-                  name="selectedDessert-{{ i }}"
-                  formControlName="dessQuantity"
+                  name="selectedBeverage-{{ i }}"
+                  formControlName="bevQuantity"
                   type="text"
-                  value="{{dessert.value.dessQuantity}}"/>
+                  value="{{beverage.value.bevQuantity}}"/>
 
                 <button
                   class="button is-rounded is-outlined is-mobile is-small"
-                  name="add-dessert-quantity"
+                  name="add-beverage-quantity"
                   type="button"
-                  (click)="quantitySelect('+', i, dessert.value.dessQuantity)">
+                  (click)="quantitySelect('+', i, beverage.value.bevQuantity)">
                     +
                 </button>
               </div>
@@ -60,7 +60,6 @@
         <div class="submitSection">
           <button
             class="submitButton button is-rounded is-outlined "
-            [disabled]="!enableSubmit"
             type="submit">
               Ajouter au panier
           </button>
@@ -68,3 +67,4 @@
       </form>
     </div>
 </section>
+

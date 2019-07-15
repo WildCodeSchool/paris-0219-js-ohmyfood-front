@@ -25,7 +25,9 @@ export class DetailOrderComponent implements OnInit {
 
   finalOrderRecap: FinalOrder;
 
-  dateOrder: Date = new Date();
+  date: Date = new Date();
+
+  dateOrder: string;
 
   initPrice: boolean;
 
@@ -38,7 +40,7 @@ export class DetailOrderComponent implements OnInit {
     private fb: FormBuilder,
     private userAccountInformationsService: UserAccountInformationsService,
     private datePipe: DatePipe
-  ) { this.datePipe.transform(this.dateOrder, 'MM, H : mm : ss'); }
+  ) { this.dateOrder = this.datePipe.transform(this.date, 'yyyy-MM-dd hh:mm:ss'); }
 
   ngOnInit() {
     this.initForm();
@@ -255,7 +257,8 @@ export class DetailOrderComponent implements OnInit {
       1: this.userDetailForm.value,
       2: {
         dateOrder: this.dateOrder,
-        priceOrder: this.totalOrder
+        priceOrder: this.totalOrder,
+        idUsers: ''
       }
     };
     console.log(finalOrder);

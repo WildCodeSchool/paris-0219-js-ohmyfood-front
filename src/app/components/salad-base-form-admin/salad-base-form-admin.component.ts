@@ -50,7 +50,7 @@ export class SaladBaseFormAdminComponent implements OnInit {
     this.baseFormPut = this.fb.group({
       baseName: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(45)]],
       baseNewName: [''],
-      toppingPriceHt: ['', [Validators.required, Validators.pattern(this.regexPrice)]]
+      basePriceHt: ['', [Validators.required, Validators.pattern(this.regexPrice)]]
     });
     this.baseFormDel = this.fb.group({
       baseName: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(45)]],

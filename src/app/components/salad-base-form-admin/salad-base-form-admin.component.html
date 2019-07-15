@@ -58,21 +58,17 @@
       <label>
       <p>Nom de la base à modifier</p>
       <input type="text" 
+          class="form-control" 
+          formControlName="baseName" 
+          required
+        >
+      </label>
+      <label>
+      <p>Nouveau nom de la base ?</p>
+      <input type="text" 
         class="form-control" 
-        formControlName="baseName" 
-        required
+        formControlName="baseNewName" 
       >
-      <div *ngIf="fM.baseName.invalid && (fM.baseName.dirty || fM.baseName.touched)">
-        <div *ngIf="fM.baseName.errors.required">
-          <p class="invalidText">*Le nom de la base est requis</p>
-        </div>
-        <div *ngIf="fM.baseName.errors.minlength">
-          <p class="invalidText">*Le nom de la base doit contenir au moins 4 caractères</p>
-        </div>
-        <div *ngIf="fM.baseName.errors.maxlength">
-          <p class="invalidText">*Le nom de la base ne doit pas dépasser les 45 caractères</p>
-        </div>
-      </div>
       </label>
 
       <label>
@@ -80,16 +76,7 @@
         <input type="text" 
           class="form-control" 
           formControlName="basePriceHt" 
-          required
         >
-        <div *ngIf="fM.basePriceHt.invalid && (fM.basePriceHt.dirty || fM.basePriceHt.touched)">
-          <div *ngIf="fM.basePriceHt.errors.required">
-            <p class="invalidText">*Le prix est requis</p>
-          </div>
-          <div *ngIf="fM.basePriceHt.errors.pattern">
-            <p class="invalidText">*Le prix doit être inséré sous la forme XXX.XX</p>
-          </div>
-        </div>
       </label>
   </form>
   <button type="submit" (click)="onSubmitPutForm()">MODIFIER LA BASE</button>

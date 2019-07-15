@@ -45,7 +45,7 @@ export class SaladToppingsFormAdminComponent implements OnInit {
 
     this.toppingFormAdd = this.fb.group({
       toppingName: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(45)]],
-      topPriceHt: ['', [Validators.required, Validators.pattern(this.regexPrice)]]
+      topppingPriceHt: ['', [Validators.required, Validators.pattern(this.regexPrice)]]
     });
     this.toppingFormPut = this.fb.group({
       toppingName: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(45)]],

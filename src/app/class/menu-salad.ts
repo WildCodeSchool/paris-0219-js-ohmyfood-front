@@ -1,13 +1,13 @@
-import { OrderPizzas } from './order-pizzas';
+import { OrderSalads } from './order-salads';
 import { OrderBeverage } from './order-beverage';
 import { OrderDessert } from './order-dessert';
 
-export class MenuPizza {
+export class MenuSalad {
   constructor(
-    public pizza: OrderPizzas,
+    public salad: OrderSalads,
     public beverage: OrderBeverage,
     public dessert: OrderDessert,
-    public menuPizzPriceTotal: number,
-    public menuPizzQuantity: number
+    public menuSaladPriceTotal: number,
+    public menuSaladQuantity: number
   ) {}
 }

@@ -55,6 +55,8 @@ export class DetailOrderComponent implements OnInit {
       const salad = userFinalOrder.salad;
       const beverage = userFinalOrder.beverage;
       const dessert = userFinalOrder.dessert;
+      const menuPizza = userFinalOrder.menuPizza;
+      const menuSalad = userFinalOrder.menuSalad;
 
       // For each key, group information to sort them behind
       if (finalOrderStorage !== undefined) {
@@ -78,6 +80,18 @@ export class DetailOrderComponent implements OnInit {
       if (finalOrderStorage !== undefined) {
         finalOrderStorage.dessert.map((desserts: any) => {
           dessert.push(desserts);
+        });
+      }
+
+      if (finalOrderStorage !== undefined) {
+        finalOrderStorage.menuPizza.map((menusPizza: any) => {
+          menuPizza.push(menusPizza);
+        });
+      }
+
+      if (finalOrderStorage !== undefined) {
+        finalOrderStorage.menuSalad.map((menusSalad: any) => {
+          menuSalad.push(menusSalad);
         });
       }
 
@@ -117,7 +131,9 @@ export class DetailOrderComponent implements OnInit {
           pizza,
           salad,
           beverage,
-          dessert
+          dessert,
+          menuPizza,
+          menuSalad
         );
 
       sessionStorage.setItem('finalOrder', JSON.stringify(this.finalOrderRecap)); // Save new finalOrder in session storage
@@ -125,50 +141,66 @@ export class DetailOrderComponent implements OnInit {
     });
   }
 
-  //html gestion
+  // html gestion
 
   quantitySelect(operator: string, i: number, quantity: number, elType: string) {
     let abrevElType = '';
     switch (elType) {
-      case 'pizza': abrevElType = "pizz";
+      case 'pizza':
+        abrevElType = 'pizz';
         break;
-      case 'beverage': abrevElType = "bev";
+      case 'beverage':
+        abrevElType = 'bev';
         break;
-      case 'dessert': abrevElType = "dess";
+      case 'dessert':
+        abrevElType = 'dess';
         break;
-      case 'salad': abrevElType = "saladsComposed";
+      case 'salad':
+        abrevElType = 'saladsComposed';
+        break;
+      case 'menuPizza':
+        abrevElType = 'menuPizz';
+        break;
+      case 'menuSalad':
+        abrevElType = 'menuSalad';
         break;
       default: null;
-        break;
+               break;
     }
-    
-    let abrevElTypeQtt = abrevElType + 'Quantity';
-    let abrevElTypeTotPrice;
-    if (elType === 'salad') {
-      abrevElTypeTotPrice = abrevElType + 'TotalPrice'
-    }else {
-      abrevElTypeTotPrice = abrevElType + 'PriceTotal'
-    }
-    let elementPrice = this.finalOrderRecap[`${elType}`][`${i}`][`${abrevElTypeTotPrice}`] / quantity;
+
+    const abrevElTypeQtt = abrevElType + 'Quantity';
+
+    const abrevElTypeTotPrice = abrevElType + 'PriceTotal';
+
+    const elementPrice = this.finalOrderRecap[`${elType}`][`${i}`][`${abrevElTypeTotPrice}`] / quantity;
 
     if (operator === '+') {
       this.finalOrderRecap[`${elType}`][`${i}`][`${abrevElTypeQtt}`] += 1;
-      this.finalOrderRecap[`${elType}`][`${i}`][`${abrevElTypeTotPrice}`] = elementPrice * (quantity + 1)
+      this.finalOrderRecap[`${elType}`][`${i}`][`${abrevElTypeTotPrice}`] = elementPrice * (quantity + 1);
     }
     if (operator === '-') {
       if (quantity > 1) {
         this.finalOrderRecap[`${elType}`][`${i}`][`${abrevElTypeQtt}`] -= 1;
-        this.finalOrderRecap[`${elType}`][`${i}`][`${abrevElTypeTotPrice}`] = elementPrice * (quantity - 1)
+        this.finalOrderRecap[`${elType}`][`${i}`][`${abrevElTypeTotPrice}`] = elementPrice * (quantity - 1);
       } else {
         let speechConfirm = `Etes-vous sûr de vouloir supprimer `;
-        elType === 'salad' ? speechConfirm += `la salade n° ${i + 1}?`
-        : speechConfirm += `${this.finalOrderRecap[`${elType}`][`${i}`][`${abrevElType}Name`]}?`;
-        if(confirm(speechConfirm)) {
-          this.finalOrderRecap[`${elType}`].splice(i, 1)
+        if (elType === 'salad') {
+          speechConfirm += `la salad n° ${i + 1}?`;
+        } else if (elType === 'menuPizza') {
+          speechConfirm += `le menu pizza n° ${i + 1}?`;
+        } else if (elType === 'menuSalad') {
+          speechConfirm += `le menu salade n° ${i + 1}?`;
+        } else {
+          speechConfirm += `${this.finalOrderRecap[`${elType}`][`${i}`][`${abrevElType}Name`]}?`;
+        }
+        /* elType === 'salad' ? speechConfirm += `la salade n° ${i + 1}?` */
+        /* : */
+        if (confirm(speechConfirm)) {
+          this.finalOrderRecap[`${elType}`].splice(i, 1);
         }
       }
     }
-    sessionStorage.setItem('finalOrder', JSON.stringify(this.finalOrderRecap))
+    sessionStorage.setItem('finalOrder', JSON.stringify(this.finalOrderRecap));
   }
 }
 

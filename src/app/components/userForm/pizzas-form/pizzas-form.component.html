@@ -45,7 +45,7 @@
                 class="input is-mobile is-small"
                 name="selectedPizzas-{{ i }}"
                 formControlName="pizzQuantity"
-                type="number"
+                type="text"
                 value="{{pizzas.value.pizzQuantity}}">
 
               <button
@@ -62,7 +62,6 @@
       <div class="submitSection">
         <button
           class="submitButton button is-rounded is-outlined "
-          [disabled]="!enableSubmit"
           type="submit">
           Ajouter au panier
         </button>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { SaladsDatasService } from 'src/app/services/salads-datas.service';
 import { QuantitySelectService } from 'src/app/services/quantity-select.service';
 import { ToggleFormService } from 'src/app/services/toggle-form.service';
@@ -13,8 +13,18 @@ import { checkSaladsIngredients } from 'src/app/validators/saladsIngredientsVali
 })
 export class SaladsFormComponent implements OnInit {
 
+  // To know if user selected menu
+  // Get this information from menuSaladFormComponent
+  @Input()
+  menu: boolean;
+
   // To toggle Form
   isToggle: boolean;
+
+  isToggleBase: boolean;
+  isToggleSauce: boolean;
+  isToggleToppings: boolean;
+  isToggleIngredients: boolean;
 
   // To display saucesMessage and toppingsMessage
   displaySaucesMessage = true;
@@ -143,7 +153,7 @@ export class SaladsFormComponent implements OnInit {
   onSubmit() {
     const OrderSalads = this.formSalads.value;
 
-    this.saladsDataService.createOrderSalads(OrderSalads);
+    this.saladsDataService.createOrderSalads(OrderSalads, this.menu);
 
     this.displayToppingsMessage = true;
     this.displaySaucesMessage = true;
@@ -177,9 +187,22 @@ export class SaladsFormComponent implements OnInit {
     }
    }
 
-   toggleFormSalads($event: any) {
-    $event.preventDefault();
-    this.isToggle = this.ToggleForm.toggleForm(this.isToggle);
+   toggleFormSalads($event: any, params: any) {
+     $event.preventDefault();
+
+     if (params === 'form') {
+      this.isToggle = this.ToggleForm.toggleForm(this.isToggle);
+     } else if (params === 'base') {
+        this.isToggleBase = this.ToggleForm.toggleForm(this.isToggleBase);
+    } else if ( params === 'toppings') {
+        this.isToggleToppings = this.ToggleForm.toggleForm(this.isToggleToppings);
+    } else if ( params === 'ingredients') {
+        this.isToggleIngredients = this.ToggleForm.toggleForm(this.isToggleIngredients);
+    } else if ( params === 'sauce') {
+      this.isToggleSauce = this.ToggleForm.toggleForm(this.isToggleSauce);
+    }
+
+
   }
 
   resetFormSalads() {

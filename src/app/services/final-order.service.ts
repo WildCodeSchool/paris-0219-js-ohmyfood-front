@@ -16,8 +16,11 @@ export class FinalOrderService {
       finalOrder.pizza,
       finalOrder.salad,
       finalOrder.beverage,
-      finalOrder.dessert
+      finalOrder.dessert,
+      finalOrder.menuPizza,
+      finalOrder.menuSalad
     );
     this.getFinalOrder.emit(finalOrder);
+    sessionStorage.setItem('finalOrder', JSON.stringify(finalOrder));
   }
 }

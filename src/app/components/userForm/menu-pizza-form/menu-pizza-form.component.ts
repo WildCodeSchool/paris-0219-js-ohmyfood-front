@@ -6,10 +6,8 @@ import { CreateFormService } from 'src/app/services/create-form.service';
 import { BeveragesDataService } from 'src/app/services/beverages-data.service';
 import { DessertsDataService } from 'src/app/services/desserts-data.service';
 import { DatePipe } from '@angular/common';
-import { deliveryIntervalTime } from '../../validators/deliveryTimeValidators';
-import { quantityMenuPizzaControl } from 'src/app/validators/menuPizzaQuantityValidators';
-import { quantityMenuBeverageControl } from 'src/app/validators/menuBeverageQuantityValidators';
-import { quantityMenuDessertControl } from '../../validators/menuDessertQuantityValidators';
+import { deliveryIntervalTime } from '../../../validators/deliveryTimeValidators';
+import { quantityMenuPizzaControl } from 'src/app/validators/quantityMenuPizzaControl';
 
 @Component({
   selector: 'app-menu-pizza-form',
@@ -41,22 +39,25 @@ export class MenuPizzaFormComponent implements OnInit {
   ngOnInit() {
     // Initialize form group
     this.pizzaMenuForm = this.formBuilder.group({
-      pizza: this.formBuilder.array([], quantityMenuPizzaControl()),
-      beverage: this.formBuilder.array([], quantityMenuBeverageControl()),
-      dessert: this.formBuilder.array([], quantityMenuDessertControl()),
-      pizzaMenuPrice: Number,
+      pizza: this.formBuilder.array([]),
+      beverage: this.formBuilder.array([]),
+      dessert: this.formBuilder.array([]),
+      pizzaMenuPriceTotal: Number,
       },
       {
-      validators: deliveryIntervalTime(this.controlDate), // Validator time
+      validators: [
+        deliveryIntervalTime(this.controlDate), // Validator time
+        quantityMenuPizzaControl('pizza', 'beverage', 'dessert') // Validator quantity
+        ],
       }
     );
 
     // Get Menu Price
     const menuSubscription = this.menuPrices.getMenuPrices()
     .subscribe((menuPrice: any) => {
-      this.pizzaMenuForm.controls.pizzaMenuPrice.patchValue({
-        pizzaMenuPrice: menuPrice[0].menuPizzPrice.toFixed(2)
-      });
+      this.pizzaMenuForm.controls.pizzaMenuPriceTotal.patchValue(
+        menuPrice[0].menuPizzPrice.toFixed(2)
+      );
       menuSubscription.unsubscribe();
     });
 
@@ -115,41 +116,15 @@ export class MenuPizzaFormComponent implements OnInit {
   }
 
   onSubmit() {
-    const menuChoice = this.pizzaMenuForm.value;
+    const pizzaMenuChoice = this.pizzaMenuForm.value;
 
-    this.menuPrices.createOrderMenu(menuChoice);
+    this.menuPrices.createOrderMenu(pizzaMenuChoice);
   }
 
-  getUserChoice(index: number, choice) {
+  getUserChoice(index: number, choice: object) {
+  // To check wich object we have to change in method
+  const check = Object.getOwnPropertyNames(choice);
 
-    const check = Object.getOwnPropertyNames(choice);
-
-    if (check[0] === 'idPizzas') {
-      const length = this.pizzaMenuForm.controls.pizza[`controls`].length; // To get array length
-
-      for (let i = 0; i < length; i ++) {
-        index !== i ?
-        this.pizzaMenuForm.controls.pizza[`controls`][i].value.pizzQuantity = 0 :
-        this.pizzaMenuForm.controls.pizza[`controls`][i].value.pizzQuantity = 1;
-        }
-
-    } else if (check[0] === 'idBeverages') {
-        const length = this.pizzaMenuForm.controls.beverage[`controls`].length; // To get array length
-
-        for (let i = 0; i < length; i ++) {
-          index !== i ?
-          this.pizzaMenuForm.controls.beverage[`controls`][i].value.bevQuantity = 0 :
-          this.pizzaMenuForm.controls.beverage[`controls`][i].value.bevQuantity = 1;
-          }
-
-    } else if (check[0] === 'idDesserts') {
-        const length = this.pizzaMenuForm.controls.dessert[`controls`].length; // To get array length
-
-        for (let i = 0; i < length; i ++) {
-          index !== i ?
-          this.pizzaMenuForm.controls.dessert[`controls`][i].value.dessQuantity = 0 :
-          this.pizzaMenuForm.controls.dessert[`controls`][i].value.dessQuantity = 1;
-          }
-    }
+  this.pizzaMenuForm = this.menuPrices.getRadioButton(this.pizzaMenuForm, index, choice, check);
   }
 }

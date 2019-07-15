@@ -1,14 +1,15 @@
 <section>
-  <a href (click)="toggleFormDessert($event)">
-    <h1 class="dessertsTitle">
-      DESSERTS
-    </h1>
+  <div class="dessertsTitle">
+    <a href (click)="toggleFormDessert($event)">
+      <h1>
+        DESSERTS
+      </h1>
 
-    <p>
-      Cliquez pour découvrir nos desserts
-    </p>
-  </a>
-
+      <p>
+        Cliquez pour découvrir nos desserts
+      </p>
+    </a>
+  </div>
   <div class="notToggle" [ngClass]="{toggle: isToggle}">
     <div class="header">
       <h3 class="desserts">
@@ -26,7 +27,7 @@
             *ngFor="let dessert of selectedDessert.controls ; let i = index">
 
               <label for="dessert-{{ i }}">
-                {{ dessert.value.dessName }}<span>{{ dessert.value.dessPriceTTC }} EUR</span>
+                {{ dessert.value.dessName }}<span>{{ dessert.value.dessPriceTTC }} €</span>
               </label>
 
               <div class="buttonQuantity">
@@ -42,7 +43,7 @@
                   class="input is-mobile is-small"
                   name="selectedDessert-{{ i }}"
                   formControlName="dessQuantity"
-                  type="number"
+                  type="text"
                   value="{{dessert.value.dessQuantity}}"/>
 
                 <button
@@ -59,7 +60,6 @@
         <div class="submitSection">
           <button
             class="submitButton button is-rounded is-outlined "
-            [disabled]="!enableSubmit"
             type="submit">
               Ajouter au panier
           </button>

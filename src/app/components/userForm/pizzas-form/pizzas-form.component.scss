@@ -1,4 +1,4 @@
-@import '../../../styles/colors.scss';
+@import '../../../../styles/colors.scss';
 
 a {
   align-items: center;
@@ -54,7 +54,7 @@ a {
   label {
     display: flex;
     justify-content: space-between;
-    width: 60%;
+    width: 87%;
   }
 }
 
@@ -64,7 +64,7 @@ a {
   justify-content: space-between;
   margin-bottom: 2vh;
 
-  .desserts {
+  .pizzas {
     display: flex;
     justify-content: space-between;
     font-size: 1.5em;
@@ -83,20 +83,21 @@ a {
   }
 }
 
+.labelPizza {
+  width: 83%;
+
+  p {
+    font-size: 0.8em;
+  }
+}
+
 input {
   width: 5vw;
   text-align: center;
 }
 
-input[type=number]::-webkit-inner-spin-button,
-input[type=number]::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
 .notToggle {
   max-height: 0;
-  margin: 5vh auto;
   overflow: hidden;
   padding: 0;
   transition-duration: 1000ms;
@@ -119,7 +120,7 @@ section {
 
 .toggle {
   margin: 5vh auto;
-  max-height: 600px;
+  max-height: 2500px;
 }
 
 // Media Queries //
@@ -130,7 +131,7 @@ section {
     margin: 0 auto 2vh auto;
     width: 90vw;
 
-    .desserts {
+    .pizzas {
       font-size: 1em;
       width: 55vw;
 
@@ -198,5 +199,3 @@ section {
     }
   }
 }
-
-

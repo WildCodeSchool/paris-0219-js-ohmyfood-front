@@ -26,7 +26,7 @@ export class SaladSaucesFormAdminComponent implements OnInit {
   ngOnInit() {
     this.initForm();
     const getSauceObs = this.saladsDataService.addSaladsSauces().subscribe(data => {
-      this.saladsDataService = data;
+      this.sauceDataObject = data;
       getSauceObs.unsubscribe();
     });
   }

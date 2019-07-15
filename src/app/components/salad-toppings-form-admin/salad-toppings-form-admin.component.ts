@@ -26,7 +26,7 @@ export class SaladToppingsFormAdminComponent implements OnInit {
   ngOnInit() {
     this.initForm();
     const getToppingObs = this.saladsDataService.addSaladsToppings().subscribe(data => {
-      this.saladsDataService = data;
+      this.toppingDataObject = data;
       getToppingObs.unsubscribe();
     });
   }
@@ -45,12 +45,12 @@ export class SaladToppingsFormAdminComponent implements OnInit {
 
     this.toppingFormAdd = this.fb.group({
       toppingName: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(45)]],
-      topppingPriceHt: ['', [Validators.required, Validators.pattern(this.regexPrice)]]
+      toppingPriceHt: ['', [Validators.required, Validators.pattern(this.regexPrice)]]
     });
     this.toppingFormPut = this.fb.group({
-      toppingName: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(45)]],
+      toppingName: ['', Validators.required],
       toppingNewName: [''],
-      toppingPriceHt: ['', [Validators.required, Validators.pattern(this.regexPrice)]]
+      toppingPriceHt: ['', Validators.pattern(this.regexPrice)]
     });
     this.toppingFormDel = this.fb.group({
       toppingName: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(45)]],

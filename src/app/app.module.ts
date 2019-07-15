@@ -28,17 +28,12 @@ import { HomeComponent } from './components/home/home.component';
 import { SaladPageComponent } from './pages/salad-page/salad-page.component';
 import { OnlyLoggedInUsersGuardService } from './services/only-logged-in-users-guard.service';
 import { MenuPageComponent } from './pages/menu-page/menu-page.component';
-<<<<<<< HEAD
-import { MenuPizzaFormComponent } from './components/menu-pizza-form/menu-pizza-form.component';
-import { DessertsFormAdminComponent } from './components/desserts-form-admin/desserts-form-admin.component';
 import { SaladToppingsFormAdminComponent } from './components/salad-toppings-form-admin/salad-toppings-form-admin.component';
 import { SaladIngredientsFormAdminComponent } from './components/salad-ingredients-form-admin/salad-ingredients-form-admin.component';
 import { SaladBaseFormAdminComponent } from './components/salad-base-form-admin/salad-base-form-admin.component';
 import { SaladSaucesFormAdminComponent } from './components/salad-sauces-form-admin/salad-sauces-form-admin.component';
-=======
 import { MenuPizzaFormComponent } from './components/userForm/menu-pizza-form/menu-pizza-form.component';
 import { DessertsFormAdminComponent } from './components/admin/desserts-form-admin/desserts-form-admin.component';
->>>>>>> 2d22e5d8173064a708d9fe619dfac2992b6d2e33
 import { DetailOrderPageComponent } from './pages/detail-order-page/detail-order-page.component';
 import { DetailOrderComponent } from './components/detail-order/detail-order.component';
 import { MenuSaladFormComponent } from './components/userForm/menu-salad-form/menu-salad-form.component';

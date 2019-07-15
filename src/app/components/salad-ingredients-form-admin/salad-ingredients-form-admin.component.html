@@ -33,10 +33,10 @@
     </label>
 
     <label>
-      <p>Prix hors taxe</p>
+      <p>Prix toutes taxes comprises</p>
       <input type="text" 
         class="form-control" 
-        formControlName="ingPriceHt" 
+        formControlName="ingredientPriceHt" 
         required
       >
       <div *ngIf="fA.ingredientPriceHt.invalid && (fA.ingredientPriceHt.dirty || fA.ingredientPriceHt.touched)">
@@ -71,7 +71,7 @@
         >
         </label>
       <label>
-        <p>Prix hors taxe</p>
+        <p>Prix toutes taxes comprises</p>
         <input type="text" 
           class="form-control" 
           formControlName="ingredientPriceHt"
@@ -107,4 +107,4 @@
   </form>
 </div>
 
-<p *ngFor="let dataIngredient of ingredientDataObject; let i = index;">{{ dataIngredient.ingName }} {{ dataBase.ingPriceHt }} EUR</p>
+<p *ngFor="let dataIngredient of ingredientDataObject; let i = index;">{{ dataIngredient.saladsIngredientsName }} {{ dataIngredient.saladsIngredientsPriceTTC }} EUR</p>

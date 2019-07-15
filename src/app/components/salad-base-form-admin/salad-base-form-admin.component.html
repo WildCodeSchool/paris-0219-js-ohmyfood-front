@@ -16,17 +16,17 @@
     <p>Nom de la base à ajouter</p>
     <input type="text" 
       class="form-control" 
-      formControlName="baseName" 
+      formControlName="basesName" 
       required
     >
-    <div *ngIf="fA.baseName.invalid && (fA.baseName.dirty || fA.baseName.touched)">
-      <div *ngIf="fA.baseName.errors.required">
+    <div *ngIf="fA.basesName.invalid && (fA.basesName.dirty || fA.basesName.touched)">
+      <div *ngIf="fA.basesName.errors.required">
         <p class="invalidText">*Le nom de la base est requis</p>
       </div>
-      <div *ngIf="fA.baseName.errors.minlength">
+      <div *ngIf="fA.basesName.errors.minlength">
         <p class="invalidText">*Le nom de la base doit contenir au moins 4 caractères</p>
       </div>
-      <div *ngIf="fA.baseName.errors.maxlength">
+      <div *ngIf="fA.basesName.errors.maxlength">
         <p class="invalidText">*Le nom de la base ne doit pas dépasser les 45 caractères</p>
       </div>
     </div>
@@ -36,14 +36,14 @@
       <p>Prix hors taxe</p>
       <input type="text" 
         class="form-control" 
-        formControlName="basePriceHt" 
+        formControlName="basesPriceHt" 
         required
       >
-      <div *ngIf="fA.basePriceHt.invalid && (fA.basePriceHt.dirty || fA.basePriceHt.touched)">
-        <div *ngIf="fA.basePriceHt.errors.required">
+      <div *ngIf="fA.basesPriceHt.invalid && (fA.basesPriceHt.dirty || fA.basesPriceHt.touched)">
+        <div *ngIf="fA.basesPriceHt.errors.required">
           <p class="invalidText">*Le prix est requis</p>
         </div>
-        <div *ngIf="fA.basePriceHt.errors.pattern">
+        <div *ngIf="fA.basesPriceHt.errors.pattern">
           <p class="invalidText">*Le prix doit être inséré sous la forme XXX.XX</p>
         </div>
       </div>
@@ -59,7 +59,7 @@
       <p>Nom de la base à modifier</p>
       <input type="text" 
           class="form-control" 
-          formControlName="baseName" 
+          formControlName="basesName" 
           required
         >
       </label>
@@ -67,7 +67,7 @@
       <p>Nouveau nom de la base ?</p>
       <input type="text" 
         class="form-control" 
-        formControlName="baseNewName" 
+        formControlName="basesNewName" 
       >
       </label>
 
@@ -75,7 +75,7 @@
         <p>Prix hors taxe</p>
         <input type="text" 
           class="form-control" 
-          formControlName="basePriceHt" 
+          formControlName="basesPriceHt"
         >
       </label>
   </form>
@@ -87,19 +87,19 @@
   <form [formGroup]="baseFormDel">
       <label>
         <p>Nom de la base à Supprimer</p>
-        <input type="text" 
+        <input type="text"
           class="form-control" 
-          formControlName="baseName" 
+          formControlName="basesName" 
           required
         >
-        <div *ngIf="fD.baseName.invalid && (fD.baseName.dirty || fD.baseName.touched)">
-          <div *ngIf="fD.baseName.errors.required">
+        <div *ngIf="fD.basesName.invalid && (fD.basesName.dirty || fD.basesName.touched)">
+          <div *ngIf="fD.basesName.errors.required">
             <p class="invalidText">*Le nom de la base est requis</p>
           </div>
-          <div *ngIf="fD.baseName.errors.minlength">
+          <div *ngIf="fD.basesName.errors.minlength">
             <p class="invalidText">*Le nom de la base doit contenir au moins 4 caractères</p>
           </div>
-          <div *ngIf="fD.baseName.errors.maxlength">
+          <div *ngIf="fD.basesName.errors.maxlength">
             <p class="invalidText">*Le nom de la base ne doit pas dépasser les 45 caractères</p>
           </div>
         </div>
@@ -108,4 +108,4 @@
   </form>
 </div>
 
-<p *ngFor="let dataBase of baseDataObject; let i = index;">{{ dataBase.baseName }} {{ dataBase.basePriceHt }} EUR</p>
+<p *ngFor="let dataBase of baseDataObject; let i = index;">{{ dataBase.saladsBaseName }} {{ dataBase.saladsBasePriceTTC }} EUR</p>

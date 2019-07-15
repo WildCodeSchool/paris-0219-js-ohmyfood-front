@@ -14,7 +14,7 @@ export class SaladBaseFormAdminComponent implements OnInit {
   formCheck: FormGroup;
   regexPrice = /[0-9{1,3}]+[.]+[0-9]{2}/gm;
   baseFormObject;
-  baseDataOject;
+  baseDataObject;
   baseFormAdd: FormGroup;
   baseFormPut: FormGroup;
   baseFormDel: FormGroup;
@@ -26,7 +26,7 @@ export class SaladBaseFormAdminComponent implements OnInit {
   ngOnInit() {
     this.initForm();
     const getBaseObs = this.saladsDataService.addSaladsBases().subscribe(data => {
-      this.baseDataOject = data;
+      this.baseDataObject = data;
       getBaseObs.unsubscribe();
     });
   }
@@ -44,16 +44,16 @@ export class SaladBaseFormAdminComponent implements OnInit {
     })
 
     this.baseFormAdd = this.fb.group({
-      baseName: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(45)]],
+      basesName: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(45)]],
       basesPriceHt: ['', [Validators.required, Validators.pattern(this.regexPrice)]]
     });
     this.baseFormPut = this.fb.group({
-      baseName: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(45)]],
-      baseNewName: [''],
-      basePriceHt: ['', [Validators.required, Validators.pattern(this.regexPrice)]]
+      basesName: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(45)]],
+      basesNewName: [''],
+      basesPriceHt: ['', [Validators.required, Validators.pattern(this.regexPrice)]]
     });
     this.baseFormDel = this.fb.group({
-      baseName: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(45)]],
+      basesName: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(45)]],
     });
   }
 
@@ -92,7 +92,7 @@ export class SaladBaseFormAdminComponent implements OnInit {
       if (confirm(`Êtes-vous certain de modifier la base ${this.baseFormPut.value.saladsBaseName} ?`)) {
         const putBaseType = this.saladBaseService.putBaseType().subscribe(_ => {
           const getBaseObs = this. saladsDataService.addSaladsBases().subscribe(data => {
-            this.baseDataOject = data;
+            this.baseDataObject = data;
             getBaseObs.unsubscribe();
           });
           this.baseFormPut.reset();
@@ -110,7 +110,7 @@ export class SaladBaseFormAdminComponent implements OnInit {
       if (confirm(`Êtes-vous certain de supprimer la base ${this.baseFormDel.value.saladsBaseName} ?`)) {
         const delBaseType = this.saladBaseService.delBaseType().subscribe(_ => {
           const getBaseObs = this.saladsDataService.addSaladsBases().subscribe(data => {
-            this.baseDataOject = data;
+            this.baseDataObject = data;
             getBaseObs.unsubscribe();
           });
           this.baseFormDel.reset();

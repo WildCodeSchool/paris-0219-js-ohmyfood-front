@@ -19,8 +19,8 @@
       formControlName="toppingName" 
       required
     >
-    <div *ngIf="fA.topppingName.invalid && (fA.topppingName.dirty || fA.toppingName.touched)">
-      <div *ngIf="fA.topppingName.errors.required">
+    <div *ngIf="fA.toppingName.invalid && (fA.toppingName.dirty || fA.toppingName.touched)">
+      <div *ngIf="fA.toppingName.errors.required">
         <p class="invalidText">*Le nom du topping est requis</p>
       </div>
       <div *ngIf="fA.toppingName.errors.minlength">
@@ -36,14 +36,14 @@
       <p>Prix hors taxe</p>
       <input type="text" 
         class="form-control" 
-        formControlName="topPriceHt" 
+        formControlName="toppingPriceHt" 
         required
       >
-      <div *ngIf="fA.topPriceHt.invalid && (fA.topPriceHt.dirty || fA.topPriceHt.touched)">
-        <div *ngIf="fA.topPriceHt.errors.required">
+      <div *ngIf="fA.toppingPriceHt.invalid && (fA.toppingPriceHt.dirty || fA.toppingPriceHt.touched)">
+        <div *ngIf="fA.toppingPriceHt.errors.required">
           <p class="invalidText">*Le prix est requis</p>
         </div>
-        <div *ngIf="fA.topPriceHt.errors.pattern">
+        <div *ngIf="fA.toppingPriceHt.errors.pattern">
           <p class="invalidText">*Le prix doit être inséré sous la forme XXX.XX</p>
         </div>
       </div>
@@ -75,7 +75,7 @@
         <p>Prix hors taxe</p>
         <input type="text" 
           class="form-control" 
-          formControlName="topPriceHt"
+          formControlName="toppingPriceHt"
         >
       </label>
   </form>
@@ -108,4 +108,4 @@
   </form>
 </div>
 
-<p *ngFor="let dataTopping of toppingDataObject; let i = index;">{{ dataTopping.topName }} {{ dataTopping.topPriceHt }} EUR</p>
+<p *ngFor="let dataTopping of toppingDataObject; let i = index;">{{ dataTopping.saladsToppingsName }} {{ dataTopping.saladsToppingsPriceTTC }} EUR</p>

@@ -27,7 +27,7 @@
             *ngFor="let dessert of selectedDessert.controls ; let i = index">
 
               <label for="dessert-{{ i }}">
-                {{ dessert.value.dessName }}<span>{{ dessert.value.dessPriceTTC }} €</span>
+                <span class='dessertStyle'>{{ dessert.value.dessName }}</span><span>{{ dessert.value.dessPriceTTC }} €</span>
               </label>
 
               <div class="buttonQuantity">

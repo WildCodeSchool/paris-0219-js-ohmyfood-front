@@ -232,20 +232,25 @@ section {
     width: 230px;
     font-size: 15px;
   }
-  .desserts {
-    font-size: 1em;
-    width: 55vw;
+  .header {
+    justify-content: space-around;
+    margin: 1px 10px 0vh 0px;
+    width: 81vw;
 
-    span {
-      text-align: center;
-      width: 23vw;
+    .desserts {
+      font-size: 1em;
+      width: 55vw;
+
+      span {
+        text-align: center;
+        width: 11vw;
+      }
     }
-  }
-
-  .quantity {
-    font-size: 1em;
-    text-align: center;
-    width: 20vw;
+    .quantity {
+      font-size: 1em;
+      text-align: center;
+      width: 16vw;
+    }
   }
 
 
@@ -277,10 +282,16 @@ section {
         font-size: 0.7em;
         width: 65%;
 
-        span {
-          display: inline-block;
-          text-align: center;
-          width: 23vw;
+        .dessertStyle {
+          width: 78%;
+          text-align: left;
+
+
+          span {
+            display: inline-block;
+            text-align: center;
+            width: 23vw;
+          }
         }
       }
     }

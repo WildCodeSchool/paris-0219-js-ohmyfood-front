@@ -39,25 +39,28 @@
   </a>
 </section>
 
-<section>
   <h2>Menu / Cartes</h2>
 
 <div class="columns">
 
-<div class="column is-4">
+<div class="column is-4 is-centered">
 
 <div id="flag"><span class="titlemenu">BAR A SALADE</span></div>
-
-  <div class="columns is-centered">
-      <div class="column is-4">
+<br>
+  <div class="columns">
+      <div class="column is-6">
         <ul>
-          <li *ngFor="let saladsBase of saladsBaseList">{{ saladsBase.saladsBaseName }}</li><br>***
-          <li *ngFor="let saladsTopping of saladsToppingList">{{ saladsTopping.saladsToppingsName }}</li><br>***
+          <div id="flag_d"><span class="titlemenu">BASE</span></div>
+          <li *ngFor="let saladsBase of saladsBaseList">{{ saladsBase.saladsBaseName }}</li><br>
+          <div id="flag_d"><span class="titlemenu">TOPPINGS</span></div>
+          <li *ngFor="let saladsTopping of saladsToppingList">{{ saladsTopping.saladsToppingsName }}</li><br>
+          <div id="flag_d"><span class="titlemenu">SAUCE</span></div>
           <li *ngFor="let saladsSauces of saladsSauceList">{{ saladsSauces.saladsSaucesName }}</li>
         </ul>
       </div>
-      <div class="column is-4">
+      <div class="column is-6">
         <ul>
+          <div id="flag_d"><span class="titlemenu">INGREDIENTS</span></div>
           <li *ngFor="let saladsIngredient of saladsIngredientList">{{ saladsIngredient.saladsIngredientsName }}</li><br>
         </ul>
       </div>
@@ -66,22 +69,26 @@
 </div>
 
 <div class="column is-4">
-    <div id="flag"><span class="titlemenu">NOS PIZZAS</span></div>
+    <div id="flag"><span class="titlemenu">NOS PIZZAS</span></div><br>
       <ul>
         <li *ngFor="let pizzasList of pizzasList">{{ pizzasList.pizzName }} &nbsp; &nbsp; {{pizzasList.pizzPriceTTC }} EUR</li>
       </ul>
 </div>
 
 <div class="column is-4">
-    <div id="flag"><span class="titlemenu">NOS MENUS</span></div>
-      <ul>
-        <li *ngFor="let saladsBase of saladsBaseList">{{ saladsBase.saladsBaseName }}</li>
-      </ul>
+    <div id="flag"><span class="titlemenu">NOS MENUS</span></div><br>
+    <div class="columns is-centered">
+      <div class="column is-6">
+      <div id="flag_d"><span class="titlemenu">MENU PIZZA</span></div>
+    </div>
+    <div class="column is-6">
+      <div id="flag_d"><span class="titlemenu">MENU SALADE</span></div>
+    </div>
+
+    </div>
 </div>
 
-</div>
-
-</section>
+</div> // colonne globale
 
 <section>
   <div class="columns d-flex flex-row">

@@ -54,6 +54,8 @@ p {
 }
 
 #flag {
+    margin-left: auto;
+    margin-right: auto;
     width: 200px;
     height: 40px;
     position: relative;
@@ -84,11 +86,49 @@ p {
     border-bottom: 20px solid transparent;
   }
 
+  #flag_d {
+    margin-left: auto;
+    margin-right: auto;
+    width: 200px;
+    height: 36px;
+    position: relative;
+    border-top: 3px solid #93BA79;
+    border-bottom: 3px solid #93BA79;
+  }
+
+  #flag_d:after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 0;
+    border-left: 15px solid transparent;
+    border-top: 15px solid #93BA79;
+    border-bottom: 15px solid #93BA79;
+  }
+
+  #flag_d:before {
+    content: "";
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 0;
+    height: 0;
+    border-top: 15px solid #93BA79;
+    border-right: 15px solid transparent;
+    border-bottom: 15px solid #93BA79;
+  }
+
 span.titlemenu {
     height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+li {
+    text-align: center;
 }
 
 

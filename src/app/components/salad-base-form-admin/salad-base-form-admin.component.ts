@@ -60,14 +60,14 @@ export class SaladBaseFormAdminComponent implements OnInit {
   onSubmitAddForm() {
     if (this.baseFormAdd.valid) {
       this.saladBaseService.baseFormObject = {
-        baseName: this.toJadenCase(this.baseFormAdd.value.saladsBaseName),
+        baseName: this.toJadenCase(this.baseFormAdd.value.basesName),
         basePriceHt: parseFloat(this.baseFormAdd.value.saladsBasePriceHt),
         idTax: 1
       };
-      if (confirm(`Êtes-vous certain d'ajouter la base ${this.baseFormAdd.value.saladsBaseName} ?`)) {
+      if (confirm(`Êtes-vous certain d'ajouter la base ${this.baseFormAdd.value.basesName} ?`)) {
         const addBaseType = this.saladBaseService.addBaseType().subscribe(_ => {
           const getBaseObs = this.saladsDataService.addSaladsBases().subscribe(data => {
-            this.saladBaseService = data;
+            this.baseDataObject = data;
             getBaseObs.unsubscribe();
           });
           this.baseFormAdd.reset();
@@ -80,16 +80,16 @@ export class SaladBaseFormAdminComponent implements OnInit {
   onSubmitPutForm() {
     if (this.baseFormPut.valid) {
       this.saladBaseService.baseFormObject = {
-        baseName: this.toJadenCase(this.baseFormPut.value.saladsBaseName),
+        baseName: this.toJadenCase(this.baseFormPut.value.basesName),
         idTax: 1
       };
-      if (this.baseFormPut.value.baseNewName !== '') {
-        this.saladBaseService.baseFormObject.saladsBaseName += '|' + this.toJadenCase(this.baseFormPut.value.baseNewName)
+      if (this.baseFormPut.value.basesNewName !== '') {
+        this.saladBaseService.baseFormObject.baseName += '|' + this.toJadenCase(this.baseFormPut.value.basesNewName)
       }
       if (this.baseFormPut.value.saladsBasePriceHt !== '') {
-        this.saladBaseService.baseFormObject.saladsBasePriceHt = parseFloat(this.baseFormPut.value.saladsBasePriceHt)
+        this.saladBaseService.baseFormObject.basesPriceHt = parseFloat(this.baseFormPut.value.basesPriceHt)
       }
-      if (confirm(`Êtes-vous certain de modifier la base ${this.baseFormPut.value.saladsBaseName} ?`)) {
+      if (confirm(`Êtes-vous certain de modifier la base ${this.baseFormPut.value.basesName} ?`)) {
         const putBaseType = this.saladBaseService.putBaseType().subscribe(_ => {
           const getBaseObs = this. saladsDataService.addSaladsBases().subscribe(data => {
             this.baseDataObject = data;

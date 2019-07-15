@@ -58,9 +58,9 @@ export class SaladSaucesFormAdminComponent implements OnInit {
   onSubmitAddForm() {
     if (this.sauceFormAdd.valid) {
       this.saladSauceService.sauceFormObject = {
-        sauceName: this.toJadenCase(this.sauceFormAdd.value.saladsSaucesName),
+        sauceName: this.toJadenCase(this.sauceFormAdd.value.saucesName),
       };
-      if (confirm(`Êtes-vous certain d'ajouter la sauce ${this.sauceFormAdd.value.saladsSaucesName} ?`)) {
+      if (confirm(`Êtes-vous certain d'ajouter la sauce ${this.sauceFormAdd.value.saucesName} ?`)) {
         const addSauceType = this.saladSauceService.addSauceType().subscribe(_ => {
           const getSauceObs = this.saladsDataService.addSaladsSauces().subscribe(data => {
             this.sauceDataObject = data;
@@ -76,12 +76,12 @@ export class SaladSaucesFormAdminComponent implements OnInit {
   onSubmitPutForm() {
     if (this.sauceFormPut.valid) {
       this.saladSauceService.sauceFormObject = {
-        sauceName: this.toJadenCase(this.sauceFormPut.value.saladsSaucesName),
+        sauceName: this.toJadenCase(this.sauceFormPut.value.saucesName),
       };
       if (this.sauceFormPut.value.saucesNewName !== '') {
-        this.saladSauceService.sauceFormObject.saladsSaucesName += '|' + this.toJadenCase(this.sauceFormPut.value.saucesNewName)
+        this.saladSauceService.sauceFormObject.saucesName += '|' + this.toJadenCase(this.sauceFormPut.value.saucesNewName)
       }
-      if (confirm(`Êtes-vous certain de modifier la sauce ${this.sauceFormPut.value.saladsSaucesName} ?`)) {
+      if (confirm(`Êtes-vous certain de modifier la sauce ${this.sauceFormPut.value.saucesName} ?`)) {
         const putSauceType = this.saladSauceService.putSauceType().subscribe(_ => {
           const getSauceObs = this.saladsDataService.addSaladsSauces().subscribe(data => {
             this.sauceDataObject = data;
@@ -97,9 +97,9 @@ export class SaladSaucesFormAdminComponent implements OnInit {
   onSubmitDelForm() {
     if (this.sauceFormDel.valid) {
       this.saladSauceService.sauceFormObject = {
-        sauceName: this.toJadenCase(this.sauceFormDel.value.saladsSaucesName)
+        sauceName: this.toJadenCase(this.sauceFormDel.value.saucesName)
       };
-      if (confirm(`Êtes-vous certain de supprimer la sauce ${this.sauceFormDel.value.saladsToppingsName} ?`)) {
+      if (confirm(`Êtes-vous certain de supprimer la sauce ${this.sauceFormDel.value.saucesName} ?`)) {
         const delSauceType = this.saladSauceService.delSauceType().subscribe(_ => {
           const getSauceObs = this.saladsDataService.addSaladsSauces().subscribe(data => {
             this.sauceDataObject = data;

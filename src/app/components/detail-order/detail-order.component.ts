@@ -44,6 +44,7 @@ export class DetailOrderComponent implements OnInit {
 
   ngOnInit() {
     this.initForm();
+    this.userAccountInformationsService.userMail = sessionStorage.getItem('userMail');
     this.userAccountInformationsService.getClientAccountInfos().then(res => {
       const userAccountObject = JSON.parse(res);
       this.userDetailForm.patchValue({
@@ -52,11 +53,8 @@ export class DetailOrderComponent implements OnInit {
         livrAddress2 : userAccountObject['1'].userAddress2, 
         zipcode : userAccountObject['1'].zipcode, 
         city: userAccountObject['1'].city,
-        factAddress: `${userAccountObject['1'].userAddress1} 
-          ${userAccountObject['1'].userAddress2}
-          ${userAccountObject['1'].zipcode} 
-          ${userAccountObject['1'].city}`
-      })
+        factAddress: `${userAccountObject['1'].userAddress1} ${userAccountObject['1'].userAddress2} ${userAccountObject['1'].zipcode} ${userAccountObject['1'].city}`
+      });
     });
     // Get item from session storage if there is something in it
     if (sessionStorage.getItem('finalOrder')) {

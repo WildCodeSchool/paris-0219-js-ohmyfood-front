@@ -10,7 +10,8 @@ import { DessertsDataService } from 'src/app/services/desserts-data.service';
 import { FinalOrder } from 'src/app/class/final-order';
 import { FinalOrderService } from 'src/app/services/final-order.service';
 import { PizzaService } from 'src/app/services/pizza.service';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { UserAccountInformationsService } from 'src/app/services/user-account-informations.service';
 
 @Component({
   selector: 'app-detail-order',
@@ -37,11 +38,26 @@ export class DetailOrderComponent implements OnInit {
   constructor(
     private pizzaService: PizzaService,
     private finalOrder: FinalOrderService, 
-    private fb: FormBuilder
+    private fb: FormBuilder, 
+    private userAccountInformationsService: UserAccountInformationsService
   ) { }
 
   ngOnInit() {
     this.initForm();
+    this.userAccountInformationsService.getClientAccountInfos().then(res => {
+      const userAccountObject = JSON.parse(res);
+      this.userDetailForm.patchValue({
+        mailUser: sessionStorage.getItem('userMail'), 
+        livrAddress1 : userAccountObject['1'].userAddress1, 
+        livrAddress2 : userAccountObject['1'].userAddress2, 
+        zipcode : userAccountObject['1'].zipcode, 
+        city: userAccountObject['1'].city,
+        factAddress: `${userAccountObject['1'].userAddress1} 
+          ${userAccountObject['1'].userAddress2}
+          ${userAccountObject['1'].zipcode} 
+          ${userAccountObject['1'].city}`
+      })
+    });
     // Get item from session storage if there is something in it
     if (sessionStorage.getItem('finalOrder')) {
       this.finalOrderRecap = JSON.parse(sessionStorage.getItem('finalOrder'));
@@ -209,7 +225,15 @@ export class DetailOrderComponent implements OnInit {
   }
 
   initForm() {
-    this.userDetailForm = this.fb.
+    this.userDetailForm = this.fb.group({
+      mailUser: [sessionStorage.getItem('userMail')], 
+      livrAddress1 : ['', Validators.required], 
+      livrAddress2 : ['', Validators.required], 
+      zipcode : ['', Validators.required], 
+      city: [''],
+      factAddress: [''],
+      comment: ['']
+    })
   }
 }
 

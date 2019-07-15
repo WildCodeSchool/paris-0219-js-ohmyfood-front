@@ -229,22 +229,30 @@
   <p>
     TOTAL de votre commande {{ total }} EUR
   </p>
-  <form>
+  <form [formGroup]="userDetailForm">
     <label>
-      <p>Adresse de Facturation</p>
-      <input type="text">
+      <p>Adresse de livraison 1</p>
+      <input type="text" formControlName="livrAddress1">
     </label>
     <label>
-      <p>Adresse de livraison</p>
-      <input type="text">
+      <p>Adresse de livraison 2</p>
+      <input type="text" formControlName="livrAddress2">
     </label>
     <label>
       <p>Code postal</p>
-      <input type="text">
+      <input type="text" formControlName="zipcode">
+    </label>
+    <label>
+      <p>Ville</p>
+      <input type="text" formControlName="city">
+    </label>
+    <label>
+      <p>Adresse de facturation</p>
+      <input type="text" formControlName="factAddress">
     </label>
     <label>
       <p>Commentaires</p>
-      <textarea placeholder="Ex: Régina sans champignons..."></textarea>
+      <textarea placeholder="Ex: Régina sans champignons..." formControlName="comment"></textarea>
     </label>
   </form>
   <button type="submit">CONFIRMER LA COMMANDE</button>

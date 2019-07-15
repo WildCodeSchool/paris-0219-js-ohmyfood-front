@@ -4,9 +4,9 @@ export function checkSaladsBase(): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
 
     const checkBox = control.value.map(
-      value => value.saladsBaseQuantity
+      (value: any) => value.saladsBaseQuantity
       ).filter(
-        newValue => newValue === true
+        (newValue: boolean) => newValue === true
         );
 
     if (checkBox.length === 0 || checkBox.length > 2) {

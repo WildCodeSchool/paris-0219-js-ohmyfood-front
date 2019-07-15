@@ -3,6 +3,8 @@ import { OrderDessert } from '../class/order-dessert';
 import { OrderBeverage } from '../class/order-beverage';
 import { OrderPizzas } from '../class/order-pizzas';
 import { OrderSalads } from '../class/order-salads';
+import { MenuPizza } from '../class/menu-pizza';
+import { MenuSalad } from '../class/menu-salad';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +14,6 @@ export class BasketSessionStorageService {
   constructor() { }
 
   saveToSessionStorage(form: object[]) {
-
     if (form.length > 0) {
       const check = Object.getOwnPropertyNames(form[0]);
       const finalCheck = check[0];
@@ -45,6 +46,21 @@ export class BasketSessionStorageService {
           )
         );
         break;
+
+      case 'pizza' :
+        sessionStorage.setItem('menuPizza', JSON.stringify(form.map(
+          (menuPizz: MenuPizza[]) => menuPizz)
+          )
+        );
+        break;
+
+      case 'salad' :
+        sessionStorage.setItem('menuSalad', JSON.stringify(form.map(
+          (menuSalad: MenuSalad[]) => menuSalad)
+          )
+        );
+        break;
+
       default:
       return null;
       }
@@ -52,29 +68,40 @@ export class BasketSessionStorageService {
   }
 
 
-  clearSessionStorage(form: any) {
+  clearSessionStorage(form: any, arg: string) {
     // Remove all if user click on reset basket
-    if (form.length === 0) {
+
+    if (form.length === 0 && arg === 'reset') {
       sessionStorage.removeItem('pizzas');
       sessionStorage.removeItem('salads');
       sessionStorage.removeItem('beverages');
       sessionStorage.removeItem('desserts');
+      sessionStorage.removeItem('menuPizza');
+      sessionStorage.removeItem('menuSalad');
     } else {
         // Clear session storage according to user's choice
-        if (form.pizza.length === 0) {
+        if (arg === 'pizza') {
           sessionStorage.removeItem('pizzas');
         }
 
-        if (form.salad.length === 0) {
+        if (arg === 'salad') {
           sessionStorage.removeItem('salads');
         }
 
-        if (form.beverage.length === 0) {
+        if (arg === 'beverage') {
           sessionStorage.removeItem('beverages');
         }
 
-        if (form.dessert.length === 0) {
+        if (arg === 'dessert') {
           sessionStorage.removeItem('desserts');
+        }
+
+        if (arg === 'menuPizza') {
+          sessionStorage.removeItem('menuPizza');
+        }
+
+        if (arg === 'menuSalad') {
+          sessionStorage.removeItem('menuSalad');
         }
     }
   }

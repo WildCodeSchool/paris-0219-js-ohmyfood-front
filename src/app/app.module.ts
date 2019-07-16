@@ -40,6 +40,8 @@ import { MenuSaladFormComponent } from './components/userForm/menu-salad-form/me
 import { CreateAccountPageComponent } from './pages/authent/create-account-page/create-account-page.component';
 import { UserAccountPageComponent } from './pages/user-account-page/user-account-page.component';
 import { UserAccountComponent } from './components/user-account/user-account.component';
+import { ContactComponent } from './components/contact/contact.component';
+import { ContactPageComponent } from './pages/contact-page/contact-page.component';
 
 @NgModule({
   declarations: [
@@ -75,7 +77,9 @@ import { UserAccountComponent } from './components/user-account/user-account.com
     MenuSaladFormComponent,
     CreateAccountPageComponent,
     UserAccountPageComponent,
-    UserAccountComponent
+    UserAccountComponent,
+    ContactComponent,
+    ContactPageComponent
   ],
   imports: [
     AppRoutingModule,

@@ -107,7 +107,7 @@ export class SaladsDatasService {
         }
 
         this.userSauces = new SaladsSauces(
-          null,
+          0,
           'Pas de sauce sélectionnée'
         );
       }

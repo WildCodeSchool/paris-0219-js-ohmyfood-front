@@ -82,7 +82,7 @@ export class CreateFormBasketService {
 
         } else {
           saladChoice.controls.multiSauces.patchValue({
-            idSaladsSauces: null,
+            idSaladsSauces: 0,
             saladsSaucesName: 'Pas de sauce sélectionnée'
           });
         }

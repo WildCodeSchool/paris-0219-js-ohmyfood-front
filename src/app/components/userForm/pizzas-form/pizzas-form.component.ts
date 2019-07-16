@@ -12,8 +12,6 @@ import { CreateFormService } from 'src/app/services/create-form.service';
 })
 export class PizzasFormComponent implements OnInit {
 
-  enableSubmit: boolean;
-
   isToggle: boolean;
 
   formPizzas = this.formBuilder.group({
@@ -59,18 +57,10 @@ export class PizzasFormComponent implements OnInit {
     this.pizzasData.createOrderPizzas(orderPizzas);
 
     this.resetFormPizzas();
-
-    this.enableSubmit = false;
   }
 
   quantitySelect(operator: string, i: number, quantity: number) {
     this.formPizzas.value.selectedPizzas[i].pizzQuantity = this.quantitySelectService.selectQuantity(operator, quantity);
-
-    if (this.formPizzas.value.selectedPizzas[i].pizzQuantity > 0) {
-      this.enableSubmit = true;
-    } else {
-      this.enableSubmit = false;
-    }
   }
 
   resetFormPizzas() {

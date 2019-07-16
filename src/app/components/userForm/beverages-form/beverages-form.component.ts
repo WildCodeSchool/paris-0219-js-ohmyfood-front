@@ -12,9 +12,6 @@ import { CreateFormService } from 'src/app/services/create-form.service';
 })
 export class BeveragesFormComponent implements OnInit {
 
-  // Enable submit button
-  enableSubmit: boolean;
-
   // To toggle Form
   isToggle: boolean;
 
@@ -65,17 +62,11 @@ export class BeveragesFormComponent implements OnInit {
     this.beverageData.createOrderBeverage(orderBeverage);
 
     this.resetFormBeverage(); // quantity return to 0
-    this.enableSubmit = false;
   }
 
   quantitySelect(operator: string, i: number, quantity: number) {
    this.formBeverage.value.selectedBeverage[i].bevQuantity = this.quantitySelectService.selectQuantity(operator, quantity);
 
-   if (this.formBeverage.value.selectedBeverage[i].bevQuantity > 0) {
-     this.enableSubmit = true;
-   } else {
-     this.enableSubmit = false;
-   }
   }
 
   resetFormBeverage() {

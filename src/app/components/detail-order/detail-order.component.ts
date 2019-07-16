@@ -10,6 +10,8 @@ import { DessertsDataService } from 'src/app/services/desserts-data.service';
 import { FinalOrder } from 'src/app/class/final-order';
 import { FinalOrderService } from 'src/app/services/final-order.service';
 import { PizzaService } from 'src/app/services/pizza.service';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { UserAccountInformationsService } from 'src/app/services/user-account-informations.service';
 
 @Component({
   selector: 'app-detail-order',
@@ -31,12 +33,29 @@ export class DetailOrderComponent implements OnInit {
 
   total: number; // final result
 
+  userDetailForm: FormGroup;
+
   constructor(
     private pizzaService: PizzaService,
-    private finalOrder: FinalOrderService
+    private finalOrder: FinalOrderService, 
+    private fb: FormBuilder, 
+    private userAccountInformationsService: UserAccountInformationsService
   ) { }
 
   ngOnInit() {
+    this.initForm();
+    this.userAccountInformationsService.userMail = sessionStorage.getItem('userMail');
+    this.userAccountInformationsService.getClientAccountInfos().then(res => {
+      const userAccountObject = JSON.parse(res);
+      this.userDetailForm.patchValue({
+        mailUser: sessionStorage.getItem('userMail'), 
+        livrAddress1 : userAccountObject['1'].userAddress1, 
+        livrAddress2 : userAccountObject['1'].userAddress2, 
+        zipcode : userAccountObject['1'].zipcode, 
+        city: userAccountObject['1'].city,
+        factAddress: `${userAccountObject['1'].userAddress1} ${userAccountObject['1'].userAddress2} ${userAccountObject['1'].zipcode} ${userAccountObject['1'].city}`
+      });
+    });
     // Get item from session storage if there is something in it
     if (sessionStorage.getItem('finalOrder')) {
       this.finalOrderRecap = JSON.parse(sessionStorage.getItem('finalOrder'));
@@ -55,6 +74,8 @@ export class DetailOrderComponent implements OnInit {
       const salad = userFinalOrder.salad;
       const beverage = userFinalOrder.beverage;
       const dessert = userFinalOrder.dessert;
+      const menuPizza = userFinalOrder.menuPizza;
+      const menuSalad = userFinalOrder.menuSalad;
 
       // For each key, group information to sort them behind
       if (finalOrderStorage !== undefined) {
@@ -78,6 +99,18 @@ export class DetailOrderComponent implements OnInit {
       if (finalOrderStorage !== undefined) {
         finalOrderStorage.dessert.map((desserts: any) => {
           dessert.push(desserts);
+        });
+      }
+
+      if (finalOrderStorage !== undefined) {
+        finalOrderStorage.menuPizza.map((menusPizza: any) => {
+          menuPizza.push(menusPizza);
+        });
+      }
+
+      if (finalOrderStorage !== undefined) {
+        finalOrderStorage.menuSalad.map((menusSalad: any) => {
+          menuSalad.push(menusSalad);
         });
       }
 
@@ -117,7 +150,9 @@ export class DetailOrderComponent implements OnInit {
           pizza,
           salad,
           beverage,
-          dessert
+          dessert,
+          menuPizza,
+          menuSalad
         );
 
       sessionStorage.setItem('finalOrder', JSON.stringify(this.finalOrderRecap)); // Save new finalOrder in session storage
@@ -125,50 +160,78 @@ export class DetailOrderComponent implements OnInit {
     });
   }
 
-  //html gestion
+  // html gestion
 
   quantitySelect(operator: string, i: number, quantity: number, elType: string) {
     let abrevElType = '';
     switch (elType) {
-      case 'pizza': abrevElType = "pizz";
+      case 'pizza':
+        abrevElType = 'pizz';
         break;
-      case 'beverage': abrevElType = "bev";
+      case 'beverage':
+        abrevElType = 'bev';
         break;
-      case 'dessert': abrevElType = "dess";
+      case 'dessert':
+        abrevElType = 'dess';
         break;
-      case 'salad': abrevElType = "saladsComposed";
+      case 'salad':
+        abrevElType = 'saladsComposed';
+        break;
+      case 'menuPizza':
+        abrevElType = 'menuPizz';
+        break;
+      case 'menuSalad':
+        abrevElType = 'menuSalad';
         break;
       default: null;
-        break;
+               break;
     }
-    
-    let abrevElTypeQtt = abrevElType + 'Quantity';
-    let abrevElTypeTotPrice;
-    if (elType === 'salad') {
-      abrevElTypeTotPrice = abrevElType + 'TotalPrice'
-    }else {
-      abrevElTypeTotPrice = abrevElType + 'PriceTotal'
-    }
-    let elementPrice = this.finalOrderRecap[`${elType}`][`${i}`][`${abrevElTypeTotPrice}`] / quantity;
+
+    const abrevElTypeQtt = abrevElType + 'Quantity';
+
+    const abrevElTypeTotPrice = abrevElType + 'PriceTotal';
+
+    const elementPrice = this.finalOrderRecap[`${elType}`][`${i}`][`${abrevElTypeTotPrice}`] / quantity;
 
     if (operator === '+') {
       this.finalOrderRecap[`${elType}`][`${i}`][`${abrevElTypeQtt}`] += 1;
-      this.finalOrderRecap[`${elType}`][`${i}`][`${abrevElTypeTotPrice}`] = elementPrice * (quantity + 1)
+      this.finalOrderRecap[`${elType}`][`${i}`][`${abrevElTypeTotPrice}`] = elementPrice * (quantity + 1);
     }
     if (operator === '-') {
       if (quantity > 1) {
         this.finalOrderRecap[`${elType}`][`${i}`][`${abrevElTypeQtt}`] -= 1;
-        this.finalOrderRecap[`${elType}`][`${i}`][`${abrevElTypeTotPrice}`] = elementPrice * (quantity - 1)
+        this.finalOrderRecap[`${elType}`][`${i}`][`${abrevElTypeTotPrice}`] = elementPrice * (quantity - 1);
       } else {
         let speechConfirm = `Etes-vous sûr de vouloir supprimer `;
-        elType === 'salad' ? speechConfirm += `la salade n° ${i + 1}?`
-        : speechConfirm += `${this.finalOrderRecap[`${elType}`][`${i}`][`${abrevElType}Name`]}?`;
-        if(confirm(speechConfirm)) {
-          this.finalOrderRecap[`${elType}`].splice(i, 1)
+        if (elType === 'salad') {
+          speechConfirm += `la salad n° ${i + 1}?`;
+        } else if (elType === 'menuPizza') {
+          speechConfirm += `le menu pizza n° ${i + 1}?`;
+        } else if (elType === 'menuSalad') {
+          speechConfirm += `le menu salade n° ${i + 1}?`;
+        } else {
+          speechConfirm += `${this.finalOrderRecap[`${elType}`][`${i}`][`${abrevElType}Name`]}?`;
+        }
+        /* elType === 'salad' ? speechConfirm += `la salade n° ${i + 1}?` */
+        /* : */
+        if (confirm(speechConfirm)) {
+          this.finalOrderRecap[`${elType}`].splice(i, 1);
         }
       }
     }
-    sessionStorage.setItem('finalOrder', JSON.stringify(this.finalOrderRecap))
+    sessionStorage.setItem('finalOrder', JSON.stringify(this.finalOrderRecap));
+  }
+
+  initForm() {
+    this.userDetailForm = this.fb.group({
+      mailUser: [sessionStorage.getItem('userMail')], 
+      livrAddress1 : ['', Validators.required], 
+      livrAddress2 : ['', Validators.required], 
+      zipcode : ['', Validators.required], 
+      city: [''],
+      factAddress: [''],
+      comment: ['']
+    })
   }
 }
 

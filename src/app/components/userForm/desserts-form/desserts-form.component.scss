@@ -1,8 +1,8 @@
-@import '../../../styles/colors.scss';
+@import '../../../../styles/colors.scss';
 
-.beveragesTitle {
+.dessertsTitle {
   text-align: center;
-  background-image: url('../../../assets/img/RibbonOhMyFoodEmpty.svg'),  url('../../../assets/img/RibbonOhMyFoodNormal.svg');
+  background-image: url('../../../../assets/img/RibbonOhMyFoodEmpty.svg'),  url('../../../../assets/img/RibbonOhMyFoodNormal.svg');
   background-repeat: no-repeat, no-repeat;
   background-position: center, center;
   background-size: 97% 90%, 100% 100%;
@@ -58,7 +58,7 @@ a {
   justify-content: space-between;
   margin-bottom: 2vh;
 
-  .beverages {
+  .desserts {
     display: flex;
     justify-content: space-between;
     font-size: 1.5em;
@@ -84,7 +84,7 @@ input {
 
 .notToggle {
   max-height: 0;
-  margin: 0 auto;
+  margin: 5vh auto;
   overflow: hidden;
   padding: 0;
   transition-duration: 1000ms;
@@ -112,10 +112,10 @@ section {
 
 // Media Queries //
 
-@media screen and(max-width: 900px) {
-  .beveragesTitle {
+@media (max-width: 900px) {
+  .dessertsTitle {
     text-align: center;
-    background-image: url('../../../assets/img/RibbonOhMyFoodEmpty.svg'),  url('../../../assets/img/RibbonOhMyFoodNormal.svg');
+    background-image: url('../../../../assets/img/RibbonOhMyFoodEmpty.svg'),  url('../../../../assets/img/RibbonOhMyFoodNormal.svg');
     background-repeat: no-repeat, no-repeat;
     background-position: center, center;
     background-size: 97% 90%, 100% 100%;
@@ -124,7 +124,6 @@ section {
     margin-left: 7%;
     height: 84px;
 
-
     h1 {
       font-size: 20px;
     }
@@ -132,13 +131,12 @@ section {
       font-size: 10px
     }
   }
-
   .header {
     justify-content: space-around;
     margin: 0 auto 2vh auto;
     width: 90vw;
 
-    .beverages {
+    .desserts {
       font-size: 1em;
       width: 52vw;
 
@@ -210,9 +208,9 @@ section {
   }
 }
 @media (max-width: 320px) and ( max-height: 600px) {
-.beveragesTitle {
+.dessertsTitle {
   text-align: center;
-  background-image: url('../../../assets/img/RibbonOhMyFoodEmpty.svg'),  url('../../../assets/img/RibbonOhMyFoodNormal.svg');
+  background-image: url('../../../../assets/img/RibbonOhMyFoodEmpty.svg'),  url('../../../../assets/img/RibbonOhMyFoodNormal.svg');
   background-repeat: no-repeat, no-repeat;
   background-position: center, center;
   background-size: 97% 90%, 100% 100%;
@@ -222,6 +220,7 @@ section {
   height: 72px;
 
 
+
     h1 {
       font-size: 15px;
     }
@@ -229,47 +228,41 @@ section {
       font-size: 6px
     }
   }
-
   h1.header {
     width: 230px;
     font-size: 15px;
   }
-  .header {
-    justify-content: space-around;
-    margin: 1px 10px 0vh 0px;
-    width: 81vw;
+  .desserts {
+    font-size: 1em;
+    width: 55vw;
 
-    .beverages {
-      font-size: 1em;
-      width: 55vw;
-
-      span {
-        text-align: center;
-        width: 23vw;
-      }
-    }
-
-    .quantity {
-      font-size: 1em;
+    span {
       text-align: center;
-      width: 20vw;
+      width: 23vw;
     }
   }
 
-  .buttonQuantity {
-    align-items: center;
-    justify-content: center;
-    width: 25vw;
-
-    button {
-      height: 3vh;
-      padding: 0px 2vw;
-    }
-
-    input {
-      font-size: 0.5em;
-    }
+  .quantity {
+    font-size: 1em;
+    text-align: center;
+    width: 20vw;
   }
+
+
+.buttonQuantity {
+  align-items: center;
+  justify-content: center;
+  width: 25vw;
+
+  button {
+    height: 3vh;
+    padding: 0px 2vw;
+  }
+
+  input {
+    font-size: 0.5em;
+  }
+}
 
   form {
     margin: 0 auto;

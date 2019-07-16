@@ -1,0 +1,110 @@
+<p>Quelle action voulez-vous réaliser ?</p>
+<form [formGroup]="formCheck">
+  <label *ngFor="let action of actions; let i = index">
+    <input type="radio" 
+      value="{{ action }}"
+      name="ingredientAction"
+      formControlName="ingredientAction"
+    >
+      {{ action }}
+  </label>
+</form>
+<div *ngIf="formCheck.value.ingredientAction === 'Ajouter'">
+  <form [formGroup]="ingredientFormAdd">
+<!--Adding form-->
+    <label>
+    <p>Nom de l'ingredient à ajouter</p>
+    <input type="text" 
+      class="form-control" 
+      formControlName="ingredientName" 
+      required
+    >
+    <div *ngIf="fA.ingredientName.invalid && (fA.ingredientName.dirty || fA.ingredientName.touched)">
+      <div *ngIf="fA.ingredientName.errors.required">
+        <p class="invalidText">*Le nom de l'ingredient est requis</p>
+      </div>
+      <div *ngIf="fA.ingredientName.errors.minlength">
+        <p class="invalidText">*Le nom de l'ingredient doit contenir au moins 4 caractères</p>
+      </div>
+      <div *ngIf="fA.ingredientName.errors.maxlength">
+        <p class="invalidText">*Le nom de l'ingredient ne doit pas dépasser les 45 caractères</p>
+      </div>
+    </div>
+    </label>
+
+    <label>
+      <p>Prix hors taxe</p>
+      <input type="text" 
+        class="form-control" 
+        formControlName="ingredientPriceHt" 
+        required
+      >
+      <div *ngIf="fA.ingredientPriceHt.invalid && (fA.ingredientPriceHt.dirty || fA.ingredientPriceHt.touched)">
+        <div *ngIf="fA.ingredientPriceHt.errors.required">
+          <p class="invalidText">*Le prix est requis</p>
+        </div>
+        <div *ngIf="fA.ingredientPriceHt.errors.pattern">
+          <p class="invalidText">*Le prix doit être inséré sous la forme XXX.XX</p>
+        </div>
+      </div>
+    </label>
+  </form>
+  <button type="submit" (click)="onSubmitAddForm()">AJOUTER L' INGREDIENT</button>
+</div>
+
+  <!--Modifier form-->
+<div *ngIf="formCheck.value.ingredientAction === 'Modifier'">
+  <form [formGroup]="ingredientFormPut">
+      <label>
+      <p>Nom de l'ingredient à modifier</p>
+      <input type="text" 
+        class="form-control" 
+        formControlName="ingredientName" 
+        required
+      >
+      </label>
+      <label>
+        <p>Nouveau nom d' ingredient ?</p>
+        <input type="text" 
+          class="form-control" 
+          formControlName="ingredientNewName" 
+        >
+        </label>
+      <label>
+        <p>Prix hors taxe</p>
+        <input type="text" 
+          class="form-control" 
+          formControlName="ingredientPriceHt"
+        >
+      </label>
+  </form>
+  <button type="submit" (click)="onSubmitPutForm()">MODIFIER L' INGREDIENT</button>
+</div>
+
+  <!--Delete form-->
+<div *ngIf="formCheck.value.ingredientAction === 'Retirer'">
+  <form [formGroup]="ingredientFormDel">
+      <label>
+        <p>Nom de l'ingredient à Supprimer</p>
+        <input type="text" 
+          class="form-control" 
+          formControlName="ingredientName" 
+          required
+        >
+        <div *ngIf="fD.ingredientName.invalid && (fD.ingredientName.dirty || fD.ingredientName.touched)">
+          <div *ngIf="fD.ingredientName.errors.required">
+            <p class="invalidText">*Le nom de l'ingredient est requis</p>
+          </div>
+          <div *ngIf="fD.ingredientName.errors.minlength">
+            <p class="invalidText">*Le nom de l'ingredient doit contenir au moins 4 caractères</p>
+          </div>
+          <div *ngIf="fD.ingredientName.errors.maxlength">
+            <p class="invalidText">*Le nom de l'ingredient ne doit pas dépasser les 45 caractères</p>
+          </div>
+        </div>
+      </label>
+    <button type="submit" (click)="onSubmitDelForm()">SUPPRIMER L' INGREDIENT</button>
+  </form>
+</div>
+
+<p *ngFor="let dataIngredient of ingredientDataObject; let i = index;">{{ dataIngredient.saladsIngredientsName }} {{ dataIngredient.saladsIngredientsPriceTTC }} EUR</p>

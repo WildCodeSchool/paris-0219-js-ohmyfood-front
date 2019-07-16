@@ -34,7 +34,7 @@ export class SaladsDatasService {
   }
 
   addSaladsBases(): Observable<any> {
-    return this.http.get<any>(`${this.basePath}/saladsbase`);
+    return this.http.get<any>(`${this.basePath}/saladsBase`);
   }
   addSaladsIngredients(): Observable<any> {
     return this.http.get<any>(`${this.basePath}/saladsIngredients`);

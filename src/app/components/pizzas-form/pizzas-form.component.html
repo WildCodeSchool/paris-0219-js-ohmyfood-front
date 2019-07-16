@@ -1,14 +1,15 @@
 <section>
-  <a href (click)="toggleFormPizzas($event)">
-    <h1 class="pizzasTitle">
-      PIZZAS
-    </h1>
+  <div class="pizzasTitle">
+    <a href (click)="toggleFormPizzas($event)">
+      <h1>
+        PIZZAS
+      </h1>
 
-    <p>
-      Cliquez pour découvrir nos pizzas
-    </p>
-  </a>
-
+      <p>
+        Cliquez pour découvrir nos pizzas
+      </p>
+    </a>
+  </div>
   <div class="notToggle" [ngClass]="{toggle: isToggle}">
     <div class="header">
       <h3 class="pizzas">
@@ -27,7 +28,7 @@
 
           <div class="labelPizza">
             <label for="pizzas-{{ i }}">
-              {{ pizzas.value.pizzName }}<span>{{ pizzas.value.pizzPriceTTC }} EUR</span>
+              {{ pizzas.value.pizzName }}<span>{{ pizzas.value.pizzPriceTTC }} €</span>
             </label>
 
             <p>{{ pizzas.value.pizzDesc }}</p>

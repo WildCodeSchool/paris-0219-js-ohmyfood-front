@@ -176,22 +176,22 @@ export class MenuSaladFormComponent implements OnInit {
 
     if (!bevPristine && dessPristine || bevPristine && !dessPristine) {
       this.saladMenuForm.controls.saladMenuPrice.patchValue(
-        this.priceMenu[0].menuSaladOr.toFixed(2)
+        this.priceMenu[0].menuSaladPriceOr.toFixed(2)
       );
 
       // patch value of total price menu
       this.saladMenuForm.controls.saladMenuPriceTotal.patchValue(
-        (this.priceMenu[0].menuSaladOr + +this.saladMenuForm.value.salad.orderSaladsPriceTotal).toFixed(2)
+        (this.priceMenu[0].menuSaladPriceOr + +this.saladMenuForm.value.salad.orderSaladsPriceTotal).toFixed(2)
       );
 
     } else if (!bevPristine && !dessPristine) {
         this.saladMenuForm.controls.saladMenuPrice.patchValue(
-          this.priceMenu[0].menuSaladAnd.toFixed(2)
+          this.priceMenu[0].menuSaladPriceAnd.toFixed(2)
         );
 
         // patch value of total price menu
         this.saladMenuForm.controls.saladMenuPriceTotal.patchValue(
-          (this.priceMenu[0].menuSaladAnd + +this.saladMenuForm.value.salad.orderSaladsPriceTotal).toFixed(2)
+          (this.priceMenu[0].menuSaladPriceAnd + +this.saladMenuForm.value.salad.orderSaladsPriceTotal).toFixed(2)
         );
 
     } else {

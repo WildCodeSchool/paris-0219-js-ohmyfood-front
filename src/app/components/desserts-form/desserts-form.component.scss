@@ -181,13 +181,16 @@ section {
         font-size: 0.7em;
         width: 62%;
 
+        .dessertStyle {
+          width: 30vw;
+        }
+      }
         span {
-          text-align: center;
-          width: 11vw;
+          text-align: left;
+          width: 15vw;
         }
       }
     }
-  }
 
   .notToggle {
     width: 90vw;

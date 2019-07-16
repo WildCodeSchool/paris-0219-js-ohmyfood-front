@@ -12,9 +12,6 @@ import { CreateFormService } from 'src/app/services/create-form.service';
 })
 export class DessertsFormComponent implements OnInit {
 
-  // Enable submit button
-  enableSubmit: boolean;
-
   // To toggle Form
   isToggle = false;
 
@@ -65,17 +62,11 @@ export class DessertsFormComponent implements OnInit {
     this.dessertData.createOrderDessert(orderDessert);
 
     this.resetFormDessert(); // quantity return to 0
-    this.enableSubmit = false;
   }
 
   quantitySelect(operator: string, i: number, quantity: number) {
    this.formDessert.value.selectedDessert[i].dessQuantity = this.quantitySelectService.selectQuantity(operator, quantity);
 
-   if (this.formDessert.value.selectedDessert[i].dessQuantity > 0) {
-     this.enableSubmit = true;
-   } else {
-     this.enableSubmit = false;
-   }
   }
 
   resetFormDessert() {

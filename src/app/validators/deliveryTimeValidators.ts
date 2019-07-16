@@ -6,7 +6,7 @@ export function deliveryIntervalTime(orderHour: string): ValidatorFn {
     const hourMenuMin = 113000;
     const hourMenuMax = 140000;
 
-    const userHourOrder = parseInt(orderHour.split(':').join('')); // Convert user hour order in number to compare it
+    const userHourOrder = parseInt(orderHour.split(':').join(''), 10); // Convert user hour order in number to compare it
 
     if (hourMenuMin <= userHourOrder && userHourOrder <= hourMenuMax) {
         return null;

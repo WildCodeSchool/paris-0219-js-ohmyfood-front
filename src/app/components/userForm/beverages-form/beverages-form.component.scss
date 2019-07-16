@@ -1,8 +1,8 @@
-@import '../../../styles/colors.scss';
+@import '../../../../styles/colors.scss';
 
-.pizzasTitle {
+.beveragesTitle {
   text-align: center;
-  background-image: url('../../../assets/img/RibbonOhMyFoodEmpty.svg'),  url('../../../assets/img/RibbonOhMyFoodNormal.svg');
+  background-image: url('../../../../assets/img/RibbonOhMyFoodEmpty.svg'),  url('../../../../assets/img/RibbonOhMyFoodNormal.svg');
   background-repeat: no-repeat, no-repeat;
   background-position: center, center;
   background-size: 97% 90%, 100% 100%;
@@ -16,18 +16,7 @@ a {
   text-decoration: none;
   color: black;
 
-  h1 {
-    font-size: 2em;
-    text-align: center;
-  }
-
-  p {
-    font-size: 1em;
-    font-style: normal;
-    text-align: center;
-  }
-
-  &:hover {
+  &:hover{
     color: black;
     cursor: pointer;
     text-decoration: none;
@@ -59,7 +48,7 @@ a {
   label {
     display: flex;
     justify-content: space-between;
-    width: 87%;
+    width: 56%;
   }
 }
 
@@ -69,7 +58,7 @@ a {
   justify-content: space-between;
   margin-bottom: 2vh;
 
-  .pizzas {
+  .beverages {
     display: flex;
     justify-content: space-between;
     font-size: 1.5em;
@@ -77,7 +66,7 @@ a {
 
     span {
       text-align: center;
-      width: 2vw;
+      width: 6vw;
     }
   }
 
@@ -88,14 +77,6 @@ a {
   }
 }
 
-.labelPizza {
-  width: 83%;
-
-  p {
-    font-size: 0.8em;
-  }
-}
-
 input {
   width: 5vw;
   text-align: center;
@@ -103,6 +84,7 @@ input {
 
 .notToggle {
   max-height: 0;
+  margin: 0 auto;
   overflow: hidden;
   padding: 0;
   transition-duration: 1000ms;
@@ -125,15 +107,15 @@ section {
 
 .toggle {
   margin: 5vh auto;
-  max-height: 2500px;
+  max-height: 1000px;
 }
 
 // Media Queries //
 
 @media screen and(max-width: 900px) {
-  .pizzasTitle {
+  .beveragesTitle {
     text-align: center;
-    background-image: url('../../../assets/img/RibbonOhMyFoodEmpty.svg'),  url('../../../assets/img/RibbonOhMyFoodNormal.svg');
+    background-image: url('../../../../assets/img/RibbonOhMyFoodEmpty.svg'),  url('../../../../assets/img/RibbonOhMyFoodNormal.svg');
     background-repeat: no-repeat, no-repeat;
     background-position: center, center;
     background-size: 97% 90%, 100% 100%;
@@ -142,6 +124,7 @@ section {
     margin-left: 7%;
     height: 84px;
 
+
     h1 {
       font-size: 20px;
     }
@@ -149,18 +132,19 @@ section {
       font-size: 10px
     }
   }
+
   .header {
     justify-content: space-around;
     margin: 0 auto 2vh auto;
     width: 90vw;
 
-    .pizzas {
+    .beverages {
       font-size: 1em;
-      width: 55vw;
+      width: 52vw;
 
       span {
         text-align: center;
-        width: 14vw;
+        width: 10vw;
       }
     }
 
@@ -175,7 +159,6 @@ section {
     align-items: center;
     justify-content: center;
     width: 31vw;
-    margin-right: 3%;
 
     button {
       height: 3vh;
@@ -191,16 +174,18 @@ section {
     margin: 0 auto;
 
     .formLine {
-      align-items: flex-start;
+      align-items: center;
+      justify-content: normal;
+
 
       label {
         align-items: center;
-        font-size: 0.9em;
-        width: 95%;
+        font-size: 0.7em;
+        width: 62%;
 
         span {
           text-align: center;
-          width: 16vw;
+          width: 11vw;
         }
       }
     }
@@ -215,7 +200,110 @@ section {
   }
 
   .submitSection {
-      width: 95%;
+    width: 95%;
+
+    .submitButton {
+        clear: both;
+        float: right;
+        width: 45vw;
+    }
+  }
+}
+@media (max-width: 320px) and ( max-height: 600px) {
+.beveragesTitle {
+  text-align: center;
+  background-image: url('../../../../assets/img/RibbonOhMyFoodEmpty.svg'),  url('../../../../assets/img/RibbonOhMyFoodNormal.svg');
+  background-repeat: no-repeat, no-repeat;
+  background-position: center, center;
+  background-size: 97% 90%, 100% 100%;
+  width: 240px;
+  padding: 18px;
+  margin-left: 12%;
+  height: 72px;
+
+
+    h1 {
+      font-size: 15px;
+    }
+    p {
+      font-size: 6px
+    }
+  }
+
+  h1.header {
+    width: 230px;
+    font-size: 15px;
+  }
+  .header {
+    justify-content: space-around;
+    margin: 1px 10px 0vh 0px;
+    width: 81vw;
+
+    .beverages {
+      font-size: 1em;
+      width: 55vw;
+
+      span {
+        text-align: center;
+        width: 23vw;
+      }
+    }
+
+    .quantity {
+      font-size: 1em;
+      text-align: center;
+      width: 20vw;
+    }
+  }
+
+  .buttonQuantity {
+    align-items: center;
+    justify-content: center;
+    width: 25vw;
+
+    button {
+      height: 3vh;
+      padding: 0px 2vw;
+    }
+
+    input {
+      font-size: 0.5em;
+    }
+  }
+
+  form {
+    margin: 0 auto;
+
+    .formLine {
+      align-items: center;
+      justify-content: normal;
+
+
+      label {
+        align-items: center;
+        font-size: 0.7em;
+        width: 65%;
+
+        span {
+          display: inline-block;
+          text-align: center;
+          width: 23vw;
+        }
+      }
+    }
+  }
+
+  .notToggle {
+    width: 90vw;
+  }
+
+  section {
+    width: 100vw;
+  }
+
+  .submitSection {
+    width: 95%;
+
     .submitButton {
         clear: both;
         float: right;

@@ -191,10 +191,19 @@
 
         <div class="submitSections">
           <button
+            *ngIf="!menu"
             class="submitButton button is-rounded is-outlined"
             type='submit'
-            >
+          >
             Ajouter au panier
+          </button>
+
+          <button
+            class="submitButton button is-rounded is-outlined"
+            *ngIf="menu"
+            type='submit'
+          >
+            Ajouter cette salade à votre menu
           </button>
         </div>
       </div>

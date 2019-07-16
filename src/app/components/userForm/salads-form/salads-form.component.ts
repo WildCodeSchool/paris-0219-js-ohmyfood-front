@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { SaladsDatasService } from 'src/app/services/salads-datas.service';
 import { QuantitySelectService } from 'src/app/services/quantity-select.service';
 import { ToggleFormService } from 'src/app/services/toggle-form.service';
@@ -12,6 +12,11 @@ import { checkSaladsIngredients } from 'src/app/validators/saladsIngredientsVali
   styleUrls: ['./salads-form.component.scss']
 })
 export class SaladsFormComponent implements OnInit {
+
+  // To know if user selected menu
+  // Get this information from menuSaladFormComponent
+  @Input()
+  menu: boolean;
 
   // To toggle Form
   isToggle: boolean;
@@ -148,7 +153,7 @@ export class SaladsFormComponent implements OnInit {
   onSubmit() {
     const OrderSalads = this.formSalads.value;
 
-    this.saladsDataService.createOrderSalads(OrderSalads);
+    this.saladsDataService.createOrderSalads(OrderSalads, this.menu);
 
     this.displayToppingsMessage = true;
     this.displaySaucesMessage = true;
@@ -183,7 +188,6 @@ export class SaladsFormComponent implements OnInit {
    }
 
    toggleFormSalads($event: any, params: any) {
-     console.log(params);
      $event.preventDefault();
 
      if (params === 'form') {

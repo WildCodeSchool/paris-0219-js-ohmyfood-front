@@ -60,8 +60,8 @@ export class SaladToppingsFormAdminComponent implements OnInit {
   onSubmitAddForm() {
     if (this.toppingFormAdd.valid) {
       this.saladToppingService.toppingFormObject = {
-        topName: this.toJadenCase(this.toppingFormAdd.value.toppingName),
-        topPriceHt: parseFloat(this.toppingFormAdd.value.toppingPriceHt),
+        saladsToppingsName: this.toJadenCase(this.toppingFormAdd.value.toppingName),
+        saladsToppingsPriceHt: parseFloat(this.toppingFormAdd.value.toppingPriceHt),
         idTax: 1
       };
       if (confirm(`Êtes-vous certain d'ajouter le topping ${this.toppingFormAdd.value.toppingName} ?`)) {
@@ -80,14 +80,14 @@ export class SaladToppingsFormAdminComponent implements OnInit {
   onSubmitPutForm() {
     if (this.toppingFormPut.valid) {
       this.saladToppingService.toppingFormObject = {
-        topName: this.toJadenCase(this.toppingFormPut.value.toppingName),
+        saladsToppingsName: this.toJadenCase(this.toppingFormPut.value.toppingName),
         idTax: 1
       };
       if (this.toppingFormPut.value.toppingNewName !== '') {
-        this.saladToppingService.toppingFormObject.toppingName += '|' + this.toJadenCase(this.toppingFormPut.value.toppingName)
+        this.saladToppingService.toppingFormObject.saladsToppingsName += '|' + this.toJadenCase(this.toppingFormPut.value.toppingNewName)
       }
       if (this.toppingFormPut.value.toppingPriceHt !== '') {
-        this.saladToppingService.toppingFormObject.toppingPriceHt = parseFloat(this.toppingFormPut.value.toppingPriceHt)
+        this.saladToppingService.toppingFormObject.saladsToppingsPriceHt = parseFloat(this.toppingFormPut.value.toppingPriceHt)
       }
       if (confirm(`Êtes-vous certain de modifier le topping ${this.toppingFormPut.value.toppingName} ?`)) {
         const putToppingType = this.saladToppingService.putToppingType().subscribe(_ => {
@@ -105,7 +105,7 @@ export class SaladToppingsFormAdminComponent implements OnInit {
   onSubmitDelForm() {
     if (this.toppingFormDel.valid) {
       this.saladToppingService.toppingFormObject = {
-        topName: this.toJadenCase(this.toppingFormDel.value.toppingName)
+        saladsToppingsName: this.toJadenCase(this.toppingFormDel.value.toppingName)
       };
       if (confirm(`Êtes-vous certain de supprimer le topping ${this.toppingFormDel.value.toppingName} ?`)) {
         const delToppingType = this.saladToppingService.delToppingType().subscribe(_ => {

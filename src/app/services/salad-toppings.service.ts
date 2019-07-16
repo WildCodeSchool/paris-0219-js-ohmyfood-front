@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
 export class SaladToppingsService {
 
   toppingFormObject;
-  url = 'http://localhost:3000/salads-toppings';
+  url = 'http://localhost:3000/saladsToppings';
 
   constructor(private http: HttpClient) { }
 

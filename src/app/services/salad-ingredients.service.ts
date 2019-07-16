@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
 export class SaladIngredientsService {
 
   ingredientFormObject;
-  url = 'http://localhost:3000/salads-ingredients';
+  url = 'http://localhost:3000/saladsIngredients';
 
   constructor(private http: HttpClient) { }
 
@@ -20,6 +20,6 @@ export class SaladIngredientsService {
   }
 
   delIngredientType() {
-    return this.http.delete(`${this.url}/?saladsToppingsName=${this.ingredientFormObject.saladsIngredientsName}`, { responseType: 'text'});
+    return this.http.delete(`${this.url}/?saladsIngredientsName=${this.ingredientFormObject.saladsIngredientsName}`, { responseType: 'text'});
   }
 }

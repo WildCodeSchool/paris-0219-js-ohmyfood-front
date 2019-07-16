@@ -44,24 +44,24 @@ export class SaladIngredientsFormAdminComponent implements OnInit {
     })
 
     this.ingredientFormAdd = this.fb.group({
-      ingredientName: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(45)]],
+      ingredientName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(45)]],
       ingredientPriceHt: ['', [Validators.required, Validators.pattern(this.regexPrice)]]
     });
     this.ingredientFormPut = this.fb.group({
-      ingredientName: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(45)]],
+      ingredientName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(45)]],
       ingredientNewName: [''],
       ingredientPriceHt: ['', [Validators.required, Validators.pattern(this.regexPrice)]]
     });
     this.ingredientFormDel = this.fb.group({
-      ingredientName: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(45)]],
+      ingredientName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(45)]],
     });
   }
 
   onSubmitAddForm() {
     if (this.ingredientFormAdd.valid) {
       this.saladIngredientService.ingredientFormObject = {
-        ingName: this.toJadenCase(this.ingredientFormAdd.value.ingredientName),
-        ingPriceHt: parseFloat(this.ingredientFormAdd.value.ingredientPriceHt),
+        saladsIngredientsName: this.toJadenCase(this.ingredientFormAdd.value.ingredientName),
+        saladsIngredientsPriceHt: parseFloat(this.ingredientFormAdd.value.ingredientPriceHt),
         idTax: 1
       };
       if (confirm(`Êtes-vous certain d'ajouter l' ingredient ${this.ingredientFormAdd.value.ingredientName} ?`)) {
@@ -80,14 +80,14 @@ export class SaladIngredientsFormAdminComponent implements OnInit {
   onSubmitPutForm() {
     if (this.ingredientFormPut.valid) {
       this.saladIngredientService.ingredientFormObject = {
-        ingName: this.toJadenCase(this.ingredientFormPut.value.ingredientName),
+        saladsIngredientsName: this.toJadenCase(this.ingredientFormPut.value.ingredientName),
         idTax: 1
       };
       if (this.ingredientFormPut.value.ingredientNewName !== '') {
-        this.saladIngredientService.ingredientFormObject.ingredientName += '|' + this.toJadenCase(this.ingredientFormPut.value.ingredientNewName)
+        this.saladIngredientService.ingredientFormObject.saladsIngredientsName += '|' + this.toJadenCase(this.ingredientFormPut.value.ingredientNewName)
       }
       if (this.ingredientFormPut.value.ingredientPriceHt !== '') {
-        this.saladIngredientService.ingredientFormObject.ingredientPriceHt = parseFloat(this.ingredientFormPut.value.ingredientPriceHt)
+        this.saladIngredientService.ingredientFormObject.saladsIngredientsPriceHt = parseFloat(this.ingredientFormPut.value.ingredientPriceHt)
       }
       if (confirm(`Êtes-vous certain de modifier l' ingredient ${this.ingredientFormPut.value.ingredientName} ?`)) {
         const putIngredientType = this.saladIngredientService.putIngredientType().subscribe(_ => {
@@ -105,7 +105,7 @@ export class SaladIngredientsFormAdminComponent implements OnInit {
   onSubmitDelForm() {
     if (this.ingredientFormDel.valid) {
       this.saladIngredientService.ingredientFormObject = {
-        ingName: this.toJadenCase(this.ingredientFormDel.value.ingredientName)
+        saladsIngredientsName: this.toJadenCase(this.ingredientFormDel.value.ingredientName)
       };
       if (confirm(`Êtes-vous certain de supprimer l' ingredient ${this.ingredientFormDel.value.ingredientName} ?`)) {
         const delIngredientType = this.saladIngredientService.delIngredientType().subscribe(_ => {

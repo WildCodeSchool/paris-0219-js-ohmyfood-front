@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
 export class SaladSaucesService {
 
   sauceFormObject;
-  url = 'http://localhost:3000/salads-sauces';
+  url = 'http://localhost:3000/saladsSauces';
 
   constructor(private http: HttpClient) { }
 

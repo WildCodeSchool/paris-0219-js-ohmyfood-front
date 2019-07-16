@@ -44,24 +44,24 @@ export class SaladBaseFormAdminComponent implements OnInit {
     })
 
     this.baseFormAdd = this.fb.group({
-      basesName: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(45)]],
+      basesName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(45)]],
       basesPriceHt: ['', [Validators.required, Validators.pattern(this.regexPrice)]]
     });
     this.baseFormPut = this.fb.group({
-      basesName: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(45)]],
+      basesName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(45)]],
       basesNewName: [''],
       basesPriceHt: ['', [Validators.required, Validators.pattern(this.regexPrice)]]
     });
     this.baseFormDel = this.fb.group({
-      basesName: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(45)]],
+      basesName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(45)]],
     });
   }
 
   onSubmitAddForm() {
     if (this.baseFormAdd.valid) {
       this.saladBaseService.baseFormObject = {
-        baseName: this.toJadenCase(this.baseFormAdd.value.basesName),
-        basePriceHt: parseFloat(this.baseFormAdd.value.saladsBasePriceHt),
+        saladsBaseName: this.toJadenCase(this.baseFormAdd.value.basesName),
+        saladsBasePriceHt: parseFloat(this.baseFormAdd.value.basesPriceHt),
         idTax: 1
       };
       if (confirm(`Êtes-vous certain d'ajouter la base ${this.baseFormAdd.value.basesName} ?`)) {
@@ -80,14 +80,14 @@ export class SaladBaseFormAdminComponent implements OnInit {
   onSubmitPutForm() {
     if (this.baseFormPut.valid) {
       this.saladBaseService.baseFormObject = {
-        baseName: this.toJadenCase(this.baseFormPut.value.basesName),
+        saladsBaseName: this.toJadenCase(this.baseFormPut.value.basesName),
         idTax: 1
       };
       if (this.baseFormPut.value.basesNewName !== '') {
-        this.saladBaseService.baseFormObject.baseName += '|' + this.toJadenCase(this.baseFormPut.value.basesNewName)
+        this.saladBaseService.baseFormObject.saladsBaseName += '|' + this.toJadenCase(this.baseFormPut.value.basesNewName)
       }
-      if (this.baseFormPut.value.saladsBasePriceHt !== '') {
-        this.saladBaseService.baseFormObject.basesPriceHt = parseFloat(this.baseFormPut.value.basesPriceHt)
+      if (this.baseFormPut.value.basesPriceHt !== '') {
+        this.saladBaseService.baseFormObject.saladsBasePriceHt = parseFloat(this.baseFormPut.value.basesPriceHt)
       }
       if (confirm(`Êtes-vous certain de modifier la base ${this.baseFormPut.value.basesName} ?`)) {
         const putBaseType = this.saladBaseService.putBaseType().subscribe(_ => {
@@ -105,9 +105,9 @@ export class SaladBaseFormAdminComponent implements OnInit {
   onSubmitDelForm() {
     if (this.baseFormDel.valid) {
       this.saladBaseService.baseFormObject = {
-        baseName: this.baseFormDel.value.saladsBaseName
+        saladsBaseName: this.toJadenCase(this.baseFormDel.value.basesName)
       };
-      if (confirm(`Êtes-vous certain de supprimer la base ${this.baseFormDel.value.saladsBaseName} ?`)) {
+      if (confirm(`Êtes-vous certain de supprimer la base ${this.baseFormDel.value.basesName} ?`)) {
         const delBaseType = this.saladBaseService.delBaseType().subscribe(_ => {
           const getBaseObs = this.saladsDataService.addSaladsBases().subscribe(data => {
             this.baseDataObject = data;

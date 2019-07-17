@@ -14,7 +14,7 @@ import { UserAccountPageComponent } from './pages/user-account-page/user-account
 import { ContactComponent } from './components/contact/contact.component';
 import { ForgotPsswPageComponent } from './pages/authent/forgot-pssw-page/forgot-pssw-page.component';
 import { NewPasswordPageComponent } from './pages/new-password-page/new-password-page.component';
-import { ForgotPasswordService } from './services/forgot-password.service';
+
 const routes: Routes = [
   {
     path: '',
@@ -77,9 +77,8 @@ const routes: Routes = [
     component: ForgotPsswPageComponent
   },
   {
-    path: 'newPassword/:token',
-    component: NewPasswordPageComponent, 
-    canActivate: [ForgotPasswordService]
+    path: 'TzApeyaNpBzRJmGrit59K4NJ5Cy/:token',
+    component: NewPasswordPageComponent
   }
 ];
 

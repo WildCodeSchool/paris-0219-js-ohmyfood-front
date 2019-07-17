@@ -40,7 +40,7 @@ export class ForgotPsswComponent implements OnInit {
         userMail: this.forgotPsswForm.value.userMail
       }
     }
-    if (confirm(`Êtes-vous sûr de soumettre ces informations ?`)) {
+    if (confirm(`Voulez-vous recevoir un lien pour changer de mot de passe ?`)) {
       const forgotPsswObs = this.loginService.getNewPssw().subscribe(data => {
         forgotPsswObs.unsubscribe();
       });

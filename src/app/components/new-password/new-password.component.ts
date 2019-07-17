@@ -9,11 +9,10 @@ import { ForgotPasswordService } from 'src/app/services/forgot-password.service'
 })
 export class NewPasswordComponent implements OnInit {
   userToken = this.router.url.split('/')[2];
-
+  booleanToken = false;
   constructor(
     private router: Router, 
-    private forgotPasswordService: ForgotPasswordService,
-    private location: Location
+    private forgetPasswordService: ForgotPasswordService
   ) { }
 
   ngOnInit() {
@@ -21,12 +20,11 @@ export class NewPasswordComponent implements OnInit {
   }
 
   verifiedToken() {
-    this.forgotPasswordService.requestPasswordObject = {
+    this.forgetPasswordService.requestPasswordObject = {
       token: this.userToken
     }
-    this.forgotPasswordService.compareTokens().subscribe(_ => {
-      this.forgotPasswordService.booleanGuard = 1;
-      this.location.reload();
+    this.forgetPasswordService.compareTokens().then(res => {
+      this.booleanToken = true;
     });
   }
 

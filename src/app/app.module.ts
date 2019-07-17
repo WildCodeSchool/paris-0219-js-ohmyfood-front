@@ -44,6 +44,9 @@ import { ContactComponent } from './components/contact/contact.component';
 import { ContactPageComponent } from './pages/contact-page/contact-page.component';
 import { ForgotPsswComponent } from './components/authent/forgot-pssw/forgot-pssw.component';
 import { ForgotPsswPageComponent } from './pages/authent/forgot-pssw-page/forgot-pssw-page.component';
+import { NewPasswordPageComponent } from './pages/new-password-page/new-password-page.component';
+import { NewPasswordComponent } from './components/new-password/new-password.component';
+import { ForgotPasswordService } from './services/forgot-password.service';
 
 @NgModule({
   declarations: [
@@ -83,7 +86,9 @@ import { ForgotPsswPageComponent } from './pages/authent/forgot-pssw-page/forgot
     ContactComponent,
     ContactPageComponent,
     ForgotPsswComponent,
-    ForgotPsswPageComponent
+    ForgotPsswPageComponent,
+    NewPasswordPageComponent,
+    NewPasswordComponent
   ],
   imports: [
     AppRoutingModule,
@@ -93,7 +98,7 @@ import { ForgotPsswPageComponent } from './pages/authent/forgot-pssw-page/forgot
     ReactiveFormsModule,
     RouterModule,
   ],
-  providers: [OnlyLoggedInUsersGuardService],
+  providers: [OnlyLoggedInUsersGuardService, ForgotPasswordService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

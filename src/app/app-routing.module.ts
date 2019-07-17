@@ -13,7 +13,8 @@ import { CreateAccountPageComponent } from './pages/authent/create-account-page/
 import { UserAccountPageComponent } from './pages/user-account-page/user-account-page.component';
 import { ContactComponent } from './components/contact/contact.component';
 import { ForgotPsswPageComponent } from './pages/authent/forgot-pssw-page/forgot-pssw-page.component';
-
+import { NewPasswordPageComponent } from './pages/new-password-page/new-password-page.component';
+import { ForgotPasswordService } from './services/forgot-password.service';
 const routes: Routes = [
   {
     path: '',
@@ -74,6 +75,11 @@ const routes: Routes = [
   {
     path: 'forgotPsswPage', 
     component: ForgotPsswPageComponent
+  },
+  {
+    path: 'newPassword/:token',
+    component: NewPasswordPageComponent, 
+    canActivate: [ForgotPasswordService]
   }
 ];
 

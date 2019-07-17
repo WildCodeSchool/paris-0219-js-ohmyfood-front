@@ -37,14 +37,13 @@ export class ForgotPsswComponent implements OnInit {
   onSubmit() {
     if(this.forgotPsswForm.valid) {
       this.loginService.userMailNewPssw = {
-        userMail: this.forgotPsswForm.value.userMail, 
-        jwt: 'bloup'
+        userMail: this.forgotPsswForm.value.userMail
       }
     }
     if (confirm(`Êtes-vous sûr de soumettre ces informations ?`)) {
-      this.loginService.getNewPssw().subscribe(data => {
-        console.log(data)
-      })
+      const forgotPsswObs = this.loginService.getNewPssw().subscribe(data => {
+        forgotPsswObs.unsubscribe();
+      });
     }
   }
 

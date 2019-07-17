@@ -11,6 +11,7 @@ import { MenuPageComponent } from './pages/menu-page/menu-page.component';
 import { DetailOrderPageComponent } from './pages/detail-order-page/detail-order-page.component';
 import { CreateAccountPageComponent } from './pages/authent/create-account-page/create-account-page.component';
 import { UserAccountPageComponent } from './pages/user-account-page/user-account-page.component';
+import { ContactComponent } from './components/contact/contact.component';
 
 const routes: Routes = [
   {
@@ -62,8 +63,12 @@ const routes: Routes = [
   },
   {
     path: 'userAccountPage',
-    component: UserAccountPageComponent, 
+    component: UserAccountPageComponent,
     canActivate: [OnlyLoggedInUsersGuardService]
+  },
+  {
+    path: 'contactPage',
+    component: ContactComponent
   }
 ];
 

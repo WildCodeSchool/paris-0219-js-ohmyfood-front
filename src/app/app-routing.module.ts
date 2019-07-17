@@ -12,6 +12,7 @@ import { DetailOrderPageComponent } from './pages/detail-order-page/detail-order
 import { CreateAccountPageComponent } from './pages/authent/create-account-page/create-account-page.component';
 import { UserAccountPageComponent } from './pages/user-account-page/user-account-page.component';
 import { ContactComponent } from './components/contact/contact.component';
+import { ForgotPsswPageComponent } from './pages/authent/forgot-pssw-page/forgot-pssw-page.component';
 
 const routes: Routes = [
   {
@@ -69,6 +70,10 @@ const routes: Routes = [
   {
     path: 'contactPage',
     component: ContactComponent
+  }, 
+  {
+    path: 'forgotPsswPage', 
+    component: ForgotPsswPageComponent
   }
 ];
 

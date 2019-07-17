@@ -42,6 +42,8 @@ import { UserAccountPageComponent } from './pages/user-account-page/user-account
 import { UserAccountComponent } from './components/user-account/user-account.component';
 import { ContactComponent } from './components/contact/contact.component';
 import { ContactPageComponent } from './pages/contact-page/contact-page.component';
+import { ForgotPsswComponent } from './components/authent/forgot-pssw/forgot-pssw.component';
+import { ForgotPsswPageComponent } from './pages/authent/forgot-pssw-page/forgot-pssw-page.component';
 
 @NgModule({
   declarations: [
@@ -79,7 +81,9 @@ import { ContactPageComponent } from './pages/contact-page/contact-page.componen
     UserAccountPageComponent,
     UserAccountComponent,
     ContactComponent,
-    ContactPageComponent
+    ContactPageComponent,
+    ForgotPsswComponent,
+    ForgotPsswPageComponent
   ],
   imports: [
     AppRoutingModule,

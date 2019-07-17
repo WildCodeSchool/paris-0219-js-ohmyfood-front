@@ -44,8 +44,8 @@ export class PizzasFormAdminComponent implements OnInit {
     })
 
     this.pizzaFormAdd = this.fb.group({
-      pizzaName: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(45)]],
-      pizzDesc: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(255)]],
+      pizzaName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(45)]],
+      pizzDesc: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(255)]],
       pizzPriceHt: ['', [Validators.required, Validators.pattern(this.regexPrice)]]
     });
     this.pizzaFormPut = this.fb.group({
@@ -55,7 +55,7 @@ export class PizzasFormAdminComponent implements OnInit {
       pizzPriceHt: ['', Validators.pattern(this.regexPrice)]
     });
     this.pizzaFormDel = this.fb.group({
-      pizzaName: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(45)]],
+      pizzaName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(45)]],
     });
   }
 

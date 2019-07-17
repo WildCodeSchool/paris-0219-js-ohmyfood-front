@@ -47,15 +47,15 @@ export class BeveragesFormAdminComponent implements OnInit {
     })
 
     this.beverageFormAdd = this.fb.group({
-      bevName: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(45)]],
+      bevName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(45)]],
       bevPriceHt: ['', [Validators.required, Validators.pattern(this.regexPrice)]]
     });
     this.beverageFormPut = this.fb.group({
-      bevName: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(45)]],
+      bevName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(45)]],
       bevPriceHt: ['', [Validators.required, Validators.pattern(this.regexPrice)]]
     });
     this.beverageFormDel = this.fb.group({
-      bevName: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(45)]],
+      bevName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(45)]],
     });
   }
 

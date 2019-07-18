@@ -48,7 +48,7 @@
           >
             <label for="pizzName-{{i}}">
               <span>{{ pizzas.value.pizzName }}</span>
-              <span>{{ pizzas.value.pizzPriceTotal }} EUR</span>
+              <span>{{ pizzas.value.pizzPriceTotal }} €</span>
             </label>
 
             <div class="quantityButton">
@@ -62,6 +62,7 @@
               </button>
 
               <input
+                class="button is-outlined is-mobile"
                 type="text"
                 name="pizzQuantity-{{i}}"
                 formControlName="pizzQuantity"
@@ -112,7 +113,7 @@
 
             <div *ngFor="let bases of salads.value.multiBases">
               <p>
-                {{ bases.basesName }}<span>{{ bases.basesPrice }} EUR</span>
+                {{ bases.basesName }}<span>{{ bases.basesPrice }} €</span>
               </p>
             </div>
 
@@ -120,7 +121,7 @@
 
             <div *ngFor="let ingredients of salads.value.multiIngredients">
               <p>
-                {{ ingredients.ingredientsName}}<span>{{ ingredients.ingredientsPrice }} EUR</span>
+                {{ ingredients.ingredientsName}}<span>{{ ingredients.ingredientsPrice }} €</span>
               </p>
             </div>
 
@@ -128,7 +129,7 @@
 
             <div *ngFor="let toppings of salads.value.multiToppings">
               <p>
-                {{ toppings.toppingsName}}<span>{{ toppings.toppingsPrice }} EUR</span>
+                {{ toppings.toppingsName}}<span>{{ toppings.toppingsPrice }} €</span>
               </p>
             </div>
 
@@ -146,7 +147,7 @@
           >
             <label for="bevName-{{i}}">
               <span>{{ beverages.value.bevName }}</span>
-              <span>{{ beverages.value.bevPriceTotal }} EUR</span>
+              <span>{{ beverages.value.bevPriceTotal }} €</span>
             </label>
             <div class="quantityButton">
               <button
@@ -185,7 +186,7 @@
           >
             <label for="bevName-{{i}}">
               <span>{{ desserts.value.dessName }}</span>
-              <span>{{ desserts.value.dessPriceTotal }} EUR</span>
+              <span>{{ desserts.value.dessPriceTotal }} €</span>
             </label>
             <div class="quantityButton">
               <button
@@ -221,7 +222,7 @@
             [formGroupName]="i"
             *ngFor="let menuPizzas of menuPizza.controls; let i = index">
               <label for="menuPizzaName-{{i}}">
-                Votre menu pizza {{ menuPizzas.value.menuPizzPriceTotal }} EUR
+                Votre menu pizza {{ menuPizzas.value.menuPizzPriceTotal }} €
               </label>
 
               <div class="quantityButton">
@@ -264,7 +265,7 @@
               [formGroupName]="i"
               *ngFor="let menuSalads of menuSalad.controls; let i = index">
                 <label for="menuSaladName-{{i}}">
-                  Votre menu salade {{ menuSalads.value.menuSaladPriceTotal }} EUR
+                  Votre menu salade {{ menuSalads.value.menuSaladPriceTotal }} €
                 </label>
 
                 <div class="quantityButton">
@@ -330,7 +331,7 @@
       </form>
     </div>
     <p id="totalOrderText">
-      TOTAL de votre commande {{ total }} EUR
+      TOTAL de votre commande {{ total }} €
     </p>
   </div>
 </div>

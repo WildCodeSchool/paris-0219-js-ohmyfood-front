@@ -27,9 +27,7 @@
 
 .button {
     border-radius: 50%;
-    font-size: 1.1rem;
-    height: 29px;
-    width: 29px;
+    font-size: 0.7em;
 }
 
 //formGroupName
@@ -109,6 +107,9 @@ p {
 .quantityButton {
     width: 32%;
     margin-right: 5%;
+    input {
+      font-size: 85%;
+    }
 }
 
 .reverseText {
@@ -138,7 +139,7 @@ ul li {
         width: 100vw;
         right: -90vw;
     }
-    
+
     .formular {
         height: 80vh;
     }

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { LoginService } from 'src/app/services/login.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { NewPasswordPageGuardService } from 'src/app/services/new-password-page-guard.service';
 
 @Component({
   selector: 'app-navbar2',
@@ -19,10 +20,12 @@ export class Navbar2Component {
   constructor(
     private loginService: LoginService,
     private router: Router,
-    private route: ActivatedRoute
-  ) {}
+    private route: ActivatedRoute, 
+    private newPasswordPageGuardService: NewPasswordPageGuardService
+  ) {  }
 
   ngOnInit() {
+
     if (sessionStorage.getItem('userLastName') != undefined) { // on page refresh with logged user
       this.userInfoObject = {
         lastname: sessionStorage.getItem('userLastName'),

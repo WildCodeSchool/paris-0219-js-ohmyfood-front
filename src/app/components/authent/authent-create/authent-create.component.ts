@@ -64,7 +64,6 @@ export class AuthentCreateComponent implements OnInit {
           idUsers:'',
           userFacturation: 0,
           userAddressFacturation: this.authCreateForm.value.userFacturation,
-
         }
       };
       if (confirm(`Êtes-vous sûr de soumettre ces informations ?`)) {

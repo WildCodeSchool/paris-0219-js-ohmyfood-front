@@ -12,6 +12,9 @@ import { DetailOrderPageComponent } from './pages/detail-order-page/detail-order
 import { CreateAccountPageComponent } from './pages/authent/create-account-page/create-account-page.component';
 import { UserAccountPageComponent } from './pages/user-account-page/user-account-page.component';
 import { ContactComponent } from './components/contact/contact.component';
+import { ForgotPsswPageComponent } from './pages/authent/forgot-pssw-page/forgot-pssw-page.component';
+import { NewPasswordPageComponent } from './pages/new-password-page/new-password-page.component';
+import { NewPasswordPageGuardService } from './services/new-password-page-guard.service';
 
 const routes: Routes = [
   {
@@ -69,6 +72,15 @@ const routes: Routes = [
   {
     path: 'contactPage',
     component: ContactComponent
+  }, 
+  {
+    path: 'forgotPsswPage', 
+    component: ForgotPsswPageComponent
+  },
+  {
+    path: 'TzApeyaNpBzRJmGrit59K4NJ5Cy/:token',
+    component: NewPasswordPageComponent, 
+    canActivate: [NewPasswordPageGuardService]
   }
 ];
 

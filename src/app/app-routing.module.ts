@@ -15,6 +15,7 @@ import { ContactComponent } from './components/contact/contact.component';
 import { ForgotPsswPageComponent } from './pages/authent/forgot-pssw-page/forgot-pssw-page.component';
 import { NewPasswordPageComponent } from './pages/new-password-page/new-password-page.component';
 import { NewPasswordPageGuardService } from './services/new-password-page-guard.service';
+import { AdminSuperGuardService } from './services/admin-super-guard.service';
 
 const routes: Routes = [
   {
@@ -25,7 +26,7 @@ const routes: Routes = [
   {
     path: 'admin',
     component: AdminPagesComponent,
-    canActivate: [OnlyLoggedInUsersGuardService]
+    canActivate: [AdminSuperGuardService]
   },
   {
     path: 'homePage',

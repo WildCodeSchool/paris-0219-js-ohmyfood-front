@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoginService } from 'src/app/services/login.service';
 import { UserAccountInformationsService } from '../../../services/user-account-informations.service'
 import { Router } from '@angular/router';
+import { OnlyLoggedInUsersGuardService } from 'src/app/services/only-logged-in-users-guard.service';
+import { AdminSuperGuardService } from 'src/app/services/admin-super-guard.service';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +20,9 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder,
     private loginService: LoginService,
     private router: Router,
-    private userAccountService: UserAccountInformationsService
+    private userAccountService: UserAccountInformationsService, 
+    private onlyLoggedInUsersGuardService: OnlyLoggedInUsersGuardService, 
+    private adminSuperGuardService: AdminSuperGuardService
   ) { }
 
   ngOnInit() {
@@ -42,13 +46,15 @@ export class LoginComponent implements OnInit {
       this.loginService.loginCheck().then(res => {
         const objRes = JSON.parse(res);
         this.userIdLogged = objRes.userId;
-        if (objRes.userRight === 1) {
+        if (objRes.userRight == 1) {
           this.userRight = 1;
+          this.adminSuperGuardService.tokenGuard = objRes.token
         }
-        sessionStorage.setItem('token', res.split(',')[0]+'}');
+        sessionStorage.setItem('token', objRes.token);
         sessionStorage.setItem('userMail', objRes.userMail);
         sessionStorage.setItem('userLastName', objRes.userLastName);
         sessionStorage.setItem('userFirstName', objRes.userFirstName);
+        this.onlyLoggedInUsersGuardService.tokenGuard = objRes.token;
         this.routeProtected();
       });
     }

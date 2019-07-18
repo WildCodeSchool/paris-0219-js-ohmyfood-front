@@ -7,8 +7,7 @@ import { ForgotPasswordService } from './forgot-password.service';
 })
 export class NewPasswordPageGuardService implements CanActivate {
   userToken = window.location.pathname.split('/')[2];
-  booleanGuard = false;
-
+  tokenGuard;
   constructor(
     private forgetPasswordService: ForgotPasswordService, 
     private router: Router, 
@@ -22,19 +21,20 @@ export class NewPasswordPageGuardService implements CanActivate {
 
     if (sessionStorage.getItem('tokenPssw') == undefined) {
       this.forgetPasswordService.compareTokens().then(res => {
-        console.log('truc', res['token'])
         if (res['token'].length === 0 ) {
-          this.booleanGuard = false;
+          return
         } else {
-          this.booleanGuard = true;
+          this.tokenGuard = res['token'];
           sessionStorage.setItem('tokenPssw', this.userToken)
           this.router.navigate([`TzApeyaNpBzRJmGrit59K4NJ5Cy/${res['token']}`]); 
-        }      
+        }
       })
     }
 
     if(sessionStorage.getItem('tokenPssw') != undefined) {
-      return true
+      if (sessionStorage.getItem('tokenPssw') == this.tokenGuard) {
+        return true
+      }
     } else {
       return false
     }

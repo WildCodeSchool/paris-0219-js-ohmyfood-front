@@ -19,6 +19,7 @@ export class DetailsOrdersAdminComponent implements OnInit {
     this.getOrdersAdminService.getDetailsOrdersAdmin()
     .subscribe(detailsOrders => {
 
+      console.log(detailsOrders)
       // Make loop to regroup all informations of each orders
       for (const user of detailsOrders[0] ) {
         const pizzaList = [];
@@ -74,6 +75,7 @@ export class DetailsOrdersAdminComponent implements OnInit {
         const ordersDetails = new OrdersDetailsAdmin(
           user.idOrders,
           user.dateOrder,
+          user.orderPrice.toFixed(2),
           user.lastname,
           user.firstname,
           user.mail,

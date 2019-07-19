@@ -17,7 +17,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { RouterModule } from '@angular/router';
 import { Navbar2Component } from './components/navbar2/navbar2.component';
 import { BasketComponent } from './components/basket/basket.component';
-import { AdminPagesComponent } from './pages/admin-pages/admin-pages.component';
+import { FormAdminPageComponent } from './pages/back-office-pages/form-admin-page/form-admin-page.component';
 import { BeveragesFormAdminComponent } from './components/admin/beverages-form-admin/beverages-form-admin.component';
 import { AuthClientPageComponent } from './pages/authent/auth-client-page/auth-client-page.component';
 import { LoginComponent } from './components/authent/login/login.component';
@@ -61,7 +61,7 @@ import { NewPasswordPageGuardService } from './services/new-password-page-guard.
     FooterComponent,
     Navbar2Component,
     BasketComponent,
-    AdminPagesComponent,
+    FormAdminPageComponent,
     BeveragesFormAdminComponent,
     AuthClientPageComponent,
     LoginComponent,

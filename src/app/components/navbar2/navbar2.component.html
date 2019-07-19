@@ -12,9 +12,9 @@
   <div class="column is-4">
     <span>Bienvenue {{userInfoObject['lastname']}} </span>
     <span>{{userInfoObject['firstname']}}</span><br>
-    <button 
-      class="button" 
-      (click)="logOut()" 
+    <button
+      class="button"
+      (click)="logOut()"
       *ngIf="userInfoObject['lastname'] !== ''"
     >
       DECONNEXION
@@ -22,33 +22,39 @@
     <button
       class="button"
       *ngIf="userInfoObject['lastname'] === ''"
-      [routerLink]="['/authClientPage']" 
+      [routerLink]="['/authClientPage']"
       routerLinkActive="router-link-active"
     >
       CONNEXION
     </button>
-    <p 
-      id='order' 
+    <p
+      id='order'
       (click)="checkIfUserLogged()"
     >
       COMMANDER
     </p>
-    <span *ngIf="userInfoObject['lastname'] !== ''">
+    <span *ngIf="userInfoObject['lastname'] !== null">
       <a [routerLink]="['/userAccountPage']" routerLinkActive="router-link-active" >
         Mon compte<i class="fa fa-user fa-2x"></i>
       </a>
     </span>
-    <span *ngIf="booleanAdminLogged === 1"> * ADMIN *</span>
+    <span *ngIf="booleanAdminLogged === 1">* ADMIN *</span>
   </div>
 
 </div>
 
 <div class='cont'>
   <ul class="navbar">
-    <li><a href="#">Accueil</a></li>
-    <li><a href="#">Menu</a></li>
-    <li><a href="#">Livraison</a></li>
-    <li><a href="#">Avis</a></li>
-    <li><a href="#">Contact</a></li>
+    <li><a [routerLink]="['/homePage']"
+      routerLinkActive="router-link-active">Accueil</a></li>
+
+    <li><a [routerLink]="['/menuPage']"
+      routerLinkActive="router-link-active">Menu</a></li>
+
+    <li><a [routerLink]="['/']"
+      routerLinkActive="router-link-active">Livraison</a></li>
+
+    <li><a [routerLink]="['/contactPage']"
+      routerLinkActive="router-link-active">Contact</a></li>
   </ul>
 </div>

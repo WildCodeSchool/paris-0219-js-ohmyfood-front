@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { GetOrdersDetailsAdminService } from 'src/app/services/get-orders-details-admin.service';
 
 @Component({
   selector: 'app-details-orders-admin',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DetailsOrdersAdminComponent implements OnInit {
 
-  constructor() { }
+  constructor(private getOrdersAdminService: GetOrdersDetailsAdminService) { }
 
   ngOnInit() {
+    this.getOrdersAdminService.getDetailsOrdersAdmin()
+    .subscribe(detailsOrders => {
+      console.log(detailsOrders);
+    });
   }
 
 }

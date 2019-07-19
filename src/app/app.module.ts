@@ -51,7 +51,7 @@ import { NewPasswordPageGuardService } from './services/new-password-page-guard.
 import {
         DetailsOrdersAdminPagesComponent
         } from './pages/back-office-pages/details-orders-admin-pages/details-orders-admin-pages.component';
-import { DetailsOrdersAdminComponent } from './admin/details-orders-admin/details-orders-admin.component';
+import { DetailsOrdersAdminComponent } from './components/admin/details-orders-admin/details-orders-admin.component';
 
 @NgModule({
   declarations: [

@@ -261,10 +261,8 @@ export class DetailOrderComponent implements OnInit {
         idUsers: ''
       }
     };
-    console.log(finalOrder);
     this.finalOrderService.finalOrderObject = finalOrder;
     this.finalOrderService.submitFinalOrder().then(res => {
-      console.log(res);
     });
   }
 }

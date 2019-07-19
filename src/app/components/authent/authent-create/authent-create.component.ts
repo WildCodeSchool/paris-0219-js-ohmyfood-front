@@ -21,7 +21,6 @@ export class AuthentCreateComponent implements OnInit {
 
   ngOnInit() {
     this.initForm();
-    console.log(this.authCreateForm);
   }
 
   get fC() { return this.authCreateForm.controls; }

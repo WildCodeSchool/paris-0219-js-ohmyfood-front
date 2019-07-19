@@ -122,7 +122,6 @@ export class MenuSaladFormComponent implements OnInit {
     const menuSubscription = this.menuPrices.getMenuPrices()
     .subscribe((menuPrice: any) => {
       this.priceMenu = menuPrice;
-      console.log(this.priceMenu[0])
       menuSubscription.unsubscribe();
     });
 

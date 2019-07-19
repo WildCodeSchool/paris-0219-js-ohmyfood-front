@@ -10,6 +10,7 @@ export class OrdersDetailsAdmin extends FinalOrder {
   constructor(
     public idOrder: number,
     public dateOrder: string,
+    public orderPrice: number,
     public clientLastName: string,
     public clientFirstName: string,
     public clientMail: string,

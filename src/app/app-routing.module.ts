@@ -26,7 +26,7 @@ const routes: Routes = [
   {
     path: 'admin',
     component: AdminPagesComponent,
-    canActivate: [AdminSuperGuardService]
+    canActivate: [OnlyLoggedInUsersGuardService, AdminSuperGuardService]
   },
   {
     path: 'homePage',

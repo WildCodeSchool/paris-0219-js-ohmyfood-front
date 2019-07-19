@@ -15,6 +15,7 @@ export class Navbar2Component {
     firstname: '',
     mail: ''
   };
+  ifLogged;
 
   booleanAdminLogged = 0;
 
@@ -26,14 +27,12 @@ export class Navbar2Component {
   ) {  }
 
   ngOnInit() {
-
     if (sessionStorage.getItem('userLastName') != undefined) { // on page refresh with logged user
       this.userInfoObject = {
         lastname: sessionStorage.getItem('userLastName'),
         firstname: sessionStorage.getItem('userFirstName'),
         mail: sessionStorage.getItem('userMail')
       };
-      
     }
 
     this.loginService.transfertUserRight.subscribe(_ => {
@@ -46,6 +45,7 @@ export class Navbar2Component {
         firstname: sessionStorage.getItem('userFirstName'),
         mail: sessionStorage.getItem('userMail')
       };
+      this.ifLogged = 'userLogged';
     });
   }
 
@@ -66,6 +66,7 @@ export class Navbar2Component {
       firstname: '',
       mail: ''
     };
+    this.ifLogged = '';
     this.onlyLoggedInUsersGuardService.tokenGuard = '';
     this.adminSuperGuardService.tokenGuard = '';
     if (location.pathname === '/homePage') {

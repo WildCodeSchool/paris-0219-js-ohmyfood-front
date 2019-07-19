@@ -46,14 +46,16 @@ export class LoginComponent implements OnInit {
       this.loginService.loginCheck().then(res => {
         const objRes = JSON.parse(res);
         this.userIdLogged = objRes.userId;
-        if (objRes.userRight == 1) {
-          this.userRight = 1;
-          this.adminSuperGuardService.tokenGuard = objRes.token
-        }
         sessionStorage.setItem('token', objRes.token);
         sessionStorage.setItem('userMail', objRes.userMail);
         sessionStorage.setItem('userLastName', objRes.userLastName);
         sessionStorage.setItem('userFirstName', objRes.userFirstName);
+        if (objRes.userRight == 1) {
+          this.userRight = 1;
+          this.adminSuperGuardService.tokenGuard = objRes.token;
+          sessionStorage.setItem('adminToken', objRes.token)
+          this.adminSuperGuardService.ifLogged = 'adminLogged'
+        }
         this.onlyLoggedInUsersGuardService.tokenGuard = objRes.token;
         this.routeProtected();
       });
@@ -69,9 +71,13 @@ export class LoginComponent implements OnInit {
         }
         if (this.userRight === 1) {
           this.loginService.transfertUserRightFn(this.userRight);
+          this.router.navigateByUrl('admin')
+          this.adminSuperGuardService.ifLogged = 'userLogged'
+          return
         }
         this.loginService.transfertUserFn(userInfoObject);
         this.router.navigateByUrl('homeOrderPage');
+        return
     });
   }
 }

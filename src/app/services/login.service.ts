@@ -38,6 +38,6 @@ export class LoginService {
   }
 
   getNewPssw() {
-    return this.http.post(this.urlGetNewPssw, this.userMailNewPssw)
+    return this.http.post(this.urlGetNewPssw, this.userMailNewPssw).toPromise()
   }
 }

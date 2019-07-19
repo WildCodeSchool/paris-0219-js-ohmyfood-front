@@ -15,6 +15,7 @@ import { ContactComponent } from './components/contact/contact.component';
 import { ForgotPsswPageComponent } from './pages/authent/forgot-pssw-page/forgot-pssw-page.component';
 import { NewPasswordPageComponent } from './pages/new-password-page/new-password-page.component';
 import { NewPasswordPageGuardService } from './services/new-password-page-guard.service';
+import { DetailsOrdersAdminPagesComponent } from './pages/back-office-pages/details-orders-admin-pages/details-orders-admin-pages.component';
 
 const routes: Routes = [
   {
@@ -25,6 +26,11 @@ const routes: Routes = [
   {
     path: 'formAdmin',
     component: FormAdminPageComponent,
+    canActivate: [OnlyLoggedInUsersGuardService]
+  },
+  {
+    path: 'detailsOrdersAdmin',
+    component: DetailsOrdersAdminPagesComponent,
     canActivate: [OnlyLoggedInUsersGuardService]
   },
   {

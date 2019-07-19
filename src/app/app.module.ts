@@ -47,6 +47,8 @@ import { ForgotPsswPageComponent } from './pages/authent/forgot-pssw-page/forgot
 import { NewPasswordPageComponent } from './pages/new-password-page/new-password-page.component';
 import { NewPasswordComponent } from './components/new-password/new-password.component';
 import { NewPasswordPageGuardService } from './services/new-password-page-guard.service';
+import { DetailsOrdersAdminPagesComponent } from './pages/back-office-pages/details-orders-admin-pages/details-orders-admin-pages.component';
+import { DetailsOrdersAdminComponent } from './admin/details-orders-admin/details-orders-admin.component';
 
 @NgModule({
   declarations: [
@@ -88,7 +90,9 @@ import { NewPasswordPageGuardService } from './services/new-password-page-guard.
     ForgotPsswComponent,
     ForgotPsswPageComponent,
     NewPasswordPageComponent,
-    NewPasswordComponent
+    NewPasswordComponent,
+    DetailsOrdersAdminPagesComponent,
+    DetailsOrdersAdminComponent
   ],
   imports: [
     AppRoutingModule,

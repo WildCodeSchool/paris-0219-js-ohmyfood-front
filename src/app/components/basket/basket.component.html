@@ -47,8 +47,8 @@
             class="displayElement"
           >
             <label for="pizzName-{{i}}">
-              <span>{{ pizzas.value.pizzName }}</span>
-              <span>{{ pizzas.value.pizzPriceTotal }} €</span>
+              <p>{{ pizzas.value.pizzName }}</p>
+              <p>{{ pizzas.value.pizzPriceTotal }} €</p>
             </label>
 
             <div class="quantityButton">
@@ -62,7 +62,6 @@
               </button>
 
               <input
-                class="button is-outlined is-mobile"
                 type="text"
                 name="pizzQuantity-{{i}}"
                 formControlName="pizzQuantity"
@@ -82,60 +81,70 @@
         </div>
 
         <div formArrayName="salad">
-          <div [formGroupName]="i" *ngFor="let salads of salad.controls ; let i = index">
-            <label for="saladName-{{i}}">
-              Votre salade composée<span>{{ salads.value.saladsComposedPriceTotal }}</span>
-            </label>
+          <div
+          [formGroupName]="i"
+          *ngFor="let salads of salad.controls ; let i = index"
+          class=""
+          >
+            <div class="test">
+              <label for="saladName-{{i}}">
+                <p>Votre salade composée</p> <p>{{ salads.value.saladsComposedPriceTotal }} €</p>
+              </label>
+              <div class="quantityButton">
 
-            <button
-              class="button is-rounded is-outlined is-mobile is-small"
-              name="remove-salad-quantity"
-              type="button"
-              (click)="quantitySelect('-', i, salads.value.saladsComposedQuantity, salads.value)">
-                -
-            </button>
+                <button
+                  class="button is-outlined is-mobile"
+                  name="remove-salad-quantity"
+                  type="button"
+                  (click)="quantitySelect('-', i, salads.value.saladsComposedQuantity, salads.value)">
+                    -
+                </button>
 
-            <input
-              type="number"
-              name="saladsComposedQuantity-{{i}}"
-              formControlName="saladsComposedQuantity"
-              value="{{salads.value.saladsComposedQuantity}}"/>
+                <input
+                  type="text"
+                  name="saladsComposedQuantity-{{i}}"
+                  formControlName="saladsComposedQuantity"
+                  value="{{salads.value.saladsComposedQuantity}}"/>
 
-            <button
-              class="button is-rounded is-outlined is-mobile is-small"
-              name="add-salad-quantity"
-              type="button"
-              (click)="quantitySelect('+', i, salads.value.saladsComposedQuantity, salads.value)">
-                +
-            </button>
-
-            <h5>Vos bases</h5>
-
-            <div *ngFor="let bases of salads.value.multiBases">
-              <p>
-                {{ bases.basesName }}<span>{{ bases.basesPrice }} €</span>
-              </p>
+                <button
+                  class="button is-outlined is-mobile"
+                  name="add-salad-quantity"
+                  type="button"
+                  (click)="quantitySelect('+', i, salads.value.saladsComposedQuantity, salads.value)">
+                    +
+                </button>
+              </div>
             </div>
+            <div class="test2">
+              <h5>Vos bases</h5>
 
-            <h5>Vos ingrédients</h5>
+              <div *ngFor="let bases of salads.value.multiBases"
+              class="">
+                <p>
+                  {{ bases.basesName }}<span>{{ bases.basesPrice }} €</span>
+                </p>
+              </div>
 
-            <div *ngFor="let ingredients of salads.value.multiIngredients">
-              <p>
-                {{ ingredients.ingredientsName}}<span>{{ ingredients.ingredientsPrice }} €</span>
-              </p>
+              <h5>Vos ingrédients</h5>
+
+              <div *ngFor="let ingredients of salads.value.multiIngredients">
+                <p>
+                  {{ ingredients.ingredientsName}}<span>{{ ingredients.ingredientsPrice }} €</span>
+                </p>
+              </div>
+
+              <h5>Vos toppings</h5>
+
+              <div *ngFor="let toppings of salads.value.multiToppings">
+                <p>
+                  {{ toppings.toppingsName}}<span>{{ toppings.toppingsPrice }} €</span>
+                </p>
+              </div>
+
+              <h5>Votre sauce</h5>
+
+              <p>{{ salads.value.multiSauces.saladsSaucesName }}</p>
             </div>
-
-            <h5>Vos toppings</h5>
-
-            <div *ngFor="let toppings of salads.value.multiToppings">
-              <p>
-                {{ toppings.toppingsName}}<span>{{ toppings.toppingsPrice }} €</span>
-              </p>
-            </div>
-
-            <h5>Votre sauce</h5>
-
-            <p>{{ salads.value.multiSauces.saladsSaucesName }}</p>
           </div>
         </div>
 
@@ -146,8 +155,8 @@
             class="displayElement"
           >
             <label for="bevName-{{i}}">
-              <span>{{ beverages.value.bevName }}</span>
-              <span>{{ beverages.value.bevPriceTotal }} €</span>
+              <p>{{ beverages.value.bevName }}</p>
+              <p>{{ beverages.value.bevPriceTotal }} €</p>
             </label>
             <div class="quantityButton">
               <button
@@ -185,8 +194,8 @@
             class="displayElement"
           >
             <label for="bevName-{{i}}">
-              <span>{{ desserts.value.dessName }}</span>
-              <span>{{ desserts.value.dessPriceTotal }} €</span>
+              <p>{{ desserts.value.dessName }}</p>
+              <p>{{ desserts.value.dessPriceTotal }} €</p>
             </label>
             <div class="quantityButton">
               <button
@@ -263,11 +272,12 @@
         <div formArrayName="menuSalad">
             <div
               [formGroupName]="i"
-              *ngFor="let menuSalads of menuSalad.controls; let i = index">
+              *ngFor="let menuSalads of menuSalad.controls; let i = index"
+              class="displayElement"
+              >
                 <label for="menuSaladName-{{i}}">
                   Votre menu salade {{ menuSalads.value.menuSaladPriceTotal }} €
                 </label>
-
                 <div class="quantityButton">
                   <button
                     class="button is-outlined is-mobile"
@@ -299,21 +309,21 @@
 
                 <p>Vos bases</p>
 
-                <p *ngFor="let bases of menuSalads.value.salad.orderSaladsBases">
-                  {{ bases.saladsBasesName }}<span>{{ bases.saladsBasesQuantity }}</span>
-                </p>
+                <div *ngFor="let bases of menuSalads.value.salad.orderSaladsBases">
+                  <p>{{ bases.saladsBasesName }}</p><p>{{ bases.saladsBasesQuantity }}</p>
+                </div>
 
                 <p>Vos ingrédients</p>
 
-                <p *ngFor="let ingredients of menuSalads.value.salad.orderSaladsIngredients">
-                  {{ ingredients.saladsIngredientsName }}<span>{{ ingredients.saladsIngredientsQuantity }}</span>
-                </p>
+                <div *ngFor="let ingredients of menuSalads.value.salad.orderSaladsIngredients">
+                  <p>{{ ingredients.saladsIngredientsName }}</p><p>{{ ingredients.saladsIngredientsQuantity }}</p>
+                </div>
 
                 <p>Vos toppings</p>
 
-                <p *ngFor="let toppings of menuSalads.value.salad.orderSaladsToppings">
-                  {{ toppings.saladsToppingsName }}<span>{{ toppings.saladsToppingsQuantity }}</span>
-                </p>
+                <div *ngFor="let toppings of menuSalads.value.salad.orderSaladsToppings">
+                  <p>{{ toppings.saladsToppingsName }}</p><p>{{ toppings.saladsToppingsQuantity }}</p>
+                </div>
 
                 <p>Votre sauce</p>
 
@@ -330,7 +340,7 @@
         <button type="button" (click)="resetBasket()">Videz votre panier</button>
       </form>
     </div>
-    <p id="totalOrderText">
+    <p id="totalOrderText" class="totalOrder">
       TOTAL de votre commande {{ total }} €
     </p>
   </div>

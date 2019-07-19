@@ -13,6 +13,12 @@
       formControlName="psswClient"
       required
     >
+    <a
+      [routerLink]="['/forgotPsswPage']" 
+      routerLinkActive="router-link-active" 
+    > 
+      Mot de passe oublié ?
+    </a>
 </div>
   <br/>
   <button type="submit" (click)="onSubmit()">Se connecter</button>

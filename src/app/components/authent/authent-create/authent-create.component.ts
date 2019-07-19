@@ -21,7 +21,6 @@ export class AuthentCreateComponent implements OnInit {
 
   ngOnInit() {
     this.initForm();
-    console.log(this.authCreateForm);
   }
 
   get fC() { return this.authCreateForm.controls; }
@@ -65,7 +64,6 @@ export class AuthentCreateComponent implements OnInit {
           idUsers:'',
           userFacturation: 0,
           userAddressFacturation: this.authCreateForm.value.userFacturation,
-
         }
       };
       if (confirm(`Êtes-vous sûr de soumettre ces informations ?`)) {

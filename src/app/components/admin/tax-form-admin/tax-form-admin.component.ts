@@ -14,6 +14,7 @@ export class TaxFormAdminComponent implements OnInit {
   regexTax = /[0-9{1}]+[.]+[0-9]{3}/gm;
   taxFormObject;
   taxFormPut: FormGroup;
+  tabStr = [];
   valueAction = 'Modifier';
 
   constructor(
@@ -34,6 +35,7 @@ export class TaxFormAdminComponent implements OnInit {
   initForm() {
     this.taxFormPut = this.fb.group({
       taxName: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(45)]],
+      taxNewName: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(255)]],
       taxMultipliedBy: ['', [Validators.required, Validators.pattern(this.regexTax)]]
     });
   }
@@ -44,6 +46,9 @@ export class TaxFormAdminComponent implements OnInit {
         idTaxName: this.taxFormPut.value.taxName,
         taxValue: this.taxFormPut.value.taxMultipliedBy
       };
+      if (this.taxFormPut.value.taxNewName !== '') {
+        this.taxService.taxFormObject.idTaxName += '|' + this.toJadenCase(this.taxFormPut.value.taxNewName)
+      }
       if (confirm(`Êtes-vous certain de modifier la tax ${this.taxFormPut.value.taxName}`)) {
         const putTaxType = this.taxService.putTaxType().subscribe(_ => {
           const getTaxObs = this.taxService.getTaxType().subscribe(data => {
@@ -55,6 +60,12 @@ export class TaxFormAdminComponent implements OnInit {
         });
       }
     }
+  }
+
+  toJadenCase(strin) {
+    this.tabStr = strin.split(' ');
+    this.tabStr = this.tabStr.map(word => word.charAt(0).toUpperCase() + word.slice(1));
+    return this.tabStr.join(' ');
   }
 
 }

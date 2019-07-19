@@ -1,4 +1,4 @@
-<form [formGroup="textFormPut">
+<form [formGroup]="textFormPut">
   <label>
     <p>Nom de la tax à modifer</p>
     <input type="text"
@@ -6,6 +6,15 @@
       formControlName="taxName"
       required
     >
+  </label>
+  <label>
+    <p>Nouveau nom de la tax ?</p>
+    <input type="text" 
+      class="form-control" 
+      formControlName="taxNewName" 
+    >
+  </label>
+  <label>
     <div *ngIf="FM.taxName.invalid && (FM.taxName.dirty || FM.taxName.touched)">
       <div *ngIf="FM.taxName.errors.required">
         <p class="invalidText">*Le nom de la tax est requis</p>
@@ -37,5 +46,5 @@
   </label>
 </form>
 <button type="submit" (click)="onSubmitPutForm()">MODIFIER LA TAX</button>
-<p *ngFor="let dataTax of taxFormObject; let i = index;">{{ dataTax.idTaxName }} {{ dataTax.taxValue }}</p>
+<p *ngFor="let dataTax of taxFormObject; let i = index;">{{ dataTax.idTaxName }}, prix hors tax * {{dataTax.taxValue }}</p>
 

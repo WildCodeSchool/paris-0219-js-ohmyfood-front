@@ -123,7 +123,7 @@ export class SaladsDatasService {
       this.userIngredients,
       this.userToppings,
       this.userSauces,
-      finalPrice.toFixed(2),
+      finalPrice,
       1
     );
 

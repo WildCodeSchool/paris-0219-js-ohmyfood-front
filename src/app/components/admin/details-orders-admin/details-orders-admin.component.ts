@@ -65,6 +65,11 @@ export class DetailsOrdersAdminComponent implements OnInit {
             const ingredientDetailsOrders = this.createIngredientsOrderDetail(saladsComposed);
             const toppingsDetailsOrders = this.createToppingsOrderDetail(saladsComposed);
 
+            // Check if there is a sauce or not in salad to display message in template if there isn't sauce
+            if (saladsComposed.saladsSaucesName === null) {
+              saladsComposed.saladsSaucesName = 'Pas de sauce sélectionnée pour cette salade';
+            }
+
             const saladsComposedDetail = new OrderSaladsAdmin(
               saladsComposed.idOrders,
               basesDetailsOrders,
@@ -86,6 +91,21 @@ export class DetailsOrdersAdminComponent implements OnInit {
             menuSaladsComposed.ingredients = this.createIngredientsOrderDetail(menuSaladsComposed);
             menuSaladsComposed.toppings = this.createToppingsOrderDetail(menuSaladsComposed);
             menuSaladsComposedList.push(menuSaladsComposed);
+
+            if (menuSaladsComposed.bevName === null) {
+              menuSaladsComposed.bevName = 'Pas de boisson sélectionnée dans ce menu';
+            }
+
+            if (menuSaladsComposed.dessName === null) {
+              menuSaladsComposed.dessName = 'Pas de dessert sélectionné dans ce menu';
+            }
+
+            if (menuSaladsComposed.saladsSaucesName === null) {
+              menuSaladsComposed.saladsSaucesName = 'Pas de sauce sélectionnée pour cette salade';
+            }
+
+            // To display price with 2 numbers after coma
+            menuSaladsComposed.menuSaladPrice = menuSaladsComposed.menuSaladPrice.toFixed(2);
           }
         }
 
@@ -110,9 +130,7 @@ export class DetailsOrdersAdminComponent implements OnInit {
         );
         // Push results in final results Array
         this.listOfOrders.push(ordersDetails);
-        /* console.log(this.listOfOrders); */
       }
-      console.log(this.listOfOrders);
     });
   }
 

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { GetOrdersDetailsAdminService } from 'src/app/services/get-orders-details-admin.service';
 import { OrdersDetailsAdmin } from 'src/app/class/orders-details-admin';
+import { OrderSaladsAdmin } from 'src/app/class/order-salads-admin';
 
 @Component({
   selector: 'app-details-orders-admin',
@@ -18,8 +19,6 @@ export class DetailsOrdersAdminComponent implements OnInit {
     // Get all details order from database
     this.getOrdersAdminService.getDetailsOrdersAdmin()
     .subscribe(detailsOrders => {
-
-      console.log(detailsOrders);
 
       // Make loop to regroup all informations of each orders
       for (const user of detailsOrders[0] ) {
@@ -66,15 +65,26 @@ export class DetailsOrdersAdminComponent implements OnInit {
             const ingredientDetailsOrders = this.createIngredientsOrderDetail(saladsComposed);
             const toppingsDetailsOrders = this.createToppingsOrderDetail(saladsComposed);
 
-            console.log(saladsComposed);
-
-            saladsComposedList.push(saladsComposed);
+            const saladsComposedDetail = new OrderSaladsAdmin(
+              saladsComposed.idOrders,
+              basesDetailsOrders,
+              ingredientDetailsOrders,
+              toppingsDetailsOrders,
+              saladsComposed.saladsSaucesName,
+              saladsComposed.saladsComposedPrice,
+              saladsComposed.saladsComposedQuantity
+            );
+            saladsComposedList.push(saladsComposedDetail);
           }
         }
 
         // Get all menuSaladsComposed
         for (const menuSaladsComposed of detailsOrders[7]) {
           if (menuSaladsComposed.idOrders === user.idOrders) {
+
+            menuSaladsComposed.bases = this.createBaseOrderDetail(menuSaladsComposed);
+            menuSaladsComposed.ingredients = this.createIngredientsOrderDetail(menuSaladsComposed);
+            menuSaladsComposed.toppings = this.createToppingsOrderDetail(menuSaladsComposed);
             menuSaladsComposedList.push(menuSaladsComposed);
           }
         }
@@ -100,8 +110,9 @@ export class DetailsOrdersAdminComponent implements OnInit {
         );
         // Push results in final results Array
         this.listOfOrders.push(ordersDetails);
+        /* console.log(this.listOfOrders); */
       }
-      /* console.log(this.listOfOrders); */
+      console.log(this.listOfOrders);
     });
   }
 
@@ -109,82 +120,92 @@ export class DetailsOrdersAdminComponent implements OnInit {
   createBaseOrderDetail(saladsComposed: any) {
     const basesDetailsOrdersList: Array<object> = []; // final result
     let { bases } = saladsComposed; // Get data we need to split them
-    bases = bases.split(',').join(' ').split(' '); // Separation of data
-    let nameBase = '';
 
-    for (let i = 0; i < bases.length; i ++) {
-      // check if value is a number
-      if (isNaN(bases[i])) {
-        nameBase += bases[i];
-        if (isNaN(bases[i + 1])) {
-          nameBase += ' ';
+    // Check if bases is null to avoid error (split of null make error)
+    if (bases !== null) {
+      bases = bases.split(',').join(' ').split(' '); // Separation of data
+      let nameBase = '';
+
+      for (let i = 0; i < bases.length; i ++) {
+        // check if value is a number
+        if (isNaN(bases[i])) {
+          nameBase += bases[i];
+          if (isNaN(bases[i + 1])) {
+            nameBase += ' ';
+          }
+        } else {
+          // Create base object to push it in final result array
+          const baseDetailOrder = {
+            baseName: nameBase,
+            baseQuantity: Number.parseInt(bases[i], 10)
+          };
+          basesDetailsOrdersList.push(baseDetailOrder);
+          // empty variable for next iteration
+          nameBase = '';
         }
-      } else {
-        // Create base object to push it in final result array
-        const baseDetailOrder = {
-          baseName: nameBase,
-          baseQuantity: Number.parseInt(bases[i], 10)
-        };
-        basesDetailsOrdersList.push(baseDetailOrder);
-        // empty variable for next iteration
-        nameBase = '';
       }
+      return basesDetailsOrdersList;
     }
-    return basesDetailsOrdersList;
   }
 
   createIngredientsOrderDetail(saladsComposed: any) {
     const ingredientsDetailsOrdersList: Array<object> = []; // final result
     let { ingredients } = saladsComposed; // Get data we need to split them
-    ingredients = ingredients.split(',').join(' ').split(' '); // Separation of data
-    let nameIngredients = '';
 
-    for (let i = 0; i < ingredients.length; i ++) {
-      // check if value is a number
-      if (isNaN(ingredients[i])) {
-        nameIngredients += ingredients[i];
-        if (isNaN(ingredients[i + 1])) {
-          nameIngredients += ' ';
+    if (ingredients !== null) {
+      ingredients = ingredients.split(',').join(' ').split(' '); // Separation of data
+      let nameIngredients = '';
+
+      for (let i = 0; i < ingredients.length; i ++) {
+        // check if value is a number
+        if (isNaN(ingredients[i])) {
+          nameIngredients += ingredients[i];
+          if (isNaN(ingredients[i + 1])) {
+            nameIngredients += ' ';
+          }
+        } else {
+          // Create ingredient object to push it in final result array
+          const ingredientDetailOrder = {
+            ingredientName: nameIngredients,
+            ingredientQuantity: Number.parseInt(ingredients[i], 10)
+          };
+          ingredientsDetailsOrdersList.push(ingredientDetailOrder);
+          // empty variable for next iteration
+          nameIngredients = '';
         }
-      } else {
-        // Create ingredient object to push it in final result array
-        const ingredientDetailOrder = {
-          ingredientName: nameIngredients,
-          ingredientQuantity: Number.parseInt(ingredients[i], 10)
-        };
-        ingredientsDetailsOrdersList.push(ingredientDetailOrder);
-        // empty variable for next iteration
-        nameIngredients = '';
       }
+      return ingredientsDetailsOrdersList;
     }
-    return ingredientsDetailsOrdersList;
   }
 
   createToppingsOrderDetail(saladsComposed: any) {
     const toppingsDetailsOrdersList: Array<object> = []; // final result
     let { toppings } = saladsComposed; // Get data we need to split them
-    toppings = toppings.split(',').join(' ').split(' '); // Separation of data
-    let nameToppings = '';
 
-    for (let i = 0; i < toppings.length; i ++) {
-      // check if value is a number
-      if (isNaN(toppings[i])) {
-        nameToppings += toppings[i];
-        if (isNaN(toppings[i + 1])) {
-          nameToppings += ' ';
-        }
-      } else {
-        // Create ingredient object to push it in final result array
-        const toppingsDetailOrder = {
-          toppingName: nameToppings,
-          toppingQuantity: Number.parseInt(toppings[i], 10)
-        };
-        toppingsDetailsOrdersList.push(toppingsDetailOrder);
-        // empty variable for next iteration
-        nameToppings = '';
+    if (toppings !== null) {
+      toppings = toppings.split(',').join(' ').split(' '); // Separation of data
+      let nameToppings = '';
+
+      for (let i = 0; i < toppings.length; i ++) {
+        // check if value is a number
+        if (isNaN(toppings[i])) {
+          nameToppings += toppings[i];
+          if (isNaN(toppings[i + 1])) {
+            nameToppings += ' ';
+          }
+        } else {
+            // Create ingredient object to push it in final result array
+            const toppingsDetailOrder = {
+            toppingName: nameToppings,
+            toppingQuantity: Number.parseInt(toppings[i], 10)
+          };
+            toppingsDetailsOrdersList.push(toppingsDetailOrder);
+            // empty variable for next iteration
+            nameToppings = '';
+          }
       }
+      return toppingsDetailsOrdersList;
     }
-    return toppingsDetailsOrdersList;
   }
 
 }

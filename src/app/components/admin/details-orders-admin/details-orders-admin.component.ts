@@ -19,7 +19,8 @@ export class DetailsOrdersAdminComponent implements OnInit {
     this.getOrdersAdminService.getDetailsOrdersAdmin()
     .subscribe(detailsOrders => {
 
-      console.log(detailsOrders)
+      console.log(detailsOrders);
+
       // Make loop to regroup all informations of each orders
       for (const user of detailsOrders[0] ) {
         const pizzaList = [];
@@ -60,6 +61,9 @@ export class DetailsOrdersAdminComponent implements OnInit {
         // Get all saladsComposed
         for (const saladsComposed of detailsOrders[6]) {
           if (saladsComposed.idOrders === user.idOrders) {
+
+            const baseDetailsOrders = this.createBaseOrderDetail(saladsComposed);
+            console.log(baseDetailsOrders);
             saladsComposedList.push(saladsComposed);
           }
         }
@@ -93,8 +97,33 @@ export class DetailsOrdersAdminComponent implements OnInit {
         // Push results in final results Array
         this.listOfOrders.push(ordersDetails);
       }
-      console.log(this.listOfOrders);
+      /* console.log(this.listOfOrders); */
     });
+  }
+
+  createBaseOrderDetail(saladsComposed: any) {
+    const basesDetailsOrdersList: Array<object> = [];
+    let { bases } = saladsComposed;
+    bases = bases.split(',').join(' ').split(' ');
+    let nameBase = '';
+
+
+    for (let i = 0; i < bases.length; i ++) {
+      if (isNaN(bases[i])) {
+        nameBase += bases[i];
+        if (isNaN(bases[i + 1])) {
+          nameBase += ' ';
+        }
+      } else {
+        const baseDetailOrder = {
+          baseName: nameBase,
+          baseQuantity: Number.parseInt(bases[i], 10)
+        };
+        basesDetailsOrdersList.push(baseDetailOrder);
+        nameBase = '';
+      }
+    }
+    return basesDetailsOrdersList;
   }
 
 }

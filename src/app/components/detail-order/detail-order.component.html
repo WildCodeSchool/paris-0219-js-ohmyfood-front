@@ -227,9 +227,9 @@
 
   </div>
   <p>
-    TOTAL de votre commande {{ total }} EUR
+    TOTAL de votre commande {{ totalOrder }} EUR
   </p>
-  <form [formGroup]="userDetailForm">
+  <form [formGroup]="userDetailForm" (ngSubmit)="confirmOrder()">
     <label>
       <p>Adresse de livraison 1</p>
       <input type="text" formControlName="livrAddress1">
@@ -254,6 +254,6 @@
       <p>Commentaires</p>
       <textarea placeholder="Ex: Régina sans champignons..." formControlName="comment"></textarea>
     </label>
+    <button type="submit">CONFIRMER LA COMMANDE</button>
   </form>
-  <button type="submit">CONFIRMER LA COMMANDE</button>
 </div>

@@ -1,22 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { PizzasDataService } from 'src/app/services/pizzas-data.service';
 import { OrderPizzas } from 'src/app/class/order-pizzas';
-import { QuantitySelectService } from 'src/app/services/quantity-select.service';
-import { CreateFormBasketService } from 'src/app/services/create-form-basket.service';
 import { OrderBeverage } from 'src/app/class/order-beverage';
-import { BeveragesDataService } from 'src/app/services/beverages-data.service';
 import { OrderDessert } from 'src/app/class/order-dessert';
-import { DessertsDataService } from 'src/app/services/desserts-data.service';
 import { FinalOrder } from 'src/app/class/final-order';
 import { FinalOrderService } from 'src/app/services/final-order.service';
-import { PizzaService } from 'src/app/services/pizza.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UserAccountInformationsService } from 'src/app/services/user-account-informations.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-detail-order',
   templateUrl: './detail-order.component.html',
-  styleUrls: ['./detail-order.component.scss']
+  styleUrls: ['./detail-order.component.scss'],
+  providers: [DatePipe]
 })
 export class DetailOrderComponent implements OnInit {
 
@@ -29,18 +25,22 @@ export class DetailOrderComponent implements OnInit {
 
   finalOrderRecap: FinalOrder;
 
+  date: Date = new Date();
+
+  dateOrder: string;
+
   initPrice: boolean;
 
-  total: number; // final result
+  totalOrder: number; // final result
 
   userDetailForm: FormGroup;
 
   constructor(
-    private pizzaService: PizzaService,
-    private finalOrder: FinalOrderService, 
-    private fb: FormBuilder, 
-    private userAccountInformationsService: UserAccountInformationsService
-  ) { }
+    private finalOrderService: FinalOrderService,
+    private fb: FormBuilder,
+    private userAccountInformationsService: UserAccountInformationsService,
+    private datePipe: DatePipe
+  ) { this.dateOrder = this.datePipe.transform(this.date, 'yyyy-MM-dd hh:mm:ss'); }
 
   ngOnInit() {
     this.initForm();
@@ -48,12 +48,13 @@ export class DetailOrderComponent implements OnInit {
     this.userAccountInformationsService.getClientAccountInfos().then(res => {
       const userAccountObject = JSON.parse(res);
       this.userDetailForm.patchValue({
-        mailUser: sessionStorage.getItem('userMail'), 
-        livrAddress1 : userAccountObject['1'].userAddress1, 
-        livrAddress2 : userAccountObject['1'].userAddress2, 
-        zipcode : userAccountObject['1'].zipcode, 
+        mailUser: sessionStorage.getItem('userMail'),
+        livrAddress1 : userAccountObject['1'].userAddress1,
+        livrAddress2 : userAccountObject['1'].userAddress2,
+        zipcode : userAccountObject['1'].zipcode,
         city: userAccountObject['1'].city,
-        factAddress: `${userAccountObject['1'].userAddress1} ${userAccountObject['1'].userAddress2} ${userAccountObject['1'].zipcode} ${userAccountObject['1'].city}`
+        factAddress: `${userAccountObject['1'].userAddress1} ` +
+        `${userAccountObject['1'].userAddress2} ${userAccountObject['1'].zipcode} ${userAccountObject['1'].city}`
       });
     });
     // Get item from session storage if there is something in it
@@ -62,7 +63,7 @@ export class DetailOrderComponent implements OnInit {
     }
 
     // Subscribe to output from basket component
-    const finalOrderSubscription = this.finalOrder.getFinalOrder.subscribe((userFinalOrder: any) => {
+    const finalOrderSubscription = this.finalOrderService.getFinalOrder.subscribe((userFinalOrder: any) => {
       let finalOrderStorage: any;
 
       sessionStorage.getItem('finalOrder') ?
@@ -156,8 +157,10 @@ export class DetailOrderComponent implements OnInit {
         );
 
       sessionStorage.setItem('finalOrder', JSON.stringify(this.finalOrderRecap)); // Save new finalOrder in session storage
+      this.calcTotalOrder();
       finalOrderSubscription.unsubscribe();
     });
+    this.calcTotalOrder();
   }
 
   // html gestion
@@ -220,18 +223,47 @@ export class DetailOrderComponent implements OnInit {
       }
     }
     sessionStorage.setItem('finalOrder', JSON.stringify(this.finalOrderRecap));
+    this.calcTotalOrder();
   }
 
   initForm() {
     this.userDetailForm = this.fb.group({
-      mailUser: [sessionStorage.getItem('userMail')], 
-      livrAddress1 : ['', Validators.required], 
-      livrAddress2 : ['', Validators.required], 
-      zipcode : ['', Validators.required], 
+      mailUser: [sessionStorage.getItem('userMail')],
+      livrAddress1 : ['', Validators.required],
+      livrAddress2 : ['', Validators.required],
+      zipcode : ['', Validators.required],
       city: [''],
       factAddress: [''],
       comment: ['']
-    })
+    });
+  }
+
+  calcTotalOrder() {
+    const arrayTotalOrderPrice = [];
+    const reducer = (accumulator, currentValue) => accumulator + currentValue;
+
+    this.finalOrderRecap[`pizza`].map(pizz => { arrayTotalOrderPrice.push(+pizz[`pizzPriceTotal`]); });
+    this.finalOrderRecap[`beverage`].map(bev => { arrayTotalOrderPrice.push(+bev[`bevPriceTotal`]); });
+    this.finalOrderRecap[`dessert`].map(dess => { arrayTotalOrderPrice.push(+dess[`dessPriceTotal`]); });
+    this.finalOrderRecap[`salad`].map(salad => { arrayTotalOrderPrice.push(+salad[`saladsComposedPriceTotal`]); });
+    this.finalOrderRecap[`menuPizza`].map(menuPizz => { arrayTotalOrderPrice.push(+menuPizz[`menuPizzPriceTotal`]); });
+    this.finalOrderRecap[`menuSalad`].map(menuSalad => { arrayTotalOrderPrice.push(+menuSalad[`menuSaladPriceTotal`]); });
+    this.totalOrder = arrayTotalOrderPrice.reduce(reducer);
+  }
+
+  confirmOrder() {
+    const finalOrder = {
+      0: this.finalOrderRecap,
+      1: this.userDetailForm.value,
+      2: {
+        dateOrder: this.dateOrder,
+        priceOrder: this.totalOrder,
+        idUsers: ''
+      }
+    };
+    this.finalOrderService.finalOrderObject = finalOrder;
+    this.finalOrderService.submitFinalOrder().then(res => {
+    });
   }
 }
 

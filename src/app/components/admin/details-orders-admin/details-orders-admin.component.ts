@@ -114,6 +114,7 @@ export class DetailsOrdersAdminComponent implements OnInit {
           user.idOrders,
           user.dateOrder,
           user.orderPrice.toFixed(2),
+          user.orderMessage,
           user.lastname,
           user.firstname,
           user.mail,

@@ -11,6 +11,7 @@ export class OrdersDetailsAdmin extends FinalOrder {
     public idOrder: number,
     public dateOrder: string,
     public orderPrice: number,
+    public orderMessage: string,
     public clientLastName: string,
     public clientFirstName: string,
     public clientMail: string,

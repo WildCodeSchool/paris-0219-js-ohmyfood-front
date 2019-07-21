@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthCreateClientService } from 'src/app/services/auth-create-client.service';
+import { checkUserPassword } from 'src/app/validators/checkUserPassword';
 
 @Component({
   selector: 'app-authent-create',
@@ -22,7 +23,7 @@ export class AuthentCreateComponent implements OnInit {
     this.initForm();
   }
 
-  get fC () { return this.authCreateForm.controls }
+  get fC() { return this.authCreateForm.controls; }
 
   initForm() {
     this.authCreateForm = this.fb.group({
@@ -31,12 +32,16 @@ export class AuthentCreateComponent implements OnInit {
       email: ['', [Validators.required, Validators.pattern(this.regexEmail), Validators.minLength(4)]],
       phone: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10), Validators.pattern(this.regexPhone)]],
       pssw: ['', [Validators.required, Validators.minLength(7), Validators.maxLength(15)]],
+      psswVerif: ['', Validators.required],
       address1: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(255)]],
       address2: ['', [Validators.minLength(4), Validators.maxLength(255)]],
       zipcode: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(5), Validators.pattern(this.regexZipcode)]],
       city: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(255)]],
       userFacturation: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(255)]]
-    })
+    },
+    {
+      validator: checkUserPassword('pssw', 'psswVerif')
+    });
   }
 
   onSubmitCreateClientForm() {
@@ -58,8 +63,7 @@ export class AuthentCreateComponent implements OnInit {
           city: this.authCreateForm.value.city,
           idUsers:'',
           userFacturation: 0,
-          userAddressFacturation: this.authCreateForm.value.userFacturation, 
-          
+          userAddressFacturation: this.authCreateForm.value.userFacturation,
         }
       };
       if (confirm(`Êtes-vous sûr de soumettre ces informations ?`)) {

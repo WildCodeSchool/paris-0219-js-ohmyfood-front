@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { LoginService } from 'src/app/services/login.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { NewPasswordPageGuardService } from 'src/app/services/new-password-page-guard.service';
 
 @Component({
   selector: 'app-navbar2',
@@ -10,30 +11,33 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class Navbar2Component {
   userInfoObject = {
     lastname: '',
-    firstname: '', 
+    firstname: '',
     mail: ''
-  }
+  };
 
   booleanAdminLogged = 0;
 
   constructor(
-    private loginService: LoginService, 
-    private router: Router, 
-    private route: ActivatedRoute
-  ) {}
+    private loginService: LoginService,
+    private router: Router,
+    private route: ActivatedRoute, 
+    private newPasswordPageGuardService: NewPasswordPageGuardService
+  ) {  }
 
   ngOnInit() {
-    if (sessionStorage.getItem('userLastName') != undefined) { //on page refresh with logged user
+
+    if (sessionStorage.getItem('userLastName') != undefined) { // on page refresh with logged user
       this.userInfoObject = {
         lastname: sessionStorage.getItem('userLastName'),
         firstname: sessionStorage.getItem('userFirstName'),
         mail: sessionStorage.getItem('userMail')
       };
+      
     }
 
     this.loginService.transfertUserRight.subscribe(_ => {
       this.booleanAdminLogged = 1;
-    })
+    });
 
     this.loginService.transfertUser.subscribe(_ => { // on client logged
       this.userInfoObject = {
@@ -41,11 +45,11 @@ export class Navbar2Component {
         firstname: sessionStorage.getItem('userFirstName'),
         mail: sessionStorage.getItem('userMail')
       };
-    })
+    });
   }
 
   checkIfUserLogged() {
-    if (sessionStorage.getItem('userLastName') == undefined) {
+    if (sessionStorage.getItem('userLastName') === undefined) {
       this.router.navigateByUrl('authClientPage');
     } else {
       this.router.navigateByUrl('homeOrderPage');
@@ -58,12 +62,12 @@ export class Navbar2Component {
     sessionStorage.clear();
     this.userInfoObject = {
       lastname: '',
-      firstname: '', 
+      firstname: '',
       mail: ''
-    }
+    };
 
-    if (location.pathname === "/homePage") {
-      window.location.reload()
+    if (location.pathname === '/homePage') {
+      window.location.reload();
     }
     this.router.navigateByUrl('/');
   }

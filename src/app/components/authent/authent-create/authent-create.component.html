@@ -1,11 +1,11 @@
-<form [formGroup]="authCreateForm">
+<form [formGroup]="authCreateForm" #createAuthForm ="ngForm">
   <div class="formContent">
     <h2>Bienvenue chez OHMYFOOD</h2>
     <p>Veuillez enregistrer vos informations</p>
     <label>
       <p>Entrez votre Nom</p>
-      <input 
-        type="text" 
+      <input
+        type="text"
         placeholder="Nom"
         formControlName="lastName"
         required
@@ -24,8 +24,8 @@
     </div>
     <label>
       <p>Entrez votre Prénom</p>
-      <input 
-        type="text" 
+      <input
+        type="text"
         placeholder="Prénom"
         formControlName="firstName"
         required
@@ -44,8 +44,8 @@
     </div>
     <label>
       <p>Entrez votre E-Mail</p>
-      <input 
-        type="text" 
+      <input
+        type="text"
         placeholder="E-Mail"
         formControlName="email"
         required
@@ -58,14 +58,14 @@
       <div *ngIf="fC.email.errors.pattern">
         <p class="invalidText">*Votre e-mail doit être de la forme xxx@xxx.xxx</p>
       </div>
-      <div *ngIf="fC.firstName.errors.minlength">
+      <div *ngIf="fC.email.errors.minlength">
         <p class="invalidText">*Votre e-mail doit contenir au moins 4 caractères</p>
       </div>
     </div>
     <label>
       <p>Entrez votre téléphone</p>
-      <input 
-        type="text" 
+      <input
+        type="text"
         placeholder="Téléphone"
         formControlName="phone"
         required
@@ -89,10 +89,21 @@
       <p>Entrez votre mot de passe</p>
       <p>Pour une sécurité optimale, nous vous conseillons d'entrer un mot de passe incluant des majuscules et des caractères spéciaux</p>
       <p>Exemple de mot de passe : IlovePizza!42</p>
-      <input 
-        type="{{ psswType }}" 
+      <input
+        type="{{ psswType }}"
         placeholder="Mot de Passe"
         formControlName="pssw"
+        required
+      >
+      <a *ngIf="show" (click)="showPssw($event)"><i class="fa fa-eye"></i></a>
+      <a *ngIf="!show" (click)="showPssw($event)"><i class="fa fa-eye-slash"></i></a>
+    </label>
+    <label>
+      <p>Confirmer votre mot de passe</p>
+      <input
+        type="{{ psswType }}"
+        placeholder="Mot de Passe"
+        formControlName="psswVerif"
         required
       >
       <a *ngIf="show" (click)="showPssw($event)"><i class="fa fa-eye"></i></a>
@@ -109,11 +120,14 @@
         <p class="invalidText">*Votre mot de passe ne doit pas excéder 15 caractères</p>
       </div>
     </div>
+    <div *ngIf="createAuthForm.submitted && createAuthForm.errors">
+      <p class="invalidText">{{ createAuthForm.errors['wrongPassword'] }}</p>
+    </div>
     <p>Veuillez également enregistrer vos coordonnées</p>
     <label>
       <p>Adresse 1</p>
-      <input 
-        type="text" 
+      <input
+        type="text"
         placeholder="Adresse 1"
         formControlName="address1"
         required
@@ -132,11 +146,10 @@
     </div>
     <label>
       <p>Adresse 2</p>
-      <input 
-        type="text" 
+      <input
+        type="text"
         placeholder="Adresse 2"
         formControlName="address2"
-        required
       >
     </label>
     <div *ngIf="fC.address2.invalid && (fC.address2.dirty || fC.address2.touched)">
@@ -149,8 +162,8 @@
     </div>
     <label>
       <p>Code Postal</p>
-      <input 
-        type="text" 
+      <input
+        type="text"
         placeholder="Code postal"
         formControlName="zipcode"
         required
@@ -169,8 +182,8 @@
     </div>
     <label>
       <p>Ville</p>
-      <input 
-        type="text" 
+      <input
+        type="text"
         placeholder="Ville"
         formControlName="city"
         required
@@ -189,8 +202,8 @@
     </div>
     <label>
       <p>Adresse de facturation</p>
-      <input 
-        type="text" 
+      <input
+        type="text"
         placeholder="Adresse de facturation"
         formControlName="userFacturation"
         required

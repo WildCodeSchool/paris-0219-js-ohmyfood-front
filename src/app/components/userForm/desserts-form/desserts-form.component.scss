@@ -6,7 +6,7 @@
   background-repeat: no-repeat, no-repeat;
   background-position: center, center;
   background-size: 97% 90%, 100% 100%;
-  width: 571px;
+  width: 60%;
   padding: 29px;
   margin: auto;
 
@@ -119,16 +119,16 @@ section {
     background-repeat: no-repeat, no-repeat;
     background-position: center, center;
     background-size: 97% 90%, 100% 100%;
-    width: 300px;
+    width: 81%;
     padding: 18px;
     margin-left: 7%;
     height: 84px;
 
     h1 {
-      font-size: 20px;
+      font-size: 1.1em;
     }
     p {
-      font-size: 10px
+      font-size: 0.7em;
     }
   }
   .header {
@@ -181,13 +181,16 @@ section {
         font-size: 0.7em;
         width: 62%;
 
+        .dessertStyle {
+          width: 30vw;
+        }
+      }
         span {
-          text-align: center;
-          width: 11vw;
+          text-align: left;
+          width: 15vw;
         }
       }
     }
-  }
 
   .notToggle {
     width: 90vw;
@@ -214,7 +217,7 @@ section {
   background-repeat: no-repeat, no-repeat;
   background-position: center, center;
   background-size: 97% 90%, 100% 100%;
-  width: 240px;
+  width: 74%;
   padding: 18px;
   margin-left: 12%;
   height: 72px;
@@ -222,30 +225,35 @@ section {
 
 
     h1 {
-      font-size: 15px;
+      font-size: 0.9em;
     }
     p {
-      font-size: 6px
+      font-size: 0.5em;
     }
   }
   h1.header {
     width: 230px;
     font-size: 15px;
   }
-  .desserts {
-    font-size: 1em;
-    width: 55vw;
+  .header {
+    justify-content: space-around;
+    margin: 1px 10px 0vh 0px;
+    width: 81vw;
 
-    span {
-      text-align: center;
-      width: 23vw;
+    .desserts {
+      font-size: 1em;
+      width: 50vw;
+
+      span {
+        text-align: center;
+        width: 11vw;
+      }
     }
-  }
-
-  .quantity {
-    font-size: 1em;
-    text-align: center;
-    width: 20vw;
+    .quantity {
+      font-size: 1em;
+      text-align: center;
+      width: 16vw;
+    }
   }
 
 
@@ -277,10 +285,16 @@ section {
         font-size: 0.7em;
         width: 65%;
 
-        span {
-          display: inline-block;
-          text-align: center;
-          width: 23vw;
+        .dessertStyle {
+          width: 78%;
+          text-align: left;
+
+
+          span {
+            display: inline-block;
+            text-align: center;
+            width: 23vw;
+          }
         }
       }
     }

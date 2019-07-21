@@ -28,6 +28,10 @@ import { HomeComponent } from './components/home/home.component';
 import { SaladPageComponent } from './pages/salad-page/salad-page.component';
 import { OnlyLoggedInUsersGuardService } from './services/only-logged-in-users-guard.service';
 import { MenuPageComponent } from './pages/menu-page/menu-page.component';
+import { SaladToppingsFormAdminComponent } from './components/salad-toppings-form-admin/salad-toppings-form-admin.component';
+import { SaladIngredientsFormAdminComponent } from './components/salad-ingredients-form-admin/salad-ingredients-form-admin.component';
+import { SaladBaseFormAdminComponent } from './components/salad-base-form-admin/salad-base-form-admin.component';
+import { SaladSaucesFormAdminComponent } from './components/salad-sauces-form-admin/salad-sauces-form-admin.component';
 import { MenuPizzaFormComponent } from './components/userForm/menu-pizza-form/menu-pizza-form.component';
 import { DessertsFormAdminComponent } from './components/admin/desserts-form-admin/desserts-form-admin.component';
 import { DetailOrderPageComponent } from './pages/detail-order-page/detail-order-page.component';
@@ -36,6 +40,13 @@ import { MenuSaladFormComponent } from './components/userForm/menu-salad-form/me
 import { CreateAccountPageComponent } from './pages/authent/create-account-page/create-account-page.component';
 import { UserAccountPageComponent } from './pages/user-account-page/user-account-page.component';
 import { UserAccountComponent } from './components/user-account/user-account.component';
+import { ContactComponent } from './components/contact/contact.component';
+import { ContactPageComponent } from './pages/contact-page/contact-page.component';
+import { ForgotPsswComponent } from './components/authent/forgot-pssw/forgot-pssw.component';
+import { ForgotPsswPageComponent } from './pages/authent/forgot-pssw-page/forgot-pssw-page.component';
+import { NewPasswordPageComponent } from './pages/new-password-page/new-password-page.component';
+import { NewPasswordComponent } from './components/new-password/new-password.component';
+import { NewPasswordPageGuardService } from './services/new-password-page-guard.service';
 
 @NgModule({
   declarations: [
@@ -62,12 +73,22 @@ import { UserAccountComponent } from './components/user-account/user-account.com
     MenuPageComponent,
     MenuPizzaFormComponent,
     DessertsFormAdminComponent,
+    SaladToppingsFormAdminComponent,
+    SaladIngredientsFormAdminComponent,
+    SaladBaseFormAdminComponent,
+    SaladSaucesFormAdminComponent,
     DetailOrderPageComponent,
     DetailOrderComponent,
     MenuSaladFormComponent,
     CreateAccountPageComponent,
     UserAccountPageComponent,
-    UserAccountComponent
+    UserAccountComponent,
+    ContactComponent,
+    ContactPageComponent,
+    ForgotPsswComponent,
+    ForgotPsswPageComponent,
+    NewPasswordPageComponent,
+    NewPasswordComponent
   ],
   imports: [
     AppRoutingModule,
@@ -77,7 +98,7 @@ import { UserAccountComponent } from './components/user-account/user-account.com
     ReactiveFormsModule,
     RouterModule,
   ],
-  providers: [OnlyLoggedInUsersGuardService],
+  providers: [OnlyLoggedInUsersGuardService, NewPasswordPageGuardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -71,7 +71,7 @@
 
     <p>{{ pizzaMenuForm.value.pizzaMenuPriceTotal }} EUR TTC</p>
 
-    <p *ngIf="menuPizza.submitted && menuPizza.errors">
+    <p *ngIf="menuPizza.errors">
       {{ pizzaMenuForm.errors['notInTime'] }}
     </p>
 

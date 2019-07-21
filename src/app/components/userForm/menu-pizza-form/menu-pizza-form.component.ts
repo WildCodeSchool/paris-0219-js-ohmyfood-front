@@ -38,19 +38,7 @@ export class MenuPizzaFormComponent implements OnInit {
 
   ngOnInit() {
     // Initialize form group
-    this.pizzaMenuForm = this.formBuilder.group({
-      pizza: this.formBuilder.array([]),
-      beverage: this.formBuilder.array([]),
-      dessert: this.formBuilder.array([]),
-      pizzaMenuPriceTotal: Number,
-      },
-      {
-      validators: [
-        deliveryIntervalTime(this.controlDate), // Validator time
-        quantityMenuPizzaControl('pizza', 'beverage', 'dessert') // Validator quantity
-        ],
-      }
-    );
+    this.initPizzaMenuForm();
 
     // Get Menu Price
     const menuSubscription = this.menuPrices.getMenuPrices()
@@ -101,6 +89,22 @@ export class MenuPizzaFormComponent implements OnInit {
       }
       dessSubscription.unsubscribe();
     });
+  }
+
+  initPizzaMenuForm() {
+    this.pizzaMenuForm = this.formBuilder.group({
+      pizza: this.formBuilder.array([]),
+      beverage: this.formBuilder.array([]),
+      dessert: this.formBuilder.array([]),
+      pizzaMenuPriceTotal: Number,
+      },
+      {
+      validators: [
+        deliveryIntervalTime(this.controlDate, true), // Validator time
+        quantityMenuPizzaControl('pizza', 'beverage', 'dessert') // Validator quantity
+        ],
+      }
+    );
   }
 
   get pizza(): FormArray {

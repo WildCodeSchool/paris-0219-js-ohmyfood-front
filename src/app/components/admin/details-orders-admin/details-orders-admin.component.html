@@ -35,7 +35,7 @@
         Addresse de facturation: <span> {{ order.userAddressFacturation }}</span>
       </h4>
 
-      <h4>Liste des pizzas commandées</h4>
+      <h4 *ngIf="order.pizza.length > 0">Liste des pizzas commandées</h4>
 
       <ul>
         <li *ngFor="let pizza of order.pizza">
@@ -45,7 +45,7 @@
         </li>
       </ul>
 
-      <h4>Liste des salades composées commandées</h4>
+      <h4 *ngIf="order.salad.length > 0">Liste des salades composées commandées</h4>
 
       <ul>
         <li *ngFor="let salad of order.salad; let i = index">
@@ -67,7 +67,7 @@
             </li>
           </ul>
 
-          <p>Les toppings</p>
+          <p *ngIf="salad.orderSaladsToppings !== undefined">Les toppings</p>
 
           <ul>
             <li *ngFor="let topping of salad.orderSaladsToppings">
@@ -81,7 +81,7 @@
         </li>
       </ul>
 
-      <h4>Liste des boissons commandées</h4>
+      <h4 *ngIf="order.beverage.length > 0">Liste des boissons commandées</h4>
 
       <ul>
         <li *ngFor="let beverage of order.beverage">
@@ -91,7 +91,7 @@
         </li>
       </ul>
 
-      <h4>Liste des desserts commandés</h4>
+      <h4 *ngIf="order.dessert.length > 0">Liste des desserts commandés</h4>
 
       <ul>
         <li *ngFor="let dessert of order.dessert">
@@ -101,7 +101,7 @@
         </li>
       </ul>
 
-      <h4>Liste des menus Pizzas commandés</h4>
+      <h4 *ngIf="order.menuPizza.length > 0">Liste des menus Pizzas commandés</h4>
 
       <ul>
         <li *ngFor="let menuPizza of order.menuPizza ; let i = index">
@@ -117,7 +117,7 @@
         </li>
       </ul>
 
-      <h4>Liste des menus Salades commandés</h4>
+      <h4 *ngIf="order.menuSalad.length > 0">Liste des menus Salades commandés</h4>
 
       <ul>
           <li *ngFor="let menuSalad of order.menuSalad ; let i = index">
@@ -145,7 +145,7 @@
               </li>
             </ul>
 
-            <p>Les toppings</p>
+            <p *ngIf="menuSalad.toppings !== undefined">Les toppings</p>
 
             <ul>
               <li *ngFor="let topping of menuSalad.toppings">

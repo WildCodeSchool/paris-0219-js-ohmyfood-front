@@ -32,7 +32,7 @@ export class MenuPizzaFormComponent implements OnInit {
     private formBuilder: FormBuilder,
     private datePipe: DatePipe
     ) {
-        this.controlDate = this.datePipe.transform(this.date, 'H:mm:ss');
+        this.controlDate = this.datePipe.transform(this.date, 'EEEE H:mm:ss');
       }
 
 

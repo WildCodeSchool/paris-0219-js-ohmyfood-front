@@ -1,10 +1,16 @@
 import { AbstractControl, ValidatorFn, ValidationErrors} from '@angular/forms';
 
-export function deliveryIntervalTime(orderHour: string): ValidatorFn {
+export function deliveryIntervalTime(orderHour: string, isMenu: boolean): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
 
     const hourMenuMin = 113000;
     const hourMenuMax = 140000;
+
+    const lunchHourMin = 113000;
+    const lunchHourMax = 140000;
+
+    const dinnerHourMin = 190000;
+    const dinnerHourMax = 220000;
 
     const userDayOrder = orderHour.split(' ').splice(0, 1).join(''); // Get order's day
 
@@ -13,16 +19,21 @@ export function deliveryIntervalTime(orderHour: string): ValidatorFn {
     const finalHourOrder = parseInt(userHourOrder.split(':').join(''), 10); // Convert user hour order in number to compare it
 
     if (
-      hourMenuMin <= finalHourOrder &&
-      finalHourOrder <= hourMenuMax &&
-      userDayOrder !== 'Monday' &&
-      userDayOrder !== 'Saturday' &&
-      userDayOrder !== 'Sunday'
-      ) {
+      hourMenuMin <= finalHourOrder && finalHourOrder <= hourMenuMax && userDayOrder !== 'Monday' &&
+      userDayOrder !== 'Saturday' && userDayOrder !== 'Sunday' && isMenu ) {
         return null;
+
+    } else if (
+      (lunchHourMin <= finalHourOrder && finalHourOrder <= lunchHourMax && userDayOrder !== 'Monday' &&
+        userDayOrder !== 'Saturday' && userDayOrder !== 'Sunday' && !isMenu) || (dinnerHourMin <= finalHourOrder &&
+        finalHourOrder <= dinnerHourMax && userDayOrder !== 'Monday' && userDayOrder !== 'Saturday' &&
+        userDayOrder !== 'Sunday' && !isMenu)) {
+      return null;
     } else {
         return { notInTime: `Nos menus ne sont disponibles que le midi,
-                du mardi au vendredi, sur nos horaires d\'ouvertures, entre 11h30 et 14h` };
+                du mardi au vendredi, sur nos horaires d'ouvertures, entre 11h30 et 14h.
+                Il est possible de commander à la carte sur les mêmes horaires d'ouvertures le midi, et le soir entre 19h et 22h,
+                du mardi au dimanche` };
     }
   };
 }

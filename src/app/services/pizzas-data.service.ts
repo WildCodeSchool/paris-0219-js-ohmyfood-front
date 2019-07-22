@@ -19,6 +19,10 @@ export class PizzasDataService {
     return this.http.get(this.pizzasRoute);
   }
 
+  getOhMyMardiPrice(): Observable<object> {
+    return this.http.get(`${this.pizzasRoute}/ohMyMardi`);
+  }
+
    createOrderPizzas(userPizzaChoice: object) { // create object with OrderDessert Class
     for (const pizza in userPizzaChoice) {
       if (userPizzaChoice.hasOwnProperty(pizza)) {

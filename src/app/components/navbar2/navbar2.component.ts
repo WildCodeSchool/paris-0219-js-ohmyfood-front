@@ -28,22 +28,22 @@ export class Navbar2Component {
 
   ngOnInit() {
 
-    if (sessionStorage.getItem('adminToken') != undefined) {
+    if (localStorage.getItem('adminToken') != undefined) {
       this.loginService.routeProtection().then(res => {
         this.adminSuperGuardService.tokenGuard = res['token'];
           this.router.navigateByUrl('/admin')
       })
     }
-    if (sessionStorage.getItem('token') != undefined) {
+    if (localStorage.getItem('token') != undefined) {
       const url = window.location.pathname
       this.loginService.routeProtection().then(res => {
         this.onlyLoggedInUsersGuardService.tokenGuard = res['token'];
-          sessionStorage.setItem('alreadyLogged', res['token'])
+          localStorage.setItem('alreadyLogged', res['token'])
           this.router.navigateByUrl(`${url}`)
       })
     }
 
-    if (sessionStorage.getItem('userLastName') != undefined) { // on page refresh with logged user
+    if (localStorage.getItem('userLastName') != undefined) { // on page refresh with logged user
       this.userInfoObject = {
         lastname: localStorage.getItem('userLastName'),
         firstname: localStorage.getItem('userFirstName'),

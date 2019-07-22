@@ -56,7 +56,7 @@ export class MenuPizzaFormComponent implements OnInit {
     });
 
     // Get pizza data and create form group and push it in form Array
-    const pizzSubscription = this.pizzaData.getPizzas()
+    const pizzSubscription = this.pizzaData.getPizzasForMenu()
     .subscribe((pizzas: any) => {
 
       const pizza = this.pizzaMenuForm.get('pizza') as FormArray;
@@ -84,16 +84,12 @@ export class MenuPizzaFormComponent implements OnInit {
     });
 
     // Same thing for desserts
-    const dessSubscription = this.dessertData.getDesserts()
+    const dessSubscription = this.dessertData.getDessertsForMenu()
     .subscribe((desserts: any) => {
       const dessert = this.pizzaMenuForm.get('dessert') as FormArray;
 
       for (const dess in desserts) {
         if (desserts.hasOwnProperty(dess)) {
-          // Delete pizza nutella desserts because it's not in menu
-          if (desserts[dess].dessName === 'Pizza Nutella cuite au four') {
-            desserts.splice(dess, 1);
-          }
           dessert.push(this.createFormService.createForm(desserts[dess]));
         }
       }

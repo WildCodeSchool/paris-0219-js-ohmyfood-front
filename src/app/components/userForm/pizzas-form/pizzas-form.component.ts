@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { PizzasDataService } from 'src/app/services/pizzas-data.service';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { QuantitySelectService } from 'src/app/services/quantity-select.service';
@@ -15,6 +15,14 @@ import { deliveryIntervalTime } from 'src/app/validators/deliveryTimeValidators'
 })
 export class PizzasFormComponent implements OnInit {
 
+  @Output()
+  public getDay: EventEmitter<any> = new EventEmitter();
+
+  @Output()
+  public getControls: EventEmitter<any> = new EventEmitter();
+
+  today: string;
+
   date: Date = new Date();
 
   controlDate: string;
@@ -22,6 +30,8 @@ export class PizzasFormComponent implements OnInit {
   isToggle: boolean;
 
   formPizzas: FormGroup;
+
+  ohMyMardiPizzPrice: object;
 
   constructor(
     private pizzasData: PizzasDataService,
@@ -35,6 +45,8 @@ export class PizzasFormComponent implements OnInit {
   ngOnInit() {
     // init formPizzas
     this.initFormPizzas();
+
+    this.getControls.emit(this.formPizzas);
 
     const subscription = this.pizzasData.getPizzas()
     .subscribe(pizzas => {
@@ -53,6 +65,22 @@ export class PizzasFormComponent implements OnInit {
         }
       }
       subscription.unsubscribe();
+    });
+
+    // Get price of myMardi
+    const ohMyMardiSubscription = this.pizzasData.getOhMyMardiPrice()
+    .subscribe(ohMyMardiPrice => {
+
+      this.ohMyMardiPizzPrice = ohMyMardiPrice;
+      this.today = this.controlDate.split(' ')[0]; // Control day of order
+
+      // Transfert day to parent component
+      this.getDay.emit(this.today);
+
+      if (this.today === 'Tuesday') {
+        this.ohMyMardiPrice();
+      }
+      ohMyMardiSubscription.unsubscribe();
     });
   }
 
@@ -88,6 +116,14 @@ export class PizzasFormComponent implements OnInit {
           (resetQuantity: any) => resetQuantity.pizzQuantity = 0
           );
       }
+    }
+  }
+
+  ohMyMardiPrice() {
+    for (const pizza of this.formPizzas.controls.selectedPizzas[`controls`]) {
+      pizza.controls.pizzPriceTTC.patchValue(
+        this.ohMyMardiPizzPrice[0].pizzPriceReducTTC.toFixed(2)
+      );
     }
   }
 

@@ -16,9 +16,7 @@ export class OnlyLoggedInUsersGuardService implements CanActivate {
 
   canActivate(): boolean {
     if (sessionStorage.getItem('alreadyLogged') != undefined) {
-      this.loginService.routeProtection().then(res => {
-        console.log('refresh', res)
-        
+      this.loginService.routeProtection().then(_ => {
         this.router.navigateByUrl(`${location.pathname}`);
       });
     }

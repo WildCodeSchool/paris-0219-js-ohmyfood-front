@@ -7,7 +7,7 @@ import { CanActivate, Router } from '@angular/router';
 export class AdminSuperGuardService implements CanActivate {
   tokenGuard;
   ifLogged;
-
+  
   constructor(
     private router: Router
   ) {  }

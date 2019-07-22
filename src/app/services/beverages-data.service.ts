@@ -35,7 +35,7 @@ export class BeveragesDataService {
     }
   }
 
-  createOrderBeverageSessionStorage(object: any) {
+  createOrderBeveragelocalStorage(object: any) {
     return new OrderBeverage(
       object.idBeverages,
       object.bevName,

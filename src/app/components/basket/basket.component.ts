@@ -6,7 +6,7 @@ import { CreateFormBasketService } from 'src/app/services/create-form-basket.ser
 import { BeveragesDataService } from 'src/app/services/beverages-data.service';
 import { DessertsDataService } from 'src/app/services/desserts-data.service';
 import { SaladsDatasService } from 'src/app/services/salads-datas.service';
-import { BasketSessionStorageService } from 'src/app/services/basket-session-storage.service';
+import { BasketlocalStorageService } from 'src/app/services/basket-session-storage.service';
 import { OrderBeverage } from 'src/app/class/order-beverage';
 import { OrderDessert } from 'src/app/class/order-dessert';
 import { OrderSalads } from 'src/app/class/order-salads';
@@ -46,7 +46,7 @@ export class BasketComponent implements OnInit {
     private quantityService: QuantitySelectService,
     private createForm: CreateFormBasketService,
     private saladsData: SaladsDatasService,
-    private sessionStorage: BasketSessionStorageService,
+    private localStorage: BasketlocalStorageService,
     private router: Router,
     private finalOrder: FinalOrderService,
     private menuPrice: MenuPricesDataService
@@ -55,23 +55,23 @@ export class BasketComponent implements OnInit {
   ngOnInit() {
 
     // Get item from local storage to update basket
-    const storageBeverages = sessionStorage.getItem('beverages') ? // If there is key in session storage, get it in variable
-    JSON.parse(sessionStorage.getItem('beverages')) : [];
+    const storageBeverages = localStorage.getItem('beverages') ? // If there is key in session storage, get it in variable
+    JSON.parse(localStorage.getItem('beverages')) : [];
 
-    const storageDesserts = sessionStorage.getItem('desserts') ?
-    JSON.parse(sessionStorage.getItem('desserts')) : [];
+    const storageDesserts = localStorage.getItem('desserts') ?
+    JSON.parse(localStorage.getItem('desserts')) : [];
 
-    const storagePizzas = sessionStorage.getItem('pizzas') ?
-    JSON.parse(sessionStorage.getItem('pizzas')) : [];
+    const storagePizzas = localStorage.getItem('pizzas') ?
+    JSON.parse(localStorage.getItem('pizzas')) : [];
 
-    const storageSalads = sessionStorage.getItem('salads') ?
-    JSON.parse(sessionStorage.getItem('salads')) : [];
+    const storageSalads = localStorage.getItem('salads') ?
+    JSON.parse(localStorage.getItem('salads')) : [];
 
-    const storageMenuPizza = sessionStorage.getItem('menuPizza') ?
-    JSON.parse(sessionStorage.getItem('menuPizza')) : [];
+    const storageMenuPizza = localStorage.getItem('menuPizza') ?
+    JSON.parse(localStorage.getItem('menuPizza')) : [];
 
-    const storageMenuSalad = sessionStorage.getItem('menuSalad') ?
-    JSON.parse(sessionStorage.getItem('menuSalad')) : [];
+    const storageMenuSalad = localStorage.getItem('menuSalad') ?
+    JSON.parse(localStorage.getItem('menuSalad')) : [];
 
     // Create Form group to push it in formArray of final order to update basket with good value
     const beverage = this.finalOrderForm.get('beverage') as FormArray;
@@ -82,32 +82,32 @@ export class BasketComponent implements OnInit {
     const menuSalad = this.finalOrderForm.get('menuSalad') as FormArray;
 
     for (const pizzas of storagePizzas) {
-      const pizz = this.pizzasData.createOrderPizzasSessionStorage(pizzas);
+      const pizz = this.pizzasData.createOrderPizzaslocalStorage(pizzas);
       pizza.push(this.createForm.createOrderForm(pizz));
     }
 
     for (const saladComposed of storageSalads) {
-      const salads = this.saladsData.createOrderSaladsSessionStorage(saladComposed);
+      const salads = this.saladsData.createOrderSaladslocalStorage(saladComposed);
       salad.push(this.createForm.createOrderForm(salads));
     }
 
     for (const beverages of storageBeverages) {
-      const bev = this.beverageData.createOrderBeverageSessionStorage(beverages); // Create orderBeverage
+      const bev = this.beverageData.createOrderBeveragelocalStorage(beverages); // Create orderBeverage
       beverage.push(this.createForm.createOrderForm(bev)); // Create formGroup with object and push it in formArray
     }
 
     for (const desserts of storageDesserts) {
-      const dess = this.dessertData.createOrderDessertsSessionStorage(desserts);
+      const dess = this.dessertData.createOrderDessertslocalStorage(desserts);
       dessert.push(this.createForm.createOrderForm(dess));
     }
 
     for (const menuPizzas of storageMenuPizza) {
-      const menuPizz = this.menuPrice.createOrderMenuSessionStorage(menuPizzas);
+      const menuPizz = this.menuPrice.createOrderMenulocalStorage(menuPizzas);
       menuPizza.push(this.createForm.createOrderForm(menuPizz));
     }
 
     for (const menuSalads of storageMenuSalad) {
-      const menuSaladComposed = this.menuPrice.createOrderMenuSessionStorage(menuSalads);
+      const menuSaladComposed = this.menuPrice.createOrderMenulocalStorage(menuSalads);
       menuSalad.push(this.createForm.createOrderForm(menuSaladComposed));
     }
 
@@ -148,7 +148,7 @@ export class BasketComponent implements OnInit {
           }
         }
       }
-      this.sessionStorage.saveToSessionStorage(this.finalOrderForm.value.pizza);
+      this.localStorage.saveTolocalStorage(this.finalOrderForm.value.pizza);
       this.totalBasket();
     });
 
@@ -163,7 +163,7 @@ export class BasketComponent implements OnInit {
           }
         }
       }
-      this.sessionStorage.saveToSessionStorage(this.finalOrderForm.value.beverage);
+      this.localStorage.saveTolocalStorage(this.finalOrderForm.value.beverage);
       this.totalBasket();
     });
     // Creation of FormArray desserts
@@ -177,7 +177,7 @@ export class BasketComponent implements OnInit {
           }
         }
       }
-      this.sessionStorage.saveToSessionStorage(this.finalOrderForm.value.dessert);
+      this.localStorage.saveTolocalStorage(this.finalOrderForm.value.dessert);
       this.totalBasket();
     });
 
@@ -185,21 +185,21 @@ export class BasketComponent implements OnInit {
     this.saladsData.getSalads.subscribe((userSaladsChoice: OrderSalads) => {
       salad.push(this.createForm.createOrderForm(userSaladsChoice));
       this.totalBasket();
-      this.sessionStorage.saveToSessionStorage(this.finalOrderForm.value.salad);
+      this.localStorage.saveTolocalStorage(this.finalOrderForm.value.salad);
     });
 
     // Creation of FormArray menuPizza
     this.menuPrice.getMenuPizza.subscribe((userMenuPizzaChoice: MenuPizza) => {
       menuPizza.push(this.createForm.createOrderForm(userMenuPizzaChoice));
       this.totalBasket();
-      this.sessionStorage.saveToSessionStorage(this.finalOrderForm.value.menuPizza);
+      this.localStorage.saveTolocalStorage(this.finalOrderForm.value.menuPizza);
     });
 
     // Creation of formArray menuSalad
     this.menuPrice.getMenuSalad.subscribe((userMenuSaladChoice: MenuSalad) => {
       menuSalad.push(this.createForm.createOrderForm(userMenuSaladChoice));
       this.totalBasket();
-      this.sessionStorage.saveToSessionStorage(this.finalOrderForm.value.menuSalad);
+      this.localStorage.saveTolocalStorage(this.finalOrderForm.value.menuSalad);
     });
   }
 
@@ -268,10 +268,10 @@ export class BasketComponent implements OnInit {
 
       if (pizza.controls[index].value.pizzQuantity === 0) {
         pizza.removeAt(index); // remove object from form array when quantity = 0
-        this.sessionStorage.clearSessionStorage(this.finalOrderForm.value.pizza, 'pizza');
+        this.localStorage.clearlocalStorage(this.finalOrderForm.value.pizza, 'pizza');
       }
 
-      this.sessionStorage.saveToSessionStorage(this.finalOrderForm.value.pizza);
+      this.localStorage.saveTolocalStorage(this.finalOrderForm.value.pizza);
       this.totalBasket();
 
     } else if (check[0] === 'idBeverages') {
@@ -292,10 +292,10 @@ export class BasketComponent implements OnInit {
 
         if (beverage.controls[index].value.bevQuantity === 0) {
           beverage.removeAt(index); // remove object from form array when quantity = 0
-          this.sessionStorage.clearSessionStorage(this.finalOrderForm.value.beverage, 'beverage');
+          this.localStorage.clearlocalStorage(this.finalOrderForm.value.beverage, 'beverage');
         }
 
-        this.sessionStorage.saveToSessionStorage(this.finalOrderForm.value.beverage);
+        this.localStorage.saveTolocalStorage(this.finalOrderForm.value.beverage);
         this.totalBasket();
 
     } else if (check[0] === 'idDesserts') {
@@ -316,9 +316,9 @@ export class BasketComponent implements OnInit {
 
       if (dessert.controls[index].value.dessQuantity === 0) {
         dessert.removeAt(index); // remove object from form array when quantity = 0
-        this.sessionStorage.clearSessionStorage(this.finalOrderForm.value.dessert, 'dessert');
+        this.localStorage.clearlocalStorage(this.finalOrderForm.value.dessert, 'dessert');
       }
-      this.sessionStorage.saveToSessionStorage(this.finalOrderForm.value.dessert);
+      this.localStorage.saveTolocalStorage(this.finalOrderForm.value.dessert);
       this.totalBasket();
 
     } else if (check[0] === 'multiBases' ) {
@@ -339,9 +339,9 @@ export class BasketComponent implements OnInit {
 
       if (salad.controls[index].value.saladsComposedQuantity === 0) {
         salad.removeAt(index); // remove object from form array when quantity = 0
-        this.sessionStorage.clearSessionStorage(this.finalOrderForm.value.salad, 'salad');
+        this.localStorage.clearlocalStorage(this.finalOrderForm.value.salad, 'salad');
       }
-      this.sessionStorage.saveToSessionStorage(this.finalOrderForm.value.salad);
+      this.localStorage.saveTolocalStorage(this.finalOrderForm.value.salad);
       this.totalBasket();
 
     } else if (check[0] === 'pizza') {
@@ -362,9 +362,9 @@ export class BasketComponent implements OnInit {
 
       if (menuPizza.controls[index].value.menuPizzQuantity === 0) {
         menuPizza.removeAt(index); // remove object from form array when quantity = 0
-        this.sessionStorage.clearSessionStorage(this.finalOrderForm.value.menuPizza, 'menuPizza');
+        this.localStorage.clearlocalStorage(this.finalOrderForm.value.menuPizza, 'menuPizza');
       }
-      this.sessionStorage.saveToSessionStorage(this.finalOrderForm.value.menuPizza);
+      this.localStorage.saveTolocalStorage(this.finalOrderForm.value.menuPizza);
       this.totalBasket();
 
     } else if (check[0] === 'salad') {
@@ -385,9 +385,9 @@ export class BasketComponent implements OnInit {
 
       if (menuSalad.controls[index].value.menuSaladQuantity === 0) {
         menuSalad.removeAt(index); // remove object from form array when quantity = 0
-        this.sessionStorage.clearSessionStorage(this.finalOrderForm.value.menuSalad, 'menuSalad');
+        this.localStorage.clearlocalStorage(this.finalOrderForm.value.menuSalad, 'menuSalad');
       }
-      this.sessionStorage.saveToSessionStorage(this.finalOrderForm.value.menuSalad);
+      this.localStorage.saveTolocalStorage(this.finalOrderForm.value.menuSalad);
       this.totalBasket();
     }
   }
@@ -425,12 +425,12 @@ export class BasketComponent implements OnInit {
       menuSalad.removeAt(0);
     }
 
-    this.sessionStorage.clearSessionStorage(this.finalOrderForm.value.beverage, 'reset');
-    this.sessionStorage.clearSessionStorage(this.finalOrderForm.value.dessert, 'reset');
-    this.sessionStorage.clearSessionStorage(this.finalOrderForm.value.pizza, 'reset');
-    this.sessionStorage.clearSessionStorage(this.finalOrderForm.value.salad, 'reset');
-    this.sessionStorage.clearSessionStorage(this.finalOrderForm.value.menuPizza, 'reset');
-    this.sessionStorage.clearSessionStorage(this.finalOrderForm.value.menuSalad, 'reset');
+    this.localStorage.clearlocalStorage(this.finalOrderForm.value.beverage, 'reset');
+    this.localStorage.clearlocalStorage(this.finalOrderForm.value.dessert, 'reset');
+    this.localStorage.clearlocalStorage(this.finalOrderForm.value.pizza, 'reset');
+    this.localStorage.clearlocalStorage(this.finalOrderForm.value.salad, 'reset');
+    this.localStorage.clearlocalStorage(this.finalOrderForm.value.menuPizza, 'reset');
+    this.localStorage.clearlocalStorage(this.finalOrderForm.value.menuSalad, 'reset');
     this.totalBasket();
   }
 

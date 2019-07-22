@@ -11,8 +11,8 @@ export class OnlyLoggedInUsersGuardService implements CanActivate {
   ) {}
 
   canActivate(): boolean {
-    if (sessionStorage.getItem('token') != undefined) {
-      if (sessionStorage.getItem('token') == this.tokenGuard) {
+    if (localStorage.getItem('token') != undefined) {
+      if (localStorage.getItem('token') == this.tokenGuard) {
         return true
       }
     } else {

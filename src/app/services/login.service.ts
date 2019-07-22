@@ -32,7 +32,7 @@ export class LoginService {
   }
 
   routeProtection() {
-    const token = sessionStorage.getItem("token");
+    const token = localStorage.getItem("token");
     const header = {headers: {'Authorization' : `Bearer ${token}`}}
     return this.http.post(this.urlProtected, token, header).toPromise()
   }

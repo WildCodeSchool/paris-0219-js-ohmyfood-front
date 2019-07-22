@@ -15,13 +15,13 @@
     <button
       class="button"
       (click)="logOut()"
-      *ngIf="userInfoObject['lastname'] !== ''"
+      *ngIf="userInfoObject['lastname'] != ''"
     >
       DECONNEXION
     </button>
     <button
       class="button"
-      *ngIf="userInfoObject['lastname'] === ''"
+      *ngIf="userInfoObject['lastname'] == ''"
       [routerLink]="['/authClientPage']"
       routerLinkActive="router-link-active"
     >

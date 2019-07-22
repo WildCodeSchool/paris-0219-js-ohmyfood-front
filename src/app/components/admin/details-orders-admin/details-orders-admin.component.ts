@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { GetOrdersDetailsAdminService } from 'src/app/services/get-orders-details-admin.service';
+import { OrdersDetailsAdminService } from 'src/app/services/orders-details-admin.service';
 import { OrdersDetailsAdmin } from 'src/app/class/orders-details-admin';
 import { OrderSaladsAdmin } from 'src/app/class/order-salads-admin';
 
@@ -10,14 +10,14 @@ import { OrderSaladsAdmin } from 'src/app/class/order-salads-admin';
 })
 export class DetailsOrdersAdminComponent implements OnInit {
 
-  constructor(private getOrdersAdminService: GetOrdersDetailsAdminService) { }
+  constructor(private OrdersAdminService: OrdersDetailsAdminService) { }
 
   // List who regroup all orders from database to display it in template
   listOfOrders: OrdersDetailsAdmin[] = [];
 
   ngOnInit() {
     // Get all details order from database
-    this.getOrdersAdminService.getDetailsOrdersAdmin()
+    this.OrdersAdminService.getDetailsOrdersAdmin()
     .subscribe(detailsOrders => {
 
       // Make loop to regroup all informations of each orders
@@ -225,6 +225,14 @@ export class DetailsOrdersAdminComponent implements OnInit {
       }
       return toppingsDetailsOrdersList;
     }
+  }
+
+  archiveOrder(i: number) {
+    // Put method to update database
+    this.OrdersAdminService.archiveOrdersAdmin(this.listOfOrders[i]);
+
+    // Remove details order from order list to do
+    this.listOfOrders.splice(i, 1);
   }
 
 }

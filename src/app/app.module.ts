@@ -17,7 +17,6 @@ import { FooterComponent } from './components/footer/footer.component';
 import { RouterModule } from '@angular/router';
 import { Navbar2Component } from './components/navbar2/navbar2.component';
 import { BasketComponent } from './components/basket/basket.component';
-import { FormAdminPageComponent } from './pages/back-office-pages/form-admin-page/form-admin-page.component';
 import { BeveragesFormAdminComponent } from './components/admin/beverages-form-admin/beverages-form-admin.component';
 import { AuthClientPageComponent } from './pages/authent/auth-client-page/auth-client-page.component';
 import { LoginComponent } from './components/authent/login/login.component';
@@ -47,11 +46,9 @@ import { ForgotPsswPageComponent } from './pages/authent/forgot-pssw-page/forgot
 import { NewPasswordPageComponent } from './pages/new-password-page/new-password-page.component';
 import { NewPasswordComponent } from './components/new-password/new-password.component';
 import { NewPasswordPageGuardService } from './services/new-password-page-guard.service';
-// tslint:disable-next-line: max-line-length
-import {
-        DetailsOrdersAdminPagesComponent
-        } from './pages/back-office-pages/details-orders-admin-pages/details-orders-admin-pages.component';
+import { AdminSuperGuardService } from './services/admin-super-guard.service';
 import { DetailsOrdersAdminComponent } from './components/admin/details-orders-admin/details-orders-admin.component';
+import { AdminPagesComponent } from './pages/admin-pages-component/admin-pages-component';
 
 @NgModule({
   declarations: [
@@ -66,7 +63,6 @@ import { DetailsOrdersAdminComponent } from './components/admin/details-orders-a
     FooterComponent,
     Navbar2Component,
     BasketComponent,
-    FormAdminPageComponent,
     BeveragesFormAdminComponent,
     AuthClientPageComponent,
     LoginComponent,
@@ -94,8 +90,8 @@ import { DetailsOrdersAdminComponent } from './components/admin/details-orders-a
     ForgotPsswPageComponent,
     NewPasswordPageComponent,
     NewPasswordComponent,
-    DetailsOrdersAdminPagesComponent,
-    DetailsOrdersAdminComponent
+    DetailsOrdersAdminComponent,
+    AdminPagesComponent
   ],
   imports: [
     AppRoutingModule,
@@ -105,7 +101,11 @@ import { DetailsOrdersAdminComponent } from './components/admin/details-orders-a
     ReactiveFormsModule,
     RouterModule,
   ],
-  providers: [OnlyLoggedInUsersGuardService, NewPasswordPageGuardService],
+  providers: [
+    OnlyLoggedInUsersGuardService,
+    NewPasswordPageGuardService,
+    AdminSuperGuardService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

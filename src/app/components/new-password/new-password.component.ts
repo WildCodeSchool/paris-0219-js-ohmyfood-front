@@ -42,7 +42,9 @@ export class NewPasswordComponent implements OnInit {
       }
       this.forgotPasswordService.putNewPssw().then(_ => {
         alert('Votre mot de passe a bien été changé !');
-        sessionStorage.removeItem('tokenPssw');
+        localStorage.removeItem('tokenPssw');
+        localStorage.removeItem('response');
+        localStorage.removeItem('firstResponse');
         this.router.navigateByUrl('/');
       });
     }

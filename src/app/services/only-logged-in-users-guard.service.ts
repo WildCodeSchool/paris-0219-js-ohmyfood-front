@@ -1,30 +1,30 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
-import { LoginService } from './login.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OnlyLoggedInUsersGuardService implements CanActivate {
-  tokenGuard = '';
+  tokenGuard;
   alreadyLogged;
-  routeProtectedDone = false;
+
   constructor(
-    private router: Router, 
-    private loginService: LoginService
+    private router: Router
   ) {}
 
   canActivate(): boolean {
-    if (sessionStorage.getItem('alreadyLogged') != undefined) {
-      this.loginService.routeProtection().then(_ => {
-        this.router.navigateByUrl(`${location.pathname}`);
-      });
-    }
-
-    if(this.tokenGuard != undefined && this.alreadyLogged == undefined) {
-      sessionStorage.setItem('alreadyLogged', 'alreadyLogged');
-      return true
-    } else {
+    if (sessionStorage.getItem('token') != undefined && sessionStorage.getItem('alreadyLogged') != undefined) {
+      if (sessionStorage.getItem('alreadyLogged') == this.tokenGuard) {
+        return true
+      }
+    } else if (sessionStorage.getItem('token') != undefined && sessionStorage.getItem('alreadyLogged') == undefined) {
+      if (sessionStorage.getItem('token') == this.tokenGuard) {
+        sessionStorage.setItem('alreadyLogged', this.tokenGuard)
+        return true
+      }
+    } else { 
+      this.router.navigateByUrl('authClientPage');
+      window.alert("Connectez-vous pour avoir accès aux commandes en ligne");
       return false
     }
   }

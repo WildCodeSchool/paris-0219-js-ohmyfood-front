@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { BasketSessionStorageService } from './basket-session-storage.service';
+import { BasketlocalStorageService } from './basket-session-storage.service';
 
-describe('BasketSessionStorageService', () => {
+describe('BasketlocalStorageService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: BasketSessionStorageService = TestBed.get(BasketSessionStorageService);
+    const service: BasketlocalStorageService = TestBed.get(BasketlocalStorageService);
     expect(service).toBeTruthy();
   });
 });

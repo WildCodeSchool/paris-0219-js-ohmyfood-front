@@ -28,7 +28,7 @@ export class FinalOrderService {
       finalOrder.menuSalad
     );
     this.getFinalOrder.emit(finalOrder);
-    sessionStorage.setItem('finalOrder', JSON.stringify(finalOrder));
+    localStorage.setItem('finalOrder', JSON.stringify(finalOrder));
   }
 
   submitFinalOrder() {

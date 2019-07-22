@@ -21,8 +21,8 @@ export class Navbar2Component {
 
   constructor(
     private loginService: LoginService,
-    private router: Router, 
-    private adminSuperGuardService: AdminSuperGuardService, 
+    private router: Router,
+    private adminSuperGuardService: AdminSuperGuardService,
     private onlyLoggedInUsersGuardService: OnlyLoggedInUsersGuardService
   ) {  }
 
@@ -45,9 +45,9 @@ export class Navbar2Component {
 
     if (sessionStorage.getItem('userLastName') != undefined) { // on page refresh with logged user
       this.userInfoObject = {
-        lastname: sessionStorage.getItem('userLastName'),
-        firstname: sessionStorage.getItem('userFirstName'),
-        mail: sessionStorage.getItem('userMail')
+        lastname: localStorage.getItem('userLastName'),
+        firstname: localStorage.getItem('userFirstName'),
+        mail: localStorage.getItem('userMail')
       };
     }
 
@@ -57,16 +57,16 @@ export class Navbar2Component {
 
     this.loginService.transfertUser.subscribe(_ => { // on client logged
       this.userInfoObject = {
-        lastname: sessionStorage.getItem('userLastName'),
-        firstname: sessionStorage.getItem('userFirstName'),
-        mail: sessionStorage.getItem('userMail')
+        lastname: localStorage.getItem('userLastName'),
+        firstname: localStorage.getItem('userFirstName'),
+        mail: localStorage.getItem('userMail')
       };
       this.ifLogged = 'userLogged';
     });
   }
 
   checkIfUserLogged() {
-    if (sessionStorage.getItem('userLastName') === undefined) {
+    if (localStorage.getItem('userLastName') === undefined) {
       this.router.navigateByUrl('authClientPage');
     } else {
       this.router.navigateByUrl('homeOrderPage');
@@ -76,7 +76,7 @@ export class Navbar2Component {
   logOut() {
     this.loginService.booleanLoggedIn = 0;
     this.booleanAdminLogged = 0;
-    sessionStorage.clear();
+    localStorage.clear();
     this.userInfoObject = {
       lastname: '',
       firstname: '',

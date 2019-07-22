@@ -20,8 +20,8 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder,
     private loginService: LoginService,
     private router: Router,
-    private userAccountService: UserAccountInformationsService, 
-    private onlyLoggedInUsersGuardService: OnlyLoggedInUsersGuardService, 
+    private userAccountService: UserAccountInformationsService,
+    private onlyLoggedInUsersGuardService: OnlyLoggedInUsersGuardService,
     private adminSuperGuardService: AdminSuperGuardService
   ) { }
 
@@ -46,14 +46,14 @@ export class LoginComponent implements OnInit {
       this.loginService.loginCheck().then(res => {
         const objRes = JSON.parse(res);
         this.userIdLogged = objRes.userId;
-        sessionStorage.setItem('token', objRes.token);
-        sessionStorage.setItem('userMail', objRes.userMail);
-        sessionStorage.setItem('userLastName', objRes.userLastName);
-        sessionStorage.setItem('userFirstName', objRes.userFirstName);
+        localStorage.setItem('token', objRes.token);
+        localStorage.setItem('userMail', objRes.userMail);
+        localStorage.setItem('userLastName', objRes.userLastName);
+        localStorage.setItem('userFirstName', objRes.userFirstName);
         if (objRes.userRight == 1) {
           this.userRight = 1;
           this.adminSuperGuardService.tokenGuard = objRes.token;
-          sessionStorage.setItem('adminToken', objRes.token)
+          localStorage.setItem('adminToken', objRes.token)
           this.adminSuperGuardService.ifLogged = 'adminLogged'
         }
         this.onlyLoggedInUsersGuardService.tokenGuard = objRes.token;
@@ -65,9 +65,9 @@ export class LoginComponent implements OnInit {
   routeProtected() {
     this.loginService.routeProtection().then(res => {
         const userInfoObject = {
-          lastname: sessionStorage.getItem('userLastName'),
-          firstname: sessionStorage.getItem('userFirstName'),
-          mail: sessionStorage.getItem('userMail')
+          lastname: localStorage.getItem('userLastName'),
+          firstname: localStorage.getItem('userFirstName'),
+          mail: localStorage.getItem('userMail')
         }
         if (this.userRight === 1) {
           this.loginService.transfertUserRightFn(this.userRight);

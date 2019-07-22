@@ -17,7 +17,6 @@ import { FooterComponent } from './components/footer/footer.component';
 import { RouterModule } from '@angular/router';
 import { Navbar2Component } from './components/navbar2/navbar2.component';
 import { BasketComponent } from './components/basket/basket.component';
-import { AdminPagesComponent } from './pages/admin-pages/admin-pages.component';
 import { BeveragesFormAdminComponent } from './components/admin/beverages-form-admin/beverages-form-admin.component';
 import { AuthClientPageComponent } from './pages/authent/auth-client-page/auth-client-page.component';
 import { LoginComponent } from './components/authent/login/login.component';
@@ -48,6 +47,9 @@ import { NewPasswordPageComponent } from './pages/new-password-page/new-password
 import { NewPasswordComponent } from './components/new-password/new-password.component';
 import { NewPasswordPageGuardService } from './services/new-password-page-guard.service';
 import { AdminSuperGuardService } from './services/admin-super-guard.service';
+import { DetailsOrdersAdminComponent } from './components/admin/details-orders-admin/details-orders-admin.component';
+import { AdminPagesComponent } from './pages/admin-pages-component/admin-pages-component';
+import { DetailsOrdersArchivedAdminComponent } from './components/admin/details-orders-archived-admin/details-orders-archived-admin.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +64,6 @@ import { AdminSuperGuardService } from './services/admin-super-guard.service';
     FooterComponent,
     Navbar2Component,
     BasketComponent,
-    AdminPagesComponent,
     BeveragesFormAdminComponent,
     AuthClientPageComponent,
     LoginComponent,
@@ -89,7 +90,10 @@ import { AdminSuperGuardService } from './services/admin-super-guard.service';
     ForgotPsswComponent,
     ForgotPsswPageComponent,
     NewPasswordPageComponent,
-    NewPasswordComponent
+    NewPasswordComponent,
+    DetailsOrdersAdminComponent,
+    AdminPagesComponent,
+    DetailsOrdersArchivedAdminComponent
   ],
   imports: [
     AppRoutingModule,
@@ -100,8 +104,8 @@ import { AdminSuperGuardService } from './services/admin-super-guard.service';
     RouterModule,
   ],
   providers: [
-    OnlyLoggedInUsersGuardService, 
-    NewPasswordPageGuardService, 
+    OnlyLoggedInUsersGuardService,
+    NewPasswordPageGuardService,
     AdminSuperGuardService
   ],
   bootstrap: [AppComponent]

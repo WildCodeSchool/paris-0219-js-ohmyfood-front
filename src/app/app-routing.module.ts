@@ -3,7 +3,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { PizzaPageComponent } from './pages/pizza-page/pizza-page.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { HomeOrderPageComponent } from './pages/home-order-page/home-order-page.component';
-import { AdminPagesComponent } from './pages/admin-pages/admin-pages.component';
 import { AuthClientPageComponent } from './pages/authent/auth-client-page/auth-client-page.component';
 import { SaladPageComponent } from './pages/salad-page/salad-page.component';
 import { OnlyLoggedInUsersGuardService } from './services/only-logged-in-users-guard.service';
@@ -16,6 +15,7 @@ import { ForgotPsswPageComponent } from './pages/authent/forgot-pssw-page/forgot
 import { NewPasswordPageComponent } from './pages/new-password-page/new-password-page.component';
 import { NewPasswordPageGuardService } from './services/new-password-page-guard.service';
 import { AdminSuperGuardService } from './services/admin-super-guard.service';
+import { AdminPagesComponent } from './pages/admin-pages-component/admin-pages-component';
 
 const routes: Routes = [
   {
@@ -73,14 +73,14 @@ const routes: Routes = [
   {
     path: 'contactPage',
     component: ContactComponent
-  }, 
+  },
   {
-    path: 'forgotPsswPage', 
+    path: 'forgotPsswPage',
     component: ForgotPsswPageComponent
   },
   {
     path: 'TzApeyaNpBzRJmGrit59K4NJ5Cy/:token',
-    component: NewPasswordPageComponent, 
+    component: NewPasswordPageComponent,
     canActivate: [NewPasswordPageGuardService]
   }
 ];

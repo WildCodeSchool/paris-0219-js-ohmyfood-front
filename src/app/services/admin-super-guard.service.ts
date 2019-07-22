@@ -7,13 +7,13 @@ import { CanActivate, Router } from '@angular/router';
 export class AdminSuperGuardService implements CanActivate {
   tokenGuard;
   ifLogged;
-  
-  constructor( 
+
+  constructor(
     private router: Router
   ) {  }
   canActivate(): boolean {
-    if (sessionStorage.getItem('token') != undefined && sessionStorage.getItem('adminToken') != undefined) {
-      if (sessionStorage.getItem('adminToken') == this.tokenGuard) {
+    if (localStorage.getItem('token') != undefined && localStorage.getItem('adminToken') != undefined) {
+      if (localStorage.getItem('adminToken') == this.tokenGuard) {
         return true
       }
     } else {
@@ -22,5 +22,5 @@ export class AdminSuperGuardService implements CanActivate {
       return false
     }
   }
-  
+
 }

@@ -16,8 +16,16 @@ export class OrdersDetailsAdminService {
     return this.http.get(this.detailsOrdersAdminRoute);
   }
 
+  getDetailsOrdersArchivedAdmin(): Observable<object> {
+    return this.http.get(`${this.detailsOrdersAdminRoute}/archive` );
+  }
+
   archiveOrdersAdmin(orderToArchive: OrdersDetailsAdmin) {
     return this.http.put(this.detailsOrdersAdminRoute, orderToArchive, { responseType: 'text'} );
+  }
+
+  deleteOrdersAdmin(orderToDelete: OrdersDetailsAdmin) {
+    return this.http.delete(`${this.detailsOrdersAdminRoute}/?orderId=${orderToDelete.idOrder}`, { responseType: 'text' });
   }
 
   // Create base array with name and quantity separate to better display them in template

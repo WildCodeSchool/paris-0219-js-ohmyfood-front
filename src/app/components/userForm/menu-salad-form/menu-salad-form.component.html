@@ -68,7 +68,7 @@
       {{ saladMenuForm.controls['salad'].errors['lessSalad'] }}
     </p>
 
-    <p *ngIf="menuSalad.submitted && saladMenuForm.errors">
+    <p *ngIf="saladMenuForm.errors">
       {{ saladMenuForm.errors['notInTime']}}
     </p>
 

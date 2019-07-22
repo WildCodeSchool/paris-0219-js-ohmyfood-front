@@ -46,33 +46,12 @@ export class MenuSaladFormComponent implements OnInit {
     private createFormService: CreateFormService,
     private datePipe: DatePipe,
   ) {
-      this.controlDate = this.datePipe.transform(this.date, 'H:mm:ss');
+      this.controlDate = this.datePipe.transform(this.date, 'EEEE H:mm:ss');
     }
 
   ngOnInit() {
     // Initialize form group
-    this.saladMenuForm = this.formBuilder.group({
-      salad: [
-        {
-          orderSaladsBases: SaladsBases,
-          orderSaladsIngredients: SaladsIngredients,
-          orderSaladsQuantity: Number,
-          orderSaladsToppings: SaladsToppings,
-          orderSaladsSauces: SaladsSauces,
-          orderSaladsPriceTotal: 0
-        }, checkSaladInMenu() // Validator to check if user create a salad
-      ],
-      beverage: this.formBuilder.array([]),
-      dessert: this.formBuilder.array([]),
-      saladMenuPrice: 0,
-      saladMenuPriceTotal: 0
-    },
-    {
-      validator: [
-        checkBevAndDess('beverage', 'dessert'), // Validator quantity
-        deliveryIntervalTime(this.controlDate) // Validator time
-      ]
-    });
+    this.initSaladMenuForm();
 
     this.saladData.getSaladsForMenu.subscribe((saladComposed: OrderSalads) => {
       // Get good value in form group according to user choice, if he choose a sauce or not
@@ -150,6 +129,31 @@ export class MenuSaladFormComponent implements OnInit {
         }
       }
       dessSubscription.unsubscribe();
+    });
+  }
+
+  initSaladMenuForm() {
+    this.saladMenuForm = this.formBuilder.group({
+      salad: [
+        {
+          orderSaladsBases: SaladsBases,
+          orderSaladsIngredients: SaladsIngredients,
+          orderSaladsQuantity: Number,
+          orderSaladsToppings: SaladsToppings,
+          orderSaladsSauces: SaladsSauces,
+          orderSaladsPriceTotal: 0
+        }, checkSaladInMenu() // Validator to check if user create a salad
+      ],
+      beverage: this.formBuilder.array([]),
+      dessert: this.formBuilder.array([]),
+      saladMenuPrice: 0,
+      saladMenuPriceTotal: 0
+    },
+    {
+      validator: [
+        checkBevAndDess('beverage', 'dessert'), // Validator quantity
+        deliveryIntervalTime(this.controlDate, true) // Validator time
+      ]
     });
   }
 

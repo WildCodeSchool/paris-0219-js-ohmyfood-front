@@ -7,6 +7,7 @@ import { FinalOrderService } from 'src/app/services/final-order.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UserAccountInformationsService } from 'src/app/services/user-account-informations.service';
 import { DatePipe } from '@angular/common';
+import { checkLocationDelivery } from '../../validators/CheckLocationDelivery';
 
 @Component({
   selector: 'app-detail-order',
@@ -40,7 +41,7 @@ export class DetailOrderComponent implements OnInit {
     private fb: FormBuilder,
     private userAccountInformationsService: UserAccountInformationsService,
     private datePipe: DatePipe
-  ) { this.dateOrder = this.datePipe.transform(this.date, 'yyyy-MM-dd hh:mm:ss'); }
+  ) { this.dateOrder = this.datePipe.transform(this.date, 'yyyy-MM-dd HH:mm:ss'); }
 
   ngOnInit() {
     this.initForm();
@@ -120,7 +121,7 @@ export class DetailOrderComponent implements OnInit {
         for (let j = i + 1; j < pizza.length; j ++) {
           if (pizza[i].pizzName === pizza[j].pizzName) {
             pizza[i].pizzQuantity += pizza[j].pizzQuantity;
-            pizza[i].pizzPriceTotal += pizza[j].pizzPriceTotal;
+            pizza[i].pizzPriceTotal += (pizza[j].pizzPriceTotal).toFixed(2);
             pizza.splice(j, 1);
           }
         }
@@ -130,7 +131,7 @@ export class DetailOrderComponent implements OnInit {
         for (let j = i + 1; j < beverage.length; j ++) {
           if (beverage[i].bevName === beverage[j].bevName) {
             beverage[i].bevQuantity += beverage[j].bevQuantity;
-            beverage[i].bevPriceTotal += beverage[j].bevPriceTotal;
+            beverage[i].bevPriceTotal += (beverage[j].bevPriceTotal).toFixed(2);
             beverage.splice(j, 1);
           }
         }
@@ -140,7 +141,7 @@ export class DetailOrderComponent implements OnInit {
         for (let j = i + 1; j < dessert.length; j ++) {
           if (dessert[i].dessName === dessert[j].dessName) {
             dessert[i].dessQuantity += dessert[j].dessQuantity;
-            dessert[i].dessPriceTotal += dessert[j].dessPriceTotal;
+            dessert[i].dessPriceTotal += (dessert[j].dessPriceTotal).toFixed(2);
             dessert.splice(j, 1);
           }
         }
@@ -198,12 +199,12 @@ export class DetailOrderComponent implements OnInit {
 
     if (operator === '+') {
       this.finalOrderRecap[`${elType}`][`${i}`][`${abrevElTypeQtt}`] += 1;
-      this.finalOrderRecap[`${elType}`][`${i}`][`${abrevElTypeTotPrice}`] = elementPrice * (quantity + 1);
+      this.finalOrderRecap[`${elType}`][`${i}`][`${abrevElTypeTotPrice}`] = (elementPrice * (quantity + 1)).toFixed(2);
     }
     if (operator === '-') {
       if (quantity > 1) {
         this.finalOrderRecap[`${elType}`][`${i}`][`${abrevElTypeQtt}`] -= 1;
-        this.finalOrderRecap[`${elType}`][`${i}`][`${abrevElTypeTotPrice}`] = elementPrice * (quantity - 1);
+        this.finalOrderRecap[`${elType}`][`${i}`][`${abrevElTypeTotPrice}`] = (elementPrice * (quantity - 1)).toFixed(2);
       } else {
         let speechConfirm = `Etes-vous sûr de vouloir supprimer `;
         if (elType === 'salad') {
@@ -215,8 +216,7 @@ export class DetailOrderComponent implements OnInit {
         } else {
           speechConfirm += `${this.finalOrderRecap[`${elType}`][`${i}`][`${abrevElType}Name`]}?`;
         }
-        /* elType === 'salad' ? speechConfirm += `la salade n° ${i + 1}?` */
-        /* : */
+
         if (confirm(speechConfirm)) {
           this.finalOrderRecap[`${elType}`].splice(i, 1);
         }
@@ -234,13 +234,17 @@ export class DetailOrderComponent implements OnInit {
       zipcode : ['', Validators.required],
       city: [''],
       factAddress: [''],
-      comment: ['']
+      comment: [''],
+      deliveryOrTakeAway: ['À emporter']
+    },
+    {
+      validators: checkLocationDelivery('deliveryOrTakeAway', 'zipcode')
     });
   }
 
   calcTotalOrder() {
     const arrayTotalOrderPrice = [];
-    const reducer = (accumulator, currentValue) => accumulator + currentValue;
+    const reducer = (accumulator: number, currentValue: number) => accumulator + currentValue;
 
     this.finalOrderRecap[`pizza`].map(pizz => { arrayTotalOrderPrice.push(+pizz[`pizzPriceTotal`]); });
     this.finalOrderRecap[`beverage`].map(bev => { arrayTotalOrderPrice.push(+bev[`bevPriceTotal`]); });
@@ -248,7 +252,7 @@ export class DetailOrderComponent implements OnInit {
     this.finalOrderRecap[`salad`].map(salad => { arrayTotalOrderPrice.push(+salad[`saladsComposedPriceTotal`]); });
     this.finalOrderRecap[`menuPizza`].map(menuPizz => { arrayTotalOrderPrice.push(+menuPizz[`menuPizzPriceTotal`]); });
     this.finalOrderRecap[`menuSalad`].map(menuSalad => { arrayTotalOrderPrice.push(+menuSalad[`menuSaladPriceTotal`]); });
-    this.totalOrder = arrayTotalOrderPrice.reduce(reducer);
+    this.totalOrder = arrayTotalOrderPrice.reduce(reducer).toFixed(2);
   }
 
   confirmOrder() {

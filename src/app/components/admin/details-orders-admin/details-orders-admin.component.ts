@@ -139,7 +139,7 @@ export class DetailsOrdersAdminComponent implements OnInit {
     // Put method to update database
     this.ordersAdminService.archiveOrdersAdmin(this.listOfOrders[i]).subscribe();
 
-    // Remove details order from order list to do
+    // Remove details order from order list archived
     this.listOfOrders.splice(i, 1);
   }
 

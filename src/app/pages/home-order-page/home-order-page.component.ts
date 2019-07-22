@@ -6,4 +6,5 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home-order-page.component.scss']
 })
 export class HomeOrderPageComponent {
+
 }

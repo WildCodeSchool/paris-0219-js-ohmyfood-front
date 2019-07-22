@@ -45,6 +45,10 @@
             value="{{ beverages.value.bevQuantity }}"
             (ngModelChange)="getUserChoice(i, beverages.value)">
       </div>
+
+      <p *ngIf="beerSelected">
+        Vous avez sélectionné de la bière dans votre menu. Notez qu'il y a un supplément de 1€.
+      </p>
     </div>
 
     <div formArrayName="dessert">

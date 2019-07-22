@@ -10,14 +10,14 @@ import { OrderSaladsAdmin } from 'src/app/class/order-salads-admin';
 })
 export class DetailsOrdersAdminComponent implements OnInit {
 
-  constructor(private OrdersAdminService: OrdersDetailsAdminService) { }
+  constructor(private ordersAdminService: OrdersDetailsAdminService) { }
 
   // List who regroup all orders from database to display it in template
   listOfOrders: OrdersDetailsAdmin[] = [];
 
   ngOnInit() {
     // Get all details order from database
-    this.OrdersAdminService.getDetailsOrdersAdmin()
+    this.ordersAdminService.getDetailsOrdersAdmin()
     .subscribe(detailsOrders => {
 
       // Make loop to regroup all informations of each orders
@@ -61,9 +61,9 @@ export class DetailsOrdersAdminComponent implements OnInit {
         for (const saladsComposed of detailsOrders[6]) {
           if (saladsComposed.idOrders === user.idOrders) {
 
-            const basesDetailsOrders = this.createBaseOrderDetail(saladsComposed);
-            const ingredientDetailsOrders = this.createIngredientsOrderDetail(saladsComposed);
-            const toppingsDetailsOrders = this.createToppingsOrderDetail(saladsComposed);
+            const basesDetailsOrders = this.ordersAdminService.createBaseOrderDetail(saladsComposed);
+            const ingredientDetailsOrders = this.ordersAdminService.createIngredientsOrderDetail(saladsComposed);
+            const toppingsDetailsOrders = this.ordersAdminService.createToppingsOrderDetail(saladsComposed);
 
             // Check if there is a sauce or not in salad to display message in template if there isn't sauce
             if (saladsComposed.saladsSaucesName === null) {
@@ -87,9 +87,9 @@ export class DetailsOrdersAdminComponent implements OnInit {
         for (const menuSaladsComposed of detailsOrders[7]) {
           if (menuSaladsComposed.idOrders === user.idOrders) {
 
-            menuSaladsComposed.bases = this.createBaseOrderDetail(menuSaladsComposed);
-            menuSaladsComposed.ingredients = this.createIngredientsOrderDetail(menuSaladsComposed);
-            menuSaladsComposed.toppings = this.createToppingsOrderDetail(menuSaladsComposed);
+            menuSaladsComposed.bases = this.ordersAdminService.createBaseOrderDetail(menuSaladsComposed);
+            menuSaladsComposed.ingredients = this.ordersAdminService.createIngredientsOrderDetail(menuSaladsComposed);
+            menuSaladsComposed.toppings = this.ordersAdminService.createToppingsOrderDetail(menuSaladsComposed);
             menuSaladsComposedList.push(menuSaladsComposed);
 
             if (menuSaladsComposed.bevName === null) {
@@ -135,101 +135,9 @@ export class DetailsOrdersAdminComponent implements OnInit {
     });
   }
 
-  // Create base array with name and quantity separate to better display them in template
-  createBaseOrderDetail(saladsComposed: any) {
-    const basesDetailsOrdersList: Array<object> = []; // final result
-    let { bases } = saladsComposed; // Get data we need to split them
-
-    // Check if bases is null to avoid error (split of null make error)
-    if (bases !== null) {
-      bases = bases.split(',').join(' ').split(' '); // Separation of data
-      let nameBase = '';
-
-      for (let i = 0; i < bases.length; i ++) {
-        // check if value is a number
-        if (isNaN(bases[i])) {
-          nameBase += bases[i];
-          if (isNaN(bases[i + 1])) {
-            nameBase += ' ';
-          }
-        } else {
-          // Create base object to push it in final result array
-          const baseDetailOrder = {
-            baseName: nameBase,
-            baseQuantity: Number.parseInt(bases[i], 10)
-          };
-          basesDetailsOrdersList.push(baseDetailOrder);
-          // empty variable for next iteration
-          nameBase = '';
-        }
-      }
-      return basesDetailsOrdersList;
-    }
-  }
-
-  createIngredientsOrderDetail(saladsComposed: any) {
-    const ingredientsDetailsOrdersList: Array<object> = []; // final result
-    let { ingredients } = saladsComposed; // Get data we need to split them
-
-    if (ingredients !== null) {
-      ingredients = ingredients.split(',').join(' ').split(' '); // Separation of data
-      let nameIngredients = '';
-
-      for (let i = 0; i < ingredients.length; i ++) {
-        // check if value is a number
-        if (isNaN(ingredients[i])) {
-          nameIngredients += ingredients[i];
-          if (isNaN(ingredients[i + 1])) {
-            nameIngredients += ' ';
-          }
-        } else {
-          // Create ingredient object to push it in final result array
-          const ingredientDetailOrder = {
-            ingredientName: nameIngredients,
-            ingredientQuantity: Number.parseInt(ingredients[i], 10)
-          };
-          ingredientsDetailsOrdersList.push(ingredientDetailOrder);
-          // empty variable for next iteration
-          nameIngredients = '';
-        }
-      }
-      return ingredientsDetailsOrdersList;
-    }
-  }
-
-  createToppingsOrderDetail(saladsComposed: any) {
-    const toppingsDetailsOrdersList: Array<object> = []; // final result
-    let { toppings } = saladsComposed; // Get data we need to split them
-
-    if (toppings !== null) {
-      toppings = toppings.split(',').join(' ').split(' '); // Separation of data
-      let nameToppings = '';
-
-      for (let i = 0; i < toppings.length; i ++) {
-        // check if value is a number
-        if (isNaN(toppings[i])) {
-          nameToppings += toppings[i];
-          if (isNaN(toppings[i + 1])) {
-            nameToppings += ' ';
-          }
-        } else {
-            // Create ingredient object to push it in final result array
-            const toppingsDetailOrder = {
-            toppingName: nameToppings,
-            toppingQuantity: Number.parseInt(toppings[i], 10)
-          };
-            toppingsDetailsOrdersList.push(toppingsDetailOrder);
-            // empty variable for next iteration
-            nameToppings = '';
-          }
-      }
-      return toppingsDetailsOrdersList;
-    }
-  }
-
   archiveOrder(i: number) {
     // Put method to update database
-    this.OrdersAdminService.archiveOrdersAdmin(this.listOfOrders[i]).subscribe();
+    this.ordersAdminService.archiveOrdersAdmin(this.listOfOrders[i]).subscribe();
 
     // Remove details order from order list to do
     this.listOfOrders.splice(i, 1);

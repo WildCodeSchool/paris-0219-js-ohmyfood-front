@@ -17,7 +17,6 @@ export class OrdersDetailsAdminService {
   }
 
   archiveOrdersAdmin(orderToArchive: OrdersDetailsAdmin) {
-    console.log(orderToArchive);
     return this.http.put(this.detailsOrdersAdminRoute, orderToArchive, { responseType: 'text'} );
   }
 }

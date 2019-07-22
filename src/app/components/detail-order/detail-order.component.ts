@@ -7,7 +7,7 @@ import { FinalOrderService } from 'src/app/services/final-order.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UserAccountInformationsService } from 'src/app/services/user-account-informations.service';
 import { DatePipe } from '@angular/common';
-import { checkLocationDelivery } from '../../validators/CheckLocationDelivery';
+import { checkLocationDelivery } from '../../validators/checkLocationDelivery';
 
 @Component({
   selector: 'app-detail-order',

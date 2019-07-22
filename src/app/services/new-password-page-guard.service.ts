@@ -1,5 +1,5 @@
 import { Injectable, Output } from '@angular/core';
-import { CanActivate, Router, ActivatedRoute } from '@angular/router';
+import { CanActivate, Router } from '@angular/router';
 import { ForgotPasswordService } from './forgot-password.service';
 import { EventEmitter } from 'events';
 
@@ -45,6 +45,9 @@ export class NewPasswordPageGuardService implements CanActivate {
     if(localStorage.getItem('tokenPssw') != undefined) {
       if (localStorage.getItem('tokenPssw') == this.tokenGuard && localStorage.getItem('response') == localStorage.getItem('firstResponse')) {
         return true
+      } else {
+        this.router.navigateByUrl('/');
+        return false
       }
     } else {
       return false

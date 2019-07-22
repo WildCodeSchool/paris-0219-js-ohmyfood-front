@@ -5,19 +5,26 @@ import { CanActivate, Router } from '@angular/router';
   providedIn: 'root'
 })
 export class OnlyLoggedInUsersGuardService implements CanActivate {
-  tokenGuard = '';
+  tokenGuard;
+  alreadyLogged;
+
   constructor(
     private router: Router
   ) {}
 
   canActivate(): boolean {
-    if (localStorage.getItem('token') != undefined) {
-      if (localStorage.getItem('token') == this.tokenGuard) {
+    if (sessionStorage.getItem('token') != undefined && sessionStorage.getItem('alreadyLogged') != undefined) {
+      if (sessionStorage.getItem('alreadyLogged') == this.tokenGuard) {
         return true
       }
-    } else {
+    } else if (sessionStorage.getItem('token') != undefined && sessionStorage.getItem('alreadyLogged') == undefined) {
+      if (sessionStorage.getItem('token') == this.tokenGuard) {
+        sessionStorage.setItem('alreadyLogged', this.tokenGuard)
+        return true
+      }
+    } else { 
       this.router.navigateByUrl('authClientPage');
-      window.alert("Connectez-vous pour avoir accès aux commandes en ligne")
+      window.alert("Connectez-vous pour avoir accès aux commandes en ligne");
       return false
     }
   }

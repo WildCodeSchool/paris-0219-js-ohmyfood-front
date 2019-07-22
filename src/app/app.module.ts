@@ -49,6 +49,7 @@ import { NewPasswordPageGuardService } from './services/new-password-page-guard.
 import { AdminSuperGuardService } from './services/admin-super-guard.service';
 import { DetailsOrdersAdminComponent } from './components/admin/details-orders-admin/details-orders-admin.component';
 import { AdminPagesComponent } from './pages/admin-pages-component/admin-pages-component';
+import { DetailsOrdersArchivedAdminComponent } from './components/admin/details-orders-archived-admin/details-orders-archived-admin.component';
 
 @NgModule({
   declarations: [
@@ -91,7 +92,8 @@ import { AdminPagesComponent } from './pages/admin-pages-component/admin-pages-c
     NewPasswordPageComponent,
     NewPasswordComponent,
     DetailsOrdersAdminComponent,
-    AdminPagesComponent
+    AdminPagesComponent,
+    DetailsOrdersArchivedAdminComponent
   ],
   imports: [
     AppRoutingModule,

@@ -1,27 +1,27 @@
 import { Component, OnInit } from '@angular/core';
-import { OrdersDetailsAdminService } from 'src/app/services/orders-details-admin.service';
 import { OrdersDetailsAdmin } from 'src/app/class/orders-details-admin';
+import { OrdersDetailsAdminService } from 'src/app/services/orders-details-admin.service';
 import { OrderSaladsAdmin } from 'src/app/class/order-salads-admin';
 
 @Component({
-  selector: 'app-details-orders-admin',
-  templateUrl: './details-orders-admin.component.html',
-  styleUrls: ['./details-orders-admin.component.scss']
+  selector: 'app-details-orders-archived-admin',
+  templateUrl: './details-orders-archived-admin.component.html',
+  styleUrls: ['./details-orders-archived-admin.component.scss']
 })
-export class DetailsOrdersAdminComponent implements OnInit {
+export class DetailsOrdersArchivedAdminComponent implements OnInit {
+
+  // List who regroup all orders from database to display it in template
+  listOfOrdersArchived: OrdersDetailsAdmin[] = [];
 
   constructor(private ordersAdminService: OrdersDetailsAdminService) { }
 
-  // List who regroup all orders from database to display it in template
-  listOfOrders: OrdersDetailsAdmin[] = [];
-
   ngOnInit() {
     // Get all details order from database
-    this.ordersAdminService.getDetailsOrdersAdmin()
-    .subscribe(detailsOrders => {
+    this.ordersAdminService.getDetailsOrdersArchivedAdmin()
+    .subscribe(detailsOrderArchived => {
 
       // Make loop to regroup all informations of each orders
-      for (const user of detailsOrders[0] ) {
+      for (const user of detailsOrderArchived[0] ) {
         const pizzaList = [];
         const beverageList = [];
         const dessertList = [];
@@ -30,40 +30,40 @@ export class DetailsOrdersAdminComponent implements OnInit {
         const menuSaladsComposedList = [];
 
         // Get all pizzas
-        for (const pizza of detailsOrders[2]) {
+        for (const pizza of detailsOrderArchived[2]) {
           if (pizza.idOrders === user.idOrders) {
             pizzaList.push(pizza);
           }
         }
 
         // Get all beverages
-        for (const beverage of detailsOrders[3]) {
+        for (const beverage of detailsOrderArchived[3]) {
           if (beverage.idOrders === user.idOrders) {
             beverageList.push(beverage);
           }
         }
 
         // Get all desserts
-        for (const dessert of detailsOrders[4]) {
+        for (const dessert of detailsOrderArchived[4]) {
           if (dessert.idOrders === user.idOrders) {
             dessertList.push(dessert);
           }
         }
 
         // Get all menuPizzas
-        for (const menuPizz of detailsOrders[5]) {
+        for (const menuPizz of detailsOrderArchived[5]) {
           if (menuPizz.idOrders === user.idOrders) {
             menuPizzList.push(menuPizz);
           }
         }
 
         // Get all saladsComposed
-        for (const saladsComposed of detailsOrders[6]) {
+        for (const saladsComposed of detailsOrderArchived[6]) {
           if (saladsComposed.idOrders === user.idOrders) {
 
-            const basesDetailsOrders = this.ordersAdminService.createBaseOrderDetail(saladsComposed);
-            const ingredientDetailsOrders = this.ordersAdminService.createIngredientsOrderDetail(saladsComposed);
-            const toppingsDetailsOrders = this.ordersAdminService.createToppingsOrderDetail(saladsComposed);
+            const basesdetailsOrderArchived = this.ordersAdminService.createBaseOrderDetail(saladsComposed);
+            const ingredientdetailsOrderArchived = this.ordersAdminService.createIngredientsOrderDetail(saladsComposed);
+            const toppingsdetailsOrderArchived = this.ordersAdminService.createToppingsOrderDetail(saladsComposed);
 
             // Check if there is a sauce or not in salad to display message in template if there isn't sauce
             if (saladsComposed.saladsSaucesName === null) {
@@ -72,9 +72,9 @@ export class DetailsOrdersAdminComponent implements OnInit {
 
             const saladsComposedDetail = new OrderSaladsAdmin(
               saladsComposed.idOrders,
-              basesDetailsOrders,
-              ingredientDetailsOrders,
-              toppingsDetailsOrders,
+              basesdetailsOrderArchived,
+              ingredientdetailsOrderArchived,
+              toppingsdetailsOrderArchived,
               saladsComposed.saladsSaucesName,
               saladsComposed.saladsComposedPrice,
               saladsComposed.saladsComposedQuantity
@@ -84,7 +84,7 @@ export class DetailsOrdersAdminComponent implements OnInit {
         }
 
         // Get all menuSaladsComposed
-        for (const menuSaladsComposed of detailsOrders[7]) {
+        for (const menuSaladsComposed of detailsOrderArchived[7]) {
           if (menuSaladsComposed.idOrders === user.idOrders) {
 
             menuSaladsComposed.bases = this.ordersAdminService.createBaseOrderDetail(menuSaladsComposed);
@@ -130,17 +130,15 @@ export class DetailsOrdersAdminComponent implements OnInit {
           menuSaladsComposedList
         );
         // Push results in final results Array
-        this.listOfOrders.push(ordersDetails);
+        this.listOfOrdersArchived.push(ordersDetails);
       }
     });
   }
 
-  archiveOrder(i: number) {
-    // Put method to update database
-    this.ordersAdminService.archiveOrdersAdmin(this.listOfOrders[i]).subscribe();
+  deleteOrder(i: number) {
+    // Delete method to delete orders tables in database
+    this.ordersAdminService.deleteOrdersAdmin(this.listOfOrdersArchived[i]).subscribe();
 
-    // Remove details order from order list archived
-    this.listOfOrders.splice(i, 1);
+    this.listOfOrdersArchived.splice(i, 1);
   }
-
 }

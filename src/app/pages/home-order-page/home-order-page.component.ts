@@ -1,7 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { OnlyLoggedInUsersGuardService } from 'src/app/services/only-logged-in-users-guard.service';
-import { Router } from '@angular/router';
-import { LoginService } from 'src/app/services/login.service';
 
 @Component({
   selector: 'app-home-order-page',

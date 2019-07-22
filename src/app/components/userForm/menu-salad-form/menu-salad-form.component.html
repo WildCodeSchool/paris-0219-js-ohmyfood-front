@@ -7,7 +7,7 @@
 
   <app-salads-form [menu]='isMenu'></app-salads-form>
 
-  <form [formGroup]="saladMenuForm" (ngSubmit)="menuSalad.valid && onSubmit()" #menuSalad="ngForm">
+  <form [formGroup]="saladMenuForm" (ngSubmit)="saladMenuForm.valid && onSubmit()" #menuSalad="ngForm">
 
     <div formArrayName="beverage">
         <h5>Cliquez-ici pour découvrir nos boissons</h5>
@@ -68,7 +68,7 @@
       {{ saladMenuForm.controls['salad'].errors['lessSalad'] }}
     </p>
 
-    <p *ngIf="menuSalad.submitted && saladMenuForm.errors">
+    <p *ngIf="saladMenuForm.errors">
       {{ saladMenuForm.errors['notInTime']}}
     </p>
 

@@ -227,25 +227,52 @@
 
   </div>
   <p>
-    TOTAL de votre commande {{ total }} EUR
+    TOTAL de votre commande {{ totalOrder }} EUR
   </p>
-  <form [formGroup]="userDetailForm">
-    <label>
-      <p>Adresse de livraison 1</p>
-      <input type="text" formControlName="livrAddress1">
+  <form [formGroup]="userDetailForm" (ngSubmit)="confirmOrder()">
+    <p>Statut de la commande</p>
+
+    <label for="toTakeAway">
+      À emporter
     </label>
-    <label>
-      <p>Adresse de livraison 2</p>
-      <input type="text" formControlName="livrAddress2">
+      <input
+        type="radio"
+        formControlName="deliveryOrTakeAway"
+        id="toTakeAway"
+        value="À emporter"
+      >
+    <label for="delivery">
+      Livraison
     </label>
-    <label>
-      <p>Code postal</p>
-      <input type="text" formControlName="zipcode">
-    </label>
-    <label>
-      <p>Ville</p>
-      <input type="text" formControlName="city">
-    </label>
+      <input
+        type="radio"
+        formControlName="deliveryOrTakeAway"
+        id="delivery"
+        value="Livraison"
+      >
+    <div *ngIf="userDetailForm.controls['deliveryOrTakeAway'].value === 'Livraison'">
+      <label>
+        <p>Adresse de livraison 1</p>
+        <input type="text" formControlName="livrAddress1">
+      </label>
+      <label>
+        <p>Adresse de livraison 2</p>
+        <input type="text" formControlName="livrAddress2">
+      </label>
+      <label>
+        <p>Code postal</p>
+        <input type="text" formControlName="zipcode">
+      </label>
+      <label>
+        <p>Ville</p>
+        <input type="text" formControlName="city">
+      </label>
+    </div>
+
+    <p *ngIf="userDetailForm.errors">
+      {{ userDetailForm.errors['tooFar'] }}
+    </p>
+
     <label>
       <p>Adresse de facturation</p>
       <input type="text" formControlName="factAddress">
@@ -254,6 +281,6 @@
       <p>Commentaires</p>
       <textarea placeholder="Ex: Régina sans champignons..." formControlName="comment"></textarea>
     </label>
+    <button type="submit">CONFIRMER LA COMMANDE</button>
   </form>
-  <button type="submit">CONFIRMER LA COMMANDE</button>
 </div>

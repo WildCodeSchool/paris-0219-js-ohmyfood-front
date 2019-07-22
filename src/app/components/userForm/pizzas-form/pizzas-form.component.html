@@ -60,6 +60,10 @@
         </div>
       </div>
 
+      <p *ngIf="formPizzas.errors">
+        {{ formPizzas.errors['notInTime'] }}
+      </p>
+
       <div class="submitSection">
         <button
           class="submitButton button is-rounded is-outlined "

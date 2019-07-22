@@ -189,6 +189,10 @@
           </div>
         </div>
 
+        <p *ngIf="formSalads.errors">
+          {{ formSalads.errors['notInTime'] }}
+        </p>
+
         <div class="submitSections">
           <button
             *ngIf="!menu"

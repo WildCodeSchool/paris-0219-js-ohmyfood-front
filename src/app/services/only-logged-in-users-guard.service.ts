@@ -13,16 +13,16 @@ export class OnlyLoggedInUsersGuardService implements CanActivate {
   ) {}
 
   canActivate(): boolean {
-    if (sessionStorage.getItem('token') != undefined && sessionStorage.getItem('alreadyLogged') != undefined) {
-      if (sessionStorage.getItem('alreadyLogged') == this.tokenGuard) {
+    if (localStorage.getItem('token') != undefined && localStorage.getItem('alreadyLogged') != undefined) {
+      if (localStorage.getItem('alreadyLogged') == this.tokenGuard) {
         return true
       }
-    } else if (sessionStorage.getItem('token') != undefined && sessionStorage.getItem('alreadyLogged') == undefined) {
-      if (sessionStorage.getItem('token') == this.tokenGuard) {
-        sessionStorage.setItem('alreadyLogged', this.tokenGuard)
+    } else if (localStorage.getItem('token') != undefined && localStorage.getItem('alreadyLogged') == undefined) {
+      if (localStorage.getItem('token') == this.tokenGuard) {
+        localStorage.setItem('alreadyLogged', this.tokenGuard)
         return true
       }
-    } else { 
+    } else {
       this.router.navigateByUrl('authClientPage');
       window.alert("Connectez-vous pour avoir accès aux commandes en ligne");
       return false

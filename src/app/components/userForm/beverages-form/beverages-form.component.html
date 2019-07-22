@@ -57,6 +57,10 @@
           </div>
         </div>
 
+        <p *ngIf="formBeverage.errors">
+          {{ formBeverage.errors['notInTime'] }}
+        </p>
+
         <div class="submitSection">
           <button
             class="submitButton button is-rounded is-outlined "

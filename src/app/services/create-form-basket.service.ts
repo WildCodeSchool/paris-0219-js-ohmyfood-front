@@ -82,7 +82,7 @@ export class CreateFormBasketService {
 
         } else {
           saladChoice.controls.multiSauces.patchValue({
-            idSaladsSauces: null,
+            idSaladsSauces: 0,
             saladsSaucesName: 'Pas de sauce sélectionnée'
           });
         }
@@ -125,7 +125,9 @@ export class CreateFormBasketService {
 
         menuSaladChoice = this.fb.group({
           salad: formToCreate.salad,
-          beverage: { bevName: 'Pas de boisson sélectionnée' },
+          beverage: {
+            idBeverages: 0,
+            bevName: 'Pas de boisson sélectionnée' },
           dessert: formToCreate.dessert,
           menuSaladPriceTotal: formToCreate.menuSaladPriceTotal,
           menuSaladQuantity: formToCreate.menuSaladQuantity
@@ -138,7 +140,9 @@ export class CreateFormBasketService {
         menuSaladChoice = this.fb.group({
           salad: formToCreate.salad,
           beverage: formToCreate.beverage,
-          dessert: { dessName: 'Pas de dessert sélectionné' },
+          dessert: {
+            idDesserts: 0,
+            dessName: 'Pas de dessert sélectionné' },
           menuSaladPriceTotal: formToCreate.menuSaladPriceTotal,
           menuSaladQuantity: formToCreate.menuSaladQuantity
         });

@@ -1,34 +1,43 @@
 import { Component, OnInit } from '@angular/core';
 import { BeveragesDataService } from 'src/app/services/beverages-data.service';
-import { FormBuilder, FormArray } from '@angular/forms';
+import { FormBuilder, FormArray, FormGroup } from '@angular/forms';
 import { QuantitySelectService } from 'src/app/services/quantity-select.service';
 import { ToggleFormService } from 'src/app/services/toggle-form.service';
 import { CreateFormService } from 'src/app/services/create-form.service';
+import { deliveryIntervalTime } from 'src/app/validators/deliveryTimeValidators';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-beverages-form',
   templateUrl: './beverages-form.component.html',
-  styleUrls: ['./beverages-form.component.scss']
+  styleUrls: ['./beverages-form.component.scss'],
+  providers: [DatePipe]
 })
 export class BeveragesFormComponent implements OnInit {
+
+  date: Date = new Date();
+
+  controlDate: string;
 
   // To toggle Form
   isToggle: boolean;
 
   // Reactive form
-  formBeverage = this.formBuilder.group({
-    selectedBeverage: this.formBuilder.array([])
-  });
+  formBeverage: FormGroup;
 
   constructor(
     private beverageData: BeveragesDataService,
     private createFormService: CreateFormService,
     private quantitySelectService: QuantitySelectService,
     private formBuilder: FormBuilder,
-    private toggleService: ToggleFormService
-    ) {}
+    private toggleService: ToggleFormService,
+    private datePipe: DatePipe
+    ) {this.controlDate = this.datePipe.transform(this.date, 'EEEE H:mm:ss'); }
 
   ngOnInit() {
+    // init formDessert
+    this.initFormBeverage();
+
     // Get Data from API
     const subscription = this.beverageData.getBeverages()
     .subscribe(beverages => {
@@ -47,6 +56,15 @@ export class BeveragesFormComponent implements OnInit {
         }
       }
       subscription.unsubscribe();
+    });
+  }
+
+  initFormBeverage() {
+    this.formBeverage = this.formBuilder.group({
+      selectedBeverage: this.formBuilder.array([])
+    },
+    {
+      validators: deliveryIntervalTime(this.controlDate, false)
     });
   }
 

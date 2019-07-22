@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { LoginService } from 'src/app/services/login.service';
-import { Router, ActivatedRoute } from '@angular/router';
-import { NewPasswordPageGuardService } from 'src/app/services/new-password-page-guard.service';
+import { Router } from '@angular/router';
+import { AdminSuperGuardService } from 'src/app/services/admin-super-guard.service';
+import { OnlyLoggedInUsersGuardService } from 'src/app/services/only-logged-in-users-guard.service';
 
 @Component({
   selector: 'app-navbar2',
@@ -14,25 +15,24 @@ export class Navbar2Component {
     firstname: '',
     mail: ''
   };
+  ifLogged;
 
   booleanAdminLogged = 0;
 
   constructor(
     private loginService: LoginService,
-    private router: Router,
-    private route: ActivatedRoute, 
-    private newPasswordPageGuardService: NewPasswordPageGuardService
+    private router: Router, 
+    private adminSuperGuardService: AdminSuperGuardService, 
+    private onlyLoggedInUsersGuardService: OnlyLoggedInUsersGuardService
   ) {  }
 
   ngOnInit() {
-
     if (sessionStorage.getItem('userLastName') != undefined) { // on page refresh with logged user
       this.userInfoObject = {
         lastname: sessionStorage.getItem('userLastName'),
         firstname: sessionStorage.getItem('userFirstName'),
         mail: sessionStorage.getItem('userMail')
       };
-      
     }
 
     this.loginService.transfertUserRight.subscribe(_ => {
@@ -45,6 +45,7 @@ export class Navbar2Component {
         firstname: sessionStorage.getItem('userFirstName'),
         mail: sessionStorage.getItem('userMail')
       };
+      this.ifLogged = 'userLogged';
     });
   }
 
@@ -65,7 +66,9 @@ export class Navbar2Component {
       firstname: '',
       mail: ''
     };
-
+    this.ifLogged = '';
+    this.onlyLoggedInUsersGuardService.tokenGuard = '';
+    this.adminSuperGuardService.tokenGuard = '';
     if (location.pathname === '/homePage') {
       window.location.reload();
     }

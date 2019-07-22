@@ -47,6 +47,7 @@ import { ForgotPsswPageComponent } from './pages/authent/forgot-pssw-page/forgot
 import { NewPasswordPageComponent } from './pages/new-password-page/new-password-page.component';
 import { NewPasswordComponent } from './components/new-password/new-password.component';
 import { NewPasswordPageGuardService } from './services/new-password-page-guard.service';
+import { AdminSuperGuardService } from './services/admin-super-guard.service';
 
 @NgModule({
   declarations: [
@@ -98,7 +99,11 @@ import { NewPasswordPageGuardService } from './services/new-password-page-guard.
     ReactiveFormsModule,
     RouterModule,
   ],
-  providers: [OnlyLoggedInUsersGuardService, NewPasswordPageGuardService],
+  providers: [
+    OnlyLoggedInUsersGuardService, 
+    NewPasswordPageGuardService, 
+    AdminSuperGuardService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

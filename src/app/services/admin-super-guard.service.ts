@@ -4,15 +4,16 @@ import { CanActivate, Router } from '@angular/router';
 @Injectable({
   providedIn: 'root'
 })
-export class OnlyLoggedInUsersGuardService implements CanActivate {
-  tokenGuard = '';
-  constructor(
+export class AdminSuperGuardService implements CanActivate {
+  tokenGuard;
+  ifLogged;
+  
+  constructor( 
     private router: Router
-  ) {}
-
+  ) {  }
   canActivate(): boolean {
-    if (sessionStorage.getItem('token') != undefined) {
-      if (sessionStorage.getItem('token') == this.tokenGuard) {
+    if (sessionStorage.getItem('token') != undefined && sessionStorage.getItem('adminToken') != undefined) {
+      if (sessionStorage.getItem('adminToken') == this.tokenGuard) {
         return true
       }
     } else {
@@ -21,4 +22,5 @@ export class OnlyLoggedInUsersGuardService implements CanActivate {
       return false
     }
   }
+  
 }

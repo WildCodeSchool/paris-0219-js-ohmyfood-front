@@ -19,6 +19,10 @@ export class PizzasDataService {
     return this.http.get(this.pizzasRoute);
   }
 
+  getPizzasForMenu(): Observable<object> {
+    return this.http.get(`${this.pizzasRoute}/menu`);
+  }
+
   getOhMyMardiPrice(): Observable<object> {
     return this.http.get(`${this.pizzasRoute}/ohMyMardi`);
   }

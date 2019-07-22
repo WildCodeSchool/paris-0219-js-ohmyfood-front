@@ -138,7 +138,7 @@ export class SaladsDatasService {
     this.userSauces = null;
   }
 
-  createOrderSaladsSessionStorage(object: any) {
+  createOrderSaladslocalStorage(object: any) {
     for (let base of object.multiBases) {
       base = new SaladsBases(
         base.idSaladsBase,

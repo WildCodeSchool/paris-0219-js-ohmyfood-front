@@ -15,8 +15,8 @@ export class UserAccountComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    if (sessionStorage.getItem('userMail') !== undefined) {
-      this.userAccountInformationsService.userMail = sessionStorage.getItem('userMail');
+    if (localStorage.getItem('userMail') !== undefined) {
+      this.userAccountInformationsService.userMail = localStorage.getItem('userMail');
       this.userAccountInformationsService.getClientAccountInfos().then(res => {
         this.userAccountObject = JSON.parse(res);
       })

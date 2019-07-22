@@ -90,6 +90,10 @@ export class MenuPizzaFormComponent implements OnInit {
 
       for (const dess in desserts) {
         if (desserts.hasOwnProperty(dess)) {
+          // Delete pizza nutella desserts because it's not in menu
+          if (desserts[dess].dessName === 'Pizza Nutella cuite au four') {
+            desserts.splice(dess, 1);
+          }
           dessert.push(this.createFormService.createForm(desserts[dess]));
         }
       }
@@ -137,7 +141,7 @@ export class MenuPizzaFormComponent implements OnInit {
 
   this.pizzaMenuForm = this.menuPrices.getRadioButton(this.pizzaMenuForm, index, this.menusPrice, check);
 
-  if (this.pizzaMenuForm.value.beverage[index].bevName === 'Bière') {
+  if (check[0] === 'idBeverages' && this.pizzaMenuForm.value.beverage[index].bevName === 'Bière') {
     this.beerSelected = true;
     } else {
       this.beerSelected = false;

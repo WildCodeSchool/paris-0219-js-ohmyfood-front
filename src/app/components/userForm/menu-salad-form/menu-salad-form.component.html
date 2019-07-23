@@ -67,7 +67,7 @@
 
     <p>
       {{ saladMenuForm.value.saladMenuPrice }} EUR plus le prix de votre salade qui est actuellement de
-      {{ saladMenuForm.value.salad.orderSaladsPriceTotal }} EUR.
+      {{ saladMenuForm.value.salad.orderSaladsPriceTotal.toFixed(2) }} EUR.
     </p>
 
     <p>
@@ -84,6 +84,10 @@
 
     <p *ngIf="menuSalad.submitted && saladMenuForm.errors">
       {{ saladMenuForm.errors['lessBevOrDess']}}
+    </p>
+
+    <p *ngIf="beerSelected">
+      Attention, vous avez pris une bière, notez qu'il y a un supplément de 1€.
     </p>
 
     <button type="submit">Ajouter au panier</button>

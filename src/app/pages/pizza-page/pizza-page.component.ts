@@ -51,7 +51,7 @@ export class PizzaPageComponent implements OnInit {
 
     } else {
       this.orderStatusForm = this.fb.group({
-        orderStatus: 'À emporter'
+        orderStatus: 'Livraison'
       });
     }
   }

@@ -25,6 +25,12 @@ export class MenuSaladFormComponent implements OnInit {
 
   saladMenuForm: FormGroup;
 
+  // To know if user pick beer
+  beerSelected = false;
+
+  // To reset beer boolean when user delete beverages
+  resetBevButton = false;
+
   // To get menu price from database
   priceMenu: any[];
 
@@ -62,7 +68,7 @@ export class MenuSaladFormComponent implements OnInit {
           orderSaladsQuantity: saladComposed.orderSaladsQuantity,
           orderSaladsToppings: saladComposed.orderSaladsToppings,
           orderSaladsSauces: 'Pas de sauce séléctionnée',
-          orderSaladsPriceTotal: saladComposed.orderSaladsPriceTotal
+          orderSaladsPriceTotal: saladComposed.orderSaladsPriceTotal.toFixed(2)
           }
         );
 
@@ -91,7 +97,7 @@ export class MenuSaladFormComponent implements OnInit {
           // If user didn't pick beverage or dessert, total menu price = salad composed price
       } else {
         this.saladMenuForm.controls.saladMenuPriceTotal.patchValue(
-          saladComposed.orderSaladsPriceTotal
+          saladComposed.orderSaladsPriceTotal.toFixed(2)
         );
       }
 
@@ -105,7 +111,7 @@ export class MenuSaladFormComponent implements OnInit {
     });
 
     // get beverage data
-    const bevSubscription = this.beverageData.getBeverages()
+    const bevSubscription = this.beverageData.getBeveragesForMenu()
     .subscribe((beverages: any) => {
 
       const beverage = this.saladMenuForm.get('beverage') as FormArray;
@@ -118,7 +124,7 @@ export class MenuSaladFormComponent implements OnInit {
       bevSubscription.unsubscribe();
     });
 
-    const dessSubscription = this.dessertData.getDesserts()
+    const dessSubscription = this.dessertData.getDessertsForMenu()
     .subscribe((desserts: any) => {
 
       const dessert = this.saladMenuForm.get('dessert') as FormArray;
@@ -171,24 +177,53 @@ export class MenuSaladFormComponent implements OnInit {
     this.menuPrices.createOrderMenu(saladMenuChoice);
 
     this.saladMenuForm.reset(this.saladMenuForm.value);
+
+    this.beerSelected = false;
   }
 
   getUserChoice(index: number, choice: object) {
+    // To check wich object we have to change in method
+    const check = Object.getOwnPropertyNames(choice);
+
+    // To know if user pick beer
+    if (check[0] === 'idBeverages') {
+      if (choice[`bevName`] === 'Bière' && !this.resetBevButton) {
+        this.beerSelected = true;
+
+      } else {
+        this.beerSelected = false;
+      }
+    }
+
     // To check if user select beverage and/or dessert and patch value menu price
     const bevPristine = this.saladMenuForm.controls.beverage.pristine;
     const dessPristine = this.saladMenuForm.controls.dessert.pristine;
 
     if (!bevPristine && dessPristine || bevPristine && !dessPristine) {
-      this.saladMenuForm.controls.saladMenuPrice.patchValue(
-        this.priceMenu[0].menuSaladPriceOr.toFixed(2)
-      );
+      if (!this.beerSelected) {
+        this.saladMenuForm.controls.saladMenuPrice.patchValue(
+          this.priceMenu[0].menuSaladPriceOr.toFixed(2)
+        );
 
-      // patch value of total price menu
-      this.saladMenuForm.controls.saladMenuPriceTotal.patchValue(
-        (this.priceMenu[0].menuSaladPriceOr + +this.saladMenuForm.value.salad.orderSaladsPriceTotal).toFixed(2)
-      );
+        // patch value of total price menu
+        this.saladMenuForm.controls.saladMenuPriceTotal.patchValue(
+          (this.priceMenu[0].menuSaladPriceOr + +this.saladMenuForm.value.salad.orderSaladsPriceTotal).toFixed(2)
+        );
+
+      } else if (this.beerSelected) {
+
+        this.saladMenuForm.controls.saladMenuPrice.patchValue(
+          (this.priceMenu[0].menuSaladPriceOr + 1).toFixed(2)
+        );
+
+        // patch value of total price menu
+        this.saladMenuForm.controls.saladMenuPriceTotal.patchValue(
+          (this.priceMenu[0].menuSaladPriceOr + 1 + +this.saladMenuForm.value.salad.orderSaladsPriceTotal).toFixed(2)
+        );
+      }
 
     } else if (!bevPristine && !dessPristine) {
+      if (!this.beerSelected) {
         this.saladMenuForm.controls.saladMenuPrice.patchValue(
           this.priceMenu[0].menuSaladPriceAnd.toFixed(2)
         );
@@ -197,6 +232,16 @@ export class MenuSaladFormComponent implements OnInit {
         this.saladMenuForm.controls.saladMenuPriceTotal.patchValue(
           (this.priceMenu[0].menuSaladPriceAnd + +this.saladMenuForm.value.salad.orderSaladsPriceTotal).toFixed(2)
         );
+      } else if (this.beerSelected) {
+        this.saladMenuForm.controls.saladMenuPrice.patchValue(
+          (this.priceMenu[0].menuSaladPriceAnd + 1).toFixed(2)
+        );
+
+        // patch value of total price menu
+        this.saladMenuForm.controls.saladMenuPriceTotal.patchValue(
+          (this.priceMenu[0].menuSaladPriceAnd + 1 + +this.saladMenuForm.value.salad.orderSaladsPriceTotal).toFixed(2)
+        );
+      }
 
     } else {
         this.saladMenuForm.controls.saladMenuPrice.patchValue(
@@ -208,17 +253,18 @@ export class MenuSaladFormComponent implements OnInit {
           this.saladMenuForm.value.salad.orderSaladsPriceTotal
         );
     }
-
-    // To check wich object we have to change in method
-    const check = Object.getOwnPropertyNames(choice);
-    this.saladMenuForm = this.menuPrices.getRadioButton(this.saladMenuForm, index, choice, check);
+    this.resetBevButton = false;
+    this.saladMenuForm = this.menuPrices.getRadioButton(this.saladMenuForm, index, choice, check, 'menuSalad');
   }
 
   resetBevOrDess(userChoice: string) {
     if (userChoice === 'beverage') {
       this.saladMenuForm.controls.beverage[`controls`].map(
-        (bev: any) => bev.controls.bevQuantity.reset(0)
-      );
+        (bev: any) => {
+          this.beerSelected = false;
+          this.resetBevButton = true;
+          bev.controls.bevQuantity.reset(0);
+        });
 
     } else if (userChoice === 'dessert') {
       this.saladMenuForm.controls.dessert[`controls`].map(

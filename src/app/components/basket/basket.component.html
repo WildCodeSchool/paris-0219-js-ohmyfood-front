@@ -48,7 +48,7 @@
           >
             <label for="pizzName-{{i}}">
               <span>{{ pizzas.value.pizzName }}</span>
-              <span>{{ pizzas.value.pizzPriceTotal }} EUR</span>
+              <span>{{ pizzas.value.pizzPriceTotal.toFixed(2) }} EUR</span>
             </label>
 
             <div class="quantityButton">
@@ -83,7 +83,7 @@
         <div formArrayName="salad">
           <div [formGroupName]="i" *ngFor="let salads of salad.controls ; let i = index">
             <label for="saladName-{{i}}">
-              Votre salade composée<span>{{ salads.value.saladsComposedPriceTotal }}</span>
+              Votre salade composée<span>{{ salads.value.saladsComposedPriceTotal.toFixed(2) }}</span>
             </label>
 
             <button
@@ -112,7 +112,7 @@
 
             <div *ngFor="let bases of salads.value.multiBases">
               <p>
-                {{ bases.basesName }}<span>{{ bases.basesPrice }} EUR</span>
+                {{ bases.basesName }}<span>{{ bases.basesPrice.toFixed(2) }} EUR</span>
               </p>
             </div>
 
@@ -120,7 +120,7 @@
 
             <div *ngFor="let ingredients of salads.value.multiIngredients">
               <p>
-                {{ ingredients.ingredientsName}}<span>{{ ingredients.ingredientsPrice }} EUR</span>
+                {{ ingredients.ingredientsName}}<span>{{ ingredients.ingredientsPrice.toFixed(2) }} EUR</span>
               </p>
             </div>
 
@@ -128,7 +128,7 @@
 
             <div *ngFor="let toppings of salads.value.multiToppings">
               <p>
-                {{ toppings.toppingsName}}<span>{{ toppings.toppingsPrice }} EUR</span>
+                {{ toppings.toppingsName}}<span>{{ toppings.toppingsPrice.toFixed(2) }} EUR</span>
               </p>
             </div>
 
@@ -146,7 +146,7 @@
           >
             <label for="bevName-{{i}}">
               <span>{{ beverages.value.bevName }}</span>
-              <span>{{ beverages.value.bevPriceTotal }} EUR</span>
+              <span>{{ beverages.value.bevPriceTotal.toFixed(2) }} EUR</span>
             </label>
             <div class="quantityButton">
               <button
@@ -185,7 +185,7 @@
           >
             <label for="bevName-{{i}}">
               <span>{{ desserts.value.dessName }}</span>
-              <span>{{ desserts.value.dessPriceTotal }} EUR</span>
+              <span>{{ desserts.value.dessPriceTotal.toFixed(2) }} EUR</span>
             </label>
             <div class="quantityButton">
               <button
@@ -221,7 +221,7 @@
             [formGroupName]="i"
             *ngFor="let menuPizzas of menuPizza.controls; let i = index">
               <label for="menuPizzaName-{{i}}">
-                Votre menu pizza {{ menuPizzas.value.menuPizzPriceTotal }} EUR
+                Votre menu pizza {{ menuPizzas.value.menuPizzPriceTotal.toFixed(2) }} EUR
               </label>
 
               <div class="quantityButton">
@@ -264,7 +264,7 @@
               [formGroupName]="i"
               *ngFor="let menuSalads of menuSalad.controls; let i = index">
                 <label for="menuSaladName-{{i}}">
-                  Votre menu salade {{ menuSalads.value.menuSaladPriceTotal }} EUR
+                  Votre menu salade {{ menuSalads.value.menuSaladPriceTotal.toFixed(2) }} EUR
                 </label>
 
                 <div class="quantityButton">
@@ -330,7 +330,7 @@
       </form>
     </div>
     <p id="totalOrderText">
-      TOTAL de votre commande {{ total }} EUR
+      TOTAL de votre commande {{ total.toFixed(2) }} EUR
     </p>
   </div>
 </div>

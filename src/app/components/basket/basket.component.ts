@@ -97,7 +97,7 @@ export class BasketComponent implements OnInit {
     for (const pizzas of storagePizzas) {
       const pizz = this.pizzasData.createOrderPizzaslocalStorage(pizzas);
       pizza.push(this.createForm.createOrderForm(pizz));
-      this.pizzasList.push(pizz);
+
     }
 
     for (const saladComposed of storageSalads) {
@@ -154,9 +154,6 @@ export class BasketComponent implements OnInit {
     // creation of formArray pizzas
     this.pizzasData.getUserPizzas.subscribe((pizzasChoice: any) => {
       pizza.push(this.createForm.createOrderForm(pizzasChoice));
-
-      this.pizzasList = pizzasChoice;
-      console.log(this.pizzasList)
 
       for (let i = 0; i < pizza.value.length; i ++) {
         for (let j = i + 1 ; j < pizza.value.length; j ++ ) {
@@ -235,6 +232,11 @@ export class BasketComponent implements OnInit {
       } else {
         this.patchPizzasPrice();
       }
+    });
+
+    this.pizzasData.getPizzas()
+    .subscribe((pizz: any) => {
+      this.pizzasList = pizz;
     });
   }
 
@@ -507,7 +509,10 @@ export class BasketComponent implements OnInit {
   ohMyMardiPrice() {
     for (const pizza of this.finalOrderForm.controls.pizza[`controls`]) {
       pizza.controls.pizzPriceTotal.patchValue(
-        this.ohMyMardiPizzPrice[0].pizzPriceReducTTC
+        this.ohMyMardiPizzPrice[0].pizzPriceReducTTC * pizza.controls.pizzQuantity.value
+      );
+      pizza.controls.pizzQuantity.patchValue(
+        pizza.controls.pizzQuantity.value
       );
     }
   }
@@ -519,7 +524,10 @@ export class BasketComponent implements OnInit {
         if (this.pizzasList.hasOwnProperty(pizzas)) {
           if (pizza.controls.pizzName.value === this.pizzasList[pizzas].pizzName) {
             pizza.controls.pizzPriceTotal.patchValue(
-              this.pizzasList[pizzas].pizzPrice
+              this.pizzasList[pizzas].pizzPriceTTC * pizza.controls.pizzQuantity.value
+            );
+            pizza.controls.pizzQuantity.patchValue(
+              pizza.controls.pizzQuantity.value
             );
           }
         }

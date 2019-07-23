@@ -9,6 +9,10 @@ import { PizzasDataService } from 'src/app/services/pizzas-data.service';
 })
 export class PizzaPageComponent implements OnInit {
 
+  ohMyMardiPrice: object;
+
+  orderStatus: string;
+
   today: string;
 
   formPizza: FormGroup;
@@ -19,6 +23,12 @@ export class PizzaPageComponent implements OnInit {
 
   ngOnInit() {
     this.initOrderStatusForm();
+
+    // get price for tuesday reduction on pizzas
+    this.pizzaDataService.getOhMyMardiPrice()
+    .subscribe(MyMardiPrice => {
+      this.ohMyMardiPrice = MyMardiPrice;
+    });
   }
 
   onGetDay($event: string) {
@@ -30,12 +40,25 @@ export class PizzaPageComponent implements OnInit {
   }
 
   initOrderStatusForm() {
-    this.orderStatusForm = this.fb.group({
-      orderStatus: ''
-    });
+    if (localStorage.getItem('orderStatus')) {
+      this.orderStatus = JSON.parse(localStorage.getItem('orderStatus'));
+
+      this.orderStatus === 'delivery' ? this.orderStatus = 'Livraison' : this.orderStatus = 'À emporter';
+
+      this.orderStatusForm = this.fb.group({
+        orderStatus: this.orderStatus
+      });
+
+    } else {
+      this.orderStatusForm = this.fb.group({
+        orderStatus: 'À emporter'
+      });
+    }
   }
 
   getOrderStatus(orderStatus: string) {
+    localStorage.setItem('orderStatus', JSON.stringify(orderStatus));
+
     this.pizzaDataService.transmitOrderStatus.emit(orderStatus);
   }
 

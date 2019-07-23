@@ -1,12 +1,12 @@
 <form
   [formGroup]="orderStatusForm"
 >
-  <label for="delivery">livraison</label>
+  <label for="delivery">Livraison</label>
 
   <input
     type="radio"
     id="delivery"
-    value="livraison"
+    value="Livraison"
     formControlName="orderStatus"
     name="orderStatus"
     (ngModelChange)="getOrderStatus('delivery')"
@@ -43,6 +43,6 @@
   </p>
 
   <p *ngIf="today === 'Tuesday'">
-    OH MY MARDI!! Toutes les pizzas sont à {{ formPizza.value.selectedPizzas[0].pizzPriceTTC }} EUR !
+    OH MY MARDI!! Toutes les pizzas sont à {{ ohMyMardiPrice[0].pizzPriceReducTTC.toFixed(2) }} EUR !
   </p>
 </div>

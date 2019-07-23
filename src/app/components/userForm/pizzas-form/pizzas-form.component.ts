@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { PizzasDataService } from 'src/app/services/pizzas-data.service';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { QuantitySelectService } from 'src/app/services/quantity-select.service';
@@ -20,6 +20,8 @@ export class PizzasFormComponent implements OnInit {
 
   @Output()
   public getControls: EventEmitter<any> = new EventEmitter();
+
+  pizzasList: object; // To update pizzPrice if necessary (for tuesday)
 
   today: string;
 
@@ -48,8 +50,19 @@ export class PizzasFormComponent implements OnInit {
 
     this.getControls.emit(this.formPizzas);
 
+    this.pizzasData.transmitOrderStatus.subscribe((orderStatus: string) => {
+      if (this.today === 'Tuesday' && orderStatus === 'toTakeAway') {
+        this.ohMyMardiPrice();
+
+      } else {
+        this.patchPizzasPrice();
+      }
+    });
+
     const subscription = this.pizzasData.getPizzas()
     .subscribe(pizzas => {
+
+      this.pizzasList = pizzas;
 
       for (const key in pizzas) {
         if (pizzas.hasOwnProperty(key)) {
@@ -77,9 +90,6 @@ export class PizzasFormComponent implements OnInit {
       // Transfert day to parent component
       this.getDay.emit(this.today);
 
-      if (this.today === 'Tuesday') {
-        this.ohMyMardiPrice();
-      }
       ohMyMardiSubscription.unsubscribe();
     });
   }
@@ -119,6 +129,7 @@ export class PizzasFormComponent implements OnInit {
     }
   }
 
+  // If pizzPrice are reduce
   ohMyMardiPrice() {
     for (const pizza of this.formPizzas.controls.selectedPizzas[`controls`]) {
       pizza.controls.pizzPriceTTC.patchValue(
@@ -132,4 +143,19 @@ export class PizzasFormComponent implements OnInit {
     this.isToggle = this.toggleService.toggleForm(this.isToggle);
   }
 
+  // If there isn't reduc price
+  patchPizzasPrice() {
+    for (const pizza of this.formPizzas.controls.selectedPizzas[`controls`]) {
+      for (const pizzas in this.pizzasList) {
+        if (this.pizzasList.hasOwnProperty(pizzas)) {
+          if (pizza.controls.pizzName.value === this.pizzasList[pizzas].pizzName) {
+            pizza.controls.pizzPriceTTC.patchValue(
+              this.pizzasList[pizzas].pizzPriceTTC
+            );
+          }
+        }
+      }
+    }
+  }
 }
+

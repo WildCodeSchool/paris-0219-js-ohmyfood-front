@@ -15,13 +15,25 @@ import { FinalOrderService } from 'src/app/services/final-order.service';
 import { MenuPricesDataService } from 'src/app/services/menu-prices-data.service';
 import { MenuPizza } from 'src/app/class/menu-pizza';
 import { MenuSalad } from 'src/app/class/menu-salad';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-basket',
   templateUrl: './basket.component.html',
-  styleUrls: ['./basket.component.scss']
+  styleUrls: ['./basket.component.scss'],
+  providers: [DatePipe]
 })
 export class BasketComponent implements OnInit {
+
+  pizzasList = [];
+
+  ohMyMardiPizzPrice: object;
+
+  date: Date = new Date();
+
+  controlDate: string;
+
+  today: string;
 
   isToggleBasket: boolean; // To toggle basket
 
@@ -49,8 +61,9 @@ export class BasketComponent implements OnInit {
     private localStorage: BasketlocalStorageService,
     private router: Router,
     private finalOrder: FinalOrderService,
-    private menuPrice: MenuPricesDataService
-    ) { }
+    private menuPrice: MenuPricesDataService,
+    private datePipe: DatePipe
+    ) {this.controlDate = this.datePipe.transform(this.date, 'EEEE H:mm:ss'); }
 
   ngOnInit() {
 
@@ -84,6 +97,7 @@ export class BasketComponent implements OnInit {
     for (const pizzas of storagePizzas) {
       const pizz = this.pizzasData.createOrderPizzaslocalStorage(pizzas);
       pizza.push(this.createForm.createOrderForm(pizz));
+      this.pizzasList.push(pizz);
     }
 
     for (const saladComposed of storageSalads) {
@@ -140,6 +154,9 @@ export class BasketComponent implements OnInit {
     // creation of formArray pizzas
     this.pizzasData.getUserPizzas.subscribe((pizzasChoice: any) => {
       pizza.push(this.createForm.createOrderForm(pizzasChoice));
+
+      this.pizzasList = pizzasChoice;
+      console.log(this.pizzasList)
 
       for (let i = 0; i < pizza.value.length; i ++) {
         for (let j = i + 1 ; j < pizza.value.length; j ++ ) {
@@ -200,6 +217,24 @@ export class BasketComponent implements OnInit {
       menuSalad.push(this.createForm.createOrderForm(userMenuSaladChoice));
       this.totalBasket();
       this.localStorage.saveTolocalStorage(this.finalOrderForm.value.menuSalad);
+    });
+
+    // Get price of myMardi
+    const ohMyMardiSubscription = this.pizzasData.getOhMyMardiPrice()
+    .subscribe(ohMyMardiPrice => {
+
+      this.ohMyMardiPizzPrice = ohMyMardiPrice;
+      this.today = this.controlDate.split(' ')[0]; // Control day of order
+
+      ohMyMardiSubscription.unsubscribe();
+    });
+
+    this.pizzasData.transmitOrderStatus.subscribe((orderStatus: string) => {
+      if (orderStatus === 'toTakeAway' && this.today === 'Tuesday') {
+        this.ohMyMardiPrice();
+      } else {
+        this.patchPizzasPrice();
+      }
     });
   }
 
@@ -467,4 +502,30 @@ export class BasketComponent implements OnInit {
     }
     this.totalArray.length === 0 ? this.total = 0 : this.total = this.totalArray.reduce(reducer); // Total price
   }
+
+  // If pizzPrice are reduce
+  ohMyMardiPrice() {
+    for (const pizza of this.finalOrderForm.controls.pizza[`controls`]) {
+      pizza.controls.pizzPriceTotal.patchValue(
+        this.ohMyMardiPizzPrice[0].pizzPriceReducTTC
+      );
+    }
+  }
+
+  // If there isn't reduc price
+  patchPizzasPrice() {
+    for (const pizza of this.finalOrderForm.controls.pizza[`controls`]) {
+      for (const pizzas in this.pizzasList) {
+        if (this.pizzasList.hasOwnProperty(pizzas)) {
+          if (pizza.controls.pizzName.value === this.pizzasList[pizzas].pizzName) {
+            pizza.controls.pizzPriceTotal.patchValue(
+              this.pizzasList[pizzas].pizzPrice
+            );
+          }
+        }
+      }
+    }
+  }
+
 }
+

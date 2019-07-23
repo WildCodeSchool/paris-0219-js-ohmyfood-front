@@ -8,7 +8,9 @@
   </button>
 </section>
 <section class="buttonArea">
-  <button (click)="goToFooter()" class="button has-text-centered" title="Go to footer">SUR PLACE
+  <button (click)="goToFooter()" class="button has-text-centered" title="Go to footer"
+  >
+    SUR PLACE
   </button>
 </section>
 
@@ -38,53 +40,77 @@
     <span class="sr-only">Suivant</span>
   </a>
 </section>
-<section>
+<section class="sectionMenu">
   <h2>Menu / Cartes</h2>
-
-<div class="columns">
-
-<div class="column is-offset-2">
-
-<div id="flag"><span class="titlemenu">BAR A SALADE</span></div>
-  <ul>
-    <li *ngFor="let saladsBase of saladsBaseList">{{ saladsBase.saladsBaseName }}</li>
-    <br>
-    <li *ngFor="let saladsIngredient of saladsIngredientList">{{ saladsIngredient.saladsIngredientsName }}</li>
-    <br>
-    <li *ngFor="let saladsTopping of saladsToppingList">{{ saladsTopping.saladsToppingsName }}</li>
-    <br>
-    <li *ngFor="let saladsSauces of saladsSauceList">{{ saladsSauces.saladsSaucesName }}</li>
-    <br>
-  </ul>
-</div>
-
-<div class="column">
-    <div id="flag"><span class="titlemenu">NOS PIZZAS</span></div>
-      <ul>
-        <li *ngFor="let pizzasList of pizzasList">{{ pizzasList.pizzName }} &nbsp; &nbsp; {{pizzasList.pizzPriceTTC }} EUR</li>
-      </ul>
-</div>
-
-<div class="column">
-    <div id="flag"><span class="titlemenu">NOS MENUS</span></div>
-      <ul>
-        <li *ngFor="let saladsBase of saladsBaseList">{{ saladsBase.saladsBaseName }}</li>
-      </ul>
-</div>
-
-</div>
-  <div class="columns d-flex flex-row">
-    <div class="column is-4">
-      <img src="../../../assets/img/BarASaladeMenu.jpg" alt="BarASaladeMenu"/>
+  <div class="columns">
+    <div class="column">
+      <div class="flag">
+        <h2 class="h2Title">
+          NOS SALADES
+        </h2>
+      </div>
+      <div class="saladScroll">
+        <ul>
+          <li><h2 class="h2List">Les Bases</h2></li>
+          <li *ngFor="let saladsBase of saladsBaseList">{{ saladsBase.saladsBaseName }}</li>
+        </ul>
+          <br>
+        <h2 class="h2List">Les Ingrédients</h2>
+        <ul class="ingredientList">
+          <li *ngFor="let saladsIngredient of saladsIngredientList">{{ saladsIngredient.saladsIngredientsName }}</li>
+        </ul>
+          <br>
+          <h2 class="h2List">Les Toppings</h2>
+        <ul>
+          <li *ngFor="let saladsTopping of saladsToppingList">{{ saladsTopping.saladsToppingsName }}</li>
+        </ul>
+          <br>
+          <h2 class="h2List">Les Sauces</h2>
+        <ul>
+          <li *ngFor="let saladsSauces of saladsSauceList">{{ saladsSauces.saladsSaucesName }}</li>
+          <br>
+        </ul>
+      </div>
     </div>
-    <div class="column is-4">
-      <img src="../../../assets/img/PizzaMenu.jpg" alt="PizzaMenu"/>
+
+    <div class="column">
+        <div class="flag">
+          <h2 class="h2Title">
+            NOS PIZZAS
+          </h2>
+        </div>
+        <ul>
+          <li *ngFor="let pizzasList of pizzasList">
+            <span>{{ pizzasList.pizzName }}</span>
+            <span>{{ pizzasList.pizzPriceTTC }} EUR</span>
+          </li>
+        </ul>
     </div>
-    <div class="column is-4">
-      <img id="menus" src="../../../assets/img/Menus.png" alt="Menus"/>
+
+    <div class="column">
+      <div class="flag">
+        <h2 class="h2Title">
+          NOS MENUS
+        </h2>
+      </div>
+      <h2 class="h2List">Menu Pizzas</h2>
+      <ul class="pizzaDetail">
+        <li>1 Pizza + 1 Boisson + 1 Dessert à 14 €</li>
+      </ul>
+      <h2 class="h2List">Menus Salades</h2>
+      <ul class="ulSalad">
+        <li>Salade Sur Mesure + 1 Boisson OU 1 Dessert</li>
+        <li>1,50 € + Prix de la Salade</li>
+        <li>+ 1 € si la Boisson est 1 Bière</li>
+      </ul>
+      <hr>
+      <ul class="ulSalad">
+        <li>1 Salade Sur Mesure + 1 Boisson + 1 Dessert</li>
+        <li>3 € + Prix de la Salade</li>
+        <li>+ 1 € si la Boisson est 1 Bière</li>
+      </ul>
     </div>
   </div>
-
 </section>
 <section>
   <h3>Evènements Spéciaux</h3>

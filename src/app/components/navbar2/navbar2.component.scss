@@ -1,9 +1,5 @@
 @import '../../../styles/colors';
 
-i {
-  color: red;
-}
-
 .topbar {
     margin: 0;
     background-color: $lightgreen;
@@ -64,15 +60,8 @@ i {
   .navbar a:hover {
     background: darken(#2D2C33, 50%);
   }
-  
-  @media all and (max-width: 800px) {
-    .navbar {
-      justify-content: space-around;
-    }
 
-  }
-  
-  @media all and (max-width: 600px) {
+  @media screen and (max-width: 600px) {
     .navbar {
       -webkit-flex-flow: column wrap;
       flex-flow: column wrap;
@@ -85,9 +74,31 @@ i {
       border-top: 1px solid rgba(255,255,255,0.3); 
       border-bottom: 1px solid rgba(0,0,0,0.1); 
     }
-  
-    
     .navbar li:last-of-type a {
       border-bottom: none;
     }
   }
+  
+  @media screen and (max-width: 800px) {
+    .navbar {
+      justify-content: space-around;
+    }
+
+    .phone {
+      order: -1
+    }
+    
+    .title {
+      order: 1
+    }
+    
+    .loginShow {
+      order: 3
+    }
+  }
+  
+  i {
+    color: red;
+  }
+
+  

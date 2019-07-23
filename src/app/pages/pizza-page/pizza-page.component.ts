@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-pizza-page',
@@ -7,9 +8,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PizzaPageComponent implements OnInit {
 
+  today: string;
+
+  formPizza: FormGroup;
+
   constructor() { }
 
   ngOnInit() {
+  }
+
+  onGetDay($event: string) {
+    this.today = $event;
+  }
+
+  onGetControl($event: FormGroup) {
+    this.formPizza = $event;
   }
 
 }

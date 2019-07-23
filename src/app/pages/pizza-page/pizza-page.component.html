@@ -1,4 +1,22 @@
-<app-pizzas-form></app-pizzas-form>
+<app-pizzas-form
+  (getDay)="onGetDay($event)"
+  (getControls)="onGetControl($event)"
+>
+
+</app-pizzas-form>
+
 <app-beverages-form></app-beverages-form>
+
 <app-basket></app-basket>
+
 <app-desserts-form></app-desserts-form>
+
+<div>
+  <p *ngIf="formPizza.errors">
+    {{ formPizza.errors['notInTime'] }}
+  </p>
+
+  <p *ngIf="today === 'Tuesday'">
+    OH MY MARDI!! Toutes les pizzas sont à {{ formPizza.value.selectedPizzas[0].pizzPriceTTC }} EUR !
+  </p>
+</div>

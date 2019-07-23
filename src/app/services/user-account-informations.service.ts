@@ -8,7 +8,10 @@ export class UserAccountInformationsService {
 
   userMail: string;
   url = 'http://localhost:3000/users/account';
+  urlUserPut = this.url + '/user';
+  urlUserAddressPut = this.url + '/userAddress';
   userAccountObject;
+  userAccountAddressObject;
 
   constructor(private http: HttpClient) { }
 
@@ -17,6 +20,10 @@ export class UserAccountInformationsService {
   }
 
   putClientAccountInfos() {
-    return this.http.put(this.url, this.userAccountObject, {responseType: 'text'}).toPromise()
+    return this.http.put(this.urlUserPut, this.userAccountObject, {responseType: 'text'}).toPromise()
+  }
+
+  putClientAccountAddressInfos() {
+    return this.http.put(this.urlUserAddressPut, this.userAccountAddressObject, {responseType: 'text'}).toPromise()
   }
 }

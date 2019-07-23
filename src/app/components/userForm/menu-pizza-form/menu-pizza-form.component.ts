@@ -135,7 +135,7 @@ export class MenuPizzaFormComponent implements OnInit {
   // To check wich object we have to change in method
   const check = Object.getOwnPropertyNames(choice);
 
-  this.pizzaMenuForm = this.menuPrices.getRadioButton(this.pizzaMenuForm, index, this.menusPrice, check);
+  this.pizzaMenuForm = this.menuPrices.getRadioButton(this.pizzaMenuForm, index, this.menusPrice, check, 'menuPizza');
 
   if (check[0] === 'idBeverages' && this.pizzaMenuForm.value.beverage[index].bevName === 'Bière') {
     this.beerSelected = true;

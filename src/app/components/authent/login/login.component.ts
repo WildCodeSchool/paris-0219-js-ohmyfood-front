@@ -15,6 +15,7 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   userRight = 0;
   userIdLogged;
+  transfertToken;
 
   constructor(
     private fb: FormBuilder,
@@ -71,8 +72,8 @@ export class LoginComponent implements OnInit {
         }
         if (this.userRight === 1) {
           this.loginService.transfertUserRightFn(this.userRight);
-          this.router.navigateByUrl('admin')
-          this.adminSuperGuardService.ifLogged = 'userLogged'
+          this.adminSuperGuardService.ifLogged = 'userLogged';
+          this.router.navigateByUrl('admin');
           return
         }
         this.loginService.transfertUserFn(userInfoObject);

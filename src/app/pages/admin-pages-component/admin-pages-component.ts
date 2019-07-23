@@ -14,6 +14,10 @@ export class AdminPagesComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    if (localStorage.getItem('firstTimeLogged') == undefined) {
+      localStorage.setItem('firstTimeLogged', '1')
+      location.reload()
+    }
   }
 
   changeComponent(componentToDisplay: string) {

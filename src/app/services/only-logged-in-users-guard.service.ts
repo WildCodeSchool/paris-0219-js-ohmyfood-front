@@ -17,7 +17,7 @@ export class OnlyLoggedInUsersGuardService implements CanActivate {
       if (localStorage.getItem('alreadyLogged') == this.tokenGuard) {
         return true
       }
-    } else if (localStorage.getItem('token') != undefined && localStorage.getItem('alreadyLogged') == undefined) {
+    } else if (localStorage.getItem('token') != undefined) {
       if (localStorage.getItem('token') == this.tokenGuard) {
         localStorage.setItem('alreadyLogged', this.tokenGuard)
         return true

@@ -8,6 +8,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UserAccountInformationsService } from 'src/app/services/user-account-informations.service';
 import { DatePipe } from '@angular/common';
 import { checkLocationDelivery } from '../../validators/checkLocationDelivery';
+import { PizzasDataService } from 'src/app/services/pizzas-data.service';
 
 @Component({
   selector: 'app-detail-order',
@@ -17,7 +18,7 @@ import { checkLocationDelivery } from '../../validators/checkLocationDelivery';
 })
 export class DetailOrderComponent implements OnInit {
 
-  orderStatus: 'Livraison';
+  orderStatus: string;
   enableSubmit: boolean;
 
   userPizzaChoice: Array<OrderPizzas>; // Get data from service
@@ -30,21 +31,46 @@ export class DetailOrderComponent implements OnInit {
 
   dateOrder: string;
 
+  today: string;
+
   initPrice: boolean;
 
   totalOrder: number; // final result
 
   userDetailForm: FormGroup;
 
+  ohMyMardiPrice: object;
+
+  pizzList: object;
+
   constructor(
     private finalOrderService: FinalOrderService,
     private fb: FormBuilder,
     private userAccountInformationsService: UserAccountInformationsService,
-    private datePipe: DatePipe
-  ) { this.dateOrder = this.datePipe.transform(this.date, 'yyyy-MM-dd HH:mm:ss'); }
+    private datePipe: DatePipe,
+    private pizzaDataService: PizzasDataService
+  ) {
+      this.dateOrder = this.datePipe.transform(this.date, 'yyyy-MM-dd HH:mm:ss');
+      this.today = this.datePipe.transform(this.date, 'EEEE');
+    }
 
   ngOnInit() {
     this.initForm();
+
+    const pizzSubscription = this.pizzaDataService.getPizzas()
+    .subscribe(pizz => {
+      this.pizzList = pizz;
+      pizzSubscription.unsubscribe();
+    });
+
+    if (localStorage.getItem('orderStatus')) {
+      this.orderStatus = JSON.parse(localStorage.getItem('orderStatus'));
+
+      this.orderStatus === 'toTakeAway' ? this.orderStatus = 'À emporter' : this.orderStatus = 'Livraison';
+
+      this.userDetailForm.controls.deliveryOrTakeAway.patchValue(this.orderStatus);
+    }
+
     this.userAccountInformationsService.userMail = localStorage.getItem('userMail');
     this.userAccountInformationsService.getClientAccountInfos().then(res => {
       const userAccountObject = JSON.parse(res);
@@ -159,7 +185,23 @@ export class DetailOrderComponent implements OnInit {
 
       localStorage.setItem('finalOrder', JSON.stringify(this.finalOrderRecap)); // Save new finalOrder in session storage
       this.calcTotalOrder();
+
       finalOrderSubscription.unsubscribe();
+    });
+
+    // Get price for reduce if order's day is tuesday
+    const tuesdayPriceSubscription = this.pizzaDataService.getOhMyMardiPrice()
+    .subscribe(mardiPizzPrice => {
+      this.ohMyMardiPrice = mardiPizzPrice;
+
+      if (this.today === 'Tuesday' && this.orderStatus === 'À emporter') {
+        this.ohMyMardiPricePatchValue();
+
+      } else {
+        this.patchPizzPrice();
+      }
+
+      tuesdayPriceSubscription.unsubscribe();
     });
     this.calcTotalOrder();
   }
@@ -269,5 +311,32 @@ export class DetailOrderComponent implements OnInit {
     this.finalOrderService.submitFinalOrder().then(res => {
     });
   }
+
+  // If pizzPrice are reduce
+  ohMyMardiPricePatchValue() {
+    for (const pizza of this.finalOrderRecap.pizza) {
+      pizza[`pizzPriceTotal`] = (this.ohMyMardiPrice[0].pizzPriceReducTTC * pizza.pizzQuantity).toFixed(2);
+    }
+    this.calcTotalOrder();
+  }
+
+  patchPizzPrice() {
+    for (const pizza of this.finalOrderRecap.pizza) {
+      for (const pizz in this.pizzList) {
+        if (this.pizzList.hasOwnProperty(pizz)) {
+          if (pizza.pizzName === this.pizzList[pizz].pizzName) {
+            pizza[`pizzPriceTotal`] = (this.pizzList[pizz].pizzPriceTTC * pizza.pizzQuantity).toFixed(2);
+          }
+        }
+      }
+    }
+    this.calcTotalOrder();
+  }
+
+  getOrderStatus(orderStatus: string) {
+    localStorage.setItem('orderStatus', JSON.stringify(orderStatus));
+    orderStatus === 'toTakeAway' ? this.ohMyMardiPricePatchValue() : this.patchPizzPrice();
+  }
+
 }
 

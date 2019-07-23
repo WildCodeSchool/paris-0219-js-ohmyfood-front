@@ -15,7 +15,7 @@ export class UserFormAccountComponent implements OnInit {
   regexPhone = /[0-9]*/gm;
   regexEmail = /^[a-zA-Z0-9.%&_~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/gm
   show: boolean = false;
-  psswType = "password";
+  passwordType = "password";
   userAccountObject;
 
   constructor(
@@ -32,8 +32,8 @@ export class UserFormAccountComponent implements OnInit {
         this.authModifyForm.patchValue({
           lastName: userAccountObject[0].lastname,
           firstName:userAccountObject[0].firstname,
-          email: userAccountObject[0].mail,
-          phone: `0${userAccountObject[0].phoneNumber}`
+          mail: userAccountObject[0].mail,
+          phoneNumber: `0${userAccountObject[0].phoneNumber}`
         });
       });
     }
@@ -45,27 +45,26 @@ export class UserFormAccountComponent implements OnInit {
     this.authModifyForm = this.fb.group({
       lastName: ['', [Validators.minLength(4), Validators.maxLength(45)]],
       firstName: ['', [Validators.minLength(4), Validators.maxLength(45)]],
-      email: ['', [Validators.pattern(this.regexEmail), Validators.minLength(4)]],
-      phone: ['', [Validators.minLength(10), Validators.maxLength(10), Validators.pattern(this.regexPhone)]],
-      pssw: ['', [Validators.minLength(7), Validators.maxLength(15)]],
+      mail: ['', [Validators.pattern(this.regexEmail), Validators.minLength(4)]],
+      phoneNumber: ['', [Validators.minLength(10), Validators.maxLength(10), Validators.pattern(this.regexPhone)]],
+      password: ['', [Validators.minLength(7), Validators.maxLength(15)]],
       psswVerif: ['']
     },
     {
-      validator: checkUserPassword('pssw', 'psswVerif')
+      validator: checkUserPassword('password', 'psswVerif')
     })
   }
 
   onSubmitModifyUserForm() {
     if (this.authModifyForm.valid) {
-      this.userAccountInformationsService.userAccountObject = {
-          lastname: this.authModifyForm.value.lastName,
-          firstname: this.authModifyForm.value.firstName,
-          mail: this.authModifyForm.value.email,
-          password: this.authModifyForm.value.pssw,
-          phoneNumber: this.authModifyForm.value.phone
-      };
+      for (let value of Object.entries(this.authModifyForm.value)) {
+        if (value[1] != '') {
+          this.userAccountInformationsService.userAccountObject[`${value[0]}`] = value[1]
+        } else {
+          delete this.userAccountInformationsService.userAccountObject[`${value[0]}`]
+        };
+      }
       if (confirm(`Êtes-vous sûr de modifier ces informations ?`)) {
-        console.log(this.userAccountInformationsService.userAccountObject)
         this.userAccountInformationsService.putClientAccountInfos().then(_ => {
           location.reload()
         });
@@ -75,11 +74,11 @@ export class UserFormAccountComponent implements OnInit {
 
   showPssw(event) {
     event.preventDefault()
-    if (this.psswType === "password") {
-      this.psswType = "text";
+    if (this.passwordType === "password") {
+      this.passwordType = "text";
       this.show = true;
     } else {
-      this.psswType = "password";
+      this.passwordType = "password";
       this.show = false;
     }
   }

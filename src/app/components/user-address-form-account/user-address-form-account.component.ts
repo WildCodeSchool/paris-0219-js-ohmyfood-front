@@ -55,22 +55,18 @@ export class UserAddressFormAccountComponent implements OnInit {
 
   onSubmitModifyUserAddressForm() {
     if (this.authModifyAddressForm.valid) {
-      this.userAccountInformationsService.userAccountAddressObject = {
-        '0': {userAddress1: this.authModifyAddressForm.value.address1,
-          userAddress2: this.authModifyAddressForm.value.address2,
-          zipcode: this.authModifyAddressForm.value.zipcode,
-          city: this.authModifyAddressForm.value.city,
-          userAddressFacturation: this.authModifyAddressForm.value.userFacturation
-        },
-        '1': {
-          mail: localStorage.getItem('userMail')
-        }
-      };
+      for (let value of Object.entries(this.authModifyAddressForm.value)) {
+        if (value[1] != '') {
+          this.userAccountInformationsService.userAccountAddressObject[0][`${value[0]}`] = value[1]
+        } else {
+          delete this.userAccountInformationsService.userAccountAddressObject[0][`${value[0]}`]
+        };
+      }
       if (confirm(`Êtes-vous sûr de modifier ces informations ?`)) {
-        this.userAccountInformationsService.putClientAccountAddressInfos().then(_ => {
+        this.userAccountInformationsService.putClientAccountInfos().then(_ => {
           location.reload()
         });
       }
-    }
+    };
   }
 }

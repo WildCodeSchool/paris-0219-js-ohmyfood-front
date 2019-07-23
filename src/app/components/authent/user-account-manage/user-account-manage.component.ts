@@ -1,7 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { Validators, FormBuilder, FormGroup } from '@angular/forms';
-import { checkUserPassword } from 'src/app/validators/checkUserPassword';
-import { UserAccountInformationsService } from 'src/app/services/user-account-informations.service';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-user-account-manage',
@@ -9,5 +6,11 @@ import { UserAccountInformationsService } from 'src/app/services/user-account-in
   styleUrls: ['./user-account-manage.component.scss']
 })
 export class UserAccountManageComponent  {
+  textChoice = ['Accéder à votre Compte','Modifier vos informations personnelles', 'Modifier vos adresses'];
+  arrayChoice = ['infoUser', 'modifyInfoUser', 'modifyInfoUserAddress'];
+  action = 'infoUser';
 
+  getChoiceAction(index) {
+    this.action = this.arrayChoice[index]
+  }
 }

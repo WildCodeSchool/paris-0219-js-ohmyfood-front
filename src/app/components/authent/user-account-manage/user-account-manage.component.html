@@ -1,2 +1,7 @@
-<app-user-form-account></app-user-form-account>
-<app-user-address-form-account></app-user-address-form-account>
+<div *ngFor="let action of arrayChoice; let i = index">
+  <button type="infoUser" (click)="getChoiceAction(i)">{{ textChoice[i] }}</button>
+</div>
+
+<app-user-account *ngIf="action == arrayChoice[0]"></app-user-account>
+<app-user-form-account *ngIf="action == arrayChoice[1]"></app-user-form-account>
+<app-user-address-form-account *ngIf="action == arrayChoice[2]"></app-user-address-form-account>

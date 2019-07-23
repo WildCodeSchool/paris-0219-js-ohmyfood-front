@@ -10,8 +10,25 @@ export class UserAccountInformationsService {
   url = 'http://localhost:3000/users/account';
   urlUserPut = this.url + '/user';
   urlUserAddressPut = this.url + '/userAddress';
-  userAccountObject;
-  userAccountAddressObject;
+  userAccountObject: Object = {
+    lastName: '',
+    firstName: '',
+    mail: '',
+    phoneNumber: '',
+    password: ''
+  }
+  userAccountAddressObject: Object = {
+    '0': {
+      address1: '',
+      address2: '',
+      zipcode: '',
+      city: '',
+      userAddressFacturation: ''
+    },
+    '1': {
+      mail: localStorage.getItem('userMail')
+    }
+  };
 
   constructor(private http: HttpClient) { }
 

@@ -84,7 +84,7 @@
           <div
           [formGroupName]="i"
           *ngFor="let salads of salad.controls ; let i = index"
-          class=""
+          class="test2"
           >
             <div class="test">
               <label for="saladName-{{i}}">
@@ -115,35 +115,41 @@
                 </button>
               </div>
             </div>
-            <div class="test2">
-              <h5>Vos bases</h5>
+            <div class="contenant">
+              <div class="suga">
+                <p>Vos bases</p>
 
-              <div *ngFor="let bases of salads.value.multiBases"
-              class="">
-                <p>
-                  {{ bases.basesName }}<span>{{ bases.basesPrice }} €</span>
-                </p>
+                <div *ngFor="let bases of salads.value.multiBases">
+                  <p>
+                    {{ bases.basesName }}<span>{{ bases.basesPrice }} €</span>
+                  </p>
+                </div>
               </div>
+              <div class="suga">
+                <p>Vos ingrédients</p>
 
-              <h5>Vos ingrédients</h5>
-
-              <div *ngFor="let ingredients of salads.value.multiIngredients">
-                <p>
-                  {{ ingredients.ingredientsName}}<span>{{ ingredients.ingredientsPrice }} €</span>
-                </p>
+                <div *ngFor="let ingredients of salads.value.multiIngredients"
+                >
+                  <p>
+                    {{ ingredients.ingredientsName}}<span>{{ ingredients.ingredientsPrice }} €</span>
+                  </p>
               </div>
+              </div>
+              <div class="suga">
+              <p>Vos toppings</p>
 
-              <h5>Vos toppings</h5>
-
-              <div *ngFor="let toppings of salads.value.multiToppings">
+              <div *ngFor="let toppings of salads.value.multiToppings"
+              >
                 <p>
                   {{ toppings.toppingsName}}<span>{{ toppings.toppingsPrice }} €</span>
                 </p>
               </div>
+            </div>
+            <div class="suga">
+                <p>Votre sauce</p>
 
-              <h5>Votre sauce</h5>
-
-              <p>{{ salads.value.multiSauces.saladsSaucesName }}</p>
+                <p>{{ salads.value.multiSauces.saladsSaucesName }}</p>
+            </div>
             </div>
           </div>
         </div>

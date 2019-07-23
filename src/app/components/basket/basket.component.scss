@@ -34,8 +34,15 @@
   justify-content: space-between;
 }
 .test2 {
+  width: 100%;
+}
+
+.contenant {
   display: flex;
-  flex-direction: column;
+}
+.suga {
+  justify-content: space-around;
+  margin: 2px 2px auto;
 }
 //formGroupName
 
@@ -43,12 +50,10 @@
     display: flex;
     justify-content: space-between;
 }
-.sous-block {
-  display: flex;
-}
 
 .headerBasket {
-    justify-content: center;
+  justify-content: space-around;
+  width: 60%;
 }
 
 .inlineBasket {
@@ -103,6 +108,7 @@ label {
     color: red;
     display: block;
     width: 100%;
+    text-align: center;
 }
 
 .overScrollForm {
@@ -111,17 +117,21 @@ label {
 h5 {
   text-align: center;
 }
+h2 {
+  margin-bottom: 0;
+}
 p {
     text-align: left;
+    white-space: nowrap;
 }
 .totalOrder {
   text-align: right;
 }
 .quantityButton {
-    width: 32%;
     margin-right: 5%;
     input {
-      font-size: 85%;
+      font-size: 92%;
+      width: 20%;
     }
 }
 .quantitySalads {
@@ -154,6 +164,10 @@ span {
 
 ul li {
     display: inline-block;
+}
+.fa-x3 {
+  margin-left: 10px;
+  font-size: 2em !important;
 }
 
 @media screen and (min-width: 720px) {

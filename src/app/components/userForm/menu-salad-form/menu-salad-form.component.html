@@ -7,25 +7,32 @@
 
   <app-salads-form [menu]='isMenu'></app-salads-form>
 
-  <form [formGroup]="saladMenuForm" (ngSubmit)="saladMenuForm.valid && onSubmit()" #menuSalad="ngForm">
+  <form
+    [formGroup]="saladMenuForm"
+    (ngSubmit)="saladMenuForm.valid && onSubmit()"
+    #menuSalad="ngForm"
+  >
 
     <div formArrayName="beverage">
         <h5>Cliquez-ici pour découvrir nos boissons</h5>
 
-      <div [formGroupName]="i"
-            *ngFor="let beverages of beverage.controls; let i = index">
+      <div
+        [formGroupName]="i"
+        *ngFor="let beverages of beverage.controls; let i = index"
+      >
 
-          <label for="beverage-{{ i }}">
-            {{ beverages.value.bevName }}
-          </label>
+        <label for="beverage-{{ i }}">
+          {{ beverages.value.bevName }}
+        </label>
 
-          <input
-            type="radio"
-            formControlName="bevQuantity"
-            name="bevQuantity"
-            id="beverage-{{ i }}"
-            value="{{ beverages.value.bevQuantity }}"
-            (ngModelChange)="getUserChoice(i, beverages.value)">
+        <input
+          type="radio"
+          formControlName="bevQuantity"
+          name="bevQuantity"
+          id="beverage-{{ i }}"
+          value="{{ beverages.value.bevQuantity }}"
+          (ngModelChange)="getUserChoice(i, beverages.value)"
+        />
       </div>
     </div>
 
@@ -34,8 +41,10 @@
     <div formArrayName="dessert">
       <h5>Ciquez-ici pour découvrir nos desserts</h5>
 
-      <div [formGroupName]="i"
-            *ngFor="let desserts of dessert.controls; let i = index">
+      <div
+        [formGroupName]="i"
+        *ngFor="let desserts of dessert.controls; let i = index"
+      >
 
         <label for="dessert-{{ i }}">
           {{ desserts.value.dessName }}
@@ -47,7 +56,8 @@
           name="dessQuantity"
           id="dessert-{{ i }}"
           value="{{ desserts.value.dessQuantity }}"
-          (ngModelChange)="getUserChoice(i, desserts.value)">
+          (ngModelChange)="getUserChoice(i, desserts.value)"
+        />
       </div>
     </div>
 

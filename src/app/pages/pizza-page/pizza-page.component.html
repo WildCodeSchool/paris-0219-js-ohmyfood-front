@@ -1,3 +1,29 @@
+<form
+  [formGroup]="orderStatusForm"
+>
+  <label for="delivery">livraison</label>
+
+  <input
+    type="radio"
+    id="delivery"
+    value="livraison"
+    formControlName="orderStatus"
+    name="orderStatus"
+    (ngModelChange)="getOrderStatus('delivery')"
+  />
+
+  <label for="toTakeAway">À emporter</label>
+
+  <input
+    type="radio"
+    id="toTakeAway"
+    value="À emporter"
+    name="orderStatus"
+    formControlName="orderStatus"
+    (ngModelChange)="getOrderStatus('toTakeAway')"
+  />
+</form>
+
 <app-pizzas-form
   (getDay)="onGetDay($event)"
   (getControls)="onGetControl($event)"

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, FormBuilder } from '@angular/forms';
+import { PizzasDataService } from 'src/app/services/pizzas-data.service';
 
 @Component({
   selector: 'app-pizza-page',
@@ -12,9 +13,12 @@ export class PizzaPageComponent implements OnInit {
 
   formPizza: FormGroup;
 
-  constructor() { }
+  orderStatusForm: FormGroup;
+
+  constructor(private fb: FormBuilder, private pizzaDataService: PizzasDataService) { }
 
   ngOnInit() {
+    this.initOrderStatusForm();
   }
 
   onGetDay($event: string) {
@@ -23,6 +27,16 @@ export class PizzaPageComponent implements OnInit {
 
   onGetControl($event: FormGroup) {
     this.formPizza = $event;
+  }
+
+  initOrderStatusForm() {
+    this.orderStatusForm = this.fb.group({
+      orderStatus: ''
+    });
+  }
+
+  getOrderStatus(orderStatus: string) {
+    this.pizzaDataService.transmitOrderStatus.emit(orderStatus);
   }
 
 }

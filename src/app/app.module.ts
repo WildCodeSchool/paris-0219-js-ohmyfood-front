@@ -43,6 +43,7 @@ import { UserAccountComponent } from './components/user-account/user-account.com
 import { ContactComponent } from './components/contact/contact.component';
 import { ContactPageComponent } from './pages/contact-page/contact-page.component';
 import { TaxFormAdminComponent } from './components/admin/tax-form-admin/tax-form-admin.component';
+import { MenusPriceFormAdminComponent } from './components/admin/menus-price-form-admin/menus-price-form-admin.component';
 
 @NgModule({
   declarations: [
@@ -81,7 +82,8 @@ import { TaxFormAdminComponent } from './components/admin/tax-form-admin/tax-for
     UserAccountComponent,
     ContactComponent,
     ContactPageComponent,
-    TaxFormAdminComponent
+    TaxFormAdminComponent,
+    MenusPriceFormAdminComponent
   ],
   imports: [
     AppRoutingModule,

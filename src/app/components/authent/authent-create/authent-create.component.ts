@@ -67,9 +67,13 @@ export class AuthentCreateComponent implements OnInit {
         }
       };
       if (confirm(`Êtes-vous sûr de soumettre ces informations ?`)) {
-        const addClient = this.authCreateClientService.addClient().subscribe(_ => {
-          this.authCreateForm.reset();
-          addClient.unsubscribe();
+        const addClient = this.authCreateClientService.addClient().subscribe(res => {
+          if (JSON.parse(res).response != undefined) {
+            alert("Cet email existe déjà!")
+          } else {
+            this.authCreateForm.reset();
+            addClient.unsubscribe();
+          }
         });
       }
     }

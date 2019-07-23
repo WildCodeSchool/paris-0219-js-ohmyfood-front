@@ -43,4 +43,8 @@ export class UserAccountInformationsService {
   putClientAccountAddressInfos() {
     return this.http.put(this.urlUserAddressPut, this.userAccountAddressObject, {responseType: 'text'}).toPromise()
   }
+
+  delClientAccount() {
+    return this.http.delete(`${this.url}/?mail=${this.userMail}`, { responseType: 'text' }).toPromise()
+  }
 }

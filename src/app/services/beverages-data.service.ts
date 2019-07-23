@@ -10,8 +10,6 @@ export class BeveragesDataService {
 
   beveragesRoute = 'http://localhost:3000/beverages';
 
-  userChoice: Array<OrderBeverage> = [];
-
   @Output()
   public getUserBeverages: EventEmitter<any> = new EventEmitter();
 
@@ -21,35 +19,30 @@ export class BeveragesDataService {
     return this.http.get(this.beveragesRoute);
   }
 
-  createOrderBeverage(formResult) { // create object with OrderBeverage Class
-    for (const key in formResult) {
-      if (formResult.hasOwnProperty(key)) {
-        formResult[key].map(test => {
-          if (test.bevQuantity > 0) {
-            const choice = new OrderBeverage(test.idBeverages, test.bevName, +test.bevPriceTTC, test.bevQuantity);
-            this.userChoice.push(choice);
+  createOrderBeverage(userBeverageChoice: object) { // create object with OrderBeverage Class
+    for (const beverage in userBeverageChoice) {
+      if (userBeverageChoice.hasOwnProperty(beverage)) {
+        userBeverageChoice[beverage].map((userBeverage: any) => {
+          if (userBeverage.bevQuantity > 0) {
+            const beveragesChoice = new OrderBeverage(
+              userBeverage.idBeverages, userBeverage.bevName, +userBeverage.bevPriceTTC, userBeverage.bevQuantity
+              );
+            this.getUserBeverages.emit(beveragesChoice);
             }
           }
         );
       }
     }
-    if (this.userChoice.length > 1) {
-      this.sortUserChoice();
-    }
-    this.getUserBeverages.emit(this.userChoice);
   }
 
-  sortUserChoice() { // Remove duplicate choice
-    for (let i = 0; i < this.userChoice.length; i ++) {
-      for (let j = i + 1 ; j < this.userChoice.length; j ++ ) {
-        if (this.userChoice[i].bevName === this.userChoice[j].bevName) {
-          this.userChoice[i].bevQuantity += this.userChoice[j].bevQuantity; // Sum of quantity
-          this.userChoice.splice(j, 1); // Remove duplicate
-        }
-      }
-    }
+  createOrderBeveragelocalStorage(object: any) {
+    return new OrderBeverage(
+      object.idBeverages,
+      object.bevName,
+      object.bevPriceTotal / object.bevQuantity, // We divide priceTotal by quantity to get good value in basket
+      object.bevQuantity
+    );
   }
-
 }
 
 

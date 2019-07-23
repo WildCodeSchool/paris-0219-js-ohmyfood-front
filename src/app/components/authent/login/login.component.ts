@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoginService } from 'src/app/services/login.service';
+import { UserAccountInformationsService } from '../../../services/user-account-informations.service'
 import { Router } from '@angular/router';
+import { OnlyLoggedInUsersGuardService } from 'src/app/services/only-logged-in-users-guard.service';
+import { AdminSuperGuardService } from 'src/app/services/admin-super-guard.service';
 
 @Component({
   selector: 'app-login',
@@ -10,11 +13,17 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
+  userRight = 0;
+  userIdLogged;
+  transfertToken;
 
   constructor(
-    private fb: FormBuilder, 
+    private fb: FormBuilder,
     private loginService: LoginService,
     private router: Router,
+    private userAccountService: UserAccountInformationsService,
+    private onlyLoggedInUsersGuardService: OnlyLoggedInUsersGuardService,
+    private adminSuperGuardService: AdminSuperGuardService
   ) { }
 
   ngOnInit() {
@@ -34,8 +43,21 @@ export class LoginComponent implements OnInit {
         mail: this.loginForm.value.emailClient,
         password: this.loginForm.value.psswClient
       }
+      this.userAccountService.userMail = this.loginService.loginObject['mail'];
       this.loginService.loginCheck().then(res => {
-        sessionStorage.setItem('token', res)
+        const objRes = JSON.parse(res);
+        this.userIdLogged = objRes.userId;
+        localStorage.setItem('token', objRes.token);
+        localStorage.setItem('userMail', objRes.userMail);
+        localStorage.setItem('userLastName', objRes.userLastName);
+        localStorage.setItem('userFirstName', objRes.userFirstName);
+        if (objRes.userRight == 1) {
+          this.userRight = 1;
+          this.adminSuperGuardService.tokenGuard = objRes.token;
+          localStorage.setItem('adminToken', objRes.token)
+          this.adminSuperGuardService.ifLogged = 'adminLogged'
+        }
+        this.onlyLoggedInUsersGuardService.tokenGuard = objRes.token;
         this.routeProtected();
       });
     }
@@ -43,24 +65,20 @@ export class LoginComponent implements OnInit {
 
   routeProtected() {
     this.loginService.routeProtection().then(res => {
-      this.loginService.getClientInformation().then(res => {
         const userInfoObject = {
-          lastname: res['0'].lastname,
-          firstname: res['0'].firstname,
-          mail: res['0'].mail, 
-          userRight: res['0'].userRight
+          lastname: localStorage.getItem('userLastName'),
+          firstname: localStorage.getItem('userFirstName'),
+          mail: localStorage.getItem('userMail')
         }
-        if (userInfoObject.userRight === 1) {
-          this.loginService.transfertUserRightFn(userInfoObject.userRight);
+        if (this.userRight === 1) {
+          this.loginService.transfertUserRightFn(this.userRight);
+          this.adminSuperGuardService.ifLogged = 'userLogged';
+          this.router.navigateByUrl('admin');
+          return
         }
-
-        sessionStorage.setItem('userLastName', userInfoObject.lastname);
-        sessionStorage.setItem('userFirstName', userInfoObject.firstname);
-        sessionStorage.setItem('userMail', userInfoObject.mail);
         this.loginService.transfertUserFn(userInfoObject);
         this.router.navigateByUrl('homeOrderPage');
-      });
+        return
     });
   }
-  
 }

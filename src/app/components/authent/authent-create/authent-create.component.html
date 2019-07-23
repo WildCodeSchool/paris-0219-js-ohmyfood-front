@@ -1,112 +1,226 @@
-<form [formGroup]="authCreateForm">
-  <h2>Bienvenue chez OHMYFOOD</h2>
-  <p>Veuillez enregistrer vos informations</p>
-  <label>
-    <p>Entrez votre Nom</p>
-    <input 
-      type="text" 
-      placeholder="Nom"
-      formControlName="lastName"
-      required
-    >
-  </label>
-  <div *ngIf="fC.lastName.invalid && (fC.lastName.dirty || fC.lastName.touched)">
-    <div *ngIf="fC.lastName.errors.required">
-      <p class="invalidText">*Votre nom est requis</p>
+<form [formGroup]="authCreateForm" #createAuthForm ="ngForm">
+  <div class="formContent">
+    <h2>Bienvenue chez OHMYFOOD</h2>
+    <p>Veuillez enregistrer vos informations</p>
+    <label>
+      <p>Entrez votre Nom</p>
+      <input
+        type="text"
+        placeholder="Nom"
+        formControlName="lastName"
+        required
+      >
+    </label>
+    <div *ngIf="fC.lastName.invalid && (fC.lastName.dirty || fC.lastName.touched)">
+      <div *ngIf="fC.lastName.errors.required">
+        <p class="invalidText">*Votre nom est requis</p>
+      </div>
+      <div *ngIf="fC.lastName.errors.minlength">
+        <p class="invalidText">*Votre nom doit contenir au moins 4 caractères</p>
+      </div>
+      <div *ngIf="fC.lastName.errors.maxlength">
+        <p class="invalidText">*Votre nom ne doit pas dépasser les 45 caractères</p>
+      </div>
     </div>
-    <div *ngIf="fC.lastName.errors.minlength">
-      <p class="invalidText">*Votre nom doit contenir au moins 4 caractères</p>
+    <label>
+      <p>Entrez votre Prénom</p>
+      <input
+        type="text"
+        placeholder="Prénom"
+        formControlName="firstName"
+        required
+      >
+    </label>
+    <div *ngIf="fC.firstName.invalid && (fC.firstName.dirty || fC.firstName.touched)">
+      <div *ngIf="fC.firstName.errors.required">
+        <p class="invalidText">*Votre prénom est requis</p>
+      </div>
+      <div *ngIf="fC.firstName.errors.minlength">
+        <p class="invalidText">*Votre prénom doit contenir au moins 4 caractères</p>
+      </div>
+      <div *ngIf="fC.firstName.errors.maxlength">
+        <p class="invalidText">*Votre prénom ne doit pas dépasser les 45 caractères</p>
+      </div>
     </div>
-    <div *ngIf="fC.lastName.errors.maxlength">
-      <p class="invalidText">*Votre nom ne doit pas dépasser les 45 caractères</p>
+    <label>
+      <p>Entrez votre E-Mail</p>
+      <input
+        type="text"
+        placeholder="E-Mail"
+        formControlName="email"
+        required
+      >
+    </label>
+    <div *ngIf="fC.email.invalid && (fC.email.dirty || fC.email.touched)">
+      <div *ngIf="fC.email.errors.required">
+        <p class="invalidText">*Votre email est requis</p>
+      </div>
+      <div *ngIf="fC.email.errors.pattern">
+        <p class="invalidText">*Votre e-mail doit être de la forme xxx@xxx.xxx</p>
+      </div>
+      <div *ngIf="fC.email.errors.minlength">
+        <p class="invalidText">*Votre e-mail doit contenir au moins 4 caractères</p>
+      </div>
     </div>
+    <label>
+      <p>Entrez votre téléphone</p>
+      <input
+        type="text"
+        placeholder="Téléphone"
+        formControlName="phone"
+        required
+      >
+    </label>
+    <div *ngIf="fC.phone.invalid && (fC.phone.dirty || fC.phone.touched)">
+      <div *ngIf="fC.phone.errors.required">
+        <p class="invalidText">*Votre prénom est requis</p>
+      </div>
+      <div *ngIf="fC.phone.errors.minlength">
+        <p class="invalidText">*Votre téléphone doit se composer de 10 chiffres</p>
+      </div>
+      <div *ngIf="fC.phone.errors.maxlength">
+        <p class="invalidText">*Votre téléphone doit se composer de 10 chiffres</p>
+      </div>
+      <div *ngIf="fC.phone.errors.pattern">
+        <p class="invalidText">*Votre téléphone ne doit comporter que des chiffres</p>
+      </div>
+    </div>
+    <label>
+      <p>Entrez votre mot de passe</p>
+      <p>Pour une sécurité optimale, nous vous conseillons d'entrer un mot de passe incluant des majuscules et des caractères spéciaux</p>
+      <p>Exemple de mot de passe : IlovePizza!42</p>
+      <input
+        type="{{ psswType }}"
+        placeholder="Mot de Passe"
+        formControlName="pssw"
+        required
+      >
+      <a *ngIf="show" (click)="showPssw($event)"><i class="fa fa-eye"></i></a>
+      <a *ngIf="!show" (click)="showPssw($event)"><i class="fa fa-eye-slash"></i></a>
+    </label>
+    <label>
+      <p>Confirmer votre mot de passe</p>
+      <input
+        type="{{ psswType }}"
+        placeholder="Mot de Passe"
+        formControlName="psswVerif"
+        required
+      >
+      <a *ngIf="show" (click)="showPssw($event)"><i class="fa fa-eye"></i></a>
+      <a *ngIf="!show" (click)="showPssw($event)"><i class="fa fa-eye-slash"></i></a>
+    </label>
+    <div *ngIf="fC.pssw.invalid && (fC.pssw.dirty || fC.pssw.touched)">
+      <div *ngIf="fC.pssw.errors.required">
+        <p class="invalidText">*Votre mot de passe est requis</p>
+      </div>
+      <div *ngIf="fC.pssw.errors.minlength">
+        <p class="invalidText">*Votre mot de passe doit au moins se composer de 7 caractères</p>
+      </div>
+      <div *ngIf="fC.pssw.errors.maxlength">
+        <p class="invalidText">*Votre mot de passe ne doit pas excéder 15 caractères</p>
+      </div>
+    </div>
+    <div *ngIf="createAuthForm.submitted && createAuthForm.errors">
+      <p class="invalidText">{{ createAuthForm.errors['wrongPassword'] }}</p>
+    </div>
+    <p>Veuillez également enregistrer vos coordonnées</p>
+    <label>
+      <p>Adresse 1</p>
+      <input
+        type="text"
+        placeholder="Adresse 1"
+        formControlName="address1"
+        required
+      >
+    </label>
+    <div *ngIf="fC.address1.invalid && (fC.address1.dirty || fC.address1.touched)">
+      <div *ngIf="fC.address1.errors.required">
+        <p class="invalidText">*Votre adresse est requise</p>
+      </div>
+      <div *ngIf="fC.address1.errors.minlength">
+        <p class="invalidText">*Votre adresse doit contenir au moins 4 caractères</p>
+      </div>
+      <div *ngIf="fC.address1.errors.maxlength">
+        <p class="invalidText">*Votre adresse ne doit pas dépasser les 45 caractères</p>
+      </div>
+    </div>
+    <label>
+      <p>Adresse 2</p>
+      <input
+        type="text"
+        placeholder="Adresse 2"
+        formControlName="address2"
+      >
+    </label>
+    <div *ngIf="fC.address2.invalid && (fC.address2.dirty || fC.address2.touched)">
+      <div *ngIf="fC.address2.errors.minlength">
+        <p class="invalidText">*Votre adresse doit contenir au moins 4 caractères</p>
+      </div>
+      <div *ngIf="fC.address2.errors.maxlength">
+        <p class="invalidText">*Votre adresse ne doit pas dépasser les 45 caractères</p>
+      </div>
+    </div>
+    <label>
+      <p>Code Postal</p>
+      <input
+        type="text"
+        placeholder="Code postal"
+        formControlName="zipcode"
+        required
+      >
+    </label>
+    <div *ngIf="fC.zipcode.invalid && (fC.zipcode.dirty || fC.zipcode.touched)">
+      <div *ngIf="fC.zipcode.errors.required">
+        <p class="invalidText">*Votre code postal est requis</p>
+      </div>
+      <div *ngIf="fC.zipcode.errors.pattern">
+        <p class="invalidText">*Votre code postal doit être sous la forme XXXXX</p>
+      </div>
+      <div *ngIf="fC.zipcode.errors.minlength">
+        <p class="invalidText">*Votre code postal doit contenir 5 caractères</p>
+      </div>
+    </div>
+    <label>
+      <p>Ville</p>
+      <input
+        type="text"
+        placeholder="Ville"
+        formControlName="city"
+        required
+      >
+    </label>
+    <div *ngIf="fC.city.invalid && (fC.city.dirty || fC.city.touched)">
+      <div *ngIf="fC.city.errors.required">
+        <p class="invalidText">*Votre ville est requise</p>
+      </div>
+      <div *ngIf="fC.city.errors.minlength">
+        <p class="invalidText">*Votre ville doit au moins comporter 2 caractères</p>
+      </div>
+      <div *ngIf="fC.city.errors.maxlength">
+        <p class="invalidText">*Votre ville ne doit pas dépasser les 255 caractères</p>
+      </div>
+    </div>
+    <label>
+      <p>Adresse de facturation</p>
+      <input
+        type="text"
+        placeholder="Adresse de facturation"
+        formControlName="userFacturation"
+        required
+      >
+    </label>
+    <div *ngIf="fC.userFacturation.invalid && (fC.userFacturation.dirty || fC.userFacturation.touched)">
+      <div *ngIf="fC.userFacturation.errors.required">
+        <p class="invalidText">*Votre adresse de facturation est requise</p>
+      </div>
+      <div *ngIf="fC.userFacturation.errors.minlength">
+        <p class="invalidText">*Votre adresse de facturation doit au moins se composer de 2 caractères</p>
+      </div>
+      <div *ngIf="fC.userFacturation.errors.maxlength">
+        <p class="invalidText">*Votre adresse de facturation ne doit pas excéder 255 caractères</p>
+      </div>
+    </div>
+    <button type="submit" (click)="onSubmitCreateClientForm()">Créer mon compte</button>
+    <p>Un email confirmant votre inscrition vous sera envoyé dès que vous aurez validé ce formulaire à l'adresse mail que vous avez mentionné plus haut. <br> Nous vous remercions de votre confiance et vous souhaitons une très bonne expérience sur cette application.</p>
   </div>
-  <label>
-    <p>Entrez votre Prénom</p>
-    <input 
-      type="text" 
-      placeholder="Prénom"
-      formControlName="firstName"
-      required
-    >
-  </label>
-  <div *ngIf="fC.firstName.invalid && (fC.firstName.dirty || fC.firstName.touched)">
-    <div *ngIf="fC.firstName.errors.required">
-      <p class="invalidText">*Votre prénom est requis</p>
-    </div>
-    <div *ngIf="fC.firstName.errors.minlength">
-      <p class="invalidText">*Votre prénom doit contenir au moins 4 caractères</p>
-    </div>
-    <div *ngIf="fC.firstName.errors.maxlength">
-      <p class="invalidText">*Votre prénom ne doit pas dépasser les 45 caractères</p>
-    </div>
-  </div>
-  <label>
-    <p>Entrez votre E-Mail</p>
-    <input 
-      type="text" 
-      placeholder="E-Mail"
-      formControlName="email"
-      required
-    >
-  </label>
-  <div *ngIf="fC.email.invalid && (fC.email.dirty || fC.email.touched)">
-    <div *ngIf="fC.email.errors.required">
-      <p class="invalidText">*Votre email est requis</p>
-    </div>
-    <div *ngIf="fC.email.errors.pattern">
-      <p class="invalidText">*Votre e-mail doit être de la forme xxx@xxx.xxx</p>
-    </div>
-    <div *ngIf="fC.firstName.errors.minlength">
-      <p class="invalidText">*Votre e-mail doit contenir au moins 4 caractères</p>
-    </div>
-  </div>
-  <label>
-    <p>Entrez votre téléphone</p>
-    <input 
-      type="text" 
-      placeholder="Téléphone"
-      formControlName="phone"
-      required
-    >
-  </label>
-  <div *ngIf="fC.phone.invalid && (fC.phone.dirty || fC.phone.touched)">
-    <div *ngIf="fC.phone.errors.required">
-      <p class="invalidText">*Votre prénom est requis</p>
-    </div>
-    <div *ngIf="fC.phone.errors.minlength">
-      <p class="invalidText">*Votre téléphone doit se composer de 10 chiffres</p>
-    </div>
-    <div *ngIf="fC.phone.errors.maxlength">
-      <p class="invalidText">*Votre téléphone doit se composer de 10 chiffres</p>
-    </div>
-    <div *ngIf="fC.phone.errors.pattern">
-      <p class="invalidText">*Votre téléphone ne doit comporter que des chiffres</p>
-    </div>
-  </div>
-  <label>
-    <p>Entrez votre mot de passe</p>
-    <p>Pour une sécurité optimale, nous vous conseillons d'entrer un mot de passe incluant des majuscules et des caractères spéciaux</p>
-    <p>Exemple de mot de passe : IlovePizza!42</p>
-    <input 
-      type="{{ psswType }}" 
-      placeholder="Mot de Passe"
-      formControlName="pssw"
-      required
-    >
-    <a *ngIf="show" (click)="showPssw($event)"><i class="fa fa-eye"></i></a>
-    <a *ngIf="!show" (click)="showPssw($event)"><i class="fa fa-eye-slash"></i></a>
-  </label>
-  <div *ngIf="fC.pssw.invalid && (fC.pssw.dirty || fC.pssw.touched)">
-    <div *ngIf="fC.pssw.errors.required">
-      <p class="invalidText">*Votre mot de passe est requis</p>
-    </div>
-    <div *ngIf="fC.pssw.errors.minlength">
-      <p class="invalidText">*Votre mot de passe doit au moins se composer de 7 caractères</p>
-    </div>
-    <div *ngIf="fC.pssw.errors.maxlength">
-      <p class="invalidText">*Votre mot de passe ne doit pas excéder 15 caractères</p>
-    </div>
-  </div>
-  <button type="submit" (click)="onSubmitCreateClientForm()">Ok</button>
 </form>

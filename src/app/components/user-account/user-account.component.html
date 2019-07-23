@@ -1,0 +1,39 @@
+<div class="userAccountList">
+  <ul>
+    <li>
+      <h2>MON COMPTE</h2>
+    </li>
+    <li>
+      <p>Nom</p>
+      <p>{{userAccountObject['0'].lastname}}</p>
+    </li>
+    <li>
+      <p>Prénom</p>
+      <p>{{userAccountObject['0'].firstname}}</p>
+    </li>
+    <li>
+      <p>Mail</p>
+      <p>{{userAccountObject['0'].mail}}</p>
+    </li>
+    <li>
+      <p>Numéro de téléphone</p>
+      <p>0{{userAccountObject['0'].phoneNumber}}</p>
+    </li>
+    <li>
+      <p>Adresse 1</p>
+      <p>{{userAccountObject['1'].userAddress1}}</p>
+    </li>
+    <li *ngIf="userAccountObject['1'].userAddress2 != ''">
+      <p>Adresse 2</p>
+      <p>{{userAccountObject['1'].userAddress2}}</p>
+    </li>
+    <li>
+      <p>Code postal</p>
+      <p>{{userAccountObject['1'].zipcode}}</p>
+    </li>
+    <li>
+      <p>Ville</p>
+      <p>{{userAccountObject['1'].city}}</p>
+    </li>
+  </ul>
+</div>

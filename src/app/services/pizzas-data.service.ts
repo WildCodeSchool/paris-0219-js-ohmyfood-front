@@ -13,6 +13,9 @@ export class PizzasDataService {
   @Output()
   public getUserPizzas: EventEmitter<any> = new EventEmitter(); // To transfert data to basketComponent
 
+  @Output()
+  transmitOrderStatus: EventEmitter<any> = new EventEmitter(); // To transfert order status to pizzaFormComponent to update price
+
   constructor(private http: HttpClient) { }
 
   getPizzas(): Observable<object> {

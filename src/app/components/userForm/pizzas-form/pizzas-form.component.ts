@@ -90,6 +90,11 @@ export class PizzasFormComponent implements OnInit {
       // Transfert day to parent component
       this.getDay.emit(this.today);
 
+      if (localStorage.getItem('orderStatus')) {
+        const orderStatus = JSON.parse(localStorage.getItem('orderStatus'));
+
+        orderStatus === 'toTakeAway' ? this.ohMyMardiPrice() : this.patchPizzasPrice();
+      }
       ohMyMardiSubscription.unsubscribe();
     });
   }

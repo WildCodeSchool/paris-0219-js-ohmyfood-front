@@ -1,32 +1,41 @@
 import { Component, OnInit } from '@angular/core';
 import { PizzasDataService } from 'src/app/services/pizzas-data.service';
-import { FormArray, FormBuilder } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { QuantitySelectService } from 'src/app/services/quantity-select.service';
 import { ToggleFormService } from 'src/app/services/toggle-form.service';
 import { CreateFormService } from 'src/app/services/create-form.service';
+import { DatePipe } from '@angular/common';
+import { deliveryIntervalTime } from 'src/app/validators/deliveryTimeValidators';
 
 @Component({
   selector: 'app-pizzas-form',
   templateUrl: './pizzas-form.component.html',
-  styleUrls: ['./pizzas-form.component.scss']
+  styleUrls: ['./pizzas-form.component.scss'],
+  providers: [DatePipe]
 })
 export class PizzasFormComponent implements OnInit {
 
+  date: Date = new Date();
+
+  controlDate: string;
+
   isToggle: boolean;
 
-  formPizzas = this.formBuilder.group({
-    selectedPizzas: this.formBuilder.array([])
-  });
+  formPizzas: FormGroup;
 
   constructor(
     private pizzasData: PizzasDataService,
     private createFormService: CreateFormService,
     private formBuilder: FormBuilder,
     private quantitySelectService: QuantitySelectService,
-    private toggleService: ToggleFormService
-    ) { }
+    private toggleService: ToggleFormService,
+    private datePipe: DatePipe
+    ) { this.controlDate = this.datePipe.transform(this.date, 'EEEE H:mm:ss'); }
 
   ngOnInit() {
+    // init formPizzas
+    this.initFormPizzas();
+
     const subscription = this.pizzasData.getPizzas()
     .subscribe(pizzas => {
 
@@ -44,6 +53,15 @@ export class PizzasFormComponent implements OnInit {
         }
       }
       subscription.unsubscribe();
+    });
+  }
+
+  initFormPizzas() {
+    this.formPizzas = this.formBuilder.group({
+      selectedPizzas: this.formBuilder.array([])
+    },
+    {
+      validators: deliveryIntervalTime(this.controlDate, false)
     });
   }
 

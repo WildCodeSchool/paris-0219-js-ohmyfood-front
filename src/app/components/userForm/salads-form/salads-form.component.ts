@@ -2,14 +2,17 @@ import { Component, OnInit, Input } from '@angular/core';
 import { SaladsDatasService } from 'src/app/services/salads-datas.service';
 import { QuantitySelectService } from 'src/app/services/quantity-select.service';
 import { ToggleFormService } from 'src/app/services/toggle-form.service';
-import { FormBuilder, FormArray } from '@angular/forms';
+import { FormBuilder, FormArray, FormGroup } from '@angular/forms';
 import {checkSaladsBase} from 'src/app/validators/saladsBaseValidators';
 import { checkSaladsIngredients } from 'src/app/validators/saladsIngredientsValidators';
+import { DatePipe } from '@angular/common';
+import { deliveryIntervalTime } from 'src/app/validators/deliveryTimeValidators';
 
 @Component({
   selector: 'app-salads-form',
   templateUrl: './salads-form.component.html',
-  styleUrls: ['./salads-form.component.scss']
+  styleUrls: ['./salads-form.component.scss'],
+  providers: [DatePipe]
 })
 export class SaladsFormComponent implements OnInit {
 
@@ -17,6 +20,10 @@ export class SaladsFormComponent implements OnInit {
   // Get this information from menuSaladFormComponent
   @Input()
   menu: boolean;
+
+  date: Date = new Date();
+
+  controlDate: string;
 
   // To toggle Form
   isToggle: boolean;
@@ -31,22 +38,20 @@ export class SaladsFormComponent implements OnInit {
   displayToppingsMessage = true;
 
   // Reactive Form
-  formSalads = this.fb.group({
-      selectBase: this.fb.array([], checkSaladsBase()),
-      selectIngredients: this.fb.array([], checkSaladsIngredients()),
-      selectToppings: this.fb.array([]),
-      selectSauces: this.fb.array([])
-  });
+  formSalads: FormGroup;
 
   constructor(
     private saladsDataService: SaladsDatasService,
     private quantitySelectService: QuantitySelectService,
     private ToggleForm: ToggleFormService,
     private fb: FormBuilder,
-
-    ) {}
+    private datePipe: DatePipe
+    ) {this.controlDate = this.datePipe.transform(this.date, 'EEEE H:mm:ss'); }
 
   ngOnInit() {
+    // Init formSalads
+    this.initFormSalads();
+
     const basesSubscription = this.saladsDataService.addSaladsBases().subscribe(bases => {
 
       for (const key in bases) {
@@ -132,6 +137,18 @@ export class SaladsFormComponent implements OnInit {
       }
       toppingsSubscription.unsubscribe();
     });
+  }
+
+  initFormSalads() {
+    this.formSalads = this.fb.group({
+      selectBase: this.fb.array([], checkSaladsBase()),
+      selectIngredients: this.fb.array([], checkSaladsIngredients()),
+      selectToppings: this.fb.array([]),
+      selectSauces: this.fb.array([])
+  },
+  {
+    validators: deliveryIntervalTime(this.controlDate, false)
+  });
   }
 
   get selectBase(): FormArray {

@@ -1,22 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import { PizzasDataService } from 'src/app/services/pizzas-data.service';
 import { OrderPizzas } from 'src/app/class/order-pizzas';
-import { QuantitySelectService } from 'src/app/services/quantity-select.service';
-import { CreateFormBasketService } from 'src/app/services/create-form-basket.service';
 import { OrderBeverage } from 'src/app/class/order-beverage';
-import { BeveragesDataService } from 'src/app/services/beverages-data.service';
 import { OrderDessert } from 'src/app/class/order-dessert';
-import { DessertsDataService } from 'src/app/services/desserts-data.service';
 import { FinalOrder } from 'src/app/class/final-order';
 import { FinalOrderService } from 'src/app/services/final-order.service';
-import { PizzaService } from 'src/app/services/pizza.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UserAccountInformationsService } from 'src/app/services/user-account-informations.service';
+import { DatePipe } from '@angular/common';
+import { checkLocationDelivery } from '../../validators/checkLocationDelivery';
 
 @Component({
   selector: 'app-detail-order',
   templateUrl: './detail-order.component.html',
-  styleUrls: ['./detail-order.component.scss']
+  styleUrls: ['./detail-order.component.scss'],
+  providers: [DatePipe]
 })
 export class DetailOrderComponent implements OnInit {
 
@@ -29,45 +26,50 @@ export class DetailOrderComponent implements OnInit {
 
   finalOrderRecap: FinalOrder;
 
+  date: Date = new Date();
+
+  dateOrder: string;
+
   initPrice: boolean;
 
-  total: number; // final result
+  totalOrder: number; // final result
 
   userDetailForm: FormGroup;
 
   constructor(
-    private pizzaService: PizzaService,
-    private finalOrder: FinalOrderService, 
-    private fb: FormBuilder, 
-    private userAccountInformationsService: UserAccountInformationsService
-  ) { }
+    private finalOrderService: FinalOrderService,
+    private fb: FormBuilder,
+    private userAccountInformationsService: UserAccountInformationsService,
+    private datePipe: DatePipe
+  ) { this.dateOrder = this.datePipe.transform(this.date, 'yyyy-MM-dd HH:mm:ss'); }
 
   ngOnInit() {
     this.initForm();
-    this.userAccountInformationsService.userMail = sessionStorage.getItem('userMail');
+    this.userAccountInformationsService.userMail = localStorage.getItem('userMail');
     this.userAccountInformationsService.getClientAccountInfos().then(res => {
       const userAccountObject = JSON.parse(res);
       this.userDetailForm.patchValue({
-        mailUser: sessionStorage.getItem('userMail'), 
-        livrAddress1 : userAccountObject['1'].userAddress1, 
-        livrAddress2 : userAccountObject['1'].userAddress2, 
-        zipcode : userAccountObject['1'].zipcode, 
+        mailUser: localStorage.getItem('userMail'),
+        livrAddress1 : userAccountObject['1'].userAddress1,
+        livrAddress2 : userAccountObject['1'].userAddress2,
+        zipcode : userAccountObject['1'].zipcode,
         city: userAccountObject['1'].city,
-        factAddress: `${userAccountObject['1'].userAddress1} ${userAccountObject['1'].userAddress2} ${userAccountObject['1'].zipcode} ${userAccountObject['1'].city}`
+        factAddress: `${userAccountObject['1'].userAddress1} ` +
+        `${userAccountObject['1'].userAddress2} ${userAccountObject['1'].zipcode} ${userAccountObject['1'].city}`
       });
     });
     // Get item from session storage if there is something in it
-    if (sessionStorage.getItem('finalOrder')) {
-      this.finalOrderRecap = JSON.parse(sessionStorage.getItem('finalOrder'));
+    if (localStorage.getItem('finalOrder')) {
+      this.finalOrderRecap = JSON.parse(localStorage.getItem('finalOrder'));
     }
 
     // Subscribe to output from basket component
-    const finalOrderSubscription = this.finalOrder.getFinalOrder.subscribe((userFinalOrder: any) => {
+    const finalOrderSubscription = this.finalOrderService.getFinalOrder.subscribe((userFinalOrder: any) => {
       let finalOrderStorage: any;
 
-      sessionStorage.getItem('finalOrder') ?
-      finalOrderStorage = JSON.parse(sessionStorage.getItem('finalOrder')) :
-      sessionStorage.setItem('finalOrder', JSON.stringify(userFinalOrder));
+      localStorage.getItem('finalOrder') ?
+      finalOrderStorage = JSON.parse(localStorage.getItem('finalOrder')) :
+      localStorage.setItem('finalOrder', JSON.stringify(userFinalOrder));
 
       // Initialize variables to sort duplicate data
       const pizza = userFinalOrder.pizza;
@@ -119,7 +121,7 @@ export class DetailOrderComponent implements OnInit {
         for (let j = i + 1; j < pizza.length; j ++) {
           if (pizza[i].pizzName === pizza[j].pizzName) {
             pizza[i].pizzQuantity += pizza[j].pizzQuantity;
-            pizza[i].pizzPriceTotal += pizza[j].pizzPriceTotal;
+            pizza[i].pizzPriceTotal += (pizza[j].pizzPriceTotal).toFixed(2);
             pizza.splice(j, 1);
           }
         }
@@ -129,7 +131,7 @@ export class DetailOrderComponent implements OnInit {
         for (let j = i + 1; j < beverage.length; j ++) {
           if (beverage[i].bevName === beverage[j].bevName) {
             beverage[i].bevQuantity += beverage[j].bevQuantity;
-            beverage[i].bevPriceTotal += beverage[j].bevPriceTotal;
+            beverage[i].bevPriceTotal += (beverage[j].bevPriceTotal).toFixed(2);
             beverage.splice(j, 1);
           }
         }
@@ -139,7 +141,7 @@ export class DetailOrderComponent implements OnInit {
         for (let j = i + 1; j < dessert.length; j ++) {
           if (dessert[i].dessName === dessert[j].dessName) {
             dessert[i].dessQuantity += dessert[j].dessQuantity;
-            dessert[i].dessPriceTotal += dessert[j].dessPriceTotal;
+            dessert[i].dessPriceTotal += (dessert[j].dessPriceTotal).toFixed(2);
             dessert.splice(j, 1);
           }
         }
@@ -155,9 +157,11 @@ export class DetailOrderComponent implements OnInit {
           menuSalad
         );
 
-      sessionStorage.setItem('finalOrder', JSON.stringify(this.finalOrderRecap)); // Save new finalOrder in session storage
+      localStorage.setItem('finalOrder', JSON.stringify(this.finalOrderRecap)); // Save new finalOrder in session storage
+      this.calcTotalOrder();
       finalOrderSubscription.unsubscribe();
     });
+    this.calcTotalOrder();
   }
 
   // html gestion
@@ -195,12 +199,12 @@ export class DetailOrderComponent implements OnInit {
 
     if (operator === '+') {
       this.finalOrderRecap[`${elType}`][`${i}`][`${abrevElTypeQtt}`] += 1;
-      this.finalOrderRecap[`${elType}`][`${i}`][`${abrevElTypeTotPrice}`] = elementPrice * (quantity + 1);
+      this.finalOrderRecap[`${elType}`][`${i}`][`${abrevElTypeTotPrice}`] = (elementPrice * (quantity + 1)).toFixed(2);
     }
     if (operator === '-') {
       if (quantity > 1) {
         this.finalOrderRecap[`${elType}`][`${i}`][`${abrevElTypeQtt}`] -= 1;
-        this.finalOrderRecap[`${elType}`][`${i}`][`${abrevElTypeTotPrice}`] = elementPrice * (quantity - 1);
+        this.finalOrderRecap[`${elType}`][`${i}`][`${abrevElTypeTotPrice}`] = (elementPrice * (quantity - 1)).toFixed(2);
       } else {
         let speechConfirm = `Etes-vous sûr de vouloir supprimer `;
         if (elType === 'salad') {
@@ -212,26 +216,58 @@ export class DetailOrderComponent implements OnInit {
         } else {
           speechConfirm += `${this.finalOrderRecap[`${elType}`][`${i}`][`${abrevElType}Name`]}?`;
         }
-        /* elType === 'salad' ? speechConfirm += `la salade n° ${i + 1}?` */
-        /* : */
+
         if (confirm(speechConfirm)) {
           this.finalOrderRecap[`${elType}`].splice(i, 1);
         }
       }
     }
-    sessionStorage.setItem('finalOrder', JSON.stringify(this.finalOrderRecap));
+    localStorage.setItem('finalOrder', JSON.stringify(this.finalOrderRecap));
+    this.calcTotalOrder();
   }
 
   initForm() {
     this.userDetailForm = this.fb.group({
-      mailUser: [sessionStorage.getItem('userMail')], 
-      livrAddress1 : ['', Validators.required], 
-      livrAddress2 : ['', Validators.required], 
-      zipcode : ['', Validators.required], 
+      mailUser: [localStorage.getItem('userMail')],
+      livrAddress1 : ['', Validators.required],
+      livrAddress2 : ['', Validators.required],
+      zipcode : ['', Validators.required],
       city: [''],
       factAddress: [''],
-      comment: ['']
-    })
+      comment: [''],
+      deliveryOrTakeAway: ['À emporter']
+    },
+    {
+      validators: checkLocationDelivery('deliveryOrTakeAway', 'zipcode')
+    });
+  }
+
+  calcTotalOrder() {
+    const arrayTotalOrderPrice = [];
+    const reducer = (accumulator: number, currentValue: number) => accumulator + currentValue;
+
+    this.finalOrderRecap[`pizza`].map(pizz => { arrayTotalOrderPrice.push(+pizz[`pizzPriceTotal`]); });
+    this.finalOrderRecap[`beverage`].map(bev => { arrayTotalOrderPrice.push(+bev[`bevPriceTotal`]); });
+    this.finalOrderRecap[`dessert`].map(dess => { arrayTotalOrderPrice.push(+dess[`dessPriceTotal`]); });
+    this.finalOrderRecap[`salad`].map(salad => { arrayTotalOrderPrice.push(+salad[`saladsComposedPriceTotal`]); });
+    this.finalOrderRecap[`menuPizza`].map(menuPizz => { arrayTotalOrderPrice.push(+menuPizz[`menuPizzPriceTotal`]); });
+    this.finalOrderRecap[`menuSalad`].map(menuSalad => { arrayTotalOrderPrice.push(+menuSalad[`menuSaladPriceTotal`]); });
+    this.totalOrder = arrayTotalOrderPrice.reduce(reducer).toFixed(2);
+  }
+
+  confirmOrder() {
+    const finalOrder = {
+      0: this.finalOrderRecap,
+      1: this.userDetailForm.value,
+      2: {
+        dateOrder: this.dateOrder,
+        priceOrder: this.totalOrder,
+        idUsers: ''
+      }
+    };
+    this.finalOrderService.finalOrderObject = finalOrder;
+    this.finalOrderService.submitFinalOrder().then(res => {
+    });
   }
 }
 

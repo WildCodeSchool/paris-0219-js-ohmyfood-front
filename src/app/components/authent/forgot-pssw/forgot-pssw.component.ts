@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Location } from '@angular/common';
 import { LoginService } from 'src/app/services/login.service';
+import { NewPasswordPageGuardService } from 'src/app/services/new-password-page-guard.service';
 
 @Component({
   selector: 'app-forgot-pssw',
@@ -15,7 +16,8 @@ export class ForgotPsswComponent implements OnInit {
   constructor(
     private fb: FormBuilder, 
     private location: Location, 
-    private loginService: LoginService
+    private loginService: LoginService,
+    private newPasswordPageGuardService: NewPasswordPageGuardService
   ) { }
 
   ngOnInit() {
@@ -41,8 +43,8 @@ export class ForgotPsswComponent implements OnInit {
       }
     }
     if (confirm(`Voulez-vous recevoir un lien pour changer de mot de passe ?`)) {
-      const forgotPsswObs = this.loginService.getNewPssw().subscribe(data => {
-        forgotPsswObs.unsubscribe();
+      this.loginService.getNewPssw().then(responseNewPssw => {
+        this.newPasswordPageGuardService.transfertResponseNewPsswFn(responseNewPssw)
       });
     }
   }

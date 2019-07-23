@@ -38,11 +38,13 @@ export class NewPasswordComponent implements OnInit {
     if(this.newPsswForm.valid) {
       this.forgotPasswordService.newPssw = {
         password: this.newPsswForm.value.firstPssw,
-        forgotPassword: sessionStorage.getItem('tokenPssw')
+        forgotPassword: localStorage.getItem('tokenPssw')
       }
       this.forgotPasswordService.putNewPssw().then(_ => {
         alert('Votre mot de passe a bien été changé !');
-        sessionStorage.removeItem('tokenPssw');
+        localStorage.removeItem('tokenPssw');
+        localStorage.removeItem('response');
+        localStorage.removeItem('firstResponse');
         this.router.navigateByUrl('/');
       });
     }

@@ -107,7 +107,7 @@ export class SaladsDatasService {
         }
 
         this.userSauces = new SaladsSauces(
-          null,
+          0,
           'Pas de sauce sélectionnée'
         );
       }
@@ -123,7 +123,7 @@ export class SaladsDatasService {
       this.userIngredients,
       this.userToppings,
       this.userSauces,
-      finalPrice.toFixed(2),
+      finalPrice,
       1
     );
 
@@ -138,7 +138,7 @@ export class SaladsDatasService {
     this.userSauces = null;
   }
 
-  createOrderSaladsSessionStorage(object: any) {
+  createOrderSaladslocalStorage(object: any) {
     for (let base of object.multiBases) {
       base = new SaladsBases(
         base.idSaladsBase,

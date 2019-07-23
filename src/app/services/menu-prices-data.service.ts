@@ -59,7 +59,7 @@ export class MenuPricesDataService {
     }
   }
 
-  createOrderMenuSessionStorage(object: any) {
+  createOrderMenulocalStorage(object: any) {
     const check = Object.getOwnPropertyNames(object);
 
     if (check[0] === 'pizza') {

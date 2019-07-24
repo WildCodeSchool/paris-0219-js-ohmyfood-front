@@ -19,7 +19,7 @@
       <h3 class="quantity">Quantités</h3>
     </div>
 
-    <form [formGroup]="formPizzas" (ngSubmit)="formPizzas.valid && onSubmit()">
+    <form [formGroup]="formPizzas" (ngSubmit)="onSubmit()">
       <div formArrayName="selectedPizzas">
         <div
           class="formLine"

@@ -40,11 +40,14 @@
 }
 
 .contenant {
+  flex-wrap: wrap;
   display: flex;
-}
-.suga {
   justify-content: space-around;
-  margin: 2px 2px auto;
+}
+
+.suga {
+  margin: 1%;
+  width: 45%;
 }
 //formGroupName
 
@@ -128,10 +131,9 @@ h2 {
 }
 p {
     text-align: left;
-    white-space: nowrap;
 }
 .totalOrder {
-  text-align: right;
+  text-align: center;
 }
 .quantityButton {
     margin-right: 5%;

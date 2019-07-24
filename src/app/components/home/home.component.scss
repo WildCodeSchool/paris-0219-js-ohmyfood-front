@@ -123,6 +123,8 @@ li {
     width: 76%;
     padding: 2%;
     margin: auto;
+    filter:  hue-rotate(6deg) brightness(95%) contrast(227%);
+    -webkit-filter: hue-rotate(6deg) brightness(95%) contrast(227%);
 }
 
 li {
@@ -138,13 +140,13 @@ li {
 .ingredientList { -ms-overflow-style: none; }
 
 @media screen and (min-width: 758px) {
-    
+
     .buttonArea {
         display: flex;
         flex-direction: row;
         justify-content: center;
         margin: 25px 50px;
-    
+
         .button {
             font-size: 2rem;
             margin: 0 20px;

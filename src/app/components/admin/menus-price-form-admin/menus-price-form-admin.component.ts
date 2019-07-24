@@ -34,18 +34,16 @@ export class MenusPriceFormAdminComponent implements OnInit {
 
   initForm() {
     this.menusPriceFormPut = this.fb.group({
-      pizzPrice: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(45)]],
-      saladPriceOr: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(45)]],
-      saladPriceAnd: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(45)]]
+      menuPrice: ['menuPizzPrice','menuSaladPriceOr', 'menuSaladPriceAnd', [Validators.required]],
     });
   }
 
   onSubmitPutForm() {
     if (this.menusPriceFormPut.valid) {
       this.menuService.menusPriceFormObject = {
-        menuPizzPrice: this.menusPriceFormPut.value.pizzPrice,
-        menuSaladPriceOr: this.menusPriceFormPut.value.saladPriceOr,
-        menuSaladPriceAnd: this.menusPriceFormPut.value.saladPriceAnd
+        menuPizzPrice: this.menusPriceFormPut.value.menuPrice,
+        menuSaladPriceOr: this.menusPriceFormPut.value.menuPrice,
+        menuSaladPriceAnd: this.menusPriceFormPut.value.menuPrice
       };
       if (confirm(`Êtes-vous certain de modifier le menu ${this.menusPriceFormPut.value.menuPizzPrice}`)) {
         const putMenuType = this.menuService.putMenusPriceType().subscribe(_ => {

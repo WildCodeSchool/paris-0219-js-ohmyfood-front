@@ -13,6 +13,7 @@ export class TaxFormAdminComponent implements OnInit {
   formCheck: FormGroup;
   regexTax = /[0-9{1}]+[.]+[0-9]{3}/gm;
   taxFormObject;
+  taxDataObject;
   taxFormPut: FormGroup;
   tabStr = [];
   valueAction = 'Modifier';
@@ -33,9 +34,10 @@ export class TaxFormAdminComponent implements OnInit {
   get FM () { return this.taxFormPut.controls; }
 
   initForm() {
+
     this.taxFormPut = this.fb.group({
-      taxName: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(45)]],
-      taxNewName: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(255)]],
+      taxName: ['', Validators.required],
+      taxNewName: [''],
       taxMultipliedBy: ['', [Validators.required, Validators.pattern(this.regexTax)]]
     });
   }
@@ -47,12 +49,12 @@ export class TaxFormAdminComponent implements OnInit {
         taxValue: this.taxFormPut.value.taxMultipliedBy
       };
       if (this.taxFormPut.value.taxNewName !== '') {
-        this.taxService.taxFormObject.idTaxName += '|' + this.toJadenCase(this.taxFormPut.value.taxNewName)
+        this.taxService.taxFormObject.taxName += '|' + this.taxFormPut.value.taxNewName
       }
       if (confirm(`Êtes-vous certain de modifier la tax ${this.taxFormPut.value.taxName}`)) {
         const putTaxType = this.taxService.putTaxType().subscribe(_ => {
           const getTaxObs = this.taxService.getTaxType().subscribe(data => {
-            this.taxFormObject = data;
+            this.taxDataObject = data;
             getTaxObs.unsubscribe();
           })
           this.taxFormPut.reset();
@@ -60,12 +62,6 @@ export class TaxFormAdminComponent implements OnInit {
         });
       }
     }
-  }
-
-  toJadenCase(strin) {
-    this.tabStr = strin.split(' ');
-    this.tabStr = this.tabStr.map(word => word.charAt(0).toUpperCase() + word.slice(1));
-    return this.tabStr.join(' ');
   }
 
 }

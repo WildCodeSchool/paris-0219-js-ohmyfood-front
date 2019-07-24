@@ -1,40 +1,41 @@
 @import '../../../styles/colors';
+@import '../../../styles.scss';
 
-i {
-  color: red;
+
+.connexion {
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-decoration: none;
 }
 
+i {
+  color: white;
+}
+span {
+  color: white;
+}
 .topbar {
     margin: 0;
-    background-color: #5ED300;
+    background-color: $green;
 
 }
 
 #phone {
     margin: 0;
     color: white;
-    font-size: 5vh;
+    font-size: 1.8rem;
     color:white;
-    text-shadow:
-        -1px -1px 0 #000,
-        1px -1px 0 #000,
-        -1px 1px 0 #000,
-        1px 1px 0 #000;
 }
 
 #title {
     @extend #phone;
-    font-size: 6vh;
-}
-
-#subtitle {
-    @extend #phone;
-    font-size: 3vh;
+    font-size: 2rem;
+    color: white;
+    text-shadow: 0px 0px 5px rgba(45, 44, 51,0.5) ;
 }
 
 #order {
     color: red;
-    font-size: 3vh;
 }
 
 .navbar{
@@ -49,9 +50,9 @@ i {
     display: -ms-flexbox;
     display: -webkit-flex;
     display: flex;
+    -webkit-flex-flow: column wrap;
+    flex-flow: column wrap;
 
-    // -webkit-flex-flow: row wrap;
-    justify-content: flex-end;
   }
 
   .navbar a {
@@ -70,24 +71,37 @@ i {
       justify-content: space-around;
     }
 
+  span {
+    color: white;
+  }
+}
+@media screen and (min-width: 768px) {
+
+  .navbar {
+    -webkit-flex-flow: row wrap;
+    flex-flow: row wrap;
+    justify-content: center;
+    padding: 0;
   }
 
-  @media all and (max-width: 600px) {
-    .navbar {
-      -webkit-flex-flow: column wrap;
-      flex-flow: column wrap;
-      padding: 0;
-    }
-
-    .navbar a {
-      text-align: center;
-      padding: 10px;
-      border-top: 1px solid rgba(255,255,255,0.3);
-      border-bottom: 1px solid rgba(0,0,0,0.1);
-    }
-
-
-    .navbar li:last-of-type a {
-      border-bottom: none;
-    }
+  .navbar a {
+    text-align: center;
+    padding: 10px;
+    border-top: 1px solid rgba(255,255,255,0.3);
+    border-bottom: 1px solid rgba(0,0,0,0.1);
   }
+  .navbar li:last-of-type a {
+    border-bottom: none;
+  }
+
+  .title:not(:last-child) {
+    margin-bottom: 0;
+  }
+
+}
+
+@media screen and (min-width: 1024px) {
+  .columns {
+    height: 8vh;
+  }
+}

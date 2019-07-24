@@ -23,6 +23,10 @@ export class MenuPizzaFormComponent implements OnInit {
 
   pizzaMenuForm: FormGroup;
 
+  beerSelected: boolean;
+
+  menusPrice: object;
+
   constructor(
     private menuPrices: MenuPricesDataService,
     private pizzaData: PizzasDataService,
@@ -46,11 +50,13 @@ export class MenuPizzaFormComponent implements OnInit {
       this.pizzaMenuForm.controls.pizzaMenuPriceTotal.patchValue(
         menuPrice[0].menuPizzPrice.toFixed(2)
       );
+
+      this.menusPrice = menuPrice;
       menuSubscription.unsubscribe();
     });
 
     // Get pizza data and create form group and push it in form Array
-    const pizzSubscription = this.pizzaData.getPizzas()
+    const pizzSubscription = this.pizzaData.getPizzasForMenu()
     .subscribe((pizzas: any) => {
 
       const pizza = this.pizzaMenuForm.get('pizza') as FormArray;
@@ -64,7 +70,7 @@ export class MenuPizzaFormComponent implements OnInit {
     });
 
     // Same thing for beverages
-    const bevSubscription = this.beverageData.getBeverages()
+    const bevSubscription = this.beverageData.getBeveragesForMenu()
     .subscribe((beverages: any) => {
 
       const beverage = this.pizzaMenuForm.get('beverage') as FormArray;
@@ -78,7 +84,7 @@ export class MenuPizzaFormComponent implements OnInit {
     });
 
     // Same thing for desserts
-    const dessSubscription = this.dessertData.getDesserts()
+    const dessSubscription = this.dessertData.getDessertsForMenu()
     .subscribe((desserts: any) => {
       const dessert = this.pizzaMenuForm.get('dessert') as FormArray;
 
@@ -129,6 +135,12 @@ export class MenuPizzaFormComponent implements OnInit {
   // To check wich object we have to change in method
   const check = Object.getOwnPropertyNames(choice);
 
-  this.pizzaMenuForm = this.menuPrices.getRadioButton(this.pizzaMenuForm, index, choice, check);
+  this.pizzaMenuForm = this.menuPrices.getRadioButton(this.pizzaMenuForm, index, this.menusPrice, check, 'menuPizza');
+
+  if (check[0] === 'idBeverages' && this.pizzaMenuForm.value.beverage[index].bevName === 'Bière') {
+    this.beerSelected = true;
+    } else {
+      this.beerSelected = false;
+    }
   }
 }

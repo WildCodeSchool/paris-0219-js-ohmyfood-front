@@ -3,7 +3,8 @@
 .arrowToggle {
     align-items: center;
     display: block;
-    height: 10vh;
+    height: 5vh;
+    font-size: 1rem;
     justify-content: center;
     transition-duration: .5s;
     transform: rotate(-180deg);
@@ -12,8 +13,9 @@
 
 .basket {
     width: 100vw;
-    height: 100vh;
+    height: 8%;
     background: $green;
+    border: 3px solid white;
     color: white;
     position: fixed;
     top: 0;
@@ -77,6 +79,10 @@ input[type=text]::-webkit-inner-spin-button,
 input[type=text]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+
+.fa-shopping-cart {
+    font-size: 1.3rem;
 }
 
 .formular {
@@ -144,10 +150,6 @@ p {
   border-radius: 27px;
 }
 
-.reverseText {
-    display: none;
-}
-
 .rubanToggle {
     justify-content: space-around;
     width: 10%;
@@ -171,6 +173,7 @@ ul li {
 }
 
 @media screen and (min-width: 720px) {
+
     .basket {
         width: 100vw;
         right: -90vw;
@@ -247,6 +250,7 @@ ul li {
 
 .basketToggle {
     right: 0;
+    height: 100%;
 }
 
 .arrowToggleAnimation {

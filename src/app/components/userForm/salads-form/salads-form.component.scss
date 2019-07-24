@@ -58,6 +58,8 @@ a {
   width: 50%;
   padding: 10%;
   margin: auto;
+  filter:  hue-rotate(6deg) brightness(95%) contrast(227%);
+  -webkit-filter: hue-rotate(6deg) brightness(95%) contrast(227%);
 }
 
 .button {

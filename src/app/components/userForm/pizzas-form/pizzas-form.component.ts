@@ -93,7 +93,7 @@ export class PizzasFormComponent implements OnInit {
       if (localStorage.getItem('orderStatus')) {
         const orderStatus = JSON.parse(localStorage.getItem('orderStatus'));
 
-        orderStatus === 'toTakeAway' ? this.ohMyMardiPrice() : this.patchPizzasPrice();
+        orderStatus === 'toTakeAway' && this.today === 'Tuesday' ? this.ohMyMardiPrice() : this.patchPizzasPrice();
       }
       ohMyMardiSubscription.unsubscribe();
     });

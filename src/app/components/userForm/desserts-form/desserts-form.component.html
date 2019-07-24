@@ -24,7 +24,8 @@
           <div
             class="formLine"
             [formGroupName]="i"
-            *ngFor="let dessert of selectedDessert.controls ; let i = index">
+            *ngFor="let dessert of selectedDessert.controls ; let i = index"
+          >
 
               <label for="dessert-{{ i }}">
                 <span class='dessertStyle'>{{ dessert.value.dessName }}</span><span>{{ dessert.value.dessPriceTTC }} €</span>
@@ -35,7 +36,8 @@
                   class="button is-rounded is-outlined is-mobile is-small"
                   name="remove-dessert-quantity"
                   type="button"
-                  (click)="quantitySelect('-', i, dessert.value.dessQuantity)">
+                  (click)="quantitySelect('-', i, dessert.value.dessQuantity)"
+                >
                     -
                 </button>
 
@@ -44,28 +46,27 @@
                   name="selectedDessert-{{ i }}"
                   formControlName="dessQuantity"
                   type="text"
-                  value="{{dessert.value.dessQuantity}}"/>
+                  value="{{dessert.value.dessQuantity}}"
+                />
 
                 <button
                   class="button is-rounded is-outlined is-mobile is-small"
                   name="add-dessert-quantity"
                   type="button"
-                  (click)="quantitySelect('+', i, dessert.value.dessQuantity)">
-                    +
+                  (click)="quantitySelect('+', i, dessert.value.dessQuantity)"
+                >
+                  +
                 </button>
               </div>
           </div>
         </div>
 
-        <p *ngIf="formDessert.errors">
-          {{ formDessert.errors['notInTime'] }}
-        </p>
-
         <div class="submitSection">
           <button
             class="submitButton button is-rounded is-outlined "
-            type="submit">
-              Ajouter au panier
+            type="submit"
+          >
+            Ajouter au panier
           </button>
         </div>
       </form>

@@ -22,7 +22,7 @@ export class OnlyLoggedInUsersGuardService implements CanActivate {
         localStorage.setItem('alreadyLogged', this.tokenGuard)
         return true
       }
-    } else { 
+    } else {
       this.router.navigateByUrl('authClientPage');
       window.alert("Connectez-vous pour avoir accès aux commandes en ligne");
       return false

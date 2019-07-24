@@ -21,18 +21,6 @@
       <i class="fa fa-shopping-cart fa-3x"></i>
     </div>
 
-    <div class="livrAndStatus d-flex flex-row">
-      <ul>
-        <li><input type="radio" name="ifLivraisonOrEmporter"/></li>
-
-        <li>En livraison</li>
-      </ul>
-      <ul>
-        <li><input type="radio" name="ifLivraisonOrEmporter"/></li>
-
-        <li>A Emporter</li>
-      </ul>
-    </div>
     <p id="orderStatus">Statut de la commande : </p>
     <div class="overScrollForm">
       <form
@@ -48,7 +36,7 @@
           >
             <label for="pizzName-{{i}}">
               <span>{{ pizzas.value.pizzName }}</span>
-              <span>{{ pizzas.value.pizzPriceTotal }} EUR</span>
+              <span>{{ pizzas.value.pizzPriceTotal.toFixed(2) }} EUR</span>
             </label>
 
             <div class="quantityButton">
@@ -83,7 +71,7 @@
         <div formArrayName="salad">
           <div [formGroupName]="i" *ngFor="let salads of salad.controls ; let i = index">
             <label for="saladName-{{i}}">
-              Votre salade composée<span>{{ salads.value.saladsComposedPriceTotal }}</span>
+              Votre salade composée<span>{{ salads.value.saladsComposedPriceTotal.toFixed(2) }} EUR</span>
             </label>
 
             <button
@@ -112,7 +100,7 @@
 
             <div *ngFor="let bases of salads.value.multiBases">
               <p>
-                {{ bases.basesName }}<span>{{ bases.basesPrice }} EUR</span>
+                {{ bases.basesName }}<span>{{ bases.basesPrice.toFixed(2) }} EUR</span>
               </p>
             </div>
 
@@ -120,7 +108,7 @@
 
             <div *ngFor="let ingredients of salads.value.multiIngredients">
               <p>
-                {{ ingredients.ingredientsName}}<span>{{ ingredients.ingredientsPrice }} EUR</span>
+                {{ ingredients.ingredientsName}}<span>{{ ingredients.ingredientsPrice.toFixed(2) }} EUR</span>
               </p>
             </div>
 
@@ -128,7 +116,7 @@
 
             <div *ngFor="let toppings of salads.value.multiToppings">
               <p>
-                {{ toppings.toppingsName}}<span>{{ toppings.toppingsPrice }} EUR</span>
+                {{ toppings.toppingsName}}<span>{{ toppings.toppingsPrice.toFixed(2) }} EUR</span>
               </p>
             </div>
 
@@ -146,7 +134,7 @@
           >
             <label for="bevName-{{i}}">
               <span>{{ beverages.value.bevName }}</span>
-              <span>{{ beverages.value.bevPriceTotal }} EUR</span>
+              <span>{{ beverages.value.bevPriceTotal.toFixed(2) }} EUR</span>
             </label>
             <div class="quantityButton">
               <button
@@ -185,7 +173,7 @@
           >
             <label for="bevName-{{i}}">
               <span>{{ desserts.value.dessName }}</span>
-              <span>{{ desserts.value.dessPriceTotal }} EUR</span>
+              <span>{{ desserts.value.dessPriceTotal.toFixed(2) }} EUR</span>
             </label>
             <div class="quantityButton">
               <button
@@ -330,7 +318,7 @@
       </form>
     </div>
     <p id="totalOrderText">
-      TOTAL de votre commande {{ total }} EUR
+      TOTAL de votre commande {{ total.toFixed(2) }} EUR
     </p>
   </div>
 </div>

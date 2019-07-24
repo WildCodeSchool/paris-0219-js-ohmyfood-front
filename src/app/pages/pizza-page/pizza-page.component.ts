@@ -53,6 +53,7 @@ export class PizzaPageComponent implements OnInit {
       this.orderStatusForm = this.fb.group({
         orderStatus: 'en livraison'
       });
+      localStorage.setItem('orderStatus', JSON.stringify('delivery'));
     }
   }
 

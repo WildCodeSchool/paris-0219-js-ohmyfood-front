@@ -7,9 +7,28 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AfterSubmitOrderPageComponent implements OnInit {
 
+  thanksMessage: string;
+
   constructor() { }
 
   ngOnInit() {
+    // Get order status in local storage
+    if (localStorage.getItem('orderStatus')) {
+      const orderStatus = JSON.parse(localStorage.getItem('orderStatus'));
+
+      if (orderStatus === 'toTakeAway') {
+        this.thanksMessage = `Merci d'avoir commandé chez OH MY FOOD ! Votre commande sera prête d'ici 30 minutes. À tout à l'heure!`;
+        localStorage.removeItem('orderStatus');
+
+      } else {
+        this.thanksMessage = `Merci d'avoir commandé chez OH MY FOOD ! Vous serez livrez d'ici 30 minutes. À tout à l'heure!`;
+        localStorage.removeItem('orderStatus');
+      }
+
+      // If there isn't order status in local storage
+    } else {
+      this.thanksMessage = `Aucune commande n'a encore été effectuée. N'hésitez pas à créer votre compte pour comander en ligne`;
+    }
   }
 
 }

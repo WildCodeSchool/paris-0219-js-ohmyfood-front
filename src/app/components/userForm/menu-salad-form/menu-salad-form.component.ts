@@ -25,6 +25,12 @@ export class MenuSaladFormComponent implements OnInit {
 
   saladMenuForm: FormGroup;
 
+  // To know if user pick beer
+  beerSelected = false;
+
+  // To reset beer boolean when user delete beverages
+  resetBevButton = false;
+
   // To get menu price from database
   priceMenu: any[];
 
@@ -46,11 +52,93 @@ export class MenuSaladFormComponent implements OnInit {
     private createFormService: CreateFormService,
     private datePipe: DatePipe,
   ) {
-      this.controlDate = this.datePipe.transform(this.date, 'H:mm:ss');
+      this.controlDate = this.datePipe.transform(this.date, 'EEEE H:mm:ss');
     }
 
   ngOnInit() {
     // Initialize form group
+    this.initSaladMenuForm();
+
+    this.saladData.getSaladsForMenu.subscribe((saladComposed: OrderSalads) => {
+      // Get good value in form group according to user choice, if he choose a sauce or not
+      if (saladComposed.orderSaladsSauces === undefined) {
+        this.saladMenuForm.controls.salad.setValue({
+          orderSaladsBases: saladComposed.orderSaladsBases,
+          orderSaladsIngredients: saladComposed.orderSaladsIngredients,
+          orderSaladsQuantity: saladComposed.orderSaladsQuantity,
+          orderSaladsToppings: saladComposed.orderSaladsToppings,
+          orderSaladsSauces: 'Pas de sauce séléctionnée',
+          orderSaladsPriceTotal: saladComposed.orderSaladsPriceTotal.toFixed(2)
+          }
+        );
+
+      } else {
+        this.saladMenuForm.controls.salad.patchValue(
+          saladComposed
+        );
+      }
+
+      // Get finalMenuPrice according to user choice
+      const bevPristine = this.saladMenuForm.controls.beverage.pristine;
+      const dessPristine = this.saladMenuForm.controls.dessert.pristine;
+
+      // If user choose beverage or dessert, total menu price = 1.50€ + salad composed price
+      if (!bevPristine && dessPristine || bevPristine && !dessPristine) {
+        this.saladMenuForm.controls.saladMenuPriceTotal.patchValue(
+          (this.priceMenu[0].menuSaladPriceOr + +saladComposed.orderSaladsPriceTotal).toFixed(2)
+        );
+
+        // If user choose beverage and dessert, total menu price = 3€ + salad composed price
+      } else if (!bevPristine && !dessPristine) {
+          this.saladMenuForm.controls.saladMenuPriceTotal.patchValue(
+            (this.priceMenu[0].menuSaladPriceAnd + +saladComposed.orderSaladsPriceTotal).toFixed(2)
+          );
+
+          // If user didn't pick beverage or dessert, total menu price = salad composed price
+      } else {
+        this.saladMenuForm.controls.saladMenuPriceTotal.patchValue(
+          saladComposed.orderSaladsPriceTotal.toFixed(2)
+        );
+      }
+
+    });
+
+    // Get menu price
+    const menuSubscription = this.menuPrices.getMenuPrices()
+    .subscribe((menuPrice: any) => {
+      this.priceMenu = menuPrice;
+      menuSubscription.unsubscribe();
+    });
+
+    // get beverage data
+    const bevSubscription = this.beverageData.getBeveragesForMenu()
+    .subscribe((beverages: any) => {
+
+      const beverage = this.saladMenuForm.get('beverage') as FormArray;
+
+      for (const bev in beverages) {
+        if (beverages.hasOwnProperty(bev)) {
+          beverage.push(this.createFormService.createForm(beverages[bev]));
+        }
+      }
+      bevSubscription.unsubscribe();
+    });
+
+    const dessSubscription = this.dessertData.getDessertsForMenu()
+    .subscribe((desserts: any) => {
+
+      const dessert = this.saladMenuForm.get('dessert') as FormArray;
+
+      for (const dess in desserts) {
+        if (desserts.hasOwnProperty(dess)) {
+          dessert.push(this.createFormService.createForm(desserts[dess]));
+        }
+      }
+      dessSubscription.unsubscribe();
+    });
+  }
+
+  initSaladMenuForm() {
     this.saladMenuForm = this.formBuilder.group({
       salad: [
         {
@@ -70,86 +158,8 @@ export class MenuSaladFormComponent implements OnInit {
     {
       validator: [
         checkBevAndDess('beverage', 'dessert'), // Validator quantity
-        deliveryIntervalTime(this.controlDate) // Validator time
+        deliveryIntervalTime(this.controlDate, true) // Validator time
       ]
-    });
-
-    this.saladData.getSaladsForMenu.subscribe((saladComposed: OrderSalads) => {
-      // Get good value in form group according to user choice, if he choose a sauce or not
-      if (saladComposed.orderSaladsSauces === undefined) {
-        this.saladMenuForm.controls.salad.setValue({
-          orderSaladsBases: saladComposed.orderSaladsBases,
-          orderSaladsIngredients: saladComposed.orderSaladsIngredients,
-          orderSaladsQuantity: saladComposed.orderSaladsQuantity,
-          orderSaladsToppings: saladComposed.orderSaladsToppings,
-          orderSaladsSauces: 'Pas de sauce séléctionnée',
-          orderSaladsPriceTotal: saladComposed.orderSaladsPriceTotal
-          }
-        );
-
-      } else {
-        this.saladMenuForm.controls.salad.patchValue(
-          saladComposed
-        );
-      }
-
-      // Get finalMenuPrice according to user choice
-      const bevPristine = this.saladMenuForm.controls.beverage.pristine;
-      const dessPristine = this.saladMenuForm.controls.dessert.pristine;
-
-      // If user choose beverage or dessert, total menu price = 1.50€ + salad composed price
-      if (!bevPristine && dessPristine || bevPristine && !dessPristine) {
-        this.saladMenuForm.controls.saladMenuPriceTotal.patchValue(
-          (this.priceMenu[0].menuSaladOr + +saladComposed.orderSaladsPriceTotal).toFixed(2)
-        );
-
-        // If user choose beverage and dessert, total menu price = 3€ + salad composed price
-      } else if (!bevPristine && !dessPristine) {
-          this.saladMenuForm.controls.saladMenuPriceTotal.patchValue(
-            (this.priceMenu[0].menuSaladAnd + +saladComposed.orderSaladsPriceTotal).toFixed(2)
-          );
-
-          // If user didn't pick beverage or dessert, total menu price = salad composed price
-      } else {
-        this.saladMenuForm.controls.saladMenuPriceTotal.patchValue(
-          saladComposed.orderSaladsPriceTotal
-        );
-      }
-
-    });
-
-    // Get menu price
-    const menuSubscription = this.menuPrices.getMenuPrices()
-    .subscribe((menuPrice: any) => {
-      this.priceMenu = menuPrice;
-      menuSubscription.unsubscribe();
-    });
-
-    // get beverage data
-    const bevSubscription = this.beverageData.getBeverages()
-    .subscribe((beverages: any) => {
-
-      const beverage = this.saladMenuForm.get('beverage') as FormArray;
-
-      for (const bev in beverages) {
-        if (beverages.hasOwnProperty(bev)) {
-          beverage.push(this.createFormService.createForm(beverages[bev]));
-        }
-      }
-      bevSubscription.unsubscribe();
-    });
-
-    const dessSubscription = this.dessertData.getDesserts()
-    .subscribe((desserts: any) => {
-
-      const dessert = this.saladMenuForm.get('dessert') as FormArray;
-
-      for (const dess in desserts) {
-        if (desserts.hasOwnProperty(dess)) {
-          dessert.push(this.createFormService.createForm(desserts[dess]));
-        }
-      }
-      dessSubscription.unsubscribe();
     });
   }
 
@@ -167,32 +177,71 @@ export class MenuSaladFormComponent implements OnInit {
     this.menuPrices.createOrderMenu(saladMenuChoice);
 
     this.saladMenuForm.reset(this.saladMenuForm.value);
+
+    this.beerSelected = false;
   }
 
   getUserChoice(index: number, choice: object) {
+    // To check wich object we have to change in method
+    const check = Object.getOwnPropertyNames(choice);
+
+    // To know if user pick beer
+    if (check[0] === 'idBeverages') {
+      if (choice[`bevName`] === 'Bière' && !this.resetBevButton) {
+        this.beerSelected = true;
+
+      } else {
+        this.beerSelected = false;
+      }
+    }
+
     // To check if user select beverage and/or dessert and patch value menu price
     const bevPristine = this.saladMenuForm.controls.beverage.pristine;
     const dessPristine = this.saladMenuForm.controls.dessert.pristine;
 
     if (!bevPristine && dessPristine || bevPristine && !dessPristine) {
-      this.saladMenuForm.controls.saladMenuPrice.patchValue(
-        this.priceMenu[0].menuSaladOr.toFixed(2)
-      );
-
-      // patch value of total price menu
-      this.saladMenuForm.controls.saladMenuPriceTotal.patchValue(
-        (this.priceMenu[0].menuSaladOr + +this.saladMenuForm.value.salad.orderSaladsPriceTotal).toFixed(2)
-      );
-
-    } else if (!bevPristine && !dessPristine) {
+      if (!this.beerSelected) {
         this.saladMenuForm.controls.saladMenuPrice.patchValue(
-          this.priceMenu[0].menuSaladAnd.toFixed(2)
+          this.priceMenu[0].menuSaladPriceOr.toFixed(2)
         );
 
         // patch value of total price menu
         this.saladMenuForm.controls.saladMenuPriceTotal.patchValue(
-          (this.priceMenu[0].menuSaladAnd + +this.saladMenuForm.value.salad.orderSaladsPriceTotal).toFixed(2)
+          (this.priceMenu[0].menuSaladPriceOr + +this.saladMenuForm.value.salad.orderSaladsPriceTotal).toFixed(2)
         );
+
+      } else if (this.beerSelected) {
+
+        this.saladMenuForm.controls.saladMenuPrice.patchValue(
+          (this.priceMenu[0].menuSaladPriceOr + 1).toFixed(2)
+        );
+
+        // patch value of total price menu
+        this.saladMenuForm.controls.saladMenuPriceTotal.patchValue(
+          (this.priceMenu[0].menuSaladPriceOr + 1 + +this.saladMenuForm.value.salad.orderSaladsPriceTotal).toFixed(2)
+        );
+      }
+
+    } else if (!bevPristine && !dessPristine) {
+      if (!this.beerSelected) {
+        this.saladMenuForm.controls.saladMenuPrice.patchValue(
+          this.priceMenu[0].menuSaladPriceAnd.toFixed(2)
+        );
+
+        // patch value of total price menu
+        this.saladMenuForm.controls.saladMenuPriceTotal.patchValue(
+          (this.priceMenu[0].menuSaladPriceAnd + +this.saladMenuForm.value.salad.orderSaladsPriceTotal).toFixed(2)
+        );
+      } else if (this.beerSelected) {
+        this.saladMenuForm.controls.saladMenuPrice.patchValue(
+          (this.priceMenu[0].menuSaladPriceAnd + 1).toFixed(2)
+        );
+
+        // patch value of total price menu
+        this.saladMenuForm.controls.saladMenuPriceTotal.patchValue(
+          (this.priceMenu[0].menuSaladPriceAnd + 1 + +this.saladMenuForm.value.salad.orderSaladsPriceTotal).toFixed(2)
+        );
+      }
 
     } else {
         this.saladMenuForm.controls.saladMenuPrice.patchValue(
@@ -204,17 +253,18 @@ export class MenuSaladFormComponent implements OnInit {
           this.saladMenuForm.value.salad.orderSaladsPriceTotal
         );
     }
-
-    // To check wich object we have to change in method
-    const check = Object.getOwnPropertyNames(choice);
-    this.saladMenuForm = this.menuPrices.getRadioButton(this.saladMenuForm, index, choice, check);
+    this.resetBevButton = false;
+    this.saladMenuForm = this.menuPrices.getRadioButton(this.saladMenuForm, index, choice, check, 'menuSalad');
   }
 
   resetBevOrDess(userChoice: string) {
     if (userChoice === 'beverage') {
       this.saladMenuForm.controls.beverage[`controls`].map(
-        (bev: any) => bev.controls.bevQuantity.reset(0)
-      );
+        (bev: any) => {
+          this.beerSelected = false;
+          this.resetBevButton = true;
+          bev.controls.bevQuantity.reset(0);
+        });
 
     } else if (userChoice === 'dessert') {
       this.saladMenuForm.controls.dessert[`controls`].map(

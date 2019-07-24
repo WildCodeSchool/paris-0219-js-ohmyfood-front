@@ -59,7 +59,7 @@ export class MenuPricesDataService {
     }
   }
 
-  createOrderMenuSessionStorage(object: any) {
+  createOrderMenulocalStorage(object: any) {
     const check = Object.getOwnPropertyNames(object);
 
     if (check[0] === 'pizza') {
@@ -83,7 +83,7 @@ export class MenuPricesDataService {
   }
 
   // Get choice of user in menu
-  getRadioButton(form: FormGroup, index: number, choice: object, check: string[]) {
+  getRadioButton(form: FormGroup, index: number, menusPrice: object, check: string[], menuType: string) {
     if (check[0] === 'idPizzas') {
       const length = form.controls.pizza[`controls`].length; // To get array length
 
@@ -101,7 +101,22 @@ export class MenuPricesDataService {
           index !== i ?
           form.controls.beverage[`controls`][i].value.bevQuantity = 0 :
           form.controls.beverage[`controls`][i].value.bevQuantity = 1;
+
+          // Patch value if user pick Beer
+          if (index === i && form.controls.beverage[`controls`][i].value.bevName === 'Bière' && menuType === 'menuPizza') {
+            form.controls.pizzaMenuPriceTotal.patchValue(
+              (Number.parseInt(form.controls.pizzaMenuPriceTotal.value, 10) + 1).toFixed(2)
+              );
+
+            // If user didn't pick beer, patch value with original price
+          } else if (menuType === 'menuPizza') {
+
+            form.controls.pizzaMenuPriceTotal.patchValue(
+              menusPrice[0].menuPizzPrice.toFixed(2)
+              );
           }
+        }
+
         return form;
 
     } else if (check[0] === 'idDesserts') {

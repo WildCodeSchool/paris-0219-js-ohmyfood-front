@@ -17,7 +17,6 @@ import { FooterComponent } from './components/footer/footer.component';
 import { RouterModule } from '@angular/router';
 import { Navbar2Component } from './components/navbar2/navbar2.component';
 import { BasketComponent } from './components/basket/basket.component';
-import { AdminPagesComponent } from './pages/admin-pages/admin-pages.component';
 import { BeveragesFormAdminComponent } from './components/admin/beverages-form-admin/beverages-form-admin.component';
 import { AuthClientPageComponent } from './pages/authent/auth-client-page/auth-client-page.component';
 import { LoginComponent } from './components/authent/login/login.component';
@@ -43,7 +42,18 @@ import { UserAccountComponent } from './components/user-account/user-account.com
 import { ContactComponent } from './components/contact/contact.component';
 import { ContactPageComponent } from './pages/contact-page/contact-page.component';
 import { TaxFormAdminComponent } from './components/admin/tax-form-admin/tax-form-admin.component';
-import { MenusPriceFormAdminComponent } from './components/admin/menus-price-form-admin/menus-price-form-admin.component';
+import { ForgotPsswComponent } from './components/authent/forgot-pssw/forgot-pssw.component';
+import { ForgotPsswPageComponent } from './pages/authent/forgot-pssw-page/forgot-pssw-page.component';
+import { NewPasswordPageComponent } from './pages/new-password-page/new-password-page.component';
+import { NewPasswordComponent } from './components/new-password/new-password.component';
+import { NewPasswordPageGuardService } from './services/new-password-page-guard.service';
+import { AdminSuperGuardService } from './services/admin-super-guard.service';
+import { DetailsOrdersAdminComponent } from './components/admin/details-orders-admin/details-orders-admin.component';
+import { AdminPagesComponent } from './pages/admin-pages-component/admin-pages-component';
+import { DetailsOrdersArchivedAdminComponent } from './components/admin/details-orders-archived-admin/details-orders-archived-admin.component';
+import { UserAccountManageComponent } from './components/authent/user-account-manage/user-account-manage.component';
+import { UserFormAccountComponent } from './components/user-form-account/user-form-account.component';
+import { UserAddressFormAccountComponent } from './components/user-address-form-account/user-address-form-account.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +68,6 @@ import { MenusPriceFormAdminComponent } from './components/admin/menus-price-for
     FooterComponent,
     Navbar2Component,
     BasketComponent,
-    AdminPagesComponent,
     BeveragesFormAdminComponent,
     AuthClientPageComponent,
     LoginComponent,
@@ -83,7 +92,16 @@ import { MenusPriceFormAdminComponent } from './components/admin/menus-price-for
     ContactComponent,
     ContactPageComponent,
     TaxFormAdminComponent,
-    MenusPriceFormAdminComponent
+    ForgotPsswComponent,
+    ForgotPsswPageComponent,
+    NewPasswordPageComponent,
+    NewPasswordComponent,
+    DetailsOrdersAdminComponent,
+    AdminPagesComponent,
+    DetailsOrdersArchivedAdminComponent,
+    UserAccountManageComponent,
+    UserFormAccountComponent,
+    UserAddressFormAccountComponent
   ],
   imports: [
     AppRoutingModule,
@@ -93,7 +111,11 @@ import { MenusPriceFormAdminComponent } from './components/admin/menus-price-for
     ReactiveFormsModule,
     RouterModule,
   ],
-  providers: [OnlyLoggedInUsersGuardService],
+  providers: [
+    OnlyLoggedInUsersGuardService,
+    NewPasswordPageGuardService,
+    AdminSuperGuardService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

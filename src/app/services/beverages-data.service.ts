@@ -19,6 +19,10 @@ export class BeveragesDataService {
     return this.http.get(this.beveragesRoute);
   }
 
+  getBeveragesForMenu(): Observable<object> {
+    return this.http.get(`${this.beveragesRoute}/menu`);
+  }
+
   createOrderBeverage(userBeverageChoice: object) { // create object with OrderBeverage Class
     for (const beverage in userBeverageChoice) {
       if (userBeverageChoice.hasOwnProperty(beverage)) {
@@ -35,7 +39,7 @@ export class BeveragesDataService {
     }
   }
 
-  createOrderBeverageSessionStorage(object: any) {
+  createOrderBeveragelocalStorage(object: any) {
     return new OrderBeverage(
       object.idBeverages,
       object.bevName,

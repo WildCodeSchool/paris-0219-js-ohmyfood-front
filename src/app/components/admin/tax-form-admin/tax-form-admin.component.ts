@@ -11,9 +11,8 @@ export class TaxFormAdminComponent implements OnInit {
 
   actions = ['Modifier'];
   formCheck: FormGroup;
-  regexTax = /[0-9{1}]+[.]+[0-9]{3}/gm;
+  regexTax = /[0-9{1}]+[.]+[0-9]{3,4}/gm;
   taxFormObject;
-  taxDataObject;
   taxFormPut: FormGroup;
   tabStr = [];
   valueAction = 'Modifier';
@@ -44,17 +43,17 @@ export class TaxFormAdminComponent implements OnInit {
 
   onSubmitPutForm() {
     if (this.taxFormPut.valid) {
+      if (this.taxFormPut.value.taxNewName !== '') {
+        this.taxFormPut.value.taxName += '|' + this.taxFormPut.value.taxNewName
+      }
       this.taxService.taxFormObject = {
         idTaxName: this.taxFormPut.value.taxName,
         taxValue: this.taxFormPut.value.taxMultipliedBy
       };
-      if (this.taxFormPut.value.taxNewName !== '') {
-        this.taxService.taxFormObject.taxName += '|' + this.taxFormPut.value.taxNewName
-      }
       if (confirm(`Êtes-vous certain de modifier la tax ${this.taxFormPut.value.taxName}`)) {
         const putTaxType = this.taxService.putTaxType().subscribe(_ => {
           const getTaxObs = this.taxService.getTaxType().subscribe(data => {
-            this.taxDataObject = data;
+            this.taxFormObject = data;
             getTaxObs.unsubscribe();
           })
           this.taxFormPut.reset();

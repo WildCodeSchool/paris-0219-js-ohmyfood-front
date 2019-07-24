@@ -11,6 +11,8 @@ export class LoginService {
   urlProtected = 'http://localhost:3000/login/protected';
   urlUser = 'http://localhost:3000/users/userInfos';
   userInfoObject;
+  urlGetNewPssw = 'http://localhost:3000/login/forgottenPassword';
+  userMailNewPssw: Object;
 
   @Output() transfertUser: EventEmitter<any> = new EventEmitter;
   @Output() transfertUserRight: EventEmitter<any> = new EventEmitter;
@@ -30,8 +32,12 @@ export class LoginService {
   }
 
   routeProtection() {
-    const token = JSON.parse(sessionStorage.getItem("token")).token;
+    const token = localStorage.getItem("token");
     const header = {headers: {'Authorization' : `Bearer ${token}`}}
     return this.http.post(this.urlProtected, token, header).toPromise()
+  }
+
+  getNewPssw() {
+    return this.http.post(this.urlGetNewPssw, this.userMailNewPssw).toPromise()
   }
 }

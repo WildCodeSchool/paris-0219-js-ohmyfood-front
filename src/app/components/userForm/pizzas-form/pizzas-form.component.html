@@ -1,14 +1,15 @@
 <section>
-  <a href (click)="toggleFormPizzas($event)">
-    <h1 class="pizzasTitle">
-      PIZZAS
-    </h1>
+  <div class="pizzasTitle">
+    <a href (click)="toggleFormPizzas($event)">
+      <h1>
+        PIZZAS
+      </h1>
 
-    <p>
-      Cliquez pour découvrir nos pizzas
-    </p>
-  </a>
-
+      <p>
+        Cliquez pour découvrir nos pizzas
+      </p>
+    </a>
+  </div>
   <div class="notToggle" [ngClass]="{toggle: isToggle}">
     <div class="header">
       <h3 class="pizzas">
@@ -23,11 +24,12 @@
         <div
           class="formLine"
           [formGroupName]="i"
-          *ngFor="let pizzas of selectedPizzas.controls ; let i = index">
+          *ngFor="let pizzas of selectedPizzas.controls ; let i = index"
+        >
 
           <div class="labelPizza">
             <label for="pizzas-{{ i }}">
-              {{ pizzas.value.pizzName }}<span>{{ pizzas.value.pizzPriceTTC }} EUR</span>
+              {{ pizzas.value.pizzName }}<span>{{ pizzas.value.pizzPriceTTC }} €</span>
             </label>
 
             <p>{{ pizzas.value.pizzDesc }}</p>
@@ -37,7 +39,8 @@
                 class="button is-rounded is-outlined is-mobile is-small"
                 name="remove-pizzas-quantity"
                 type="button"
-                (click)="quantitySelect('-', i, pizzas.value.pizzQuantity)">
+                (click)="quantitySelect('-', i, pizzas.value.pizzQuantity)"
+              >
                   -
               </button>
 
@@ -46,14 +49,16 @@
                 name="selectedPizzas-{{ i }}"
                 formControlName="pizzQuantity"
                 type="text"
-                value="{{pizzas.value.pizzQuantity}}">
+                value="{{pizzas.value.pizzQuantity}}"
+              />
 
               <button
                 class="button is-rounded is-outlined is-mobile is-small"
                 name="add-pizzas-quantity"
                 type="button"
-                (click)="quantitySelect('+', i, pizzas.value.pizzQuantity)">
-                  +
+                (click)="quantitySelect('+', i, pizzas.value.pizzQuantity)"
+              >
+                +
               </button>
             </div>
         </div>
@@ -62,7 +67,8 @@
       <div class="submitSection">
         <button
           class="submitButton button is-rounded is-outlined "
-          type="submit">
+          type="submit"
+        >
           Ajouter au panier
         </button>
       </div>

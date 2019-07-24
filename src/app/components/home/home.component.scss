@@ -1,14 +1,7 @@
-.buttonArea {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    margin: 25px 50px;
-
-    .button {
-        font-size: 2rem;
-        margin: 0 20px;
-        padding: 6px 35px;
-    }
+.buttonArea .button  {
+    font-size: 1rem;
+    margin: 5px 10%;
+    width: 80%;
 }
 
 .carousel {
@@ -16,18 +9,38 @@
     overflow: hidden;
 }
 
-.columns.column {
-    overflow: hidden;
-    justify-content: space-around;
+.column.is-offset-2, .column.is-offset-2-tablet {
+    margin-left: 0;
+}
+
+.column:nth-child(1) {
+    li {
+        text-align: center
+    }
+}
+.column:nth-child(2) {
+
+    li {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        margin-left: 20%;
+        width: 60%;
+    }
 }
 
 h2 {
-    font-size: 3rem;
-    margin: 8vh 0;
+    font-size: 2rem;
+    padding: 2vh 0;
     text-align: center;
 }
 
+.h2List {
+    padding: 0;
+}
+
 h3, p {
+    font-size: 1.1rem;
     text-align: center;
     margin: 4vh 0;
 }
@@ -36,15 +49,161 @@ h3 {
     font-size: 3rem;
 }
 
-p {
-    font-size: 2rem;
+hr {
+    margin-left: 20%;
+    width: 60%;
 }
 
-@media all and (max-width: 600px) {
+li {
+    font-size: .8rem;
+}
+
+.pizzaDetail {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    width: 100%;
+    li {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+.ulPizza {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    margin-left: 18%;
+    width: 68%;
+}
+
+.ulSalad {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    margin-left: 0;
+    width: 100%;
+
+    li {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+.saladScroll {
+    overflow-y: scroll;
+    height: 150px;
+}
+
+.sectionMenu {
+    height: 100%;
+}
+
+.titlemenu {
+    margin: 0;
+    color: white;
+    font-size: 2vh;
+    color:white;
+    text-shadow:
+        -1px -1px 0 #000,
+        1px -1px 0 #000,
+        -1px 1px 0 #000,
+        1px 1px 0 #000;
+}
+
+.flag {
+    text-align: center;
+    background-image: url('../../../assets/img/RibbonOhMyFoodEmpty.svg'),  url('../../../assets/img/RibbonOhMyFoodNormal.svg');
+    background-repeat: no-repeat, no-repeat;
+    background-position: center, center;
+    background-size: 97% 90%, 100% 100%;
+    width: 76%;
+    padding: 2%;
+    margin: auto;
+}
+
+li {
+    text-align: center;
+}
+
+
+
+.ingredientList::-webkit-scrollbar { width: 0 !important }
+
+.ingredientList { overflow: -moz-scrollbars-none; }
+
+.ingredientList { -ms-overflow-style: none; }
+
+@media screen and (min-width: 758px) {
     
-    .buttonArea .button {
-            font-size: 1rem;
+    .buttonArea {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        margin: 25px 50px;
+    
+        .button {
+            font-size: 2rem;
             margin: 0 20px;
             padding: 6px 35px;
+            width: 40%;
         }
     }
+
+    h2 {
+        padding: 4vh 0;
+    }
+
+    li {
+        font-size: 1rem;
+    }
+
+    .saladScroll {
+        overflow-y: scroll;
+        height: 300px;
+    }
+
+    .ulPizza {
+        margin-left: 22%;
+        width: 54%;
+    }
+}
+
+@media screen and (min-width: 968px) {
+
+    h2 {
+        padding: 8vh 0;
+    }
+
+    .saladScroll {
+        overflow-y: scroll;
+        height: 20%;
+    }
+
+    .sectionMenu {
+        height: 100vh;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+
+    .buttonArea .button {
+        width: 30%;
+    }
+    .sectionMenu {
+        height: 55vh;
+
+        h2 {
+            padding: 3vh 0;
+        }
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    .sectionMenu {
+        height: 100vh;
+    }
+}

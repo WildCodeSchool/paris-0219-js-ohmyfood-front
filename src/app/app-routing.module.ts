@@ -1,9 +1,9 @@
+import { FooterComponent } from './components/footer/footer.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { PizzaPageComponent } from './pages/pizza-page/pizza-page.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { HomeOrderPageComponent } from './pages/home-order-page/home-order-page.component';
-import { AdminPagesComponent } from './pages/admin-pages/admin-pages.component';
 import { AuthClientPageComponent } from './pages/authent/auth-client-page/auth-client-page.component';
 import { SaladPageComponent } from './pages/salad-page/salad-page.component';
 import { OnlyLoggedInUsersGuardService } from './services/only-logged-in-users-guard.service';
@@ -12,6 +12,12 @@ import { DetailOrderPageComponent } from './pages/detail-order-page/detail-order
 import { CreateAccountPageComponent } from './pages/authent/create-account-page/create-account-page.component';
 import { UserAccountPageComponent } from './pages/user-account-page/user-account-page.component';
 import { ContactComponent } from './components/contact/contact.component';
+import { ForgotPsswPageComponent } from './pages/authent/forgot-pssw-page/forgot-pssw-page.component';
+import { NewPasswordPageComponent } from './pages/new-password-page/new-password-page.component';
+import { NewPasswordPageGuardService } from './services/new-password-page-guard.service';
+import { AdminSuperGuardService } from './services/admin-super-guard.service';
+import { AdminPagesComponent } from './pages/admin-pages-component/admin-pages-component';
+import { AuthentCreateComponent } from './components/authent/authent-create/authent-create.component';
 
 const routes: Routes = [
   {
@@ -22,11 +28,15 @@ const routes: Routes = [
   {
     path: 'admin',
     component: AdminPagesComponent,
-    canActivate: [OnlyLoggedInUsersGuardService]
+    canActivate: [OnlyLoggedInUsersGuardService, AdminSuperGuardService]
   },
   {
     path: 'homePage',
     component: HomePageComponent
+  },
+  {
+    path: 'footer',
+    component: FooterComponent
   },
   {
     path: 'homeOrderPage',
@@ -36,6 +46,10 @@ const routes: Routes = [
   {
     path: 'authClientPage',
     component: AuthClientPageComponent
+  },
+  {
+    path: 'createClientPage',
+    component: AuthentCreateComponent
   },
   {
     path: 'createAccountPage',
@@ -69,6 +83,15 @@ const routes: Routes = [
   {
     path: 'contactPage',
     component: ContactComponent
+  },
+  {
+    path: 'forgotPsswPage',
+    component: ForgotPsswPageComponent
+  },
+  {
+    path: 'TzApeyaNpBzRJmGrit59K4NJ5Cy/:token',
+    component: NewPasswordPageComponent,
+    canActivate: [NewPasswordPageGuardService]
   }
 ];
 

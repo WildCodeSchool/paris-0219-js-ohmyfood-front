@@ -21,7 +21,6 @@ export class AuthentCreateComponent implements OnInit {
 
   ngOnInit() {
     this.initForm();
-    console.log(this.authCreateForm);
   }
 
   get fC() { return this.authCreateForm.controls; }
@@ -65,13 +64,16 @@ export class AuthentCreateComponent implements OnInit {
           idUsers:'',
           userFacturation: 0,
           userAddressFacturation: this.authCreateForm.value.userFacturation,
-
         }
       };
       if (confirm(`Êtes-vous sûr de soumettre ces informations ?`)) {
-        const addClient = this.authCreateClientService.addClient().subscribe(_ => {
-          this.authCreateForm.reset();
-          addClient.unsubscribe();
+        const addClient = this.authCreateClientService.addClient().subscribe(res => {
+          if (JSON.parse(res).response != undefined) {
+            alert("Cet email existe déjà!")
+          } else {
+            this.authCreateForm.reset();
+            addClient.unsubscribe();
+          }
         });
       }
     }

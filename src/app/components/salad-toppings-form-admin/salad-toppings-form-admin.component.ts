@@ -67,7 +67,7 @@ export class SaladToppingsFormAdminComponent implements OnInit {
       if (confirm(`Êtes-vous certain d'ajouter le topping ${this.toppingFormAdd.value.toppingName} ?`)) {
         const addToppingType = this.saladToppingService.addToppingType().subscribe(_ => {
           const getToppingObs = this.saladsDataService.addSaladsToppings().subscribe(data => {
-            this.saladsDataService = data;
+            this.toppingDataObject = data;
             getToppingObs.unsubscribe();
           });
           this.toppingFormAdd.reset();

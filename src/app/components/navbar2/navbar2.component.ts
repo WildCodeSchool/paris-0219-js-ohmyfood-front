@@ -11,14 +11,8 @@ import { UserAccountInformationsService } from 'src/app/services/user-account-in
   styleUrls: ['./navbar2.component.scss']
 })
 export class Navbar2Component {
-  userInfoObject = {
-    lastname: '',
-    firstname: '',
-    mail: ''
-  };
   userAccountObject = [];
-  ifLogged;
-
+  ifLogged = false;
   booleanAdminLogged = 0;
 
   constructor(
@@ -50,6 +44,7 @@ export class Navbar2Component {
       this.userAccountInformationsService.userMail = localStorage.getItem('userMail');
       this.userAccountInformationsService.getClientAccountInfos().then(res => {
         this.userAccountObject = JSON.parse(res);
+        this.ifLogged = true;
       })
     }
 
@@ -58,12 +53,11 @@ export class Navbar2Component {
     });
 
     this.loginService.transfertUser.subscribe(_ => { // on client logged
-      this.userInfoObject = {
-        lastname: localStorage.getItem('userLastName'),
-        firstname: localStorage.getItem('userFirstName'),
-        mail: localStorage.getItem('userMail')
-      };
-      this.ifLogged = 'userLogged';
+      this.userAccountInformationsService.userMail = localStorage.getItem('userMail');
+      this.userAccountInformationsService.getClientAccountInfos().then(res => {
+        this.userAccountObject = JSON.parse(res);
+      });
+      this.ifLogged = true;
     });
   }
 
@@ -80,12 +74,8 @@ export class Navbar2Component {
     this.loginService.booleanLoggedIn = 0;
     this.booleanAdminLogged = 0;
     localStorage.clear();
-    this.userInfoObject = {
-      lastname: '',
-      firstname: '',
-      mail: ''
-    };
-    this.ifLogged = '';
+    this.ifLogged = false;
+    this.userAccountObject = [];
     this.onlyLoggedInUsersGuardService.tokenGuard = '';
     this.adminSuperGuardService.tokenGuard = '';
     if (location.pathname === '/homePage') {

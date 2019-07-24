@@ -12,7 +12,7 @@ export function checkLocationDelivery(orderStatus: string, locationZipCode: stri
     // Avoid space between number to avoid error in condition
     zipCode = Number.parseInt(zipCode.toString().split(' ').join(''), 10);
 
-    if (statusOrder === 'Livraison' && zipCode !== 94150 && zipCode !== 91320 && zipCode !== 94260) {
+    if (statusOrder === 'en livraison' && zipCode !== 94150 && zipCode !== 91320 && zipCode !== 94260) {
       return { tooFar: `Nous livrons uniquement les villes suivantes : Rungis 94150, Wissous 91320 et Fresnes 94260` };
     } else {
         return null;

@@ -288,10 +288,11 @@ export class DetailOrderComponent implements OnInit {
       city: [''],
       factAddress: [''],
       comment: [''],
-      deliveryOrTakeAway: orderStatus
+      deliveryOrTakeAway: orderStatus,
+      totalOrder: this.totalOrder
     },
     {
-      validators: checkLocationDelivery('deliveryOrTakeAway', 'zipcode')
+      validators: checkLocationDelivery('deliveryOrTakeAway', 'zipcode', 'totalOrder')
     });
     this.orderStatus = orderStatus;
   }
@@ -335,8 +336,11 @@ export class DetailOrderComponent implements OnInit {
 
     if (!finalOrderEmpty && this.finalOrderRecap !== undefined) {
       this.totalOrder = arrayTotalOrderPrice.reduce(reducer).toFixed(2);
+      this.userDetailForm.controls.totalOrder.patchValue(this.totalOrder);
+
     } else {
       this.totalOrder = 0;
+      this.userDetailForm.controls.totalOrder.patchValue(this.totalOrder);
     }
   }
 

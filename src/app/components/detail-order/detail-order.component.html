@@ -236,7 +236,7 @@
   <p>
     TOTAL de votre commande {{ totalOrder }} EUR
   </p>
-  <form [formGroup]="userDetailForm" (ngSubmit)="confirmOrder()">
+  <form [formGroup]="userDetailForm" (ngSubmit)="userDetailForm.valid && confirmOrder()">
     <p>Statut de la commande</p>
 
     <label for="toTakeAway">
@@ -280,6 +280,10 @@
 
     <p *ngIf="userDetailForm.errors">
       {{ userDetailForm.errors['tooFar'] }}
+    </p>
+
+    <p *ngIf="userDetailForm.errors">
+      {{ userDetailForm.errors['notEnough'] }}
     </p>
 
     <label>

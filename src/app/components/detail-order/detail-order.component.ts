@@ -359,10 +359,9 @@ export class DetailOrderComponent implements OnInit {
     };
     this.finalOrderService.finalOrderObject = finalOrder;
     this.finalOrderService.submitFinalOrder().then(res => {
+      this.router.navigate(['orderFinish']);
     });
     localStorage.removeItem('finalOrder');
-
-    /* this.router.navigate(['orderFinish']); */
   }
 
   // If pizzPrice are reduce

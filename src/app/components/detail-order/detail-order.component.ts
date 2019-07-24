@@ -279,6 +279,7 @@ export class DetailOrderComponent implements OnInit {
 
     } else {
       orderStatus = 'à emporter';
+      localStorage.setItem('orderStatus', JSON.stringify('toTakeAway'));
     }
 
     this.userDetailForm = this.fb.group({

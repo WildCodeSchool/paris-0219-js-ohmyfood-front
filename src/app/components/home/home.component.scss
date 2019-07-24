@@ -1,3 +1,5 @@
+@import '../../../styles/colors.scss';
+
 .buttonArea .button  {
     font-size: 1rem;
     margin: 5px 10%;
@@ -102,6 +104,10 @@ li {
     height: 100%;
 }
 
+.specialEvent {
+    background: $green;
+}
+
 .titlemenu {
     margin: 0;
     color: white;
@@ -165,7 +171,7 @@ li {
         overflow-y: scroll;
         height: 300px;
     }
-
+    
     .ulPizza {
         margin-left: 22%;
         width: 54%;

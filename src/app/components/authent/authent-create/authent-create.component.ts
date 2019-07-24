@@ -12,7 +12,7 @@ export class AuthentCreateComponent implements OnInit {
   authCreateForm: FormGroup;
   createClientObject;
   regexPhone = /[0-9]*/gm;
-  regexEmail = /^[a-zA-Z0-9.%&_~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/gm
+  regexEmail = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}/m;
   show: boolean = false;
   psswType = "password";
   regexZipcode = /[0-9]*/gm;

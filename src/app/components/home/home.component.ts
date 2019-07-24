@@ -43,8 +43,6 @@ export class HomeComponent implements OnInit {
     this.pizzasDataService.getPizzas().subscribe(pizzas => {
       this.pizzasList = pizzas;
     });
-
-    // console.log(this.saladsIngredientsList);
   }
 
   checkIfUserLogged() {

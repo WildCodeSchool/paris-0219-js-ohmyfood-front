@@ -14,11 +14,13 @@
       required
     >
     <a
-      [routerLink]="['/forgotPsswPage']" 
-      routerLinkActive="router-link-active" 
-    > 
+      [routerLink]="['/forgotPsswPage']"
+      routerLinkActive="router-link-active"
+    >
       Mot de passe oublié ?
     </a>
+
+    <p *ngIf="errorMessage !== undefined"> {{ errorMessage }}</p>
 </div>
   <br/>
   <button type="submit" (click)="onSubmit()">Se connecter</button>

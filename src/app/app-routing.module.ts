@@ -1,3 +1,4 @@
+import { FooterComponent } from './components/footer/footer.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { PizzaPageComponent } from './pages/pizza-page/pizza-page.component';
@@ -16,6 +17,7 @@ import { NewPasswordPageComponent } from './pages/new-password-page/new-password
 import { NewPasswordPageGuardService } from './services/new-password-page-guard.service';
 import { AdminSuperGuardService } from './services/admin-super-guard.service';
 import { AdminPagesComponent } from './pages/admin-pages-component/admin-pages-component';
+import { AuthentCreateComponent } from './components/authent/authent-create/authent-create.component';
 
 const routes: Routes = [
   {
@@ -33,6 +35,10 @@ const routes: Routes = [
     component: HomePageComponent
   },
   {
+    path: 'footer',
+    component: FooterComponent
+  },
+  {
     path: 'homeOrderPage',
     component: HomeOrderPageComponent,
     canActivate: [OnlyLoggedInUsersGuardService]
@@ -40,6 +46,10 @@ const routes: Routes = [
   {
     path: 'authClientPage',
     component: AuthClientPageComponent
+  },
+  {
+    path: 'createClientPage',
+    component: AuthentCreateComponent
   },
   {
     path: 'createAccountPage',

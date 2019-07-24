@@ -73,7 +73,8 @@ export class Navbar2Component {
     }
   }
 
-  logOut() {
+  logOut(event) {
+    event.preventDefault()
     this.loginService.booleanLoggedIn = 0;
     this.booleanAdminLogged = 0;
     localStorage.clear();

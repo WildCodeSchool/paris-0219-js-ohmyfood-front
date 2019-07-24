@@ -71,7 +71,7 @@
         <div formArrayName="salad">
           <div [formGroupName]="i" *ngFor="let salads of salad.controls ; let i = index">
             <label for="saladName-{{i}}">
-              Votre salade composée<span>{{ salads.value.saladsComposedPriceTotal.toFixed(2) }}</span>
+              Votre salade composée<span>{{ salads.value.saladsComposedPriceTotal.toFixed(2) }} EUR</span>
             </label>
 
             <button
@@ -209,7 +209,7 @@
             [formGroupName]="i"
             *ngFor="let menuPizzas of menuPizza.controls; let i = index">
               <label for="menuPizzaName-{{i}}">
-                Votre menu pizza {{ menuPizzas.value.menuPizzPriceTotal.toFixed(2) }} EUR
+                Votre menu pizza {{ menuPizzas.value.menuPizzPriceTotal }} EUR
               </label>
 
               <div class="quantityButton">
@@ -252,7 +252,7 @@
               [formGroupName]="i"
               *ngFor="let menuSalads of menuSalad.controls; let i = index">
                 <label for="menuSaladName-{{i}}">
-                  Votre menu salade {{ menuSalads.value.menuSaladPriceTotal.toFixed(2) }} EUR
+                  Votre menu salade {{ menuSalads.value.menuSaladPriceTotal }} EUR
                 </label>
 
                 <div class="quantityButton">

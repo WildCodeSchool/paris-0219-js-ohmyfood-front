@@ -9,6 +9,8 @@ import { UserAccountInformationsService } from 'src/app/services/user-account-in
 import { DatePipe } from '@angular/common';
 import { checkLocationDelivery } from '../../validators/checkLocationDelivery';
 import { PizzasDataService } from 'src/app/services/pizzas-data.service';
+import { Router } from '@angular/router';
+import { deliveryIntervalTime } from 'src/app/validators/deliveryTimeValidators';
 
 @Component({
   selector: 'app-detail-order',
@@ -48,7 +50,8 @@ export class DetailOrderComponent implements OnInit {
     private fb: FormBuilder,
     private userAccountInformationsService: UserAccountInformationsService,
     private datePipe: DatePipe,
-    private pizzaDataService: PizzasDataService
+    private pizzaDataService: PizzasDataService,
+    private router: Router
   ) {
       this.dateOrder = this.datePipe.transform(this.date, 'yyyy-MM-dd HH:mm:ss');
       this.today = this.datePipe.transform(this.date, 'EEEE');
@@ -92,8 +95,6 @@ export class DetailOrderComponent implements OnInit {
     // Subscribe to output from basket component
     const finalOrderSubscription = this.finalOrderService.getFinalOrder.subscribe((userFinalOrder: any) => {
       let finalOrderStorage: any;
-
-      console.log(userFinalOrder);
 
       localStorage.getItem('finalOrder') ?
       finalOrderStorage = JSON.parse(localStorage.getItem('finalOrder')) :
@@ -292,7 +293,9 @@ export class DetailOrderComponent implements OnInit {
       totalOrder: this.totalOrder
     },
     {
-      validators: checkLocationDelivery('deliveryOrTakeAway', 'zipcode', 'totalOrder')
+      validators: [checkLocationDelivery('deliveryOrTakeAway', 'zipcode', 'totalOrder'),
+                    deliveryIntervalTime(this.dateOrder, false)
+                  ]
     });
     this.orderStatus = orderStatus;
   }
@@ -358,6 +361,8 @@ export class DetailOrderComponent implements OnInit {
     this.finalOrderService.submitFinalOrder().then(res => {
     });
     localStorage.removeItem('finalOrder');
+
+    /* this.router.navigate(['orderFinish']); */
   }
 
   // If pizzPrice are reduce

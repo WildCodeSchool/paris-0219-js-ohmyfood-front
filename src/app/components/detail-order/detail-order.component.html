@@ -286,6 +286,10 @@
       {{ userDetailForm.errors['notEnough'] }}
     </p>
 
+    <p *ngIf="userDetailForm.errors">
+      {{ userDetailForm.errors['notInTimeDetailOrderPage'] }}
+    </p>
+
     <label>
       <p>Adresse de facturation</p>
       <input type="text" formControlName="factAddress">
@@ -294,6 +298,6 @@
       <p>Commentaires</p>
       <textarea placeholder="Ex: Régina sans champignons..." formControlName="comment"></textarea>
     </label>
-    <button type="submit">CONFIRMER LA COMMANDE</button>
+    <button type="submit" (click)="confirmOrder()">CONFIRMER LA COMMANDE</button>
   </form>
 </div>

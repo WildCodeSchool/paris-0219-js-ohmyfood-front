@@ -1,14 +1,27 @@
 @import '../../../styles/colors.scss';
 
+.backgroundImg {
+    background: url('../../../assets/img/ohMyFoodDevanture.png') center no-repeat;
+    background-size: cover;
+    height: 80vh;
+    -webkit-box-shadow: inset 110px 0px 61px 30px rgba(255,255,255,1);
+-moz-box-shadow: inset 110px 0px 61px 30px rgba(255,255,255,1);
+box-shadow: inset 110px 0px 61px 30px rgba(255,255,255,1);
+}
+
+.backgroundImgContent {
+    height: 63vh;
+    overflow: hidden;
+}
+
 .buttonArea .button  {
     font-size: 1rem;
     margin: 5px 10%;
     width: 80%;
 }
 
-.carousel {
-    height: 300px;
-    overflow: hidden;
+img {
+    width: 100%;
 }
 
 .column.is-offset-2, .column.is-offset-2-tablet {

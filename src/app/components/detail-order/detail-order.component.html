@@ -290,6 +290,10 @@
       {{ userDetailForm.errors['notInTimeDetailOrderPage'] }}
     </p>
 
+    <p *ngIf="userDetailForm.errors && totalOrder === 0">
+      {{ userDetailForm.errors['emptyOrder'] }}
+    </p>
+
     <label>
       <p>Adresse de facturation</p>
       <input type="text" formControlName="factAddress">

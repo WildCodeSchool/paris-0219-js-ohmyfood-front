@@ -18,6 +18,10 @@ export function checkLocationDelivery(orderStatus: string, locationZipCode: stri
     if (statusOrder === 'en livraison' && zipCode !== 94150 && zipCode !== 91320 && zipCode !== 94260 && orderTotal < 15) {
       return { tooFar: `Nous livrons uniquement les villes suivantes : Rungis 94150, Wissous 91320 et Fresnes 94260`,
               notEnough: `Le montant de la commande en livraison doit être de 15€ minimum` };
+
+    } else if (orderTotal <= 0) {
+        return { emptyOrder: `Votre commande est vide` };
+
     } else {
         return null;
     }

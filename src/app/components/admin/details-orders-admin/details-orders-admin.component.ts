@@ -20,6 +20,7 @@ export class DetailsOrdersAdminComponent implements OnInit {
     this.ordersAdminService.getDetailsOrdersAdmin()
     .subscribe(detailsOrders => {
 
+      console.log(detailsOrders);
       // Make loop to regroup all informations of each orders
       for (const user of detailsOrders[0] ) {
         const pizzaList = [];
@@ -120,7 +121,7 @@ export class DetailsOrdersAdminComponent implements OnInit {
           user.mail,
           user.phoneNumber,
           user.userAddressFacturation,
-          user.deliveryAddress,
+          user.deliveryAddress.split(',').join(' '), // to display correctly in template
           user.userMessage,
           pizzaList,
           saladsComposedList,
@@ -131,6 +132,7 @@ export class DetailsOrdersAdminComponent implements OnInit {
         );
         // Push results in final results Array
         this.listOfOrders.push(ordersDetails);
+        console.log(this.listOfOrders);
       }
     });
   }

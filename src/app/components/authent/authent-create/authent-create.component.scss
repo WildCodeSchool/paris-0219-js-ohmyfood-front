@@ -11,9 +11,20 @@ label {
 }
 
 input[type=text], input[type=password], input[type=number] {
+    border: none;
+    border-bottom: 1px solid #333;
+    margin-bottom: 2%;
     width: 30%;
 }
 
 div div p {
     color: red;
+}
+
+h2 {
+    margin: 2% 0;
+}
+
+.longText {
+    padding: 2% 5%;
 }

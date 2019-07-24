@@ -13,13 +13,13 @@
     <a
       class="connexion"
       (click)="logOut($event)"
-      *ngIf="userInfoObject['lastname'] != ''"
+      *ngIf="ifLogged === true"
     >
       <i>DECONNEXION</i>
     </a>
     <a
       class="connexion"
-      *ngIf="userInfoObject['lastname'] == ''"
+      *ngIf="ifLogged === false"
       [routerLink]="['/authClientPage']"
       routerLinkActive="router-link-active"
     >

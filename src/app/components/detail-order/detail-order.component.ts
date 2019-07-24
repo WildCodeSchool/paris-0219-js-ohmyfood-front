@@ -66,7 +66,7 @@ export class DetailOrderComponent implements OnInit {
     if (localStorage.getItem('orderStatus')) {
       this.orderStatus = JSON.parse(localStorage.getItem('orderStatus'));
 
-      this.orderStatus === 'toTakeAway' ? this.orderStatus = 'À emporter' : this.orderStatus = 'Livraison';
+      this.orderStatus === 'toTakeAway' && this.today === 'Tuesday' ? this.orderStatus = 'À emporter' : this.orderStatus = 'Livraison';
 
       this.userDetailForm.controls.deliveryOrTakeAway.patchValue(this.orderStatus);
     }

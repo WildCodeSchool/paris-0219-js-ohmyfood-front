@@ -63,10 +63,10 @@ export class DetailOrderComponent implements OnInit {
       pizzSubscription.unsubscribe();
     });
 
-    if (localStorage.getItem('orderStatus')) {
+    if (localStorage.getItem('orderStatus') && this.finalOrderRecap !== undefined) {
       this.orderStatus = JSON.parse(localStorage.getItem('orderStatus'));
 
-      this.orderStatus === 'toTakeAway' && this.today === 'Tuesday' ? this.orderStatus = 'À emporter' : this.orderStatus = 'Livraison';
+      this.orderStatus === 'toTakeAway' && this.today === 'Tuesday' ? this.orderStatus = 'à emporter' : this.orderStatus = 'en livraison';
 
       this.userDetailForm.controls.deliveryOrTakeAway.patchValue(this.orderStatus);
     }
@@ -92,6 +92,8 @@ export class DetailOrderComponent implements OnInit {
     // Subscribe to output from basket component
     const finalOrderSubscription = this.finalOrderService.getFinalOrder.subscribe((userFinalOrder: any) => {
       let finalOrderStorage: any;
+
+      console.log(userFinalOrder);
 
       localStorage.getItem('finalOrder') ?
       finalOrderStorage = JSON.parse(localStorage.getItem('finalOrder')) :
@@ -194,10 +196,10 @@ export class DetailOrderComponent implements OnInit {
     .subscribe(mardiPizzPrice => {
       this.ohMyMardiPrice = mardiPizzPrice;
 
-      if (this.today === 'Tuesday' && this.orderStatus === 'À emporter') {
+      if (this.today === 'Tuesday' && this.orderStatus === 'à emporter' && this.finalOrderRecap !== undefined) {
         this.ohMyMardiPricePatchValue();
 
-      } else {
+      } else if (this.finalOrderRecap !== undefined) {
         this.patchPizzPrice();
       }
       tuesdayPriceSubscription.unsubscribe();
@@ -268,6 +270,16 @@ export class DetailOrderComponent implements OnInit {
   }
 
   initForm() {
+    let orderStatus: string;
+    if (localStorage.getItem('orderStatus')) {
+      orderStatus = JSON.parse(localStorage.getItem('orderStatus'));
+
+      orderStatus === 'ToTakeAway' ? orderStatus = 'à emporter' : orderStatus = 'en livraison';
+
+    } else {
+      orderStatus = 'à emporter';
+    }
+
     this.userDetailForm = this.fb.group({
       mailUser: [localStorage.getItem('userMail')],
       livrAddress1 : ['', Validators.required],
@@ -276,11 +288,12 @@ export class DetailOrderComponent implements OnInit {
       city: [''],
       factAddress: [''],
       comment: [''],
-      deliveryOrTakeAway: ['À emporter']
+      deliveryOrTakeAway: orderStatus
     },
     {
       validators: checkLocationDelivery('deliveryOrTakeAway', 'zipcode')
     });
+    this.orderStatus = orderStatus;
   }
 
   calcTotalOrder() {
@@ -288,37 +301,39 @@ export class DetailOrderComponent implements OnInit {
     const reducer = (accumulator: number, currentValue: number) => accumulator + currentValue;
     let finalOrderEmpty = true;
 
-    if (this.finalOrderRecap.pizza.length > 0) {
-      this.finalOrderRecap[`pizza`].map(pizz => { arrayTotalOrderPrice.push(+pizz[`pizzPriceTotal`]); });
-      finalOrderEmpty = false;
+    if (this.finalOrderRecap !== undefined) {
+      if (this.finalOrderRecap.pizza.length > 0) {
+        this.finalOrderRecap[`pizza`].map(pizz => { arrayTotalOrderPrice.push(+pizz[`pizzPriceTotal`]); });
+        finalOrderEmpty = false;
+      }
+
+      if (this.finalOrderRecap.beverage.length > 0) {
+        this.finalOrderRecap[`beverage`].map(bev => { arrayTotalOrderPrice.push(+bev[`bevPriceTotal`]); });
+        finalOrderEmpty = false;
+      }
+
+      if (this.finalOrderRecap.dessert.length > 0) {
+        this.finalOrderRecap[`dessert`].map(dess => { arrayTotalOrderPrice.push(+dess[`dessPriceTotal`]); });
+        finalOrderEmpty = false;
+      }
+
+      if (this.finalOrderRecap.salad.length > 0) {
+        this.finalOrderRecap[`salad`].map(salad => { arrayTotalOrderPrice.push(+salad[`saladsComposedPriceTotal`]); });
+        finalOrderEmpty = false;
+      }
+
+      if (this.finalOrderRecap.menuPizza.length > 0) {
+        this.finalOrderRecap[`menuPizza`].map(menuPizz => { arrayTotalOrderPrice.push(+menuPizz[`menuPizzPriceTotal`]); });
+        finalOrderEmpty = false;
+      }
+
+      if (this.finalOrderRecap.menuSalad.length > 0) {
+        this.finalOrderRecap[`menuSalad`].map(menuSalad => { arrayTotalOrderPrice.push(+menuSalad[`menuSaladPriceTotal`]); });
+        finalOrderEmpty = false;
+      }
     }
 
-    if (this.finalOrderRecap.beverage.length > 0) {
-      this.finalOrderRecap[`beverage`].map(bev => { arrayTotalOrderPrice.push(+bev[`bevPriceTotal`]); });
-      finalOrderEmpty = false;
-    }
-
-    if (this.finalOrderRecap.dessert.length > 0) {
-      this.finalOrderRecap[`dessert`].map(dess => { arrayTotalOrderPrice.push(+dess[`dessPriceTotal`]); });
-      finalOrderEmpty = false;
-    }
-
-    if (this.finalOrderRecap.salad.length > 0) {
-      this.finalOrderRecap[`salad`].map(salad => { arrayTotalOrderPrice.push(+salad[`saladsComposedPriceTotal`]); });
-      finalOrderEmpty = false;
-    }
-
-    if (this.finalOrderRecap.menuPizza.length > 0) {
-      this.finalOrderRecap[`menuPizza`].map(menuPizz => { arrayTotalOrderPrice.push(+menuPizz[`menuPizzPriceTotal`]); });
-      finalOrderEmpty = false;
-    }
-
-    if (this.finalOrderRecap.menuSalad.length > 0) {
-      this.finalOrderRecap[`menuSalad`].map(menuSalad => { arrayTotalOrderPrice.push(+menuSalad[`menuSaladPriceTotal`]); });
-      finalOrderEmpty = false;
-    }
-
-    if (!finalOrderEmpty) {
+    if (!finalOrderEmpty && this.finalOrderRecap !== undefined) {
       this.totalOrder = arrayTotalOrderPrice.reduce(reducer).toFixed(2);
     } else {
       this.totalOrder = 0;
@@ -367,10 +382,10 @@ export class DetailOrderComponent implements OnInit {
 
     if (orderStatus === 'toTakeAway' && this.today === 'Tuesday') {
       this.ohMyMardiPricePatchValue();
-      this.orderStatus = 'À emporter';
+      this.orderStatus = 'à emporter';
 
     } else if (orderStatus === 'toTakeAway') {
-      this.orderStatus = 'À emporter';
+      this.orderStatus = 'à emporter';
 
     } else {
       this.patchPizzPrice();

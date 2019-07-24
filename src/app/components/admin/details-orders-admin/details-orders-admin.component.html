@@ -25,7 +25,7 @@
       </h3>
 
       <h3>Statut de la commande : {{ order.orderMessage }}</h3>
-      <div *ngIf="order.orderMessage === 'Livraison'">
+      <div *ngIf="order.orderMessage === 'en livraison'">
         <h4>
           Addresse de livraison: <span>{{ order.userDeliveryAddress }}</span><br>
         </h4>

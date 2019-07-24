@@ -236,7 +236,7 @@
   <p>
     TOTAL de votre commande {{ totalOrder }} EUR
   </p>
-  <form [formGroup]="userDetailForm" (ngSubmit)="userDetailForm.valid && confirmOrder()">
+  <form [formGroup]="userDetailForm" (ngSubmit)="confirmOrder()">
     <p>Statut de la commande</p>
 
     <label for="toTakeAway">
@@ -298,6 +298,6 @@
       <p>Commentaires</p>
       <textarea placeholder="Ex: Régina sans champignons..." formControlName="comment"></textarea>
     </label>
-    <button type="submit" (click)="confirmOrder()">CONFIRMER LA COMMANDE</button>
+    <button type="submit">CONFIRMER LA COMMANDE</button>
   </form>
 </div>

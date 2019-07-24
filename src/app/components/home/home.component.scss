@@ -4,12 +4,13 @@
     background: url('../../../assets/img/ohMyFoodDevanture.png') center no-repeat;
     background-size: cover;
     height: 80vh;
-    -webkit-box-shadow: inset 110px 0px 61px 30px rgba(255,255,255,1);
--moz-box-shadow: inset 110px 0px 61px 30px rgba(255,255,255,1);
-box-shadow: inset 110px 0px 61px 30px rgba(255,255,255,1);
+    -webkit-box-shadow: inset 0px 0px 76px 2px white;;
+    -moz-box-shadow: inset 0px 0px 76px 2px white;;
+    box-shadow: inset 0px 0px 76px 2px white;
 }
 
 .backgroundImgContent {
+    display: none;
     height: 63vh;
     overflow: hidden;
 }
@@ -18,6 +19,25 @@ box-shadow: inset 110px 0px 61px 30px rgba(255,255,255,1);
     font-size: 1rem;
     margin: 5px 10%;
     width: 80%;
+}
+
+.downArrow {
+    color: $green;
+    height: 29px;
+    margin-top: -12px;
+    text-align: center;
+    width: 100%;
+
+    li {
+        background: white;
+        display: inline-block;
+        width: 33.3%;
+
+        p {
+            font-size: 1.4rem;
+            margin: 0 0;
+        }
+    }
 }
 
 img {
@@ -199,7 +219,12 @@ li {
 
     .saladScroll {
         overflow-y: scroll;
-        height: 20%;
+        height: 18%;
+        scrollbar-width: none;
+    }
+
+    .saladScroll::-webkit-scrollbar {
+        width: 0;
     }
 
     .sectionMenu {
@@ -224,5 +249,15 @@ li {
 @media screen and (min-width: 1200px) {
     .sectionMenu {
         height: 100vh;
+    }
+
+    .backgroundImg {
+        height: 80vh;
+        width: 62%;
+        margin-left: 19%;
+    }
+
+    .backgroundImgContent {
+        display: block;
     }
 }

@@ -44,7 +44,11 @@ export class ForgotPsswComponent implements OnInit {
     }
     if (confirm(`Voulez-vous recevoir un lien pour changer de mot de passe ?`)) {
       this.loginService.getNewPssw().then(responseNewPssw => {
-        this.newPasswordPageGuardService.transfertResponseNewPsswFn(responseNewPssw)
+        if (responseNewPssw['responseNewPssw'] != 'firstStep' ) {
+          alert (responseNewPssw['responseNewPssw']);
+        } else {
+          this.newPasswordPageGuardService.transfertResponseNewPsswFn(responseNewPssw);
+        }
       });
     }
   }

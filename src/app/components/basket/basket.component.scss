@@ -4,7 +4,7 @@
     align-items: center;
     display: block;
     height: 5vh;
-    font-size: 1rem;
+    font-size: 1.3rem;
     justify-content: center;
     transition-duration: .5s;
     transform: rotate(-180deg);
@@ -13,7 +13,7 @@
 
 .basket {
     width: 100vw;
-    height: 8%;
+    height: 9%;
     background: $green;
     border: 3px solid white;
     color: white;
@@ -70,7 +70,8 @@ input[type=text]::-webkit-outer-spin-button {
 }
 
 .fa-shopping-cart {
-    font-size: 1.3rem;
+    font-size: 1rem;
+    margin-left: 20%;
 }
 
 .formular {
@@ -137,11 +138,20 @@ ul li {
 
 @media screen and (min-width: 720px) {
 
+    .arrowToggle {
+        font-size: 2rem;
+    }
+
     .basket {
-        width: 100vw;
+        height: 12%;
         right: -90vw;
+        width: 100vw;
     }
     
+    .fa-shopping-cart {
+        font-size: 2rem;
+    }
+
     .formular {
         height: 80vh;
     }

@@ -6,7 +6,7 @@
 
   <div class="column is-4 title">
     <p id='title'>OHMYFOOD</p>
-    <span>Bienvenue {{userInfoObject['firstname']}}</span>
+    <span>Bienvenue <span *ngIf="userAccountObject['0'] != undefined">{{userAccountObject['0']['firstname']}}</span></span>
   </div>
 
   <div class="column is-4 loginShow">

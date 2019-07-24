@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { LoginService } from 'src/app/services/login.service';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { AdminSuperGuardService } from 'src/app/services/admin-super-guard.service';
 import { OnlyLoggedInUsersGuardService } from 'src/app/services/only-logged-in-users-guard.service';
+import { UserAccountInformationsService } from 'src/app/services/user-account-informations.service';
 
 @Component({
   selector: 'app-navbar2',
@@ -15,6 +16,7 @@ export class Navbar2Component {
     firstname: '',
     mail: ''
   };
+  userAccountObject = [];
   ifLogged;
 
   booleanAdminLogged = 0;
@@ -23,7 +25,8 @@ export class Navbar2Component {
     private loginService: LoginService,
     private router: Router,
     private adminSuperGuardService: AdminSuperGuardService,
-    private onlyLoggedInUsersGuardService: OnlyLoggedInUsersGuardService
+    private onlyLoggedInUsersGuardService: OnlyLoggedInUsersGuardService, 
+    private userAccountInformationsService: UserAccountInformationsService
   ) {  }
 
   ngOnInit() {
@@ -44,11 +47,10 @@ export class Navbar2Component {
     }
 
     if (localStorage.getItem('userLastName') != undefined) { // on page refresh with logged user
-      this.userInfoObject = {
-        lastname: localStorage.getItem('userLastName'),
-        firstname: localStorage.getItem('userFirstName'),
-        mail: localStorage.getItem('userMail')
-      };
+      this.userAccountInformationsService.userMail = localStorage.getItem('userMail');
+      this.userAccountInformationsService.getClientAccountInfos().then(res => {
+        this.userAccountObject = JSON.parse(res);
+      })
     }
 
     this.loginService.transfertUserRight.subscribe(_ => {

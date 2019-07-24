@@ -200,7 +200,6 @@ export class DetailOrderComponent implements OnInit {
       } else {
         this.patchPizzPrice();
       }
-
       tuesdayPriceSubscription.unsubscribe();
     });
     this.calcTotalOrder();
@@ -311,7 +310,6 @@ export class DetailOrderComponent implements OnInit {
     this.finalOrderService.submitFinalOrder().then(res => {
     });
     localStorage.removeItem('finalOrder');
-    localStorage.removeItem('orderStatus');
   }
 
   // If pizzPrice are reduce
@@ -337,7 +335,18 @@ export class DetailOrderComponent implements OnInit {
 
   getOrderStatus(orderStatus: string) {
     localStorage.setItem('orderStatus', JSON.stringify(orderStatus));
-    orderStatus === 'toTakeAway' ? this.ohMyMardiPricePatchValue() : this.patchPizzPrice();
+
+    if (orderStatus === 'toTakeAway' && this.today === 'Tuesday') {
+      this.ohMyMardiPricePatchValue();
+      this.orderStatus = 'À emporter';
+
+    } else if (orderStatus === 'toTakeAway') {
+      this.orderStatus = 'À emporter';
+
+    } else {
+      this.patchPizzPrice();
+      this.orderStatus = 'Livraison';
+    }
   }
 
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-salad-page',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SaladPageComponent implements OnInit {
 
+  // Get formSalad from saladFormComponent to display message in saladForm and not in formulars
+  formSalad: FormGroup;
+
   constructor() { }
 
   ngOnInit() {
+  }
+
+  onGetControls($event: FormGroup) {
+    this.formSalad = $event;
   }
 
 }

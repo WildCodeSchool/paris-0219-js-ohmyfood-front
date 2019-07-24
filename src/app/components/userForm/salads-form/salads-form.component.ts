@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { SaladsDatasService } from 'src/app/services/salads-datas.service';
 import { QuantitySelectService } from 'src/app/services/quantity-select.service';
 import { ToggleFormService } from 'src/app/services/toggle-form.service';
@@ -15,6 +15,9 @@ import { deliveryIntervalTime } from 'src/app/validators/deliveryTimeValidators'
   providers: [DatePipe]
 })
 export class SaladsFormComponent implements OnInit {
+
+  @Output()
+  public getControls: EventEmitter<any> = new EventEmitter();
 
   // To know if user selected menu
   // Get this information from menuSaladFormComponent
@@ -51,6 +54,9 @@ export class SaladsFormComponent implements OnInit {
   ngOnInit() {
     // Init formSalads
     this.initFormSalads();
+
+    // Send form in saladPage to display error message in template
+    this.getControls.emit(this.formSalads);
 
     const basesSubscription = this.saladsDataService.addSaladsBases().subscribe(bases => {
 

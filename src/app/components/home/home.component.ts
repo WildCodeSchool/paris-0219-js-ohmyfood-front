@@ -47,19 +47,13 @@ export class HomeComponent implements OnInit {
     // console.log(this.saladsIngredientsList);
   }
 
-  checkIfUserLogged(i) {
-    let index = i;
+  checkIfUserLogged() {
     if (localStorage.getItem('userLastName') == undefined) {
       return this.router.navigateByUrl('authClientPage')
-    }
-    if (index === 0) {
-      // variable en livraison checked
-    } else {
-      // variable à emporter checked
     }
     this.router.navigateByUrl('homeOrderPage');
   }
   goToFooter() {
-    return window.alert('Appeler le 000000');
+    return window.alert('Appeler le 01 46 87 33 47');
   }
 }

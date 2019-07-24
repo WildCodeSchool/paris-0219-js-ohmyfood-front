@@ -1,8 +1,8 @@
 <section class="buttonArea">
   <button 
-    *ngFor="let button of buttons; let i = index"
+    *ngFor="let button of buttons"
     class="button has-text-centered"
-    (click)="checkIfUserLogged(i)"
+    (click)="checkIfUserLogged()"
   >
    {{button | uppercase}}
   </button>
@@ -82,7 +82,7 @@
         <ul>
           <li *ngFor="let pizzasList of pizzasList">
             <span>{{ pizzasList.pizzName }}</span>
-            <span>{{ pizzasList.pizzPriceTTC }} EUR</span>
+            <span>{{ pizzasList.pizzPriceTTC }} €</span>
           </li>
         </ul>
     </div>
@@ -95,19 +95,22 @@
       </div>
       <h2 class="h2List">Menu Pizzas</h2>
       <ul class="pizzaDetail">
-        <li>1 Pizza + 1 Boisson + 1 Dessert à 14 €</li>
+        <li><strong>1 Pizza + 1 Boisson + 1 Dessert</strong></li>
+        <li>Seulement 14 €</li>
       </ul>
       <h2 class="h2List">Menus Salades</h2>
       <ul class="ulSalad">
-        <li>Salade Sur Mesure + 1 Boisson OU 1 Dessert</li>
+        <li><strong>Salade Sur Mesure</strong></li>
+        <li><strong>+ 1 Boisson OU 1 Dessert</strong></li>
         <li>1,50 € + Prix de la Salade</li>
-        <li>+ 1 € si la Boisson est 1 Bière</li>
+        <li><i>+ 1 € si la Boisson est 1 Bière</i></li>
       </ul>
       <hr>
       <ul class="ulSalad">
-        <li>1 Salade Sur Mesure + 1 Boisson + 1 Dessert</li>
+        <li><strong>Salade Sur Mesure</strong></li>
+        <li><strong>+ 1 Boisson + 1 Dessert</strong></li>
         <li>3 € + Prix de la Salade</li>
-        <li>+ 1 € si la Boisson est 1 Bière</li>
+        <li><i>+ 1 € si la Boisson est 1 Bière</i></li>
       </ul>
     </div>
   </div>

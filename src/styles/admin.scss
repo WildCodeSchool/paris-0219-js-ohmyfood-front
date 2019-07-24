@@ -1,0 +1,207 @@
+#ulOrder {
+  margin: auto;
+  width: 90%;
+
+  .orderList {
+    border: solid 1px;
+    border-radius: 15px;
+    margin: 5% 0;
+    padding: 1%;
+  }
+
+  h1 {
+    display: flex;
+    height: 100px;
+    flex-direction: column;
+    justify-content: space-around;
+    font-size: 1.5em;
+    font-weight: bold;
+
+    span {
+      font-weight: lighter;
+      width: 60%;
+    }
+  }
+}
+
+h2 {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+h3, h4 {
+  font-size: 1em;
+  font-weight: bold;
+
+  span {
+    font-weight: lighter;
+  }
+}
+
+h5 {
+  display: flex;
+  font-size: 1em;
+  justify-content: space-between;
+
+  span {
+    align-self: center;
+    font-weight: 300;
+    width: 40%;
+  }
+}
+
+#orderUserInformation {
+  display: flex;
+  justify-content: space-between;
+
+  h3 {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .orderFirstInfos {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    width: 20%;
+  }
+
+  .orderStatusInformations {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+  }
+}
+
+.detailOrder {
+  justify-content: space-between;
+  margin-top: 2%;
+}
+
+.pizza, .beverage, .dessert, .salad, .menuSalad, .menuPizza {
+  margin: 2% 0;
+  width: 50%;
+}
+
+.saladIngredients {
+  display: flex;
+  justify-content: space-between;
+
+  span {
+    width: 60%;
+  }
+}
+
+.detailOrder:nth-child(1) {
+  order:1;
+}
+
+.detailOrder :nth-child(2) {
+  order: 4;
+}
+
+.detailOrder:nth-child(3) {
+  order: 2;
+}
+
+.detailOrder :nth-child(4) {
+  order: 3;
+}
+
+.detailOrder :nth-child(5) {
+  order: 5;
+}
+
+.detailOrder :nth-child(6) {
+  order: 6;
+}
+
+.salad p {
+  font-style: italic;
+  margin: 5% 0;
+}
+
+.menuPizza {
+  p {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+
+    span {
+      font-style: italic;
+    }
+  }
+}
+
+.menuSalad {
+  .menuSaladIngredients {
+    font-style: italic;
+    margin: 5% 0;
+  }
+
+  ul li p {
+    display: flex;
+    justify-content: space-between;
+
+    span {
+      width: 60%;
+    }
+  }
+
+  .detailMenuSalad {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+
+    span {
+      width: 60%;
+    }
+  }
+}
+
+.button {
+  border: solid 1px #333;
+  margin: 0 auto;
+  transition-duration: 500ms;
+
+  &:hover {
+    background: #333;
+    color: whitesmoke;
+  }
+}
+
+@media screen and(max-width: 900px) {
+  #ulOrder {
+
+    h1, h2, h3, h4 {
+      font-size: 1em;
+      font-weight: normal;
+    }
+
+    h1 span {
+      width: 100%
+    }
+  }
+
+  .pizza, .beverage, .dessert, .salad, .menuSalad, .menuPizza {
+    margin: 2% 0;
+    width: 100%;
+  }
+
+  p, h5, h6  {
+    font-size: 0.8em;
+  }
+
+  span {
+    font-size: 0.8em;
+  }
+
+  #orderUserInformation {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .saladIngredients {
+    font-size: 0.8em;
+  }
+}

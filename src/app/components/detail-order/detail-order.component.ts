@@ -286,14 +286,43 @@ export class DetailOrderComponent implements OnInit {
   calcTotalOrder() {
     const arrayTotalOrderPrice = [];
     const reducer = (accumulator: number, currentValue: number) => accumulator + currentValue;
+    let finalOrderEmpty = true;
 
-    this.finalOrderRecap[`pizza`].map(pizz => { arrayTotalOrderPrice.push(+pizz[`pizzPriceTotal`]); });
-    this.finalOrderRecap[`beverage`].map(bev => { arrayTotalOrderPrice.push(+bev[`bevPriceTotal`]); });
-    this.finalOrderRecap[`dessert`].map(dess => { arrayTotalOrderPrice.push(+dess[`dessPriceTotal`]); });
-    this.finalOrderRecap[`salad`].map(salad => { arrayTotalOrderPrice.push(+salad[`saladsComposedPriceTotal`]); });
-    this.finalOrderRecap[`menuPizza`].map(menuPizz => { arrayTotalOrderPrice.push(+menuPizz[`menuPizzPriceTotal`]); });
-    this.finalOrderRecap[`menuSalad`].map(menuSalad => { arrayTotalOrderPrice.push(+menuSalad[`menuSaladPriceTotal`]); });
-    this.totalOrder = arrayTotalOrderPrice.reduce(reducer).toFixed(2);
+    if (this.finalOrderRecap.pizza.length > 0) {
+      this.finalOrderRecap[`pizza`].map(pizz => { arrayTotalOrderPrice.push(+pizz[`pizzPriceTotal`]); });
+      finalOrderEmpty = false;
+    }
+
+    if (this.finalOrderRecap.beverage.length > 0) {
+      this.finalOrderRecap[`beverage`].map(bev => { arrayTotalOrderPrice.push(+bev[`bevPriceTotal`]); });
+      finalOrderEmpty = false;
+    }
+
+    if (this.finalOrderRecap.dessert.length > 0) {
+      this.finalOrderRecap[`dessert`].map(dess => { arrayTotalOrderPrice.push(+dess[`dessPriceTotal`]); });
+      finalOrderEmpty = false;
+    }
+
+    if (this.finalOrderRecap.salad.length > 0) {
+      this.finalOrderRecap[`salad`].map(salad => { arrayTotalOrderPrice.push(+salad[`saladsComposedPriceTotal`]); });
+      finalOrderEmpty = false;
+    }
+
+    if (this.finalOrderRecap.menuPizza.length > 0) {
+      this.finalOrderRecap[`menuPizza`].map(menuPizz => { arrayTotalOrderPrice.push(+menuPizz[`menuPizzPriceTotal`]); });
+      finalOrderEmpty = false;
+    }
+
+    if (this.finalOrderRecap.menuSalad.length > 0) {
+      this.finalOrderRecap[`menuSalad`].map(menuSalad => { arrayTotalOrderPrice.push(+menuSalad[`menuSaladPriceTotal`]); });
+      finalOrderEmpty = false;
+    }
+
+    if (!finalOrderEmpty) {
+      this.totalOrder = arrayTotalOrderPrice.reduce(reducer).toFixed(2);
+    } else {
+      this.totalOrder = 0;
+    }
   }
 
   confirmOrder() {
@@ -345,7 +374,7 @@ export class DetailOrderComponent implements OnInit {
 
     } else {
       this.patchPizzPrice();
-      this.orderStatus = 'Livraison';
+      this.orderStatus = ' en livraison';
     }
   }
 

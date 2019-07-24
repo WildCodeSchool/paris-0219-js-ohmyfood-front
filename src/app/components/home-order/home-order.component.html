@@ -31,7 +31,13 @@
     </div>
     <img src="https://sf1.viepratique.fr/wp-content/uploads/sites/2/2015/03/Pizzas-jambon-fromage-179295.jpg"/>
     <div class="classButton level">
-      <button class="button level-right">VALIDER MA COMMANDE</button>
+      <button
+        class="button level-right"
+        [routerLink]="['/detailOrderPage']"
+        routerLinkActive="router-link-active"
+      >
+        VOIR MA COMMANDE
+      </button>
     </div>
   </div>
 </div>

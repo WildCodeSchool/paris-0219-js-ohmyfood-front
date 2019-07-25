@@ -10,3 +10,24 @@ ul {
   background: #333;
   color: whitesmoke;
 }
+
+@media screen and(max-width: 900px) {
+  ul {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 140px;
+    width: 100%;
+    align-items: center;
+
+    li {
+      width: 60%;
+    }
+
+    button {
+      width: 100%;
+    }
+  }
+
+}
+

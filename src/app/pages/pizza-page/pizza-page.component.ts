@@ -43,7 +43,7 @@ export class PizzaPageComponent implements OnInit {
     if (localStorage.getItem('orderStatus')) {
       this.orderStatus = JSON.parse(localStorage.getItem('orderStatus'));
 
-      this.orderStatus === 'delivery' ? this.orderStatus = 'Livraison' : this.orderStatus = 'À emporter';
+      this.orderStatus === 'delivery' ? this.orderStatus = 'en livraison' : this.orderStatus = 'à emporter';
 
       this.orderStatusForm = this.fb.group({
         orderStatus: this.orderStatus
@@ -51,8 +51,9 @@ export class PizzaPageComponent implements OnInit {
 
     } else {
       this.orderStatusForm = this.fb.group({
-        orderStatus: 'Livraison'
+        orderStatus: 'en livraison'
       });
+      localStorage.setItem('orderStatus', JSON.stringify('delivery'));
     }
   }
 

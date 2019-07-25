@@ -9,6 +9,8 @@ import { UserAccountInformationsService } from 'src/app/services/user-account-in
 import { DatePipe } from '@angular/common';
 import { checkLocationDelivery } from '../../validators/checkLocationDelivery';
 import { PizzasDataService } from 'src/app/services/pizzas-data.service';
+import { Router } from '@angular/router';
+import { deliveryIntervalTime } from 'src/app/validators/deliveryTimeValidators';
 
 @Component({
   selector: 'app-detail-order',
@@ -48,7 +50,8 @@ export class DetailOrderComponent implements OnInit {
     private fb: FormBuilder,
     private userAccountInformationsService: UserAccountInformationsService,
     private datePipe: DatePipe,
-    private pizzaDataService: PizzasDataService
+    private pizzaDataService: PizzasDataService,
+    private router: Router
   ) {
       this.dateOrder = this.datePipe.transform(this.date, 'yyyy-MM-dd HH:mm:ss');
       this.today = this.datePipe.transform(this.date, 'EEEE');
@@ -63,10 +66,10 @@ export class DetailOrderComponent implements OnInit {
       pizzSubscription.unsubscribe();
     });
 
-    if (localStorage.getItem('orderStatus')) {
+    if (localStorage.getItem('orderStatus') && this.finalOrderRecap !== undefined) {
       this.orderStatus = JSON.parse(localStorage.getItem('orderStatus'));
 
-      this.orderStatus === 'toTakeAway' && this.today === 'Tuesday' ? this.orderStatus = 'À emporter' : this.orderStatus = 'Livraison';
+      this.orderStatus === 'toTakeAway' && this.today === 'Tuesday' ? this.orderStatus = 'à emporter' : this.orderStatus = 'en livraison';
 
       this.userDetailForm.controls.deliveryOrTakeAway.patchValue(this.orderStatus);
     }
@@ -194,10 +197,10 @@ export class DetailOrderComponent implements OnInit {
     .subscribe(mardiPizzPrice => {
       this.ohMyMardiPrice = mardiPizzPrice;
 
-      if (this.today === 'Tuesday' && this.orderStatus === 'À emporter') {
+      if (this.today === 'Tuesday' && this.orderStatus === 'à emporter' && this.finalOrderRecap !== undefined) {
         this.ohMyMardiPricePatchValue();
 
-      } else {
+      } else if (this.finalOrderRecap !== undefined) {
         this.patchPizzPrice();
       }
       tuesdayPriceSubscription.unsubscribe();
@@ -268,6 +271,17 @@ export class DetailOrderComponent implements OnInit {
   }
 
   initForm() {
+    let orderStatus: string;
+    if (localStorage.getItem('orderStatus')) {
+      orderStatus = JSON.parse(localStorage.getItem('orderStatus'));
+
+      orderStatus === 'ToTakeAway' ? orderStatus = 'à emporter' : orderStatus = 'en livraison';
+
+    } else {
+      orderStatus = 'à emporter';
+      localStorage.setItem('orderStatus', JSON.stringify('toTakeAway'));
+    }
+
     this.userDetailForm = this.fb.group({
       mailUser: [localStorage.getItem('userMail')],
       livrAddress1 : ['', Validators.required],
@@ -276,11 +290,15 @@ export class DetailOrderComponent implements OnInit {
       city: [''],
       factAddress: [''],
       comment: [''],
-      deliveryOrTakeAway: ['À emporter']
+      deliveryOrTakeAway: orderStatus,
+      totalOrder: this.totalOrder
     },
     {
-      validators: checkLocationDelivery('deliveryOrTakeAway', 'zipcode')
+      validators: [checkLocationDelivery('deliveryOrTakeAway', 'zipcode', 'totalOrder'),
+                    deliveryIntervalTime(this.dateOrder, false)
+                  ]
     });
+    this.orderStatus = orderStatus;
   }
 
   calcTotalOrder() {
@@ -288,40 +306,45 @@ export class DetailOrderComponent implements OnInit {
     const reducer = (accumulator: number, currentValue: number) => accumulator + currentValue;
     let finalOrderEmpty = true;
 
-    if (this.finalOrderRecap.pizza.length > 0) {
-      this.finalOrderRecap[`pizza`].map(pizz => { arrayTotalOrderPrice.push(+pizz[`pizzPriceTotal`]); });
-      finalOrderEmpty = false;
+    if (this.finalOrderRecap !== undefined) {
+      if (this.finalOrderRecap.pizza.length > 0) {
+        this.finalOrderRecap[`pizza`].map(pizz => { arrayTotalOrderPrice.push(+pizz[`pizzPriceTotal`]); });
+        finalOrderEmpty = false;
+      }
+
+      if (this.finalOrderRecap.beverage.length > 0) {
+        this.finalOrderRecap[`beverage`].map(bev => { arrayTotalOrderPrice.push(+bev[`bevPriceTotal`]); });
+        finalOrderEmpty = false;
+      }
+
+      if (this.finalOrderRecap.dessert.length > 0) {
+        this.finalOrderRecap[`dessert`].map(dess => { arrayTotalOrderPrice.push(+dess[`dessPriceTotal`]); });
+        finalOrderEmpty = false;
+      }
+
+      if (this.finalOrderRecap.salad.length > 0) {
+        this.finalOrderRecap[`salad`].map(salad => { arrayTotalOrderPrice.push(+salad[`saladsComposedPriceTotal`]); });
+        finalOrderEmpty = false;
+      }
+
+      if (this.finalOrderRecap.menuPizza.length > 0) {
+        this.finalOrderRecap[`menuPizza`].map(menuPizz => { arrayTotalOrderPrice.push(+menuPizz[`menuPizzPriceTotal`]); });
+        finalOrderEmpty = false;
+      }
+
+      if (this.finalOrderRecap.menuSalad.length > 0) {
+        this.finalOrderRecap[`menuSalad`].map(menuSalad => { arrayTotalOrderPrice.push(+menuSalad[`menuSaladPriceTotal`]); });
+        finalOrderEmpty = false;
+      }
     }
 
-    if (this.finalOrderRecap.beverage.length > 0) {
-      this.finalOrderRecap[`beverage`].map(bev => { arrayTotalOrderPrice.push(+bev[`bevPriceTotal`]); });
-      finalOrderEmpty = false;
-    }
-
-    if (this.finalOrderRecap.dessert.length > 0) {
-      this.finalOrderRecap[`dessert`].map(dess => { arrayTotalOrderPrice.push(+dess[`dessPriceTotal`]); });
-      finalOrderEmpty = false;
-    }
-
-    if (this.finalOrderRecap.salad.length > 0) {
-      this.finalOrderRecap[`salad`].map(salad => { arrayTotalOrderPrice.push(+salad[`saladsComposedPriceTotal`]); });
-      finalOrderEmpty = false;
-    }
-
-    if (this.finalOrderRecap.menuPizza.length > 0) {
-      this.finalOrderRecap[`menuPizza`].map(menuPizz => { arrayTotalOrderPrice.push(+menuPizz[`menuPizzPriceTotal`]); });
-      finalOrderEmpty = false;
-    }
-
-    if (this.finalOrderRecap.menuSalad.length > 0) {
-      this.finalOrderRecap[`menuSalad`].map(menuSalad => { arrayTotalOrderPrice.push(+menuSalad[`menuSaladPriceTotal`]); });
-      finalOrderEmpty = false;
-    }
-
-    if (!finalOrderEmpty) {
+    if (!finalOrderEmpty && this.finalOrderRecap !== undefined) {
       this.totalOrder = arrayTotalOrderPrice.reduce(reducer).toFixed(2);
+      this.userDetailForm.controls.totalOrder.patchValue(this.totalOrder);
+
     } else {
       this.totalOrder = 0;
+      this.userDetailForm.controls.totalOrder.patchValue(this.totalOrder);
     }
   }
 
@@ -337,6 +360,7 @@ export class DetailOrderComponent implements OnInit {
     };
     this.finalOrderService.finalOrderObject = finalOrder;
     this.finalOrderService.submitFinalOrder().then(res => {
+      this.router.navigate(['orderFinish']);
     });
     localStorage.removeItem('finalOrder');
   }
@@ -367,10 +391,10 @@ export class DetailOrderComponent implements OnInit {
 
     if (orderStatus === 'toTakeAway' && this.today === 'Tuesday') {
       this.ohMyMardiPricePatchValue();
-      this.orderStatus = 'À emporter';
+      this.orderStatus = 'à emporter';
 
     } else if (orderStatus === 'toTakeAway') {
-      this.orderStatus = 'À emporter';
+      this.orderStatus = 'à emporter';
 
     } else {
       this.patchPizzPrice();

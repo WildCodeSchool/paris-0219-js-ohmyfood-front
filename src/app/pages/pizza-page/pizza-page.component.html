@@ -1,23 +1,23 @@
 <form
   [formGroup]="orderStatusForm"
 >
-  <label for="delivery">Livraison</label>
+  <label for="delivery">en livraison</label>
 
   <input
     type="radio"
     id="delivery"
-    value="Livraison"
+    value="en livraison"
     formControlName="orderStatus"
     name="orderStatus"
     (ngModelChange)="getOrderStatus('delivery')"
   />
 
-  <label for="toTakeAway">À emporter</label>
+  <label for="toTakeAway">à emporter</label>
 
   <input
     type="radio"
     id="toTakeAway"
-    value="À emporter"
+    value="à emporter"
     name="orderStatus"
     formControlName="orderStatus"
     (ngModelChange)="getOrderStatus('toTakeAway')"

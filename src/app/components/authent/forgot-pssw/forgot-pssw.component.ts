@@ -11,11 +11,11 @@ import { NewPasswordPageGuardService } from 'src/app/services/new-password-page-
 })
 export class ForgotPsswComponent implements OnInit {
   forgotPsswForm: FormGroup;
-  regexEmail = /^[a-zA-Z0-9.%&_~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/gm
+  regexEmail = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}/m;
 
   constructor(
-    private fb: FormBuilder, 
-    private location: Location, 
+    private fb: FormBuilder,
+    private location: Location,
     private loginService: LoginService,
     private newPasswordPageGuardService: NewPasswordPageGuardService
   ) { }

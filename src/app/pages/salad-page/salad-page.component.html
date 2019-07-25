@@ -1,4 +1,8 @@
-<app-salads-form></app-salads-form>
+<app-salads-form (getControls)="onGetControls($event)"></app-salads-form>
 <app-beverages-form></app-beverages-form>
 <app-basket></app-basket>
 <app-desserts-form></app-desserts-form>
+
+<div class="paragrapheStyle">
+  <p *ngIf="formSalad.errors">{{ formSalad.errors['notInTime'] }}</p>
+</div>

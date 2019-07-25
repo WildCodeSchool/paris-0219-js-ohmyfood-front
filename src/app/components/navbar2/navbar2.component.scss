@@ -3,9 +3,11 @@
 
 
 .connexion {
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   font-weight: bold;
+  margin-right: 10px;
   text-decoration: none;
+  vertical-align: super;
 }
 
 i {
@@ -17,7 +19,6 @@ span {
 .topbar {
     margin: 0;
     background-color: $green;
-
 }
 
 #phone {
@@ -102,6 +103,6 @@ span {
 
 @media screen and (min-width: 1024px) {
   .columns {
-    height: 8vh;
+    height: 9vh;
   }
 }

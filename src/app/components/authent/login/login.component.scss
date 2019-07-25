@@ -1,16 +1,20 @@
 h2 {
   text-align: center;
-  margin-top: 2%;
+  margin-top: 5%;
 }
-.contenaire {
+
+.content {
   flex-direction: column;
   display: flex;
   align-items: center;
   padding: 2%;
 
   input {
-    background-color: #B2D891;
-    width: 15%;
+    text-decoration: none;
+    border: none;
+    border-bottom: 1px solid #669D66;
+    margin-bottom: 35px;
+    width: 80%;
   }
 }
 button {
@@ -22,10 +26,25 @@ button {
   display: flex;
   justify-content: center;
   padding: 3%;
-
+  margin-bottom: 74px;
+  height: 100%;
   p {
     padding-right: 3%;
     text-align: center;
     white-space: nowrap;
+  }
+}
+
+.loginContent {
+  height: 80%;
+}
+
+@media screen and (min-width: 1023px) {
+  .createAuthClient {
+    margin-bottom: 74px;
+  }
+
+  .content input {
+    width: 15%;
   }
 }

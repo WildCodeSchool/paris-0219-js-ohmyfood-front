@@ -2,17 +2,17 @@
     <div class="saladsTitle">
       <a href (click)="toggleFormSalads($event, 'form')">
         <h1>
-          SALADS COMPOSEE
+          SALADES COMPOSEES
         </h1>
 
-        <p>
+        <p class="paragrapheStyle">
           Cliquez pour découvrir nos ingredients de salade
         </p>
       </a>
     </div>
     <div class="notToggle" [ngClass]="{toggle: isToggle}">
 
-    <form [formGroup]="formSalads" (ngSubmit)="formSalads.valid && onSubmit()" #saladsForm=ngForm>
+    <form [formGroup]="formSalads" (ngSubmit)="onSubmit()" #saladsForm=ngForm>
       <div class="contenaire">
         <div class="head">
           <div class="ldm">

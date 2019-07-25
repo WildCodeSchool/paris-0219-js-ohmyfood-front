@@ -6,9 +6,11 @@
   background-repeat: no-repeat, no-repeat;
   background-position: center, center;
   background-size: 97% 90%, 100% 100%;
-  width: 83%;
-  padding: 2%;
+  width: 100%;
+  padding: 10%;
   margin: auto;
+  filter:  hue-rotate(6deg) brightness(95%) contrast(227%);
+  -webkit-filter: hue-rotate(6deg) brightness(95%) contrast(227%);
 
 }
 
@@ -17,7 +19,7 @@ a {
   color: black;
 
   h1 {
-    font-size: 2em;
+    font-size: 2.5em;
     text-align: center;
   }
 

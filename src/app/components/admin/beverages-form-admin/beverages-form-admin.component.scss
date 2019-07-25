@@ -1,3 +1,27 @@
+#conteneur {
+    border-color: #2d2c33;
+    border-radius: 1%;
+    border-style: solid;
+    border-width: 5px;
+    -webkit-box-shadow: 5px 5px 5px 0px #adfdf2ce;
+    -moz-box-shadow: 5px 5px 5px 0px #adfdf2ce;
+    box-shadow: 5px 5px 5px 0px #adfdf2ce;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 0.5%;
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-bottom: 5%;
+}
+
+h1 {
+    text-align: center;
+    color: #adfdf2ce;
+    text-shadow: 1px 1px #2d2c33;
+}
+
 .invalidText {
     color: red;
 }

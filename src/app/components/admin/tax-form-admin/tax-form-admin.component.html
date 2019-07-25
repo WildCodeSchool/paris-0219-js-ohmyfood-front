@@ -1,50 +1,55 @@
-<form [formGroup]="taxFormPut">
-  <label>
-    <p>Nom de la taxe à modifer</p>
-    <input type="text"
-      class="form-control"
-      formControlName="taxName"
-      required
-    >
-  </label>
-  <label>
-    <p>Nouveau nom de la taxe ?</p>
-    <input type="text" 
-      class="form-control" 
-      formControlName="taxNewName" 
-    >
-  </label>
-  <label>
-    <div *ngIf="FM.taxName.invalid && (FM.taxName.dirty || FM.taxName.touched)">
-      <div *ngIf="FM.taxName.errors.required">
-        <p class="invalidText">*Le nom de la taxe est requis</p>
-      </div>
-      <div *ngIf="FM.taxName.errors.minlength">
-        <p class="invalidText">*Le nom de la taxe doit contenir au moins 5 caractères</p>
-      </div>
-      <div>
-        <p class="invalidText">*Le nom de la taxe ne doit pas dépasser les 45 caractères</p>
-      </div>
-    </div>
-  </label>
+<h1>
+  TAXES
+</h1>
 
-  <label>
-    <p>Multipicateur</p>
-    <input type="text"
-      class="form-control"
-      formControlName="taxMultipliedBy"
-      required
-    >
-    <div *ngIf="FM.taxMultipliedBy.invalid && (FM.taxMultipliedBy.dirty || FM.taxMultipliedBy.touched)">
-      <div *ngIf="FM.taxMultipliedBy.errors.required">
-        <p class="invalidText">*Le multipicateur est requis</p>
+<div id="conteneur">
+  <form [formGroup]="taxFormPut">
+    <label>
+      <p>Nom de la taxe à modifer</p>
+      <input type="text"
+        class="form-control"
+        formControlName="taxName"
+        required
+      >
+    </label>
+    <label>
+      <p>Nouveau nom de la taxe ?</p>
+      <input type="text" 
+        class="form-control" 
+        formControlName="taxNewName" 
+      >
+    </label>
+    <label>
+      <div *ngIf="FM.taxName.invalid && (FM.taxName.dirty || FM.taxName.touched)">
+        <div *ngIf="FM.taxName.errors.required">
+          <p class="invalidText">*Le nom de la taxe est requis</p>
+        </div>
+        <div *ngIf="FM.taxName.errors.minlength">
+          <p class="invalidText">*Le nom de la taxe doit contenir au moins 5 caractères</p>
+        </div>
+        <div>
+          <p class="invalidText">*Le nom de la taxe ne doit pas dépasser les 45 caractères</p>
+        </div>
       </div>
-      <div>
-        <p class="invalidText">* le multiplicateur doit être inséré sous la forme X.XXX</p>
-      </div>
-    </div>
-  </label>
-</form>
-<button type="submit" (click)="onSubmitPutForm()">MODIFIER LA TAXE</button>
-<p *ngFor="let dataTax of taxFormObject; let i = index;">{{ dataTax.idTaxName }}, prix hors tax * {{dataTax.taxValue }}</p>
+    </label>
 
+    <label>
+      <p>Multipicateur</p>
+      <input type="text"
+        class="form-control"
+        formControlName="taxMultipliedBy"
+        required
+      >
+      <div *ngIf="FM.taxMultipliedBy.invalid && (FM.taxMultipliedBy.dirty || FM.taxMultipliedBy.touched)">
+        <div *ngIf="FM.taxMultipliedBy.errors.required">
+          <p class="invalidText">*Le multipicateur est requis</p>
+        </div>
+        <div>
+          <p class="invalidText">* le multiplicateur doit être inséré sous la forme X.XXX</p>
+        </div>
+      </div>
+    </label>
+  </form>
+  <button type="submit" (click)="onSubmitPutForm()">MODIFIER LA TAXE</button>
+  <p *ngFor="let dataTax of taxFormObject; let i = index;">{{ dataTax.idTaxName }}, prix hors tax * {{dataTax.taxValue }}</p>
+</div>

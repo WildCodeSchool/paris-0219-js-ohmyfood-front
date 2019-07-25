@@ -17,11 +17,11 @@ export class AfterSubmitOrderPageComponent implements OnInit {
       const orderStatus = JSON.parse(localStorage.getItem('orderStatus'));
 
       if (orderStatus === 'toTakeAway') {
-        this.thanksMessage = `Merci d'avoir commandé chez OH MY FOOD ! Votre commande sera prête d'ici 30 minutes. À tout à l'heure!`;
+        this.thanksMessage = `Merci d'avoir commandé chez OHMYFOOD ! Votre commande sera prête d'ici 30 minutes. À tout à l'heure!`;
         localStorage.removeItem('orderStatus');
 
       } else {
-        this.thanksMessage = `Merci d'avoir commandé chez OH MY FOOD ! Vous serez livrez d'ici 30 minutes. À tout à l'heure!`;
+        this.thanksMessage = `Merci d'avoir commandé chez OHMYFOOD ! Vous serez livré.e d'ici 30 minutes. À tout à l'heure!`;
         localStorage.removeItem('orderStatus');
       }
 

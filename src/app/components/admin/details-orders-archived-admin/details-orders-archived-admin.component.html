@@ -1,41 +1,58 @@
-<section>
-    <ul>
-      <li *ngFor="let order of listOfOrdersArchived; let i = index">
-        <h1>
-          Commande n°{{ order.idOrder }}<span> du {{ order.dateOrder | date : "dd/MM/yy à H'h'mm" }}</span><br>
-          Total de la commande: {{ order.orderPrice }} EUR
-        </h1>
+<ul id="ulOrder">
+  <li
+    *ngFor="let order of listOfOrdersArchived; let i = index"
+    class="orderList"
+  >
+    <h1>
+      Commande n°{{ order.idOrder }} du {{ order.dateOrder | date : "dd/MM/yy à H'h'mm" }}
 
-        <h2>Informations client</h2>
+      <span>Total de la commande : {{ order.orderPrice }} EUR</span>
+    </h1>
 
-        <h3>
-          Nom : <span>{{ order.clientFirstName }}</span>
+    <h2>Informations client</h2>
+
+    <div id="orderUserInformation">
+      <div class="orderFirstInfos">
+        <h3 class="lastFirstPhone">
+          Nom <span>{{ order.clientFirstName }}</span>
         </h3>
 
-        <h3>
-            Prénom: <span>{{ order.clientLastName }}</span>
+        <h3 class="lastFirstPhone">
+            Prénom <span>{{ order.clientLastName }}</span>
         </h3>
 
-        <h3>
-            Téléphone: <span>{{ order.clientPhoneNumber }}</span>
+        <h3 class="lastFirstPhone">
+            Téléphone <span>{{ order.clientPhoneNumber }}</span>
         </h3>
 
-        <h3>
-            Mail: <span>{{ order.clientMail }}</span>
+        <h3 id="mail">
+            Mail <span>{{ order.clientMail }}</span>
+        </h3>
+      </div>
+
+      <div class="orderStatusInformations">
+        <h3 class="orderStatusDelivAddress">Statut de la commande  <span>{{ order.orderMessage }}</span></h3>
+
+        <h3
+          *ngIf="order.orderMessage === 'en livraison'"
+          class="orderStatusDelivAddress"
+        >
+          Addresse de livraison: <span>{{ order.userDeliveryAddress }}</span>
         </h3>
 
-        <h3>Statut de la commande : {{ order.orderMessage }}</h3>
-        <div *ngIf="order.orderMessage === 'en livraison'">
-          <h4>
-            Addresse de livraison: <span>{{ order.userDeliveryAddress }}</span><br>
-          </h4>
-        </div>
 
-        <h4>
-          Addresse de facturation: <span> {{ order.userAddressFacturation }}</span>
-        </h4>
+        <h3>
+          Addresse de facturation: <span>{{ order.userAddressFacturation }}</span>
+        </h3>
+      </div>
+    </div>
 
-        <h4 *ngIf="order.pizza.length > 0">Liste des pizzas commandées</h4>
+    <div class="detailOrder">
+      <div
+        class="pizza"
+        *ngIf="order.pizza.length > 0"
+      >
+        <h4>Liste des pizzas commandées</h4>
 
         <ul>
           <li *ngFor="let pizza of order.pizza">
@@ -44,8 +61,13 @@
             </h5>
           </li>
         </ul>
+      </div>
 
-        <h4 *ngIf="order.salad.length > 0">Liste des salades composées commandées</h4>
+      <div
+        class="salad"
+        *ngIf="order.salad.length > 0"
+      >
+        <h4>Liste des salades composées commandées</h4>
 
         <ul>
           <li *ngFor="let salad of order.salad; let i = index">
@@ -54,7 +76,10 @@
             <p>Les bases</p>
 
             <ul>
-              <li *ngFor="let base of salad.orderSaladsBases">
+              <li
+                class="saladIngredients"
+                *ngFor="let base of salad.orderSaladsBases"
+              >
                 {{ base.baseName }} <span>quantité : {{ base.baseQuantity }}</span>
               </li>
             </ul>
@@ -62,7 +87,10 @@
             <p>Les ingrédients</p>
 
             <ul>
-              <li *ngFor="let ingredient of salad.orderSaladsIngredients">
+              <li
+                *ngFor="let ingredient of salad.orderSaladsIngredients"
+                class="saladIngredients"
+              >
                 {{ ingredient.ingredientName }} <span>quantité : {{ ingredient.ingredientQuantity }}</span>
               </li>
             </ul>
@@ -70,7 +98,10 @@
             <p *ngIf="salad.orderSaladsToppings !== undefined">Les toppings</p>
 
             <ul>
-              <li *ngFor="let topping of salad.orderSaladsToppings">
+              <li
+                *ngFor="let topping of salad.orderSaladsToppings"
+                class="saladIngredients"
+              >
                 {{ topping.toppingName }} <span>quantité : {{ topping.toppingQuantity }}</span>
               </li>
             </ul>
@@ -80,8 +111,13 @@
             <p>{{ salad.orderSaladsSauces }}</p>
           </li>
         </ul>
+      </div>
 
-        <h4 *ngIf="order.beverage.length > 0">Liste des boissons commandées</h4>
+      <div
+        class="beverage"
+        *ngIf="order.beverage.length > 0"
+      >
+        <h4>Liste des boissons commandées</h4>
 
         <ul>
           <li *ngFor="let beverage of order.beverage">
@@ -90,8 +126,13 @@
             </h5>
           </li>
         </ul>
+      </div>
 
-        <h4 *ngIf="order.dessert.length > 0">Liste des desserts commandés</h4>
+      <div
+        class="dessert"
+        *ngIf="order.dessert.length > 0"
+      >
+        <h4>Liste des desserts commandés</h4>
 
         <ul>
           <li *ngFor="let dessert of order.dessert">
@@ -100,32 +141,42 @@
             </h5>
           </li>
         </ul>
+      </div>
 
-        <h4 *ngIf="order.menuPizza.length > 0">Liste des menus Pizzas commandés</h4>
+      <div
+        class="menuPizza"
+        *ngIf="order.menuPizza.length > 0"
+      >
+        <h4>Liste des menus Pizzas commandés</h4>
 
         <ul>
           <li *ngFor="let menuPizza of order.menuPizza ; let i = index">
             <h5>Menu pizza n°{{ i + 1 }}</h5>
 
-            <p>La pizza : {{ menuPizza.pizzName }}</p>
+            <p>Pizza sélectionnée <span>{{ menuPizza.pizzName }}</span></p>
 
-            <p>La boisson : {{ menuPizza.bevName }}</p>
+            <p>Boisson sélectionnée <span>{{ menuPizza.bevName }}</span></p>
 
-            <p>Le dessert : {{ menuPizza.dessName }}</p>
+            <p>Dessert sélectionné <span>{{ menuPizza.dessName }}</span></p>
 
-            <p>Quantité : {{ menuPizza.menuQuantity }}</p>
+            <p>Quantité de ce menu <span>{{ menuPizza.menuQuantity }}</span></p>
           </li>
         </ul>
+      </div>
 
-        <h4 *ngIf="order.menuSalad.length > 0">Liste des menus Salades commandés</h4>
+      <div
+        class="menuSalad"
+        *ngIf="order.menuSalad.length > 0"
+      >
+        <h4>Liste des menus Salades commandés</h4>
 
         <ul>
             <li *ngFor="let menuSalad of order.menuSalad ; let i = index">
               <h5>Menu salade n°{{ i + 1 }}</h5>
 
-              <p>La salade composée</p>
+              <h6>La salade composée</h6>
 
-              <p>Les bases</p>
+              <p class="menuSaladIngredients">Les bases</p>
 
               <ul>
                 <li *ngFor="let base of menuSalad.bases">
@@ -135,7 +186,7 @@
                 </li>
               </ul>
 
-              <p>Les ingrédients</p>
+              <p class="menuSaladIngredients">Les ingrédients</p>
 
               <ul>
                 <li *ngFor="let ingredient of menuSalad.ingredients">
@@ -145,7 +196,12 @@
                 </li>
               </ul>
 
-              <p *ngIf="menuSalad.toppings !== undefined">Les toppings</p>
+              <p
+                *ngIf="menuSalad.toppings !== undefined"
+                class="menuSaladIngredients"
+              >
+                Les toppings
+              </p>
 
               <ul>
                 <li *ngFor="let topping of menuSalad.toppings">
@@ -155,21 +211,27 @@
                 </li>
               </ul>
 
-              <p>La sauce: {{ menuSalad.saladsSaucesName }}</p>
+              <p class="detailMenuSalad">La sauce <span>{{ menuSalad.saladsSaucesName }}</span></p>
 
-              <p>La boisson : {{ menuSalad.bevName }}</p>
+              <p>La boisson  <span>{{ menuSalad.bevName }}</span></p>
 
-              <p>Le dessert : {{ menuSalad.dessName }}</p>
+              <p>Le dessert  <span>{{ menuSalad.dessName }}</span></p>
 
-              <p>Quantité : {{ menuSalad.menuQuantity }}</p>
+              <p>Quantité  <span>{{ menuSalad.menuQuantity }}</span></p>
 
-              <p>Prix du menu complet : {{ menuSalad.menuSaladPrice }} EUR</p>
+              <p>Prix du menu complet <span>{{ menuSalad.menuSaladPrice }} EUR</span></p>
             </li>
           </ul>
+      </div>
+    </div>
 
-          <button type="button" (click)="deleteOrder(i)">
-            Supprimer cette commande
-          </button>
-      </li>
-    </ul>
-  </section>
+      <button
+        class="submitButton button is-rounded is-outlined"
+        type="button"
+        (click)="deleteOrder(i)"
+      >
+        Supprimer cette commande
+      </button>
+    </li>
+</ul>
+

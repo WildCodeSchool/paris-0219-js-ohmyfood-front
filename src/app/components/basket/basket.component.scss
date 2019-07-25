@@ -28,12 +28,33 @@
 }
 
 .button {
-    border-radius: 50%;
-    font-size: 1.1rem;
-    height: 29px;
-    width: 29px;
+    border-radius: 25px !important;
+    font-size: 0.7em;
+}
+.test {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9em;
+  white-space: nowrap;
+  margin-top: 5%
 }
 
+.test2 {
+  width: 100%;
+}
+
+.contenant {
+  flex-wrap: wrap;
+  display: flex;
+  justify-content: space-around;
+
+}
+
+.suga {
+  width: 45%;
+  margin-left: 5%;
+  margin-top: 5%;
+}
 //formGroupName
 
 .displayElement {
@@ -42,7 +63,8 @@
 }
 
 .headerBasket {
-    justify-content: center;
+  justify-content: space-around;
+  width: 60%;
 }
 
 .inlineBasket {
@@ -58,7 +80,6 @@
 input[type=text] {
     border-radius: 50%;
     font-size: 1.3rem;
-    margin: 0 4px;
     text-align: center;
     width: 34%;
 }
@@ -103,19 +124,43 @@ label {
     color: red;
     display: block;
     width: 100%;
+    text-align: center;
 }
 
 .overScrollForm {
     height: 74vh;
 }
-
-p {
-    text-align: center;
+h5 {
+  text-align: center;
 }
-
+h2 {
+  margin-bottom: 0;
+}
+h6 {
+  text-align: left;
+}
+p {
+    text-align: left;
+    margin: 0 ;
+}
+.totalOrder {
+  text-align: center;
+}
 .quantityButton {
-    width: 32%;
     margin-right: 5%;
+    input {
+      font-size: 92%;
+      width: 20%;
+    }
+}
+.quantitySalads {
+  display: flex;
+  margin-right: 5%;
+}
+.buttonSalads {
+  width: 8%;
+  text-align: center;
+  border-radius: 27px;
 }
 
 .rubanToggle {
@@ -135,6 +180,18 @@ span {
 ul li {
     display: inline-block;
 }
+.fa-x3 {
+  margin-left: 10px;
+  font-size: 2em !important;
+}
+.styleParagraphe {
+  margin-left: 6%;
+}
+.submitBasket {
+  margin-left: 6%;
+  margin-top: 5%;
+  border-radius: 6%;
+}
 
 @media screen and (min-width: 720px) {
 
@@ -147,23 +204,15 @@ ul li {
         right: -90vw;
         width: 100vw;
     }
-    
-    .fa-shopping-cart {
-        font-size: 2rem;
-    }
 
     .formular {
         height: 80vh;
     }
 
     label {
-        display: flex;
-        justify-content: space-between;
-        margin-left: 0;
-        text-align: unset;
-        width: 67%;
+      display: flex;
+    justify-content: space-between;
     }
-
     .inlineBasket {
         margin-left: 10%;
         width: 90%;
@@ -179,7 +228,7 @@ ul li {
     }
 
     .quantityButton {
-        width: 31%;
+        width: 25%;
         margin-right: 0;
     }
 
@@ -208,6 +257,10 @@ ul li {
         text-orientation: upright;
         writing-mode: vertical-rl;
     }
+  .displayElement {
+    display: flex;
+
+  }
 }
 
 @media screen and (min-width: 928px) {
@@ -219,13 +272,18 @@ ul li {
     .formular, .overScrollForm {
         height: 76vh;
     }
+    label {
+      display: flex;
+    justify-content: space-between;
+    }
 }
+  .basketToggle {
+      right: 0;
+      height: 100%;
+  }
 
-.basketToggle {
-    right: 0;
-    height: 100%;
-}
+  .arrowToggleAnimation {
+      transform: rotate(0deg);
+  }
 
-.arrowToggleAnimation {
-    transform: rotate(0deg);
-}
+

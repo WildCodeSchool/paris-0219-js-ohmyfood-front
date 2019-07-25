@@ -105,16 +105,7 @@
             </div>
             <div class="contenant">
               <div class="suga">
-                <p>Vos bases</p>
-
-                <div *ngFor="let bases of salads.value.multiBases">
-                  <p>
-                    {{ bases.basesName }}<span>{{ bases.basesPrice }} €</span>
-                  </p>
-                </div>
-              </div>
-              <div class="suga">
-                <p>Vos ingrédients</p>
+                <h6>Vos ingrédients</h6>
 
                 <div *ngFor="let ingredients of salads.value.multiIngredients"
                 >
@@ -124,7 +115,7 @@
               </div>
               </div>
               <div class="suga">
-              <p>Vos toppings</p>
+              <h6>Vos toppings</h6>
 
               <div *ngFor="let toppings of salads.value.multiToppings"
               >
@@ -134,7 +125,16 @@
               </div>
             </div>
             <div class="suga">
-                <p>Votre sauce</p>
+              <h6>Vos bases</h6>
+
+              <div *ngFor="let bases of salads.value.multiBases">
+                <p>
+                  {{ bases.basesName }}<span>{{ bases.basesPrice }} €</span>
+                </p>
+              </div>
+            </div>
+            <div class="suga">
+                <h6>Votre sauce</h6>
 
                 <p>{{ salads.value.multiSauces.saladsSaucesName }}</p>
             </div>
@@ -224,8 +224,9 @@
           <div
             [formGroupName]="i"
             *ngFor="let menuPizzas of menuPizza.controls; let i = index">
+            <div class="test">
               <label for="menuPizzaName-{{i}}">
-                Votre menu pizza {{ menuPizzas.value.menuPizzPriceTotal }} €
+                Votre menu pizza <span>{{ menuPizzas.value.menuPizzPriceTotal }} €</span>
               </label>
 
               <div class="quantityButton">
@@ -254,12 +255,14 @@
                     +
                 </button>
               </div>
-
+            </div>
+            <div class="styleParagraphe">
               <p>{{ menuPizzas.value.pizza.pizzName }}</p>
 
               <p>{{ menuPizzas.value.beverage.bevName }}</p>
 
               <p>{{ menuPizzas.value.dessert.dessName }}</p>
+            </div>
           </div>
         </div>
 
@@ -329,9 +332,9 @@
             </div>
           </div>
 
-        <button type="submit">Validez votre panier</button>
+        <button type="submit" class="submitBasket">Validez votre panier</button>
 
-        <button type="button" (click)="resetBasket()">Videz votre panier</button>
+        <button type="button" (click)="resetBasket()" class="submitBasket">Videz votre panier</button>
       </form>
     </div>
     <p id="totalOrderText" class="totalOrder">

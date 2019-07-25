@@ -37,12 +37,12 @@
 
 <app-desserts-form></app-desserts-form>
 
-<div>
+<div class="paragrapheStyle">
   <p *ngIf="formPizza.errors">
     {{ formPizza.errors['notInTime'] }}
   </p>
 
   <p *ngIf="today === 'Tuesday'">
-    OH MY MARDI!! Toutes les pizzas sont à {{ ohMyMardiPrice[0].pizzPriceReducTTC.toFixed(2) }} EUR !
+    OH MY MARDI!! Toutes les pizzas sont à {{ ohMyMardiPrice[0].pizzPriceReducTTC.toFixed(2) }} € !
   </p>
 </div>

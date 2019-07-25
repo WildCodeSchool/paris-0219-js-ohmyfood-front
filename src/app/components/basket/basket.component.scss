@@ -34,7 +34,11 @@
 .test {
   display: flex;
   justify-content: space-between;
+  font-size: 0.9em;
+  white-space: nowrap;
+  margin-top: 5%
 }
+
 .test2 {
   width: 100%;
 }
@@ -43,11 +47,13 @@
   flex-wrap: wrap;
   display: flex;
   justify-content: space-around;
+
 }
 
 .suga {
-  margin: 1%;
   width: 45%;
+  margin-left: 5%;
+  margin-top: 5%;
 }
 //formGroupName
 
@@ -129,8 +135,12 @@ h5 {
 h2 {
   margin-bottom: 0;
 }
+h6 {
+  text-align: left;
+}
 p {
     text-align: left;
+    margin: 0 ;
 }
 .totalOrder {
   text-align: center;
@@ -173,6 +183,14 @@ ul li {
   margin-left: 10px;
   font-size: 2em !important;
 }
+.styleParagraphe {
+  margin-left: 6%;
+}
+.submitBasket {
+  margin-left: 6%;
+  margin-top: 5%;
+  border-radius: 6%;
+}
 
 @media screen and (min-width: 720px) {
 
@@ -186,13 +204,9 @@ ul li {
     }
 
     label {
-        display: flex;
-        justify-content: space-between;
-        margin-left: 0;
-        text-align: unset;
-        width: 67%;
+      display: flex;
+    justify-content: space-between;
     }
-
     .inlineBasket {
         margin-left: 10%;
         width: 90%;
@@ -208,7 +222,7 @@ ul li {
     }
 
     .quantityButton {
-        width: 31%;
+        width: 25%;
         margin-right: 0;
     }
 
@@ -237,6 +251,10 @@ ul li {
         text-orientation: upright;
         writing-mode: vertical-rl;
     }
+  .displayElement {
+    display: flex;
+
+  }
 }
 
 @media screen and (min-width: 928px) {
@@ -248,13 +266,18 @@ ul li {
     .formular, .overScrollForm {
         height: 76vh;
     }
+    label {
+      display: flex;
+    justify-content: space-between;
+    }
 }
+  .basketToggle {
+      right: 0;
+      height: 100%;
+  }
 
-.basketToggle {
-    right: 0;
-    height: 100%;
-}
+  .arrowToggleAnimation {
+      transform: rotate(0deg);
+  }
 
-.arrowToggleAnimation {
-    transform: rotate(0deg);
-}
+

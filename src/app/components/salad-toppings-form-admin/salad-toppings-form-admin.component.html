@@ -1,111 +1,117 @@
-<p>Quelle action voulez-vous réaliser ?</p>
-<form [formGroup]="formCheck">
-  <label *ngFor="let action of actions; let i = index">
-    <input type="radio" 
-      value="{{ action }}"
-      name="toppingAction"
-      formControlName="toppingAction"
-    >
-      {{ action }}
-  </label>
-</form>
-<div *ngIf="formCheck.value.toppingAction === 'Ajouter'">
-  <form [formGroup]="toppingFormAdd">
-<!--Adding form-->
-    <label>
-    <p>Nom du topping à ajouter</p>
-    <input type="text" 
-      class="form-control" 
-      formControlName="toppingName" 
-      required
-    >
-    <div *ngIf="fA.toppingName.invalid && (fA.toppingName.dirty || fA.toppingName.touched)">
-      <div *ngIf="fA.toppingName.errors.required">
-        <p class="invalidText">*Le nom du topping est requis</p>
-      </div>
-      <div *ngIf="fA.toppingName.errors.minlength">
-        <p class="invalidText">*Le nom du topping doit contenir au moins 4 caractères</p>
-      </div>
-      <div *ngIf="fA.toppingName.errors.maxlength">
-        <p class="invalidText">*Le nom du topping ne doit pas dépasser les 45 caractères</p>
-      </div>
-    </div>
-    </label>
+<h1>
+  TOPPINGS
+</h1>
 
-    <label>
-      <p>Prix hors taxe</p>
-      <input type="text" 
-        class="form-control" 
-        formControlName="toppingPriceHt" 
-        required
+<div id="conteneur">
+  <p>Quelle action voulez-vous réaliser ?</p>
+  <form [formGroup]="formCheck">
+    <label *ngFor="let action of actions; let i = index">
+      <input type="radio" 
+        value="{{ action }}"
+        name="toppingAction"
+        formControlName="toppingAction"
       >
-      <div *ngIf="fA.toppingPriceHt.invalid && (fA.toppingPriceHt.dirty || fA.toppingPriceHt.touched)">
-        <div *ngIf="fA.toppingPriceHt.errors.required">
-          <p class="invalidText">*Le prix est requis</p>
-        </div>
-        <div *ngIf="fA.toppingPriceHt.errors.pattern">
-          <p class="invalidText">*Le prix doit être inséré sous la forme XXX.XX</p>
-        </div>
-      </div>
+        {{ action }}
     </label>
   </form>
-  <button type="submit" (click)="onSubmitAddForm()">AJOUTER LE TOPPING</button>
-</div>
-
-  <!--Modifier form-->
-<div *ngIf="formCheck.value.toppingAction === 'Modifier'">
-  <form [formGroup]="toppingFormPut">
+  <div *ngIf="formCheck.value.toppingAction === 'Ajouter'">
+    <form [formGroup]="toppingFormAdd">
+  <!--Adding form-->
       <label>
-        <p>Nom du topping à modifier</p>
-        <input type="text" 
-          class="form-control" 
-          formControlName="toppingName" 
-          required
-        >
-    </label>
-    <label>
-      <p>Nouveau nom du topping ?</p>
+      <p>Nom du topping à ajouter</p>
       <input type="text" 
         class="form-control" 
-        formControlName="toppingNewName" 
+        formControlName="toppingName" 
+        required
       >
+      <div *ngIf="fA.toppingName.invalid && (fA.toppingName.dirty || fA.toppingName.touched)">
+        <div *ngIf="fA.toppingName.errors.required">
+          <p class="invalidText">*Le nom du topping est requis</p>
+        </div>
+        <div *ngIf="fA.toppingName.errors.minlength">
+          <p class="invalidText">*Le nom du topping doit contenir au moins 4 caractères</p>
+        </div>
+        <div *ngIf="fA.toppingName.errors.maxlength">
+          <p class="invalidText">*Le nom du topping ne doit pas dépasser les 45 caractères</p>
+        </div>
+      </div>
       </label>
 
       <label>
         <p>Prix hors taxe</p>
         <input type="text" 
           class="form-control" 
-          formControlName="toppingPriceHt"
-        >
-      </label>
-  </form>
-  <button type="submit" (click)="onSubmitPutForm()">MODIFIER LE TOPPING</button>
-</div>
-
-  <!--Delete form-->
-<div *ngIf="formCheck.value.toppingAction === 'Retirer'">
-  <form [formGroup]="toppingFormDel">
-      <label>
-        <p>Nom du topping à Supprimer</p>
-        <input type="text" 
-          class="form-control" 
-          formControlName="toppingName" 
+          formControlName="toppingPriceHt" 
           required
         >
-        <div *ngIf="fD.toppingName.invalid && (fD.toppingName.dirty || fD.toppingName.touched)">
-          <div *ngIf="fD.toppingName.errors.required">
-            <p class="invalidText">*Le nom du topping est requis</p>
+        <div *ngIf="fA.toppingPriceHt.invalid && (fA.toppingPriceHt.dirty || fA.toppingPriceHt.touched)">
+          <div *ngIf="fA.toppingPriceHt.errors.required">
+            <p class="invalidText">*Le prix est requis</p>
           </div>
-          <div *ngIf="fD.toppingName.errors.minlength">
-            <p class="invalidText">*Le nom du topping doit contenir au moins 4 caractères</p>
-          </div>
-          <div *ngIf="fD.toppingName.errors.maxlength">
-            <p class="invalidText">*Le nom du topping ne doit pas dépasser les 45 caractères</p>
+          <div *ngIf="fA.toppingPriceHt.errors.pattern">
+            <p class="invalidText">*Le prix doit être inséré sous la forme XXX.XX</p>
           </div>
         </div>
       </label>
-    <button type="submit" (click)="onSubmitDelForm()">SUPPRIMER LE TOPPING</button>
-  </form>
-</div>
+    </form>
+    <button type="submit" (click)="onSubmitAddForm()">AJOUTER LE TOPPING</button>
+  </div>
 
-<p *ngFor="let dataTopping of toppingDataObject; let i = index;">{{ dataTopping.saladsToppingsName }} {{ dataTopping.saladsToppingsPriceTTC }} EUR</p>
+    <!--Modifier form-->
+  <div *ngIf="formCheck.value.toppingAction === 'Modifier'">
+    <form [formGroup]="toppingFormPut">
+        <label>
+          <p>Nom du topping à modifier</p>
+          <input type="text" 
+            class="form-control" 
+            formControlName="toppingName" 
+            required
+          >
+      </label>
+      <label>
+        <p>Nouveau nom du topping ?</p>
+        <input type="text" 
+          class="form-control" 
+          formControlName="toppingNewName" 
+        >
+        </label>
+
+        <label>
+          <p>Prix hors taxe</p>
+          <input type="text" 
+            class="form-control" 
+            formControlName="toppingPriceHt"
+          >
+        </label>
+    </form>
+    <button type="submit" (click)="onSubmitPutForm()">MODIFIER LE TOPPING</button>
+  </div>
+
+    <!--Delete form-->
+  <div *ngIf="formCheck.value.toppingAction === 'Retirer'">
+    <form [formGroup]="toppingFormDel">
+        <label>
+          <p>Nom du topping à Supprimer</p>
+          <input type="text" 
+            class="form-control" 
+            formControlName="toppingName" 
+            required
+          >
+          <div *ngIf="fD.toppingName.invalid && (fD.toppingName.dirty || fD.toppingName.touched)">
+            <div *ngIf="fD.toppingName.errors.required">
+              <p class="invalidText">*Le nom du topping est requis</p>
+            </div>
+            <div *ngIf="fD.toppingName.errors.minlength">
+              <p class="invalidText">*Le nom du topping doit contenir au moins 4 caractères</p>
+            </div>
+            <div *ngIf="fD.toppingName.errors.maxlength">
+              <p class="invalidText">*Le nom du topping ne doit pas dépasser les 45 caractères</p>
+            </div>
+          </div>
+        </label>
+      <button type="submit" (click)="onSubmitDelForm()">SUPPRIMER LE TOPPING</button>
+    </form>
+  </div>
+
+  <p *ngFor="let dataTopping of toppingDataObject; let i = index;">{{ dataTopping.saladsToppingsName }} {{ dataTopping.saladsToppingsPriceTTC }} EUR</p>
+</div>

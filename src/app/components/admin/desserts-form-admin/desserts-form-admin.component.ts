@@ -47,15 +47,15 @@ export class DessertsFormAdminComponent implements OnInit {
     })
 
     this.dessertFormAdd = this.fb.group({
-      dessName: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(45)]],
+      dessName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(45)]],
       dessPriceHt: ['', [Validators.required, Validators.pattern(this.regexPrice)]]
     });
     this.dessertFormPut = this.fb.group({
-      dessName: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(45)]],
+      dessName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(45)]],
       dessPriceHt: ['', [Validators.required, Validators.pattern(this.regexPrice)]]
     });
     this.dessertFormDel = this.fb.group({
-      dessName: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(45)]],
+      dessName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(45)]],
     });
   }
 

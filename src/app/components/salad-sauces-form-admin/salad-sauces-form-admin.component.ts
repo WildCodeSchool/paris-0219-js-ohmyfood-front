@@ -44,14 +44,14 @@ export class SaladSaucesFormAdminComponent implements OnInit {
     })
 
     this.sauceFormAdd = this.fb.group({
-      saucesName: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(45)]],
+      saucesName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(45)]],
     });
     this.sauceFormPut = this.fb.group({
-      saucesName: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(45)]],
+      saucesName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(45)]],
       saucesNewName: [''],
     });
     this.sauceFormDel = this.fb.group({
-      saucesName: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(45)]],
+      saucesName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(45)]],
     });
   }
 

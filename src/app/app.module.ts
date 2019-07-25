@@ -41,6 +41,7 @@ import { UserAccountPageComponent } from './pages/user-account-page/user-account
 import { UserAccountComponent } from './components/user-account/user-account.component';
 import { ContactComponent } from './components/contact/contact.component';
 import { ContactPageComponent } from './pages/contact-page/contact-page.component';
+import { TaxFormAdminComponent } from './components/admin/tax-form-admin/tax-form-admin.component';
 import { ForgotPsswComponent } from './components/authent/forgot-pssw/forgot-pssw.component';
 import { ForgotPsswPageComponent } from './pages/authent/forgot-pssw-page/forgot-pssw-page.component';
 import { NewPasswordPageComponent } from './pages/new-password-page/new-password-page.component';
@@ -91,6 +92,7 @@ import { AfterSubmitOrderPageComponent } from './pages/after-submit-order-page/a
     UserAccountComponent,
     ContactComponent,
     ContactPageComponent,
+    TaxFormAdminComponent,
     ForgotPsswComponent,
     ForgotPsswPageComponent,
     NewPasswordPageComponent,

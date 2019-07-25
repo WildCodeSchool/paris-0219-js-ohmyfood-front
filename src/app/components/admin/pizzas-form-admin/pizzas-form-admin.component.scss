@@ -1,11 +1,12 @@
+@import '../../../../styles/admin.scss';
+
 #conteneur {
     border-color: #2d2c33;
-    border-radius: 1%;
     border-style: solid;
-    border-width: 5px;
-    -webkit-box-shadow: 5px 5px 5px 0px #ffdc90;
-    -moz-box-shadow: 5px 5px 5px 0px #ffdc90;
-    box-shadow: 5px 5px 5px 0px #ffdc90;
+    border-width: 1px;
+    -webkit-box-shadow: 1px 1px 1px 0px #ffdc90;
+    -moz-box-shadow: 1px 1px 1px 0px #ffdc90;
+    box-shadow: 1px 1px 1px 0px #ffdc90;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -16,10 +17,25 @@
     margin-bottom: 5%;
 }
 
+b {
+    margin-bottom: 1%;
+}
+
 h1 {
     text-align: center;
-    color: #ffdc90;
-    text-shadow: 1px 1px #2d2c33;
+    color: #2d2c33;
+    text-shadow: 1px 1px #ffdc90;
+}
+
+ul li {
+    width: 49.5%;
+    display: inline-block;
+    text-align: left;
+    margin-bottom: 0.5%;
+}
+
+.button {
+    margin-bottom: 2%;
 }
 
 .invalidText {
@@ -32,4 +48,12 @@ h1 {
 
 .ng-invalid:not(form) {
     border-left: 5px solid #a94442;
+}
+
+@media screen and(max-width: 900px) {
+    ul li {
+        width: 98%;
+        display: flex;
+        flex-direction: column;
+    }
 }

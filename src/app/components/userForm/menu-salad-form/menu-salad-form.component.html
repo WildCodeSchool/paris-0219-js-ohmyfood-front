@@ -66,12 +66,12 @@
     <h5>Prix du menu</h5>
 
     <p>
-      {{ saladMenuForm.value.saladMenuPrice }} EUR plus le prix de votre salade qui est actuellement de
-      {{ saladMenuForm.value.salad.orderSaladsPriceTotal.toFixed(2) }} EUR.
+      {{ saladMenuForm.value.saladMenuPrice }} € plus le prix de votre salade qui est actuellement de
+      {{ saladMenuForm.value.salad.orderSaladsPriceTotal.toFixed(2) }} €.
     </p>
 
     <p>
-      Soit un total de {{ saladMenuForm.value.saladMenuPriceTotal }} EUR
+      Soit un total de {{ saladMenuForm.value.saladMenuPriceTotal }} €
     </p>
 
     <p *ngIf="menuSalad.submitted && saladMenuForm.controls['salad'].errors">

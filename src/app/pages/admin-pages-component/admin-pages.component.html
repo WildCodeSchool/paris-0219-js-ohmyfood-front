@@ -1,18 +1,33 @@
 <ul>
   <li>
-    <button type="button" (click)="changeComponent('forms')">
+    <button
+      [ngClass]="{currentPage: forms}"
+      class="submitButton button is-rounded is-outlined"
+      type="button"
+      (click)="changeComponent('forms')"
+    >
       Mettre à jour les menus
     </button>
   </li>
 
   <li>
-    <button type="button" (click)="changeComponent('ordersDetails')">
+    <button
+      [ngClass]="{currentPage: ordersDetails}"
+      class="submitButton button is-rounded is-outlined"
+      type="button"
+      (click)="changeComponent('ordersDetails')"
+    >
       Voir les commandes en cours
     </button>
   </li>
 
   <li>
-      <button type="button" (click)="changeComponent('ordersArchived')">
+      <button
+        [ngClass]="{currentPage: ordersArchived}"
+        class="submitButton button is-rounded is-outlined"
+        type="button"
+        (click)="changeComponent('ordersArchived')"
+      >
         Voir les commandes archivées
       </button>
   </li>

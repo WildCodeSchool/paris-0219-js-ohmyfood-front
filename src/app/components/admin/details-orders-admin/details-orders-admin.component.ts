@@ -120,7 +120,7 @@ export class DetailsOrdersAdminComponent implements OnInit {
           user.mail,
           user.phoneNumber,
           user.userAddressFacturation,
-          user.deliveryAddress,
+          user.deliveryAddress.split(',').join(' '), // to display correctly in template
           user.userMessage,
           pizzaList,
           saladsComposedList,

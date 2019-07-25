@@ -12,13 +12,15 @@
     (ngSubmit)="saladMenuForm.valid && onSubmit()"
     #menuSalad="ngForm"
   >
-
-    <div formArrayName="beverage">
+  <div class="beverageStyle">
+    <div formArrayName="beverage"  class="beverageStyleCard">
+      <div class="beverageHeight">
         <h5>Cliquez-ici pour découvrir nos boissons</h5>
 
       <div
         [formGroupName]="i"
         *ngFor="let beverages of beverage.controls; let i = index"
+        class="beverageStyleParagraphe"
       >
 
         <label for="beverage-{{ i }}">
@@ -35,15 +37,17 @@
         />
       </div>
     </div>
+      <button type="button" (click)="resetBevOrDess('beverage')">Supprimer la boisson</button>
+    </div>
 
-    <button type="button" (click)="resetBevOrDess('beverage')">Supprimer la boisson</button>
-
-    <div formArrayName="dessert">
+    <div formArrayName="dessert" class="dessertStyleCard">
+      <div class="dessertHeigt">
       <h5>Ciquez-ici pour découvrir nos desserts</h5>
 
       <div
         [formGroupName]="i"
         *ngFor="let desserts of dessert.controls; let i = index"
+        class="dessertStyle"
       >
 
         <label for="dessert-{{ i }}">
@@ -60,9 +64,10 @@
         />
       </div>
     </div>
-
-    <button type="button" (click)="resetBevOrDess('dessert')">Supprimer le dessert</button>
-
+      <button type="button" (click)="resetBevOrDess('dessert')">Supprimer le dessert</button>
+    </div>
+  </div>
+<div class="priceStyle">
     <h5>Prix du menu</h5>
 
     <p>
@@ -91,5 +96,6 @@
     </p>
 
     <button type="submit">Ajouter au panier</button>
+  </div>
   </form>
 </section>

@@ -1,7 +1,8 @@
-<button type="button" (click)="menuChoice('pizza')">Voir le menu pizza</button>
+<div>
+  <button type="button" (click)="menuChoice('pizza')">Voir le menu pizza</button>
 
-<button type="button" (click)="menuChoice('salad')">Voir le menu salade</button>
-
+  <button type="button" (click)="menuChoice('salad')">Voir le menu salade</button>
+</div>
 <app-menu-pizza-form *ngIf="displayMenuPizza">
 </app-menu-pizza-form>
 

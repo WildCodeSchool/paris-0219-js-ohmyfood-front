@@ -1,0 +1,27 @@
+.blockStyle {
+  display: flex;
+  justify-content: space-around;
+}
+.beverageStyle {
+  text-align: center !important;
+}
+.dessertStyle {
+  text-align: center !important;
+}
+h1 {
+  text-align: center;
+}
+.priceStyle {
+  margin: 5vh 9vh;
+  p {
+    text-align: center;
+  }
+}
+h5 {
+  text-align: center;
+}
+button {
+  display: block;
+  margin : auto;
+  text-align: center;
+}

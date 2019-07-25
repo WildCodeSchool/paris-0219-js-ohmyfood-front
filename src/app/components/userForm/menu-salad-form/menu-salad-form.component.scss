@@ -1,1 +1,44 @@
+.beverageStyle {
+  display: flex;
+  justify-content: space-around;
+}
+.pricebeverageStyle {
+  text-align: center;
 
+}
+.priceStyle {
+  margin: 5vh 9vh;
+  p {
+    text-align: center;
+  }
+}
+h5 {
+  text-align: center;
+}
+.dessertStyle {
+  text-align: center !important;
+}
+.beverageStyleParagraphe {
+  text-align: center !important;
+}
+button {
+  display: block;
+  margin : auto;
+  text-align: center;
+}
+
+.dessertHeigt {
+  line-height: 55px;
+  max-height: 700px;
+  height: auto;
+  overflow: auto;
+}
+.beverageHeight {
+  line-height: 30px;
+  max-height: 700px;
+  height: auto;
+  overflow: auto;
+}
+h1 {
+  text-align: center;
+}

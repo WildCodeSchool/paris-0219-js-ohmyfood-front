@@ -1,34 +1,38 @@
-<form [formGroup]="loginForm">
-  <h2>Bienvenue chez OHMYFOOD</h2>
-  <div class="contenaire">
-    <input
-      type="text"
-      placeholder="E-Mail"
-      formControlName="emailClient"
-      required
-    >
-    <input
-      type="text"
-      placeholder="Mot de Passe"
-      formControlName="psswClient"
-      required
-    >
+<div class="loginContent">
+  <form [formGroup]="loginForm">
+    <h2>Bienvenue chez OHMYFOOD</h2>
+    <div class="content">
+      <input
+        type="text"
+        placeholder="E-Mail"
+        formControlName="emailClient"
+        required
+      >
+      <input
+        type="text"
+        placeholder="Mot de Passe"
+        formControlName="psswClient"
+        required
+      >
+      <a
+        [routerLink]="['/forgotPsswPage']"
+        routerLinkActive="router-link-active"
+      >
+        Mot de passe oublié ?
+      </a>
+
+      <p *ngIf="errorMessage !== undefined"> {{ errorMessage }}</p>
+    </div>
+    <br/>
+    <button type="submit" (click)="onSubmit()">Se connecter</button>
+  </form>
+  <div class="createAuthClient">
+    <p>Pas de compte?</p>
     <a
-      [routerLink]="['/forgotPsswPage']" 
-      routerLinkActive="router-link-active" 
-    > 
-      Mot de passe oublié ?
+      [routerLink]="['/createAccountPage']"
+      routerLinkActive="router-link-active"
+    >
+      Inscrivez-vous !
     </a>
-</div>
-  <br/>
-  <button type="submit" (click)="onSubmit()">Se connecter</button>
-</form>
-<div class="createAuthClient">
-  <p>Pas de compte?</p>
-  <a
-    [routerLink]="['/createAccountPage']"
-    routerLinkActive="router-link-active"
-  >
-    Inscrivez-vous !
-  </a>
+  </div>
 </div>

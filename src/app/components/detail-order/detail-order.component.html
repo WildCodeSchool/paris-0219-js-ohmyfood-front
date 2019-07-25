@@ -1,8 +1,14 @@
 <div class="detailOrder">
   <h2 class="">Récapitulatif de votre commande</h2>
 
-  <p id="orderStatus">Vous avez choisi une commande  {{ orderStatus }}</p>
-  <div>
+  <p
+    *ngIf="finalOrderRecap !== undefined"
+    id="orderStatus"
+  >
+    Vous avez choisi une commande  {{ orderStatus }}
+  </p>
+
+  <div *ngIf="finalOrderRecap !== undefined">
     <h2 *ngIf="finalOrderRecap.pizza.length > 0">Pizzas</h2>
     <ul>
       <li *ngFor="let pizza of finalOrderRecap.pizza; let i = index">
@@ -234,26 +240,26 @@
     <p>Statut de la commande</p>
 
     <label for="toTakeAway">
-      À emporter
+      à emporter
     </label>
       <input
         type="radio"
         formControlName="deliveryOrTakeAway"
         id="toTakeAway"
-        value="À emporter"
+        value="à emporter"
         (ngModelChange)="getOrderStatus('toTakeAway')"
       >
     <label for="delivery">
-      Livraison
+      en livraison
     </label>
       <input
         type="radio"
         formControlName="deliveryOrTakeAway"
         id="delivery"
-        value="Livraison"
+        value="en livraison"
         (ngModelChange)="getOrderStatus('delivery')"
       >
-    <div *ngIf="userDetailForm.controls['deliveryOrTakeAway'].value === 'Livraison'">
+    <div *ngIf="userDetailForm.controls['deliveryOrTakeAway'].value === 'en livraison'">
       <label>
         <p>Adresse de livraison 1</p>
         <input type="text" formControlName="livrAddress1">
@@ -274,6 +280,18 @@
 
     <p *ngIf="userDetailForm.errors">
       {{ userDetailForm.errors['tooFar'] }}
+    </p>
+
+    <p *ngIf="userDetailForm.errors">
+      {{ userDetailForm.errors['notEnough'] }}
+    </p>
+
+    <p *ngIf="userDetailForm.errors">
+      {{ userDetailForm.errors['notInTimeDetailOrderPage'] }}
+    </p>
+
+    <p *ngIf="userDetailForm.errors && totalOrder === 0">
+      {{ userDetailForm.errors['emptyOrder'] }}
     </p>
 
     <label>

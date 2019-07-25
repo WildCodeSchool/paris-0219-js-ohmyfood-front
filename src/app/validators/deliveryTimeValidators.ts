@@ -33,7 +33,9 @@ export function deliveryIntervalTime(orderHour: string, isMenu: boolean): Valida
         return { notInTime: `Nos menus ne sont disponibles que le midi,
                 du mardi au vendredi, sur nos horaires d'ouvertures, entre 11h30 et 14h.
                 Il est possible de commander à la carte sur les mêmes horaires d'ouvertures le midi, et le soir entre 19h et 22h,
-                du mardi au dimanche` };
+                du mardi au dimanche`,
+              notInTimeDetailOrderPage: `Vous pouvez commander sur nos horaires d'ouverture,
+              à savoir le midi entre 11h30 et 14 et le soir, de 19h à 22h.` };
     }
   };
 }

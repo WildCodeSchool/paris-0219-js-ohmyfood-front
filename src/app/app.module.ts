@@ -54,6 +54,7 @@ import { DetailsOrdersArchivedAdminComponent } from './components/admin/details-
 import { UserAccountManageComponent } from './components/authent/user-account-manage/user-account-manage.component';
 import { UserFormAccountComponent } from './components/user-form-account/user-form-account.component';
 import { UserAddressFormAccountComponent } from './components/user-address-form-account/user-address-form-account.component';
+import { AfterSubmitOrderPageComponent } from './pages/after-submit-order-page/after-submit-order-page.component';
 
 @NgModule({
   declarations: [
@@ -101,7 +102,8 @@ import { UserAddressFormAccountComponent } from './components/user-address-form-
     DetailsOrdersArchivedAdminComponent,
     UserAccountManageComponent,
     UserFormAccountComponent,
-    UserAddressFormAccountComponent
+    UserAddressFormAccountComponent,
+    AfterSubmitOrderPageComponent
   ],
   imports: [
     AppRoutingModule,

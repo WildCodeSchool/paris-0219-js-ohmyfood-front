@@ -18,6 +18,7 @@ import { NewPasswordPageGuardService } from './services/new-password-page-guard.
 import { AdminSuperGuardService } from './services/admin-super-guard.service';
 import { AdminPagesComponent } from './pages/admin-pages-component/admin-pages-component';
 import { AuthentCreateComponent } from './components/authent/authent-create/authent-create.component';
+import { AfterSubmitOrderPageComponent } from './pages/after-submit-order-page/after-submit-order-page.component';
 
 const routes: Routes = [
   {
@@ -92,6 +93,11 @@ const routes: Routes = [
     path: 'TzApeyaNpBzRJmGrit59K4NJ5Cy/:token',
     component: NewPasswordPageComponent,
     canActivate: [NewPasswordPageGuardService]
+  },
+  {
+    path: 'orderFinish',
+    component: AfterSubmitOrderPageComponent,
+    canActivate: [OnlyLoggedInUsersGuardService]
   }
 ];
 

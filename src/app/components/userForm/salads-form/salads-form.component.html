@@ -12,7 +12,7 @@
     </div>
     <div class="notToggle" [ngClass]="{toggle: isToggle}">
 
-    <form [formGroup]="formSalads" (ngSubmit)="onSubmit()" #saladsForm=ngForm>
+    <form [formGroup]="formSalads" (ngSubmit)="formSalads.valid && onSubmit()" #saladsForm=ngForm>
       <div class="contenaire">
         <div class="head">
           <div class="ldm">

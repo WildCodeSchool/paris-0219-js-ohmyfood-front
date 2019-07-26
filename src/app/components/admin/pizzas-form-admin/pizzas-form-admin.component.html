@@ -3,7 +3,7 @@
 </h1>
 
 <div id="conteneur">
-  <p>Quelle action voulez-vous réaliser ?</p>
+  <i><b>Quelle action voulez-vous réaliser ?</b></i>
   <form [formGroup]="formCheck">
     <label *ngFor="let action of actions; let i = index">
       <input type="radio" 
@@ -74,7 +74,7 @@
         </div>
       </label>
     </form>
-    <button type="submit" (click)="onSubmitAddForm()">AJOUTER LA PIZZA</button>
+    <button class="button is-rounded is-outlined" type="submit" (click)="onSubmitAddForm()">AJOUTER LA PIZZA</button>
   </div>
 
     <!--Modifier form-->
@@ -111,7 +111,7 @@
           >
         </label>
     </form>
-    <button type="submit" (click)="onSubmitPutForm()">MODIFIER LA PIZZA</button>
+    <button class="button is-rounded is-outlined" type="submit" (click)="onSubmitPutForm()">MODIFIER LA PIZZA</button>
   </div>
 
     <!--Delete form-->
@@ -136,7 +136,7 @@
             </div>
           </div>
         </label>
-      <button type="submit" (click)="onSubmitDelForm()">SUPPRIMER LA PIZZA</button>
+      <button class="button is-rounded is-outlined" type="submit" (click)="onSubmitDelForm()">SUPPRIMER LA PIZZA</button>
     </form>
   </div>
   <p *ngFor="let dataPizza of pizzaDataObject; let i = index;">{{ dataPizza.pizzName }} {{ dataPizza.pizzPriceTTC }} €</p>

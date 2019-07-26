@@ -1,20 +1,24 @@
 import { AbstractControl, ValidatorFn, ValidationErrors} from '@angular/forms';
 
-export function deliveryIntervalTime(orderHour: string, isMenu: boolean): ValidatorFn {
+export function finalDeliveryIntervalTime(orderHour: string, dayOrder: string): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
 
-    const hourMenuMin = 113000;
-    const hourMenuMax = 140000;
+    const lunchHourMin = 113000;
+    const lunchHourMax = 160000;
 
-    const userDayOrder = orderHour.split(' ').splice(0, 1).join(''); // Get order's day
+    const dinnerHourMin = 190000;
+    const dinnerHourMax = 220000;
+
+    const userDayOrder = dayOrder.split(' ').splice(0, 1).join(''); // Get order's day
 
     const userHourOrder = orderHour.split(' ').splice(1, 1).join(''); // Get order's hour
 
     const finalHourOrder = parseInt(userHourOrder.split(':').join(''), 10); // Convert user hour order in number to compare it
 
     if (
-      hourMenuMin <= finalHourOrder && finalHourOrder <= hourMenuMax && userDayOrder !== 'Monday' &&
-      userDayOrder !== 'Saturday' && userDayOrder !== 'Sunday' && isMenu ) {
+      (lunchHourMin <= finalHourOrder && finalHourOrder <= lunchHourMax && userDayOrder !== 'Monday' &&
+      userDayOrder !== 'Saturday' && userDayOrder !== 'Sunday') || (dinnerHourMin <= finalHourOrder && finalHourOrder <= dinnerHourMax &&
+        userDayOrder !== 'Monday')) {
         return null;
 
     } else {

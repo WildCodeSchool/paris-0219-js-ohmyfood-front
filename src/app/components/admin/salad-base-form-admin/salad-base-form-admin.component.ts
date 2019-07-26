@@ -83,10 +83,10 @@ export class SaladBaseFormAdminComponent implements OnInit {
         saladsBaseName: this.toJadenCase(this.baseFormPut.value.basesName),
         idTax: 1
       };
-      if (this.baseFormPut.value.basesNewName !== '') {
+      if (this.baseFormPut.value.basesNewName !== '' && this.baseFormPut.value.basesNewName !== null) {
         this.saladBaseService.baseFormObject.saladsBaseName += '|' + this.toJadenCase(this.baseFormPut.value.basesNewName)
       }
-      if (this.baseFormPut.value.basesPriceHt !== '') {
+      if (this.baseFormPut.value.basesPriceHt !== '' && this.baseFormPut.value.basesPriceHt !== null) {
         this.saladBaseService.baseFormObject.saladsBasePriceHt = parseFloat(this.baseFormPut.value.basesPriceHt)
       }
       if (confirm(`Êtes-vous certain de modifier la base ${this.baseFormPut.value.basesName} ?`)) {

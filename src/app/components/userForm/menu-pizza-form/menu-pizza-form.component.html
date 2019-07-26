@@ -6,7 +6,7 @@
   </a>
   <form
     [formGroup]="pizzaMenuForm"
-    (ngSubmit)="onSubmit()"
+    (ngSubmit)="pizzaMenuForm.valid && onSubmit()"
     #menuPizza="ngForm"
   >
     <ul formArrayName="pizza" class="flag">

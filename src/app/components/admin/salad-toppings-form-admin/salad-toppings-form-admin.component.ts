@@ -83,10 +83,10 @@ export class SaladToppingsFormAdminComponent implements OnInit {
         saladsToppingsName: this.toJadenCase(this.toppingFormPut.value.toppingName),
         idTax: 1
       };
-      if (this.toppingFormPut.value.toppingNewName !== '') {
+      if (this.toppingFormPut.value.toppingNewName !== '' && this.toppingFormPut.value.toppingNewName !== null) {
         this.saladToppingService.toppingFormObject.saladsToppingsName += '|' + this.toJadenCase(this.toppingFormPut.value.toppingNewName)
       }
-      if (this.toppingFormPut.value.toppingPriceHt !== '') {
+      if (this.toppingFormPut.value.toppingPriceHt !== '' && this.toppingFormPut.value.toppingPriceHt !== null ) {
         this.saladToppingService.toppingFormObject.saladsToppingsPriceHt = parseFloat(this.toppingFormPut.value.toppingPriceHt)
       }
       if (confirm(`Êtes-vous certain de modifier le topping ${this.toppingFormPut.value.toppingName} ?`)) {

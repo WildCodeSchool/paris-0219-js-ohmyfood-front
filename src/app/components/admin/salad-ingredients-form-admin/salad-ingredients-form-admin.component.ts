@@ -21,7 +21,10 @@ export class SaladIngredientsFormAdminComponent implements OnInit {
   tabStr = [];
   valueAction = 'Ajouter';
 
-  constructor(private saladIngredientService: SaladIngredientsService, private saladsDataService: SaladsDatasService, private fb: FormBuilder) { }
+  constructor(
+    private saladIngredientService: SaladIngredientsService,
+    private saladsDataService: SaladsDatasService,
+    private fb: FormBuilder) { }
 
   ngOnInit() {
     this.initForm();
@@ -50,7 +53,7 @@ export class SaladIngredientsFormAdminComponent implements OnInit {
     this.ingredientFormPut = this.fb.group({
       ingredientName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(45)]],
       ingredientNewName: [''],
-      ingredientPriceHt: ['', [Validators.required, Validators.pattern(this.regexPrice)]]
+      ingredientPriceHt: ['', Validators.pattern(this.regexPrice)]
     });
     this.ingredientFormDel = this.fb.group({
       ingredientName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(45)]],
@@ -83,11 +86,13 @@ export class SaladIngredientsFormAdminComponent implements OnInit {
         saladsIngredientsName: this.toJadenCase(this.ingredientFormPut.value.ingredientName),
         idTax: 1
       };
-      if (this.ingredientFormPut.value.ingredientNewName !== '') {
-        this.saladIngredientService.ingredientFormObject.saladsIngredientsName += '|' + this.toJadenCase(this.ingredientFormPut.value.ingredientNewName)
+      if (this.ingredientFormPut.value.ingredientNewName !== '' && this.ingredientFormPut.value.ingredientNewName !== null ) {
+        this.saladIngredientService.ingredientFormObject.saladsIngredientsName +=
+        '|' + this.toJadenCase(this.ingredientFormPut.value.ingredientNewName)
       }
-      if (this.ingredientFormPut.value.ingredientPriceHt !== '') {
-        this.saladIngredientService.ingredientFormObject.saladsIngredientsPriceHt = parseFloat(this.ingredientFormPut.value.ingredientPriceHt)
+      if (this.ingredientFormPut.value.ingredientPriceHt !== '' && this.ingredientFormPut.value.ingredientPriceHt !== null) {
+        this.saladIngredientService.ingredientFormObject.saladsIngredientsPriceHt =
+        parseFloat(this.ingredientFormPut.value.ingredientPriceHt)
       }
       if (confirm(`Êtes-vous certain de modifier l' ingredient ${this.ingredientFormPut.value.ingredientName} ?`)) {
         const putIngredientType = this.saladIngredientService.putIngredientType().subscribe(_ => {

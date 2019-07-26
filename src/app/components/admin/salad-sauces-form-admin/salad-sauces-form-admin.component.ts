@@ -78,7 +78,7 @@ export class SaladSaucesFormAdminComponent implements OnInit {
       this.saladSauceService.sauceFormObject = {
         saladsSaucesName: this.toJadenCase(this.sauceFormPut.value.saucesName),
       };
-      if (this.sauceFormPut.value.saucesNewName !== '') {
+      if (this.sauceFormPut.value.saucesNewName !== '' && this.sauceFormPut.value.saucesNewName !== null) {
         this.saladSauceService.sauceFormObject.saladsSaucesName += '|' + this.toJadenCase(this.sauceFormPut.value.saucesNewName)
       }
       if (confirm(`Êtes-vous certain de modifier la sauce ${this.sauceFormPut.value.saucesName} ?`)) {
@@ -86,7 +86,7 @@ export class SaladSaucesFormAdminComponent implements OnInit {
           const getSauceObs = this.saladsDataService.addSaladsSauces().subscribe(data => {
             this.sauceDataObject = data;
             getSauceObs.unsubscribe();
-          })
+          });
           this.sauceFormPut.reset();
           putSauceType.unsubscribe();
         });

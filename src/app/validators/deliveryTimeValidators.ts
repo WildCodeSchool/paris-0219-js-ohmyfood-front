@@ -6,12 +6,6 @@ export function deliveryIntervalTime(orderHour: string, isMenu: boolean): Valida
     const hourMenuMin = 113000;
     const hourMenuMax = 140000;
 
-    const lunchHourMin = 113000;
-    const lunchHourMax = 140000;
-
-    const dinnerHourMin = 190000;
-    const dinnerHourMax = 220000;
-
     const userDayOrder = orderHour.split(' ').splice(0, 1).join(''); // Get order's day
 
     const userHourOrder = orderHour.split(' ').splice(1, 1).join(''); // Get order's hour
@@ -23,12 +17,6 @@ export function deliveryIntervalTime(orderHour: string, isMenu: boolean): Valida
       userDayOrder !== 'Saturday' && userDayOrder !== 'Sunday' && isMenu ) {
         return null;
 
-    } else if (
-      (lunchHourMin <= finalHourOrder && finalHourOrder <= lunchHourMax && userDayOrder !== 'Monday' &&
-        userDayOrder !== 'Saturday' && userDayOrder !== 'Sunday' && !isMenu) || (dinnerHourMin <= finalHourOrder &&
-        finalHourOrder <= dinnerHourMax && userDayOrder !== 'Monday' && userDayOrder !== 'Saturday' &&
-        userDayOrder !== 'Sunday' && !isMenu)) {
-      return null;
     } else {
         return { notInTime: `Nos menus ne sont disponibles que le midi,
                 du mardi au vendredi, sur nos horaires d'ouvertures, entre 11h30 et 14h.

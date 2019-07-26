@@ -20,6 +20,8 @@ export class BeveragesFormAdminComponent implements OnInit {
   beverageFormDel: FormGroup;
   valueAction = 'Ajouter';
 
+  tabStr = [];
+
   constructor(
     private beverageService: BeverageService,
     private fb: FormBuilder,
@@ -44,7 +46,7 @@ export class BeveragesFormAdminComponent implements OnInit {
   initForm() {
     this.formCheck = this.fb.group({
       bevAction: ['Ajouter', Validators.required]
-    })
+    });
 
     this.beverageFormAdd = this.fb.group({
       bevName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(45)]],
@@ -52,7 +54,8 @@ export class BeveragesFormAdminComponent implements OnInit {
     });
     this.beverageFormPut = this.fb.group({
       bevName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(45)]],
-      bevPriceHt: ['', [Validators.required, Validators.pattern(this.regexPrice)]]
+      bevNewName: [''],
+      bevPriceHt: ['', Validators.pattern(this.regexPrice)]
     });
     this.beverageFormDel = this.fb.group({
       bevName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(45)]],
@@ -82,24 +85,33 @@ export class BeveragesFormAdminComponent implements OnInit {
   onSubmitPutForm() {
     if (this.beverageFormPut.valid) {
       this.beverageService.beverageFormObject = {
-        bevName: this.beverageFormPut.value.bevName,
-        bevPriceHt: parseFloat(this.beverageFormPut.value.bevPriceHt),
+        bevName: this.toJadenCase(this.beverageFormPut.value.bevName),
         idTax: 1
       };
+
+      if (this.beverageFormPut.value.bevNewName !==  '' && this.beverageFormPut.value.bevNewName !== null ) {
+        this.beverageService.beverageFormObject.bevName += '|' + this.toJadenCase(this.beverageFormPut.value.bevNewName);
+
+      }
+
+      if (this.beverageFormPut.value.bevPriceHt !== '' && this.beverageFormPut.value.bevPriceHt !== null) {
+        this.beverageService.beverageFormObject.bevPriceHt = parseFloat(this.beverageFormPut.value.bevPriceHt);
+      }
+
       if (confirm(`Êtes-vous certain de modifier la boisson ${this.beverageFormPut.value.bevName} ?`)) {
-        const putBeverageType = this.beverageService.putBeverageType().subscribe(_ => {
-          const getBeverageObs = this.beveragesDataService.getBeverages().subscribe(data => {
-            this.beverageDataObject = data;
-            getBeverageObs.unsubscribe();
+          const putBeverageType = this.beverageService.putBeverageType().subscribe(_ => {
+            const getBeverageObs = this.beveragesDataService.getBeverages().subscribe(data => {
+              this.beverageDataObject = data;
+              getBeverageObs.unsubscribe();
+            });
+            this.beverageFormPut.reset();
+            putBeverageType.unsubscribe();
           });
-          this.beverageFormPut.reset();
-          putBeverageType.unsubscribe();
-        });
       }
     }
   }
 
-  onSubmitDelForm() {
+onSubmitDelForm() {
     if (this.beverageFormDel.valid) {
       this.beverageService.beverageFormObject = {
         bevName: this.beverageFormDel.value.bevName
@@ -115,5 +127,11 @@ export class BeveragesFormAdminComponent implements OnInit {
         });
       }
     }
+  }
+
+toJadenCase(strin) {
+    this.tabStr = strin.split(' ');
+    this.tabStr = this.tabStr.map(word => word.charAt(0).toUpperCase() + word.slice(1));
+    return this.tabStr.join(' ');
   }
 }

@@ -6,7 +6,7 @@
   <i><b>Quelle action voulez-vous réaliser ?</b></i>
   <form [formGroup]="formCheck">
     <label *ngFor="let action of actions; let i = index">
-      <input type="radio" 
+      <input type="radio"
         value="{{ action }}"
         name="bevAction"
         formControlName="bevAction"
@@ -19,9 +19,9 @@
 <!--Adding form-->
       <label>
       <p>Nom de la boisson à ajouter</p>
-      <input type="text" 
-        class="form-control" 
-        formControlName="bevName" 
+      <input type="text"
+        class="form-control"
+        formControlName="bevName"
         required
       >
       <div *ngIf="fA.bevName.invalid && (fA.bevName.dirty || fA.bevName.touched)">
@@ -39,9 +39,9 @@
 
       <label>
         <p>Prix hors taxe</p>
-        <input type="text" 
-          class="form-control" 
-          formControlName="bevPriceHt" 
+        <input type="text"
+          class="form-control"
+          formControlName="bevPriceHt"
           required
         >
         <div *ngIf="fA.bevPriceHt.invalid && (fA.bevPriceHt.dirty || fA.bevPriceHt.touched)">
@@ -62,11 +62,19 @@
     <form [formGroup]="beverageFormPut">
         <label>
         <p>Nom de la boisson à modifier</p>
-        <input type="text" 
-          class="form-control" 
-          formControlName="bevName" 
+        <input type="text"
+          class="form-control"
+          formControlName="bevName"
           required
         >
+        <label>
+          <p>Nouveau nom de la boisson ?</p>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="bevNewName"
+          >
+        </label>
         <div *ngIf="fM.bevName.invalid && (fM.bevName.dirty || fM.bevName.touched)">
           <div *ngIf="fM.bevName.errors.required">
             <p class="invalidText">*Le nom de la boisson est requis</p>
@@ -82,10 +90,9 @@
 
         <label>
           <p>Prix hors taxe</p>
-          <input type="text" 
-            class="form-control" 
-            formControlName="bevPriceHt" 
-            required
+          <input type="text"
+            class="form-control"
+            formControlName="bevPriceHt"
           >
           <div *ngIf="fM.bevPriceHt.invalid && (fM.bevPriceHt.dirty || fM.bevPriceHt.touched)">
             <div *ngIf="fM.bevPriceHt.errors.required">
@@ -105,9 +112,9 @@
     <form [formGroup]="beverageFormDel">
         <label>
           <p>Nom de la boisson à Supprimer</p>
-          <input type="text" 
-            class="form-control" 
-            formControlName="bevName" 
+          <input type="text"
+            class="form-control"
+            formControlName="bevName"
             required
           >
           <div *ngIf="fD.bevName.invalid && (fD.bevName.dirty || fD.bevName.touched)">

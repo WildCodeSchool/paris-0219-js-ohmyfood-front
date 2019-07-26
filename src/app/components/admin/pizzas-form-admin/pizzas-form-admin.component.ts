@@ -86,14 +86,14 @@ export class PizzasFormAdminComponent implements OnInit {
         pizzName: this.toJadenCase(this.pizzaFormPut.value.pizzaName),
         idTax: 1
       };
-      if (this.pizzaFormPut.value.pizzaNewName !==  '') {
-        this.pizzaService.pizzaFormObject.pizzName += '|' + this.toJadenCase(this.pizzaFormPut.value.pizzaNewName)
+      if (this.pizzaFormPut.value.pizzaNewName !==  '' && this.pizzaFormPut.value.pizzaNewName !== null) {
+        this.pizzaService.pizzaFormObject.pizzName += '|' + this.toJadenCase(this.pizzaFormPut.value.pizzaNewName);
       }
-      if (this.pizzaFormPut.value.pizzDesc !==  '') {
-        this.pizzaService.pizzaFormObject.pizzDesc = this.pizzaFormPut.value.pizzDesc
+      if (this.pizzaFormPut.value.pizzDesc !==  '' && this.pizzaFormPut.value.pizzaNewName !== null) {
+        this.pizzaService.pizzaFormObject.pizzDesc = this.pizzaFormPut.value.pizzDesc;
       }
-      if (this.pizzaFormPut.value.pizzPriceHt !== '') {
-        this.pizzaService.pizzaFormObject.pizzPriceHt = parseFloat(this.pizzaFormPut.value.pizzPriceHt)
+      if (this.pizzaFormPut.value.pizzPriceHt !== '' && this.pizzaFormPut.value.pizzaNewName !== null) {
+        this.pizzaService.pizzaFormObject.pizzPriceHt = parseFloat(this.pizzaFormPut.value.pizzPriceHt);
       }
       if (confirm(`Êtes-vous certain de modifier la pizza ${this.pizzaFormPut.value.pizzaName} ?`)) {
         const putPizzaType = this.pizzaService.putPizzaType().subscribe(_ => {

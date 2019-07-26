@@ -6,7 +6,7 @@
   <i><b>Quelle action voulez-vous réaliser ?</b></i>
   <form [formGroup]="formCheck">
     <label *ngFor="let action of actions; let i = index">
-      <input type="radio" 
+      <input type="radio"
         value="{{ action }}"
         name="dessAction"
         formControlName="dessAction"
@@ -19,9 +19,9 @@
   <!--Adding form-->
       <label>
       <p>Nom du dessert à ajouter</p>
-      <input type="text" 
-        class="form-control" 
-        formControlName="dessName" 
+      <input type="text"
+        class="form-control"
+        formControlName="dessName"
         required
       >
       <div *ngIf="fA.dessName.invalid && (fA.dessName.dirty || fA.dessName.touched)">
@@ -39,9 +39,9 @@
 
       <label>
         <p>Prix hors taxe</p>
-        <input type="text" 
-          class="form-control" 
-          formControlName="dessPriceHt" 
+        <input type="text"
+          class="form-control"
+          formControlName="dessPriceHt"
           required
         >
         <div *ngIf="fA.dessPriceHt.invalid && (fA.dessPriceHt.dirty || fA.dessPriceHt.touched)">
@@ -62,11 +62,19 @@
     <form [formGroup]="dessertFormPut">
         <label>
         <p>Nom du dessert à modifier</p>
-        <input type="text" 
-          class="form-control" 
-          formControlName="dessName" 
+        <input type="text"
+          class="form-control"
+          formControlName="dessName"
           required
         >
+        <label>
+          <p>Nouveau nom du dessert ?</p>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="dessNewName"
+          >
+        </label>
         <div *ngIf="fM.dessName.invalid && (fM.dessName.dirty || fM.dessName.touched)">
           <div *ngIf="fM.dessName.errors.required">
             <p class="invalidText">*Le nom du dessert est requis</p>
@@ -82,10 +90,9 @@
 
         <label>
           <p>Prix hors taxe</p>
-          <input type="text" 
-            class="form-control" 
-            formControlName="dessPriceHt" 
-            required
+          <input type="text"
+            class="form-control"
+            formControlName="dessPriceHt"
           >
           <div *ngIf="fM.dessPriceHt.invalid && (fM.dessPriceHt.dirty || fM.dessPriceHt.touched)">
             <div *ngIf="fM.dessPriceHt.errors.required">
@@ -105,9 +112,9 @@
     <form [formGroup]="dessertFormDel">
         <label>
           <p>Nom du dessert à Supprimer</p>
-          <input type="text" 
-            class="form-control" 
-            formControlName="dessName" 
+          <input type="text"
+            class="form-control"
+            formControlName="dessName"
             required
           >
           <div *ngIf="fD.dessName.invalid && (fD.dessName.dirty || fD.dessName.touched)">

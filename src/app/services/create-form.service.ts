@@ -12,7 +12,6 @@ export class CreateFormService {
   const check = Object.getOwnPropertyNames(object)[0];
 
   if (check === 'idPizzas') {
-    console.log(object)
     const pizzasForm = this.fb.group({
       idPizzas: object.idPizzas,
       pizzDesc: object.pizzDesc,

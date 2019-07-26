@@ -16,20 +16,19 @@
         *ngFor="let pizzas of pizza.controls; let i = index"
       >
 
-        <label for="pizza-{{ i }}">
+        <label class="pizzNameClass" for="pizza-{{ i }}">
           {{ pizzas.value.pizzName }}
+          <input
+            type="radio"
+            formControlName="pizzQuantity"
+            name="pizzQuantity"
+            id="pizza-{{ i }}"
+            value="{{ pizzas.value.pizzQuantity }}"
+            (ngModelChange)="getUserChoice(i, pizzas.value)"
+          />
         </label>
 
-        <p>{{ pizzas.value.pizzDesc }}</p>
-
-        <input
-          type="radio"
-          formControlName="pizzQuantity"
-          name="pizzQuantity"
-          id="pizza-{{ i }}"
-          value="{{ pizzas.value.pizzQuantity }}"
-          (ngModelChange)="getUserChoice(i, pizzas.value)"
-        />
+        <p class="pizzDescClass">{{ pizzas.value.pizzDesc }}</p>
       </li>
     </ul>
 

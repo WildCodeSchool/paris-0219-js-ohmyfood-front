@@ -49,7 +49,21 @@
   justify-content: space-around;
 
 }
-
+.test3 {
+  display: flex;
+  flex-direction: column;
+}
+.menuPrcieStyle {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-left: -4%;
+}
+.saladStyle {
+  display: flex;
+  justify-content: space-between;
+  width: 89%;
+}
 .suga {
   width: 45%;
   margin-left: 5%;
@@ -148,6 +162,7 @@ p {
 }
 .quantityButton {
     margin-right: 5%;
+    width: 22%;
     input {
       font-size: 92%;
       width: 20%;
@@ -227,7 +242,7 @@ ul li {
     }
 
     .quantityButton {
-        width: 25%;
+        width: 22%;
         margin-right: 0;
     }
 

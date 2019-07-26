@@ -11,7 +11,7 @@ export class TaxFormAdminComponent implements OnInit {
 
   actions = ['Modifier'];
   formCheck: FormGroup;
-  regexTax = /[0-9{1}]+[.]+[0-9]{3,4}/gm;
+  regexTax = /[0-9{1}]+[.]+[0-9]{3,4}/m;
   taxFormObject;
   taxFormPut: FormGroup;
   tabStr = [];

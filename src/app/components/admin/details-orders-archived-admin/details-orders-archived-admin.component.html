@@ -6,7 +6,7 @@
     <h1>
       Commande n°{{ order.idOrder }} du {{ order.dateOrder | date : "dd/MM/yy à H'h'mm" }}
 
-      <span>Total de la commande : {{ order.orderPrice }} EUR</span>
+      <span>Total de la commande : {{ order.orderPrice }} €</span>
     </h1>
 
     <h2>Informations client</h2>
@@ -219,7 +219,7 @@
 
               <p>Quantité  <span>{{ menuSalad.menuQuantity }}</span></p>
 
-              <p>Prix du menu complet <span>{{ menuSalad.menuSaladPrice }} EUR</span></p>
+              <p>Prix du menu complet <span>{{ menuSalad.menuSaladPrice }} €</span></p>
             </li>
           </ul>
       </div>

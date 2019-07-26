@@ -12,7 +12,7 @@
     <h2 *ngIf="finalOrderRecap.pizza.length > 0">Pizzas</h2>
     <ul>
       <li *ngFor="let pizza of finalOrderRecap.pizza; let i = index">
-        {{ pizza.pizzName }} {{ pizza['pizzPriceTotal'] }}EUR
+        {{ pizza.pizzName }} {{ pizza['pizzPriceTotal'] }}€
         <button
           class="button is-rounded is-outlined is-mobile is-small"
           type="button"
@@ -35,7 +35,7 @@
     <h2 *ngIf="finalOrderRecap.beverage.length > 0">Boissons</h2>
     <ul>
       <li *ngFor="let beverage of finalOrderRecap.beverage; let i = index">
-        {{ beverage.bevName }} {{ beverage['bevPriceTotal'] }} EUR
+        {{ beverage.bevName }} {{ beverage['bevPriceTotal'] }} €
         <button
           class="button is-rounded is-outlined is-mobile is-small"
           type="button"
@@ -58,7 +58,7 @@
     <h2 *ngIf="finalOrderRecap.dessert.length > 0">Desserts</h2>
     <ul>
       <li *ngFor="let dessert of finalOrderRecap.dessert; let i = index">
-        {{ dessert.dessName }} {{ dessert['dessPriceTotal'] }} EUR
+        {{ dessert.dessName }} {{ dessert['dessPriceTotal'] }} €
         <button
           class="button is-rounded is-outlined is-mobile is-small"
           type="button"
@@ -81,7 +81,7 @@
     <h2 *ngIf="finalOrderRecap.salad.length > 0">Salades Composées</h2>
     <ul>
       <li *ngFor="let saladFor of finalOrderRecap.salad; let i = index">
-        <h3>Salade Composée n°{{i + 1}} {{saladFor['saladsComposedPriceTotal']}} EUR</h3>
+        <h3>Salade Composée n°{{i + 1}} {{saladFor['saladsComposedPriceTotal']}} €</h3>
         <button
           class="button is-rounded is-outlined is-mobile is-small"
           type="button"
@@ -100,15 +100,15 @@
         <ul>
           <h4>Bases</h4>
           <li *ngFor="let multiBases of saladFor['multiBases']">
-              {{multiBases.basesName}} {{multiBases.basesPrice}} EUR <span>quantité : {{multiBases.multiBasesQuantity}}</span>
+              {{multiBases.basesName}} {{multiBases.basesPrice}} € <span>quantité : {{multiBases.multiBasesQuantity}}</span>
           </li>
           <h4>Ingrédients</h4>
           <li *ngFor="let multiIngredients of saladFor['multiIngredients']">
-              {{multiIngredients.ingredientsName}} {{multiIngredients.ingredientsPrice}} EUR <span>quantité : {{multiIngredients.multiIngredientsQuantity}}</span>
+              {{multiIngredients.ingredientsName}} {{multiIngredients.ingredientsPrice}} € <span>quantité : {{multiIngredients.multiIngredientsQuantity}}</span>
           </li>
           <h4>Toppings</h4>
           <li *ngFor="let multiToppings of saladFor['multiToppings']">
-              {{multiToppings.toppingsName}} {{multiToppings.toppingsPrice}} EUR <span>quantité : {{multiToppings.multiToppingsQuantity}}</span>
+              {{multiToppings.toppingsName}} {{multiToppings.toppingsPrice}} € <span>quantité : {{multiToppings.multiToppingsQuantity}}</span>
           </li>
           <h4>Sauces</h4>
           <li>
@@ -120,7 +120,7 @@
 
     <ul>
       <li *ngFor="let menuPizzas of finalOrderRecap.menuPizza; let i = index">
-        <h3>Menu pizza n°{{ i + 1 }} {{ menuPizzas['menuPizzPriceTotal'] }} EUR</h3>
+        <h3>Menu pizza n°{{ i + 1 }} {{ menuPizzas['menuPizzPriceTotal'] }} €</h3>
 
         <button
         class="button is-rounded is-outlined is-mobile is-small"
@@ -142,19 +142,19 @@
           <h4>Pizzas</h4>
 
           <li>
-            {{ menuPizzas['pizza']['pizzName'] }} {{ menuPizzas['pizza']['pizzPriceTTC'] }} EUR <span>quantité : {{ menuPizzas['pizza']['pizzQuantity'] }}</span>
+            {{ menuPizzas['pizza']['pizzName'] }} {{ menuPizzas['pizza']['pizzPriceTTC'] }} € <span>quantité : {{ menuPizzas['pizza']['pizzQuantity'] }}</span>
           </li>
 
           <h4>Boisons</h4>
 
           <li>
-            {{ menuPizzas['beverage']['bevName'] }} {{ menuPizzas['beverage']['bevPriceTTC'] }} EUR <span>quantité : {{ menuPizzas['beverage']['bevQuantity'] }}</span>
+            {{ menuPizzas['beverage']['bevName'] }} {{ menuPizzas['beverage']['bevPriceTTC'] }} € <span>quantité : {{ menuPizzas['beverage']['bevQuantity'] }}</span>
           </li>
 
           <h4>Desserts</h4>
 
           <li>
-            {{ menuPizzas['dessert']['dessName'] }} {{ menuPizzas['dessert']['dessPriceTTC'] }} EUR <span>quantité : {{ menuPizzas['dessert']['dessQuantity'] }}</span>
+            {{ menuPizzas['dessert']['dessName'] }} {{ menuPizzas['dessert']['dessPriceTTC'] }} € <span>quantité : {{ menuPizzas['dessert']['dessQuantity'] }}</span>
           </li>
         </ul>
       </li>
@@ -162,7 +162,7 @@
 
     <ul>
       <li *ngFor="let menuSalads of finalOrderRecap.menuSalad; let i = index">
-        <h3>Menu salade n°{{ i + 1 }} {{ menuSalads['menuSaladPriceTotal'] }} EUR</h3>
+        <h3>Menu salade n°{{ i + 1 }} {{ menuSalads['menuSaladPriceTotal'] }} €</h3>
 
 
         <button
@@ -187,19 +187,19 @@
             <h5>Vos bases</h5>
 
             <li *ngFor="let bases of menuSalads['salad']['orderSaladsBases']">
-              {{ bases['saladsBasesName'] }} {{ bases['saladsBasesPriceTTC'] }} EUR <span>quantité : {{ bases['saladsBasesQuantity'] }}</span>
+              {{ bases['saladsBasesName'] }} {{ bases['saladsBasesPriceTTC'] }} € <span>quantité : {{ bases['saladsBasesQuantity'] }}</span>
             </li>
 
             <h5>Vos ingrédients</h5>
 
             <li *ngFor="let ingredients of menuSalads['salad']['orderSaladsIngredients']">
-              {{ ingredients['saladsIngredientsName'] }} {{ ingredients['saladsIngredientsPriceTTC'] }} EUR <span>quantité : {{ ingredients['saladsIngredientsQuantity'] }}</span>
+              {{ ingredients['saladsIngredientsName'] }} {{ ingredients['saladsIngredientsPriceTTC'] }} € <span>quantité : {{ ingredients['saladsIngredientsQuantity'] }}</span>
             </li>
 
             <h5>Vos toppings</h5>
 
             <li *ngFor="let toppings of menuSalads['salad']['orderSaladsToppings']">
-              {{ toppings['saladsToppingsName'] }} {{ toppings['saladsToppingsPriceTTC'] }} EUR <span>quantité : {{ toppings['saladsToppingsQuantity'] }}</span>
+              {{ toppings['saladsToppingsName'] }} {{ toppings['saladsToppingsPriceTTC'] }} € <span>quantité : {{ toppings['saladsToppingsQuantity'] }}</span>
             </li>
 
             <h5>Votre sauce</h5>
@@ -211,7 +211,7 @@
             <h4>Boisons</h4>
 
             <li *ngIf="menuSalads['beverage']['idBeverages'] !== 0">
-              {{ menuSalads['beverage']['bevName'] }} {{ menuSalads['beverage']['bevPriceTTC'].toFixed(2) }} EUR <span>quantité : {{ menuSalads['beverage']['bevQuantity'] }}</span>
+              {{ menuSalads['beverage']['bevName'] }} {{ menuSalads['beverage']['bevPriceTTC'].toFixed(2) }} € <span>quantité : {{ menuSalads['beverage']['bevQuantity'] }}</span>
             </li>
 
             <li *ngIf="menuSalads['beverage']['idBeverages'] === 0">
@@ -221,7 +221,7 @@
             <h4>Desserts</h4>
 
             <li *ngIf="menuSalads['dessert']['idDesserts'] !== 0" >
-              {{ menuSalads['dessert']['dessName'] }} {{ menuSalads['dessert']['dessPriceTTC'].toFixed(2) }} EUR <span>quantité : {{ menuSalads['dessert']['dessQuantity'] }}</span>
+              {{ menuSalads['dessert']['dessName'] }} {{ menuSalads['dessert']['dessPriceTTC'].toFixed(2) }} € <span>quantité : {{ menuSalads['dessert']['dessQuantity'] }}</span>
             </li>
 
             <li *ngIf="menuSalads['dessert']['idDesserts'] === 0">
@@ -234,7 +234,7 @@
 
   </div>
   <p>
-    TOTAL de votre commande {{ totalOrder }} EUR
+    TOTAL de votre commande {{ totalOrder }} €
   </p>
   <form [formGroup]="userDetailForm" (ngSubmit)="confirmOrder()">
     <p>Statut de la commande</p>

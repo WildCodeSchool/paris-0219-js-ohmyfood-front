@@ -1,0 +1,56 @@
+@import '../../../../styles/colors.scss';
+
+.button {
+    border: solid 1px $green;
+    margin: 30px auto;
+    transition-duration: 500ms;
+    width: 150px;
+
+    &:hover {
+        background: $green;
+        color: whitesmoke;
+    }
+}
+
+.forgotPsswStyle {
+    text-align: center;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+h3 {
+    padding: 0 4%;
+    line-height: 3.2rem;
+}
+
+input[type="mail"] {
+    border: none;
+    border-bottom: 1px solid #333;
+    display: block;
+}
+
+.invalidText {
+    color: red;
+}
+
+.formInput {
+    margin-bottom: 20px;
+}
+
+@media screen and (min-width: 728px) {
+
+    h3 {
+        line-height: 3.2;
+    }
+}
+
+@media screen and (min-width: 1025px) {
+    .forgotPsswStyle {
+        height: 62vh;
+    }
+}

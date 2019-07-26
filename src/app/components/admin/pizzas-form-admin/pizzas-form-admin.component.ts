@@ -12,7 +12,7 @@ export class PizzasFormAdminComponent implements OnInit {
 
   actions = ['Ajouter', 'Modifier', 'Retirer'];
   formCheck: FormGroup;
-  regexPrice = /[0-9{1,3}]+[.]+[0-9]{2}/gm;
+  regexPrice = /[0-9{1,3}]+[.]+[0-9]{2}/m;
   pizzaFormObject;
   pizzaDataObject;
   pizzaFormAdd: FormGroup;

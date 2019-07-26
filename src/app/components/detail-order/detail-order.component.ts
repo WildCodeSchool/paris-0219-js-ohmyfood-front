@@ -10,7 +10,8 @@ import { DatePipe } from '@angular/common';
 import { checkLocationDelivery } from '../../validators/checkLocationDelivery';
 import { PizzasDataService } from 'src/app/services/pizzas-data.service';
 import { Router } from '@angular/router';
-import { deliveryIntervalTime } from 'src/app/validators/deliveryTimeValidators';
+import { finalDeliveryIntervalTime } from 'src/app/validators/finalDeliveryIntervalTime';
+import { totalOrderDelivery } from 'src/app/validators/totalOrderDelivery';
 
 @Component({
   selector: 'app-detail-order',
@@ -58,7 +59,21 @@ export class DetailOrderComponent implements OnInit {
     }
 
   ngOnInit() {
-    this.initForm();
+    // get order status
+    let orderStatus: string;
+    if (localStorage.getItem('orderStatus')) {
+      orderStatus = JSON.parse(localStorage.getItem('orderStatus'));
+
+      orderStatus === 'toTakeAway' ? orderStatus = 'à emporter' : orderStatus = 'en livraison';
+
+    } else {
+      orderStatus = 'à emporter';
+      localStorage.setItem('orderStatus', JSON.stringify('toTakeAway'));
+
+    }
+    this.orderStatus = orderStatus;
+
+    this.initForm(orderStatus);
 
     const pizzSubscription = this.pizzaDataService.getPizzas()
     .subscribe(pizz => {
@@ -150,7 +165,7 @@ export class DetailOrderComponent implements OnInit {
         for (let j = i + 1; j < pizza.length; j ++) {
           if (pizza[i].pizzName === pizza[j].pizzName) {
             pizza[i].pizzQuantity += pizza[j].pizzQuantity;
-            pizza[i].pizzPriceTotal += (pizza[j].pizzPriceTotal).toFixed(2);
+            pizza[i].pizzPriceTotal += (pizza[j].pizzPriceTotal);
             pizza.splice(j, 1);
           }
         }
@@ -160,7 +175,7 @@ export class DetailOrderComponent implements OnInit {
         for (let j = i + 1; j < beverage.length; j ++) {
           if (beverage[i].bevName === beverage[j].bevName) {
             beverage[i].bevQuantity += beverage[j].bevQuantity;
-            beverage[i].bevPriceTotal += (beverage[j].bevPriceTotal).toFixed(2);
+            beverage[i].bevPriceTotal += (beverage[j].bevPriceTotal);
             beverage.splice(j, 1);
           }
         }
@@ -170,7 +185,7 @@ export class DetailOrderComponent implements OnInit {
         for (let j = i + 1; j < dessert.length; j ++) {
           if (dessert[i].dessName === dessert[j].dessName) {
             dessert[i].dessQuantity += dessert[j].dessQuantity;
-            dessert[i].dessPriceTotal += (dessert[j].dessPriceTotal).toFixed(2);
+            dessert[i].dessPriceTotal += (dessert[j].dessPriceTotal);
             dessert.splice(j, 1);
           }
         }
@@ -270,35 +285,25 @@ export class DetailOrderComponent implements OnInit {
     this.calcTotalOrder();
   }
 
-  initForm() {
-    let orderStatus: string;
-    if (localStorage.getItem('orderStatus')) {
-      orderStatus = JSON.parse(localStorage.getItem('orderStatus'));
-
-      orderStatus === 'ToTakeAway' ? orderStatus = 'à emporter' : orderStatus = 'en livraison';
-
-    } else {
-      orderStatus = 'à emporter';
-      localStorage.setItem('orderStatus', JSON.stringify('toTakeAway'));
-    }
-
+  initForm(orderStatus: string) {
     this.userDetailForm = this.fb.group({
       mailUser: [localStorage.getItem('userMail')],
-      livrAddress1 : ['', Validators.required],
-      livrAddress2 : ['', Validators.required],
-      zipcode : ['', Validators.required],
-      city: [''],
-      factAddress: [''],
-      comment: [''],
+      livrAddress1 : '',
+      livrAddress2 : '',
+      zipcode : '',
+      city: '',
+      factAddress: '',
+      comment: '',
       deliveryOrTakeAway: orderStatus,
-      totalOrder: this.totalOrder
+      totalOrder: [0, Validators.min(1)]
     },
     {
-      validators: [checkLocationDelivery('deliveryOrTakeAway', 'zipcode', 'totalOrder'),
-                    deliveryIntervalTime(this.dateOrder, false)
+      validators: [checkLocationDelivery('deliveryOrTakeAway', 'zipcode'),
+                    finalDeliveryIntervalTime(this.dateOrder, this.today),
+                    totalOrderDelivery('deliveryOrTakeAway', 'totalOrder')
                   ]
     });
-    this.orderStatus = orderStatus;
+    this.updateValidator(orderStatus);
   }
 
   calcTotalOrder() {
@@ -398,9 +403,24 @@ export class DetailOrderComponent implements OnInit {
 
     } else {
       this.patchPizzPrice();
-      this.orderStatus = ' en livraison';
+      this.orderStatus = 'en livraison';
     }
+    this.updateValidator(this.orderStatus);
   }
 
+  updateValidator(orderStatus: string) {
+    if (orderStatus === 'en livraison') {
+      this.userDetailForm.controls[`livrAddress1`].setValidators(Validators.required);
+      this.userDetailForm.controls[`livrAddress1`].updateValueAndValidity();
+
+      this.userDetailForm.controls[`zipcode`].setValidators(Validators.required);
+      this.userDetailForm.controls[`zipcode`].updateValueAndValidity();
+
+
+    } else {
+      this.userDetailForm.controls[`livrAddress1`].clearValidators();
+      this.userDetailForm.controls[`zipcode`].clearValidators();
+    }
+  }
 }
 

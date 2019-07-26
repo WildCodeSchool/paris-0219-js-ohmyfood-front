@@ -264,6 +264,9 @@
         <p>Adresse de livraison 1</p>
         <input type="text" formControlName="livrAddress1">
       </label>
+      <p *ngIf="userDetailForm.controls['livrAddress1'].errors">
+        Merci de nous indiquer votre addresse de livraison
+      </p>
       <label>
         <p>Adresse de livraison 2</p>
         <input type="text" formControlName="livrAddress2">
@@ -272,6 +275,9 @@
         <p>Code postal</p>
         <input type="text" formControlName="zipcode">
       </label>
+      <p *ngIf="userDetailForm.controls['zipcode'].errors">
+        Merci de nous indiquer votre code postal
+      </p>
       <label>
         <p>Ville</p>
         <input type="text" formControlName="city">

@@ -9,9 +9,9 @@
     (ngSubmit)="onSubmit()"
     #menuPizza="ngForm"
   >
-    <div formArrayName="pizza" class="flag">
+    <ul formArrayName="pizza" class="flag">
         <h5>Cliquez-ici pour découvrir nos pizzas</h5>
-      <div
+      <li
         [formGroupName]="i"
         *ngFor="let pizzas of pizza.controls; let i = index"
       >
@@ -30,8 +30,8 @@
           value="{{ pizzas.value.pizzQuantity }}"
           (ngModelChange)="getUserChoice(i, pizzas.value)"
         />
-      </div>
-    </div>
+      </li>
+    </ul>
 
     <div formArrayName="beverage">
         <h5>Cliquez-ici pour découvrir nos boissons</h5>

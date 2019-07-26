@@ -120,13 +120,6 @@ label {
     width: 100%;
 }
 
-#orderStatus {
-    color: red;
-    display: block;
-    width: 100%;
-    text-align: center;
-}
-
 .overScrollForm {
     height: 74vh;
 }
@@ -278,7 +271,7 @@ ul li {
     }
     label {
       display: flex;
-    justify-content: space-between;
+      justify-content: space-between;
     }
 }
   .basketToggle {

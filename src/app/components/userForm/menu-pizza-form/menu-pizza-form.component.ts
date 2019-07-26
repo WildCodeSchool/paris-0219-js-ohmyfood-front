@@ -59,7 +59,6 @@ export class MenuPizzaFormComponent implements OnInit {
     // Get pizza data and create form group and push it in form Array
     const pizzSubscription = this.pizzaData.getPizzasForMenu()
     .subscribe((pizzas: any) => {
-
       const pizza = this.pizzaMenuForm.get('pizza') as FormArray;
 
       for (const pizz in pizzas) {

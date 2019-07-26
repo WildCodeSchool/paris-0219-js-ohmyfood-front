@@ -21,8 +21,7 @@
       <h2>MON PANIER</h2>
     </div>
 
-    <p id="orderStatus">Statut de la commande : </p>
-    <div class="overScrollForm">
+    <div class="overScrollForm" *ngIf="isToggleBasket === true">
       <form
         [formGroup]="finalOrderForm"
         (ngSubmit)="onSubmit()"

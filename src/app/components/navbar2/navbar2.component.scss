@@ -1,6 +1,22 @@
 @import '../../../styles/colors';
 @import '../../../styles.scss';
 
+.columns {
+  display: flex;
+  flex-direction: column;
+}
+
+.column:nth-child(1) {
+  order: 2;
+}
+
+.column:nth-child(2) {
+  order: 1;
+}
+
+.column:nth-child(3) {
+  order: 3;
+}
 
 .connexion {
   font-size: 1.3rem;
@@ -67,14 +83,19 @@ span {
     background: darken(rgb(106, 98, 146), 50%);
   }
 
+
+  .title:not(:last-child) {
+    margin-bottom: 0;
+  }
+
   @media all and (max-width: 800px) {
     .navbar {
       justify-content: space-around;
     }
 
-  span {
-    color: white;
-  }
+    span {
+      color: white;
+    }
 }
 @media screen and (min-width: 768px) {
 
@@ -95,14 +116,19 @@ span {
     border-bottom: none;
   }
 
-  .title:not(:last-child) {
-    margin-bottom: 0;
-  }
-
 }
 
 @media screen and (min-width: 1024px) {
   .columns {
     height: 9vh;
+    flex-direction: row;
+  }
+
+  .column:nth-child(1) {
+    order: 1;
+  }
+  
+  .column:nth-child(2) {
+    order: 2;
   }
 }

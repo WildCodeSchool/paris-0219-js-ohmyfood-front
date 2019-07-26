@@ -9,7 +9,7 @@
         required
       >
       <input
-        type="text"
+        type="password"
         placeholder="Mot de Passe"
         formControlName="psswClient"
         required
@@ -21,10 +21,16 @@
         Mot de passe oublié ?
       </a>
 
-      <p *ngIf="errorMessage !== undefined"> {{ errorMessage }}</p>
+      <p *ngIf="errorMessage !== undefined" class="errorMessage"> {{ errorMessage }}</p>
     </div>
     <br/>
-    <button type="submit" (click)="onSubmit()">Se connecter</button>
+    <button 
+      type="submit" 
+      (click)="onSubmit()"
+      class="button is-rounded"
+    >
+      Se connecter
+    </button>
   </form>
   <div class="createAuthClient">
     <p>Pas de compte?</p>

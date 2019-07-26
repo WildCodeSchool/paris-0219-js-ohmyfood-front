@@ -11,11 +11,11 @@ import { checkUserPassword } from 'src/app/validators/checkUserPassword';
 export class AuthentCreateComponent implements OnInit {
   authCreateForm: FormGroup;
   createClientObject;
-  regexPhone = /[0-9]*/gm;
+  regexPhone = /[0-9]*/m;
   regexEmail = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}/m;
   show: boolean = false;
   psswType = "password";
-  regexZipcode = /[0-9]*/gm;
+  regexZipcode = /[0-9]*/m;
 
   constructor(private fb: FormBuilder, private authCreateClientService: AuthCreateClientService) { }
 
@@ -27,8 +27,8 @@ export class AuthentCreateComponent implements OnInit {
 
   initForm() {
     this.authCreateForm = this.fb.group({
-      lastName: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(45)]],
-      firstName: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(45)]],
+      lastName: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(45)]],
+      firstName: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(45)]],
       email: ['', [Validators.required, Validators.pattern(this.regexEmail), Validators.minLength(4)]],
       phone: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10), Validators.pattern(this.regexPhone)]],
       pssw: ['', [Validators.required, Validators.minLength(7), Validators.maxLength(15)]],

@@ -27,7 +27,7 @@ export class AfterSubmitOrderPageComponent implements OnInit {
 
       // If there isn't order status in local storage
     } else {
-      this.thanksMessage = `Aucune commande n'a encore été effectuée. N'hésitez pas à créer votre compte pour comander en ligne`;
+      this.thanksMessage = `Aucune commande n'a encore été effectuée. N'hésitez pas à créer votre compte pour commander en ligne`;
     }
   }
 

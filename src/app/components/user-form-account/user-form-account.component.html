@@ -15,7 +15,7 @@
         <p class="invalidText">*Votre nom est requis</p>
       </div>
       <div *ngIf="fC.lastName.errors.minlength">
-        <p class="invalidText">*Votre nom doit contenir au moins 4 caractères</p>
+        <p class="invalidText">*Votre nom doit contenir au moins 2 caractères</p>
       </div>
       <div *ngIf="fC.lastName.errors.maxlength">
         <p class="invalidText">*Votre nom ne doit pas dépasser les 45 caractères</p>
@@ -34,7 +34,7 @@
         <p class="invalidText">*Votre prénom est requis</p>
       </div>
       <div *ngIf="fC.firstName.errors.minlength">
-        <p class="invalidText">*Votre prénom doit contenir au moins 4 caractères</p>
+        <p class="invalidText">*Votre prénom doit contenir au moins 2 caractères</p>
       </div>
       <div *ngIf="fC.firstName.errors.maxlength">
         <p class="invalidText">*Votre prénom ne doit pas dépasser les 45 caractères</p>

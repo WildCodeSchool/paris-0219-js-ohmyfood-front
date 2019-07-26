@@ -12,11 +12,11 @@ export class UserAddressFormAccountComponent implements OnInit {
   
   authModifyAddressForm: FormGroup;
   createClientObject;
-  regexPhone = /[0-9]*/gm;
-  regexEmail = /^[a-zA-Z0-9.%&_~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/gm
+  regexPhone = /[0-9]*/m;
+  regexEmail = /^[a-zA-Z0-9.%&_~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/m
   show: boolean = false;
   psswType = "password";
-  regexZipcode = /[0-9]*/gm;
+  regexZipcode = /[0-9]*/m;
   userAccountAddressObject;
 
   constructor(

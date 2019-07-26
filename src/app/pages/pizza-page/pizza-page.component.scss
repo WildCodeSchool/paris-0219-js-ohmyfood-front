@@ -1,3 +1,19 @@
+form {
+  display: flex;
+  flex-direction: row;
+  margin-top: 20px;
+  justify-content: center;
+}
+
+#delivery {
+  margin-right: 25px;
+}
+
+label {
+  margin-bottom: 0;
+  margin-right: 10px;
+}
+
 .paragrapheStyle {
   margin: 5vh 9vh;
 }

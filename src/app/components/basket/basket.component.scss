@@ -134,13 +134,6 @@ label {
     width: 100%;
 }
 
-#orderStatus {
-    color: red;
-    display: block;
-    width: 100%;
-    text-align: center;
-}
-
 .overScrollForm {
     height: 74vh;
 }
@@ -283,12 +276,16 @@ ul li {
         right: -36.5vw;
     }
 
+    .fa-shopping-cart {
+      font-size: 2rem;
+    }
+
     .formular, .overScrollForm {
         height: 76vh;
     }
     label {
       display: flex;
-    justify-content: space-between;
+      justify-content: space-between;
     }
 }
   .basketToggle {

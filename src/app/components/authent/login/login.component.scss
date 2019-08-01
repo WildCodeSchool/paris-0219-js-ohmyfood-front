@@ -1,3 +1,17 @@
+@import '../../../../styles/colors.scss';
+
+.button {
+    border: solid 1px $green;
+    margin: 30px auto;
+    transition-duration: 500ms;
+    width: 150px;
+
+    &:hover {
+        background: $green;
+        color: whitesmoke;
+    }
+}
+
 h2 {
   text-align: center;
   margin-top: 5%;
@@ -17,11 +31,12 @@ h2 {
     width: 80%;
   }
 }
+
 button {
   display: block;
   margin: auto;
-  background-color: #669D66;
 }
+
 .createAuthClient {
   display: flex;
   justify-content: center;
@@ -33,6 +48,10 @@ button {
     text-align: center;
     white-space: nowrap;
   }
+}
+
+.errorMessage {
+  color: red;
 }
 
 .loginContent {

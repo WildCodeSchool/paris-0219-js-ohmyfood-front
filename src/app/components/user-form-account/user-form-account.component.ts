@@ -12,8 +12,8 @@ export class UserFormAccountComponent implements OnInit {
 
   
   authModifyForm: FormGroup;
-  regexPhone = /[0-9]*/gm;
-  regexEmail = /^[a-zA-Z0-9.%&_~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/gm
+  regexPhone = /[0-9]*/m;
+  regexEmail = /^[a-zA-Z0-9.%&_~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/m
   show: boolean = false;
   passwordType = "password";
   userAccountObject;
@@ -43,8 +43,8 @@ export class UserFormAccountComponent implements OnInit {
 
   initForm() {
     this.authModifyForm = this.fb.group({
-      lastName: ['', [Validators.minLength(4), Validators.maxLength(45)]],
-      firstName: ['', [Validators.minLength(4), Validators.maxLength(45)]],
+      lastName: ['', [Validators.minLength(2), Validators.maxLength(45)]],
+      firstName: ['', [Validators.minLength(2), Validators.maxLength(45)]],
       mail: ['', [Validators.pattern(this.regexEmail), Validators.minLength(4)]],
       phoneNumber: ['', [Validators.minLength(10), Validators.maxLength(10), Validators.pattern(this.regexPhone)]],
       password: ['', [Validators.minLength(7), Validators.maxLength(15)]],

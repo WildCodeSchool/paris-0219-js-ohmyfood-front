@@ -16,7 +16,7 @@
         <p class="invalidText">*Votre nom est requis</p>
       </div>
       <div *ngIf="fC.lastName.errors.minlength">
-        <p class="invalidText">*Votre nom doit contenir au moins 4 caractères</p>
+        <p class="invalidText">*Votre nom doit contenir au moins 2 caractères</p>
       </div>
       <div *ngIf="fC.lastName.errors.maxlength">
         <p class="invalidText">*Votre nom ne doit pas dépasser les 45 caractères</p>
@@ -36,7 +36,7 @@
         <p class="invalidText">*Votre prénom est requis</p>
       </div>
       <div *ngIf="fC.firstName.errors.minlength">
-        <p class="invalidText">*Votre prénom doit contenir au moins 4 caractères</p>
+        <p class="invalidText">*Votre prénom doit contenir au moins 2 caractères</p>
       </div>
       <div *ngIf="fC.firstName.errors.maxlength">
         <p class="invalidText">*Votre prénom ne doit pas dépasser les 45 caractères</p>
@@ -203,6 +203,7 @@
     <label>
       <p>Adresse de facturation</p>
       <input
+        class="factAddress"
         type="text"
         placeholder="Adresse de facturation"
         formControlName="userFacturation"
@@ -220,7 +221,13 @@
         <p class="invalidText">*Votre adresse de facturation ne doit pas excéder 255 caractères</p>
       </div>
     </div>
-    <button type="submit" (click)="onSubmitCreateClientForm()">Créer mon compte</button>
+    <button 
+      type="submit" 
+      (click)="onSubmitCreateClientForm()"
+      class="button is-rounded"
+    >
+      Créer mon compte
+    </button>
     <p class="longText">Un email confirmant votre inscrition vous sera envoyé dès que vous aurez validé ce formulaire à l'adresse mail que vous avez mentionné plus haut. <br> Nous vous remercions de votre confiance et vous souhaitons une très bonne expérience sur cette application.</p>
   </div>
 </form>

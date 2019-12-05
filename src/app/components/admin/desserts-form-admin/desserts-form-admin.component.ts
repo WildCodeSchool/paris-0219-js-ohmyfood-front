@@ -20,6 +20,8 @@ export class DessertsFormAdminComponent implements OnInit {
   dessertFormDel: FormGroup;
   valueAction = 'Ajouter';
 
+  tabStr = [];
+
   constructor(
     private dessertService: DessertService,
     private fb: FormBuilder,
@@ -44,7 +46,7 @@ export class DessertsFormAdminComponent implements OnInit {
   initForm() {
     this.formCheck = this.fb.group({
       dessAction: ['Ajouter', Validators.required]
-    })
+    });
 
     this.dessertFormAdd = this.fb.group({
       dessName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(45)]],
@@ -52,7 +54,8 @@ export class DessertsFormAdminComponent implements OnInit {
     });
     this.dessertFormPut = this.fb.group({
       dessName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(45)]],
-      dessPriceHt: ['', [Validators.required, Validators.pattern(this.regexPrice)]]
+      dessNewName: [''],
+      dessPriceHt: ['', [Validators.pattern(this.regexPrice)]]
     });
     this.dessertFormDel = this.fb.group({
       dessName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(45)]],
@@ -82,10 +85,17 @@ export class DessertsFormAdminComponent implements OnInit {
   onSubmitPutForm() {
     if (this.dessertFormPut.valid) {
       this.dessertService.dessertFormObject = {
-        dessName: this.dessertFormPut.value.dessName,
-        dessPrice_ht: parseFloat(this.dessertFormPut.value.dessPriceHt),
+        dessName: this.toJadenCase(this.dessertFormPut.value.dessName),
         idTax: 1
       };
+
+      if (this.dessertFormPut.value.dessNewName !==  '' && this.dessertFormPut.value.dessNewName !== null ) {
+        this.dessertService.dessertFormObject.dessName += '|' + this.toJadenCase(this.dessertFormPut.value.dessNewName);
+      }
+
+      if (this.dessertFormPut.value.dessPriceHt !== '' && this.dessertFormPut.value.dessPriceHt !== null) {
+        this.dessertService.dessertFormObject.dessPrice_Ht = parseFloat(this.dessertFormPut.value.dessPriceHt);
+      }
       if (confirm(`Êtes-vous certain de modifier le dessert ${this.dessertFormPut.value.dessName} ?`)) {
         const putDessertType = this.dessertService.putDessertType().subscribe(_ => {
           const getDessertObs = this.dessertDataService.getDesserts().subscribe(data => {
@@ -115,5 +125,11 @@ export class DessertsFormAdminComponent implements OnInit {
         });
       }
     }
+  }
+
+  toJadenCase(strin) {
+    this.tabStr = strin.split(' ');
+    this.tabStr = this.tabStr.map(word => word.charAt(0).toUpperCase() + word.slice(1));
+    return this.tabStr.join(' ');
   }
 }

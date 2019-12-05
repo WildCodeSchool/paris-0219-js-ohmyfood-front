@@ -43,8 +43,8 @@ export class TaxFormAdminComponent implements OnInit {
 
   onSubmitPutForm() {
     if (this.taxFormPut.valid) {
-      if (this.taxFormPut.value.taxNewName !== '') {
-        this.taxFormPut.value.taxName += '|' + this.taxFormPut.value.taxNewName
+      if (this.taxFormPut.value.taxNewName !== '' && this.taxFormPut.value.taxNewName !== null) {
+        this.taxFormPut.value.taxName += '|' + this.taxFormPut.value.taxNewName;
       }
       this.taxService.taxFormObject = {
         idTaxName: this.taxFormPut.value.taxName,
@@ -55,7 +55,7 @@ export class TaxFormAdminComponent implements OnInit {
           const getTaxObs = this.taxService.getTaxType().subscribe(data => {
             this.taxFormObject = data;
             getTaxObs.unsubscribe();
-          })
+          });
           this.taxFormPut.reset();
           putTaxType.unsubscribe();
         });

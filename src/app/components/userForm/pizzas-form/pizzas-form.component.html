@@ -1,0 +1,77 @@
+<section>
+  <div class="pizzasTitle">
+    <a href (click)="toggleFormPizzas($event)">
+      <h1>
+        PIZZAS
+      </h1>
+
+      <p>
+        Cliquez pour découvrir nos pizzas
+      </p>
+    </a>
+  </div>
+  <div class="notToggle" [ngClass]="{toggle: isToggle}">
+    <div class="header">
+      <h3 class="pizzas">
+        Nos Pizzas<span>Prix</span>
+      </h3>
+
+      <h3 class="quantity">Quantités</h3>
+    </div>
+
+    <form [formGroup]="formPizzas" (ngSubmit)="onSubmit()">
+      <div formArrayName="selectedPizzas">
+        <div
+          class="formLine"
+          [formGroupName]="i"
+          *ngFor="let pizzas of selectedPizzas.controls ; let i = index"
+        >
+
+          <div class="labelPizza">
+            <label for="pizzas-{{ i }}">
+              {{ pizzas.value.pizzName }}<span>{{ pizzas.value.pizzPriceTTC }} €</span>
+            </label>
+
+            <p>{{ pizzas.value.pizzDesc }}</p>
+          </div>
+            <div class="buttonQuantity">
+              <button
+                class="button is-rounded is-outlined is-mobile is-small"
+                name="remove-pizzas-quantity"
+                type="button"
+                (click)="quantitySelect('-', i, pizzas.value.pizzQuantity)"
+              >
+                  -
+              </button>
+
+              <input
+                class="input is-mobile is-small"
+                name="selectedPizzas-{{ i }}"
+                formControlName="pizzQuantity"
+                type="text"
+                value="{{pizzas.value.pizzQuantity}}"
+              />
+
+              <button
+                class="button is-rounded is-outlined is-mobile is-small"
+                name="add-pizzas-quantity"
+                type="button"
+                (click)="quantitySelect('+', i, pizzas.value.pizzQuantity)"
+              >
+                +
+              </button>
+            </div>
+        </div>
+      </div>
+
+      <div class="submitSection">
+        <button
+          class="submitButton button is-rounded is-outlined "
+          type="submit"
+        >
+          Ajouter au panier
+        </button>
+      </div>
+    </form>
+  </div>
+</section>

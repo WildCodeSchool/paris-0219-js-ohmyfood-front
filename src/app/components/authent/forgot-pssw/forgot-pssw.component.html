@@ -1,0 +1,34 @@
+<div class="forgotPsswStyle">
+  <h3>Vous avez oublié votre mot de passe ?</h3>
+  <h3>Entrez votre adresse mail pour en obtenir un nouveau !</h3>
+  <form [formGroup]="forgotPsswForm">
+    <div class="formInput">
+      <input 
+        type="mail" 
+        formControlName="userMail"
+        placeholder="Entrez votre email"
+        required
+      />
+    </div>
+    <div *ngIf="fP.userMail.invalid && (fP.userMail.dirty || fP.userMail.touched)">
+      <div *ngIf="fP.userMail.errors.required">
+        <p class="invalidText">*Votre email est requis</p>
+      </div>
+      <div *ngIf="fP.userMail.errors.pattern">
+        <p class="invalidText">*Votre e-mail doit être de la forme xxx@xxx.xxx</p>
+      </div>
+    </div>
+    <button
+      class="button is-rounded is-outlined"
+      type="submit" 
+      (click)="onSubmit()"
+    >
+      Envoyer
+    </button>
+  </form>
+  <button class="button is-rounded is-outlined"
+    (click)="goBack()"
+  >
+    Retour
+  </button>
+</div>

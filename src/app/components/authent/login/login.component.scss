@@ -1,0 +1,69 @@
+@import '../../../../styles/colors.scss';
+
+.button {
+    border: solid 1px $green;
+    margin: 30px auto;
+    transition-duration: 500ms;
+    width: 150px;
+
+    &:hover {
+        background: $green;
+        color: whitesmoke;
+    }
+}
+
+h2 {
+  text-align: center;
+  margin-top: 5%;
+}
+
+.content {
+  flex-direction: column;
+  display: flex;
+  align-items: center;
+  padding: 2%;
+
+  input {
+    text-decoration: none;
+    border: none;
+    border-bottom: 1px solid #669D66;
+    margin-bottom: 35px;
+    width: 80%;
+  }
+}
+
+button {
+  display: block;
+  margin: auto;
+}
+
+.createAuthClient {
+  display: flex;
+  justify-content: center;
+  padding: 3%;
+  margin-bottom: 74px;
+  height: 100%;
+  p {
+    padding-right: 3%;
+    text-align: center;
+    white-space: nowrap;
+  }
+}
+
+.errorMessage {
+  color: red;
+}
+
+.loginContent {
+  height: 80%;
+}
+
+@media screen and (min-width: 1023px) {
+  .createAuthClient {
+    margin-bottom: 74px;
+  }
+
+  .content input {
+    width: 15%;
+  }
+}

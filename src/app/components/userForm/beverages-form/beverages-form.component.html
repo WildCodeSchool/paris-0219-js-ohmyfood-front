@@ -1,0 +1,74 @@
+<section>
+  <div class="beveragesTitle">
+  <a href (click)="toggleFormBeverage($event)">
+    <h1 >
+      BOISSONS
+    </h1>
+
+    <p>
+      Cliquez pour découvrir nos boissons
+    </p>
+  </a>
+</div>
+  <div class="notToggle" [ngClass]="{toggle: isToggle}">
+    <div class="header">
+      <h3 class="beverages">
+        Nos Boissons<span>Prix</span>
+      </h3>
+
+      <h3 class="quantity">Quantités</h3>
+    </div>
+
+      <form [formGroup]="formBeverage" (ngSubmit)="onSubmit()">
+        <div formArrayName="selectedBeverage">
+          <div
+            class="formLine"
+            [formGroupName]="i"
+            *ngFor="let beverage of selectedBeverage.controls ; let i = index"
+          >
+
+              <label for="beverage-{{ i }}">
+                {{ beverage.value.bevName }}<span>{{ beverage.value.bevPriceTTC }} €</span>
+              </label>
+
+              <div class="buttonQuantity">
+                <button
+                  class="button is-rounded is-outlined is-mobile is-small"
+                  name="remove-beverage-quantity"
+                  type="button"
+                  (click)="quantitySelect('-', i, beverage.value.bevQuantity)"
+                >
+                    -
+                </button>
+
+                <input
+                  class="input is-mobile is-small"
+                  name="selectedBeverage-{{ i }}"
+                  formControlName="bevQuantity"
+                  type="text"
+                  value="{{beverage.value.bevQuantity}}"
+                />
+
+                <button
+                  class="button is-rounded is-outlined is-mobile is-small"
+                  name="add-beverage-quantity"
+                  type="button"
+                  (click)="quantitySelect('+', i, beverage.value.bevQuantity)"
+                >
+                    +
+                </button>
+              </div>
+          </div>
+        </div>
+
+        <div class="submitSection">
+          <button
+            class="submitButton button is-rounded is-outlined "
+            type="submit"
+          >
+            Ajouter au panier
+          </button>
+        </div>
+      </form>
+    </div>
+</section>

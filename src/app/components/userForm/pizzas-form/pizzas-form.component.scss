@@ -1,0 +1,227 @@
+@import '../../../../styles/colors.scss';
+
+.pizzasTitle {
+  text-align: center;
+  background-image: url('../../../../assets/img/RibbonOhMyFoodEmpty.svg'),  url('../../../../assets/img/RibbonOhMyFoodNormal.svg');
+  background-repeat: no-repeat, no-repeat;
+  background-position: center, center;
+  background-size: 97% 90%, 100% 100%;
+  width: 100%;
+  padding: 10%;
+  margin: auto;
+  filter:  hue-rotate(6deg) brightness(95%) contrast(227%);
+  -webkit-filter: hue-rotate(6deg) brightness(95%) contrast(227%);
+
+}
+
+a {
+  text-decoration: none;
+  color: black;
+
+  h1 {
+    font-size: 2.5em;
+    text-align: center;
+  }
+
+  p {
+    font-size: 1em;
+    font-style: normal;
+    text-align: center;
+  }
+
+  &:hover {
+    color: black;
+    cursor: pointer;
+    text-decoration: none;
+  }
+}
+
+.button {
+  border: solid 1px $green;
+  margin: 0 auto;
+  transition-duration: 500ms;
+
+  &:hover {
+    background: $green;
+    color: whitesmoke;
+  }
+}
+
+.buttonQuantity {
+  display: flex;
+  text-align: center;
+  width: 15vw;
+}
+
+.formLine {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 0 2vh 0;
+
+  label {
+    display: flex;
+    justify-content: space-between;
+    width: 87%;
+  }
+}
+
+.header {
+  border-bottom: solid 1px $green;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2vh;
+
+  .pizzas {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.5em;
+    width: 30vw;
+
+    span {
+      text-align: center;
+      width: 2vw;
+    }
+  }
+
+  .quantity {
+    font-size: 1.5em;
+    text-align: center;
+    width: 15vw;
+  }
+}
+
+.labelPizza {
+  width: 83%;
+
+  p {
+    font-size: 0.8em;
+  }
+}
+
+input {
+  width: 5vw;
+  text-align: center;
+}
+
+.notToggle {
+  max-height: 0;
+  overflow: hidden;
+  padding: 0;
+  transition-duration: 1000ms;
+}
+
+section {
+  margin: 0 auto;
+  width: 50vw;
+}
+
+.submitSection {
+  width: 100%;
+
+  .submitButton {
+    clear: both;
+    float: right;
+    width: 15vw;
+  }
+}
+
+.toggle {
+  margin: 5vh auto;
+  max-height: 2500px;
+}
+
+// Media Queries //
+
+@media screen and(max-width: 900px) {
+  .pizzasTitle {
+    text-align: center;
+    background-image: url('../../../../assets/img/RibbonOhMyFoodEmpty.svg'),  url('../../../../assets/img/RibbonOhMyFoodNormal.svg');
+    background-repeat: no-repeat, no-repeat;
+    background-position: center, center;
+    background-size: 97% 90%, 100% 100%;
+    width: 81%;
+    padding: 5%;
+    margin-left: 7%;
+    height: 84px;
+
+    h1 {
+      font-size: 20px;
+    }
+    p {
+      font-size: 10px
+    }
+  }
+  .header {
+    justify-content: space-around;
+    margin: 0 auto 2vh auto;
+    width: 90vw;
+
+    .pizzas {
+      font-size: 1em;
+      width: 55vw;
+
+      span {
+        text-align: center;
+        width: 14vw;
+      }
+    }
+
+    .quantity {
+      font-size: 1em;
+      text-align: center;
+      width: 28vw;
+    }
+  }
+
+  .buttonQuantity {
+    align-items: center;
+    justify-content: center;
+    width: 31vw;
+    margin-right: 3%;
+
+    button {
+      height: 3vh;
+      padding: 0px 2vw;
+    }
+
+    input {
+      font-size: 0.5em;
+    }
+  }
+
+  form {
+    margin: 0 auto;
+
+    .formLine {
+      align-items: flex-start;
+
+      label {
+        align-items: center;
+        font-size: 0.9em;
+        width: 95%;
+
+        span {
+          text-align: center;
+          width: 16vw;
+        }
+      }
+    }
+  }
+
+  .notToggle {
+    width: 90vw;
+  }
+
+  section {
+    width: 100vw;
+  }
+
+  .submitSection {
+      width: 95%;
+    .submitButton {
+        clear: both;
+        float: right;
+        width: 45vw;
+    }
+  }
+}

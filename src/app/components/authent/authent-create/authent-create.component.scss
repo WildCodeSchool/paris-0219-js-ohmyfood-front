@@ -1,0 +1,53 @@
+@import '../../../../styles/colors.scss';
+
+.button {
+    border: solid 1px $green;
+    margin: 30px auto;
+    transition-duration: 500ms;
+
+    &:hover {
+        background: $green;
+        color: whitesmoke;
+    }
+}
+
+form {
+    width: 100vw;
+}
+
+.formContent {
+    text-align: center;
+}
+ 
+label {
+    display: block;
+}
+
+input[type=text], input[type=password], input[type=number] {
+    border: none;
+    border-bottom: 1px solid #333;
+    margin-bottom: 2%;
+    width: 30%;
+}
+
+input[type=text].factAddress {
+    width:55%;
+}
+
+div div p {
+    color: red;
+}
+
+h2 {
+    margin: 2% 0;
+}
+
+.longText {
+    padding: 2% 5%;
+}
+
+@media screen and (min-width: 600px) {
+    input[type=text].factAddress {
+        width:30%;
+    }
+}

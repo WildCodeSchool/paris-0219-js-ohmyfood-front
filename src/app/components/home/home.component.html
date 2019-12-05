@@ -1,0 +1,104 @@
+<section class="buttonArea">
+  <button 
+    *ngFor="let button of buttons"
+    class="button has-text-centered"
+    (click)="checkIfUserLogged()"
+  >
+   {{button | uppercase}}
+  </button>
+</section>
+<section class="buttonArea">
+  <button (click)="goToFooter()" class="button has-text-centered" title="Go to footer"
+  >
+    SUR PLACE
+  </button>
+</section>
+
+<section class="backgroundImgContent">
+  <div class="backgroundImg"></div>
+</section>
+<section class="sectionMenu">
+  <h2>Menu / Cartes</h2>
+  <div class="columns">
+    <div class="column">
+      <div class="flag">
+        <h2 class="h2Title">
+          NOS SALADES
+        </h2>
+      </div>
+      <ul class="downArrow">
+        <li><i class="fa fa-arrow-down fa-2x"></i></li>
+        <li><p>Parcourir</p></li>
+        <li><i class="fa fa-arrow-down fa-2x"></i></li>
+      </ul>
+      <div class="saladScroll">
+        <ul>
+          <li><h2 class="h2List">Les Bases</h2></li>
+          <li *ngFor="let saladsBase of saladsBaseList">{{ saladsBase.saladsBaseName }}</li>
+        </ul>
+          <br>
+        <h2 class="h2List">Les Ingrédients</h2>
+        <ul class="ingredientList">
+          <li *ngFor="let saladsIngredient of saladsIngredientList">{{ saladsIngredient.saladsIngredientsName }}</li>
+        </ul>
+          <br>
+          <h2 class="h2List">Les Toppings</h2>
+        <ul>
+          <li *ngFor="let saladsTopping of saladsToppingList">{{ saladsTopping.saladsToppingsName }}</li>
+        </ul>
+          <br>
+          <h2 class="h2List">Les Sauces</h2>
+        <ul>
+          <li *ngFor="let saladsSauces of saladsSauceList">{{ saladsSauces.saladsSaucesName }}</li>
+          <br>
+        </ul>
+      </div>
+    </div>
+
+    <div class="column">
+        <div class="flag">
+          <h2 class="h2Title">
+            NOS PIZZAS
+          </h2>
+        </div>
+        <ul>
+          <li *ngFor="let pizzasList of pizzasList">
+            <span>{{ pizzasList.pizzName }}</span>
+            <span>{{ pizzasList.pizzPriceTTC }} €</span>
+          </li>
+        </ul>
+    </div>
+
+    <div class="column">
+      <div class="flag">
+        <h2 class="h2Title">
+          NOS MENUS
+        </h2>
+      </div>
+      <h2 class="h2List">Menu Pizzas</h2>
+      <ul class="pizzaDetail">
+        <li><strong>1 Pizza + 1 Boisson + 1 Dessert</strong></li>
+        <li>Seulement 14 €</li>
+      </ul>
+      <h2 class="h2List">Menus Salades</h2>
+      <ul class="ulSalad">
+        <li><strong>Salade Sur Mesure</strong></li>
+        <li><strong>+ 1 Boisson OU 1 Dessert</strong></li>
+        <li>1,50 € + Prix de la Salade</li>
+        <li><i>+ 1 € si la Boisson est 1 Bière</i></li>
+      </ul>
+      <hr>
+      <ul class="ulSalad">
+        <li><strong>Salade Sur Mesure</strong></li>
+        <li><strong>+ 1 Boisson + 1 Dessert</strong></li>
+        <li>3 € + Prix de la Salade</li>
+        <li><i>+ 1 € si la Boisson est 1 Bière</i></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="specialEvent">
+  <h3>Evènements Spéciaux</h3>
+  <p>Possibilité de privatiser le restaurant</p>
+</section>

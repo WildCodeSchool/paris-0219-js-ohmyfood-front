@@ -1,0 +1,321 @@
+@import '../../../../styles/colors.scss';
+
+.dessertsTitle {
+  text-align: center;
+  background-image: url('../../../../assets/img/RibbonOhMyFoodEmpty.svg'),  url('../../../../assets/img/RibbonOhMyFoodNormal.svg');
+  background-repeat: no-repeat, no-repeat;
+  background-position: center, center;
+  background-size: 97% 90%, 100% 100%;
+  width: 100%;
+  padding: 10%;
+  margin: auto;
+  filter:  hue-rotate(6deg) brightness(95%) contrast(227%);
+  -webkit-filter: hue-rotate(6deg) brightness(95%) contrast(227%);
+}
+
+a {
+  text-decoration: none;
+  color: black;
+
+  &:hover{
+    color: black;
+    cursor: pointer;
+    text-decoration: none;
+  }
+}
+
+.button {
+  border: solid 1px $green;
+  margin: 0 auto;
+  transition-duration: 500ms;
+
+  &:hover {
+    background: $green;
+    color: whitesmoke;
+  }
+}
+
+.buttonQuantity {
+  display: flex;
+  text-align: center;
+  width: 15vw;
+}
+
+.formLine {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 0 2vh 0;
+
+  label {
+    display: flex;
+    justify-content: space-between;
+    width: 56%;
+  }
+}
+
+.header {
+  border-bottom: solid 1px $green;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2vh;
+
+  .desserts {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.5em;
+    width: 30vw;
+
+    span {
+      text-align: center;
+      width: 6vw;
+    }
+  }
+
+  .quantity {
+    font-size: 1.5em;
+    text-align: center;
+    width: 15vw;
+  }
+}
+
+input {
+  width: 5vw;
+  text-align: center;
+}
+
+.notToggle {
+  max-height: 0;
+  margin: 5vh auto;
+  overflow: hidden;
+  padding: 0;
+  transition-duration: 1000ms;
+}
+
+section {
+  margin: 0 auto;
+  width: 50vw;
+}
+
+.submitSection {
+  width: 100%;
+
+  .submitButton {
+    clear: both;
+    float: right;
+    width: 15vw;
+  }
+}
+
+.toggle {
+  margin: 5vh auto;
+  max-height: 1000px;
+}
+
+// Media Queries //
+
+@media (max-width: 900px) {
+  .dessertsTitle {
+    text-align: center;
+    background-image: url('../../../../assets/img/RibbonOhMyFoodEmpty.svg'),  url('../../../../assets/img/RibbonOhMyFoodNormal.svg');
+    background-repeat: no-repeat, no-repeat;
+    background-position: center, center;
+    background-size: 97% 90%, 100% 100%;
+    width: 81%;
+    padding: 18px;
+    margin-left: 7%;
+    height: 84px;
+
+    h1 {
+      font-size: 1.1em;
+    }
+    p {
+      font-size: 0.7em;
+    }
+  }
+  .header {
+    justify-content: space-around;
+    margin: 0 auto 2vh auto;
+    width: 90vw;
+
+    .desserts {
+      font-size: 1em;
+      width: 52vw;
+
+      span {
+        text-align: center;
+        width: 10vw;
+      }
+    }
+
+    .quantity {
+      font-size: 1em;
+      text-align: center;
+      width: 28vw;
+    }
+  }
+
+  .buttonQuantity {
+    align-items: center;
+    justify-content: center;
+    width: 31vw;
+
+    button {
+      height: 3vh;
+      padding: 0px 2vw;
+    }
+
+    input {
+      font-size: 0.5em;
+    }
+  }
+
+  form {
+    margin: 0 auto;
+
+    .formLine {
+      align-items: center;
+      justify-content: normal;
+
+
+      label {
+        align-items: center;
+        font-size: 0.7em;
+        width: 62%;
+
+        .dessertStyle {
+          width: 30vw;
+        }
+      }
+        span {
+          text-align: left;
+          width: 15vw;
+        }
+      }
+    }
+
+  .notToggle {
+    width: 90vw;
+  }
+
+  section {
+    width: 100vw;
+  }
+
+  .submitSection {
+    width: 95%;
+
+    .submitButton {
+        clear: both;
+        float: right;
+        width: 45vw;
+    }
+  }
+}
+@media (max-width: 320px) and ( max-height: 600px) {
+.dessertsTitle {
+  text-align: center;
+  background-image: url('../../../../assets/img/RibbonOhMyFoodEmpty.svg'),  url('../../../../assets/img/RibbonOhMyFoodNormal.svg');
+  background-repeat: no-repeat, no-repeat;
+  background-position: center, center;
+  background-size: 97% 90%, 100% 100%;
+  width: 74%;
+  padding: 18px;
+  margin-left: 12%;
+  height: 72px;
+
+
+
+    h1 {
+      font-size: 0.9em;
+    }
+    p {
+      font-size: 0.5em;
+    }
+  }
+  h1.header {
+    width: 230px;
+    font-size: 15px;
+  }
+  .header {
+    justify-content: space-around;
+    margin: 1px 10px 0vh 0px;
+    width: 81vw;
+
+    .desserts {
+      font-size: 1em;
+      width: 50vw;
+
+      span {
+        text-align: center;
+        width: 11vw;
+      }
+    }
+    .quantity {
+      font-size: 1em;
+      text-align: center;
+      width: 16vw;
+    }
+  }
+
+
+.buttonQuantity {
+  align-items: center;
+  justify-content: center;
+  width: 25vw;
+
+  button {
+    height: 3vh;
+    padding: 0px 2vw;
+  }
+
+  input {
+    font-size: 0.5em;
+  }
+}
+
+  form {
+    margin: 0 auto;
+
+    .formLine {
+      align-items: center;
+      justify-content: normal;
+
+
+      label {
+        align-items: center;
+        font-size: 0.7em;
+        width: 65%;
+
+        .dessertStyle {
+          width: 78%;
+          text-align: left;
+
+
+          span {
+            display: inline-block;
+            text-align: center;
+            width: 23vw;
+          }
+        }
+      }
+    }
+  }
+
+  .notToggle {
+    width: 90vw;
+  }
+
+  section {
+    width: 100vw;
+  }
+
+  .submitSection {
+    width: 95%;
+
+    .submitButton {
+        clear: both;
+        float: right;
+        width: 45vw;
+    }
+  }
+}

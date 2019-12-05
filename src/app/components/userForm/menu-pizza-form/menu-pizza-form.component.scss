@@ -1,0 +1,21 @@
+.pizzDescClass {
+    display: inline-block;
+    width: 50%;
+}
+
+.pizzNameClass {
+    display: block;
+
+    input[type=radio] {
+        margin: 0 50px;
+    }
+}
+
+ul {
+    width: 100%;
+}
+
+ul li {
+    display: inline-block;
+    width: 33%;
+}

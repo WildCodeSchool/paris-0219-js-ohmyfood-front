@@ -1,0 +1,313 @@
+<div class="detailOrder">
+  <h2 class="">Récapitulatif de votre commande</h2>
+
+  <p
+    *ngIf="finalOrderRecap !== undefined"
+    id="orderStatus"
+  >
+    Vous avez choisi une commande  {{ orderStatus }}
+  </p>
+
+  <div *ngIf="finalOrderRecap !== undefined">
+    <h2 *ngIf="finalOrderRecap.pizza.length > 0">Pizzas</h2>
+    <ul>
+      <li *ngFor="let pizza of finalOrderRecap.pizza; let i = index">
+        {{ pizza.pizzName }} {{ pizza['pizzPriceTotal'] }}€
+        <button
+          class="button is-rounded is-outlined is-mobile is-small"
+          type="button"
+          (click)="quantitySelect('-', i, pizza.pizzQuantity, 'pizza')"
+        >
+          -
+        </button>
+
+        {{ pizza.pizzQuantity }}
+
+        <button
+          class="button is-rounded is-outlined is-mobile is-small"
+          type="button"
+          (click)="quantitySelect('+', i, pizza.pizzQuantity, 'pizza')"
+        >
+          +
+        </button>
+      </li>
+    </ul>
+    <h2 *ngIf="finalOrderRecap.beverage.length > 0">Boissons</h2>
+    <ul>
+      <li *ngFor="let beverage of finalOrderRecap.beverage; let i = index">
+        {{ beverage.bevName }} {{ beverage['bevPriceTotal'] }} €
+        <button
+          class="button is-rounded is-outlined is-mobile is-small"
+          type="button"
+          (click)="quantitySelect('-', i, beverage.bevQuantity, 'beverage')"
+        >
+          -
+        </button>
+
+        {{ beverage.bevQuantity }}
+
+        <button
+          class="button is-rounded is-outlined is-mobile is-small"
+          type="button"
+          (click)="quantitySelect('+', i, beverage.bevQuantity, 'beverage')"
+        >
+          +
+        </button>
+      </li>
+    </ul>
+    <h2 *ngIf="finalOrderRecap.dessert.length > 0">Desserts</h2>
+    <ul>
+      <li *ngFor="let dessert of finalOrderRecap.dessert; let i = index">
+        {{ dessert.dessName }} {{ dessert['dessPriceTotal'] }} €
+        <button
+          class="button is-rounded is-outlined is-mobile is-small"
+          type="button"
+          (click)="quantitySelect('-', i, dessert.dessQuantity, 'dessert')"
+        >
+          -
+        </button>
+
+          {{ dessert.dessQuantity }}
+
+        <button
+          class="button is-rounded is-outlined is-mobile is-small"
+          type="button"
+          (click)="quantitySelect('+', i, dessert.dessQuantity, 'dessert')"
+        >
+          +
+        </button>
+      </li>
+    </ul>
+    <h2 *ngIf="finalOrderRecap.salad.length > 0">Salades Composées</h2>
+    <ul>
+      <li *ngFor="let saladFor of finalOrderRecap.salad; let i = index">
+        <h3>Salade Composée n°{{i + 1}} {{saladFor['saladsComposedPriceTotal']}} €</h3>
+        <button
+          class="button is-rounded is-outlined is-mobile is-small"
+          type="button"
+          (click)="quantitySelect('-', i, saladFor['saladsComposedQuantity'], 'salad')"
+        >
+          -
+        </button>
+          {{saladFor['saladsComposedQuantity']}}
+        <button
+          class="button is-rounded is-outlined is-mobile is-small"
+          type="button"
+          (click)="quantitySelect('+', i, saladFor['saladsComposedQuantity'], 'salad')"
+        >
+          +
+        </button>
+        <ul>
+          <h4>Bases</h4>
+          <li *ngFor="let multiBases of saladFor['multiBases']">
+              {{multiBases.basesName}} {{multiBases.basesPrice}} € <span>quantité : {{multiBases.multiBasesQuantity}}</span>
+          </li>
+          <h4>Ingrédients</h4>
+          <li *ngFor="let multiIngredients of saladFor['multiIngredients']">
+              {{multiIngredients.ingredientsName}} {{multiIngredients.ingredientsPrice}} € <span>quantité : {{multiIngredients.multiIngredientsQuantity}}</span>
+          </li>
+          <h4>Toppings</h4>
+          <li *ngFor="let multiToppings of saladFor['multiToppings']">
+              {{multiToppings.toppingsName}} {{multiToppings.toppingsPrice}} € <span>quantité : {{multiToppings.multiToppingsQuantity}}</span>
+          </li>
+          <h4>Sauces</h4>
+          <li>
+              {{saladFor['multiSauces'].saucesName}}
+          </li>
+        </ul>
+      </li>
+    </ul>
+
+    <ul>
+      <li *ngFor="let menuPizzas of finalOrderRecap.menuPizza; let i = index">
+        <h3>Menu pizza n°{{ i + 1 }} {{ menuPizzas['menuPizzPriceTotal'] }} €</h3>
+
+        <button
+        class="button is-rounded is-outlined is-mobile is-small"
+        type="button"
+        (click)="quantitySelect('-', i, menuPizzas['menuPizzQuantity'], 'menuPizza')"
+      >
+        -
+      </button>
+        {{menuPizzas['menuPizzQuantity']}}
+      <button
+        class="button is-rounded is-outlined is-mobile is-small"
+        type="button"
+        (click)="quantitySelect('+', i, menuPizzas['menuPizzQuantity'], 'menuPizza')"
+      >
+        +
+      </button>
+
+        <ul>
+          <h4>Pizzas</h4>
+
+          <li>
+            {{ menuPizzas['pizza']['pizzName'] }} {{ menuPizzas['pizza']['pizzPriceTTC'] }} € <span>quantité : {{ menuPizzas['pizza']['pizzQuantity'] }}</span>
+          </li>
+
+          <h4>Boisons</h4>
+
+          <li>
+            {{ menuPizzas['beverage']['bevName'] }} {{ menuPizzas['beverage']['bevPriceTTC'] }} € <span>quantité : {{ menuPizzas['beverage']['bevQuantity'] }}</span>
+          </li>
+
+          <h4>Desserts</h4>
+
+          <li>
+            {{ menuPizzas['dessert']['dessName'] }} {{ menuPizzas['dessert']['dessPriceTTC'] }} € <span>quantité : {{ menuPizzas['dessert']['dessQuantity'] }}</span>
+          </li>
+        </ul>
+      </li>
+    </ul>
+
+    <ul>
+      <li *ngFor="let menuSalads of finalOrderRecap.menuSalad; let i = index">
+        <h3>Menu salade n°{{ i + 1 }} {{ menuSalads['menuSaladPriceTotal'] }} €</h3>
+
+
+        <button
+          class="button is-rounded is-outlined is-mobile is-small"
+          type="button"
+          (click)="quantitySelect('-', i, menuSalads['menuSaladQuantity'], 'menuSalad')"
+        >
+          -
+        </button>
+          {{menuSalads['menuSaladQuantity']}}
+        <button
+          class="button is-rounded is-outlined is-mobile is-small"
+          type="button"
+          (click)="quantitySelect('+', i, menuSalads['menuSaladQuantity'], 'menuSalad')"
+        >
+          +
+        </button>
+
+          <ul>
+            <h4>Votre salade composée</h4>
+
+            <h5>Vos bases</h5>
+
+            <li *ngFor="let bases of menuSalads['salad']['orderSaladsBases']">
+              {{ bases['saladsBasesName'] }} {{ bases['saladsBasesPriceTTC'] }} € <span>quantité : {{ bases['saladsBasesQuantity'] }}</span>
+            </li>
+
+            <h5>Vos ingrédients</h5>
+
+            <li *ngFor="let ingredients of menuSalads['salad']['orderSaladsIngredients']">
+              {{ ingredients['saladsIngredientsName'] }} {{ ingredients['saladsIngredientsPriceTTC'] }} € <span>quantité : {{ ingredients['saladsIngredientsQuantity'] }}</span>
+            </li>
+
+            <h5>Vos toppings</h5>
+
+            <li *ngFor="let toppings of menuSalads['salad']['orderSaladsToppings']">
+              {{ toppings['saladsToppingsName'] }} {{ toppings['saladsToppingsPriceTTC'] }} € <span>quantité : {{ toppings['saladsToppingsQuantity'] }}</span>
+            </li>
+
+            <h5>Votre sauce</h5>
+
+            <li>
+              {{ menuSalads['salad']['orderSaladsSauces']['saladsSaucesName'] }}
+            </li>
+
+            <h4>Boisons</h4>
+
+            <li *ngIf="menuSalads['beverage']['idBeverages'] !== 0">
+              {{ menuSalads['beverage']['bevName'] }} {{ menuSalads['beverage']['bevPriceTTC'].toFixed(2) }} € <span>quantité : {{ menuSalads['beverage']['bevQuantity'] }}</span>
+            </li>
+
+            <li *ngIf="menuSalads['beverage']['idBeverages'] === 0">
+                {{ menuSalads['beverage']['bevName'] }}
+            </li>
+
+            <h4>Desserts</h4>
+
+            <li *ngIf="menuSalads['dessert']['idDesserts'] !== 0" >
+              {{ menuSalads['dessert']['dessName'] }} {{ menuSalads['dessert']['dessPriceTTC'].toFixed(2) }} € <span>quantité : {{ menuSalads['dessert']['dessQuantity'] }}</span>
+            </li>
+
+            <li *ngIf="menuSalads['dessert']['idDesserts'] === 0">
+                {{ menuSalads['dessert']['DessName'] }}
+            </li>
+          </ul>
+
+      </li>
+    </ul>
+
+  </div>
+  <p>
+    TOTAL de votre commande {{ totalOrder }} €
+  </p>
+  <form [formGroup]="userDetailForm" (ngSubmit)="confirmOrder()">
+    <p>Statut de la commande</p>
+
+    <label for="toTakeAway">
+      à emporter
+    </label>
+      <input
+        type="radio"
+        formControlName="deliveryOrTakeAway"
+        id="toTakeAway"
+        value="à emporter"
+        (ngModelChange)="getOrderStatus('toTakeAway')"
+      >
+    <label for="delivery">
+      en livraison
+    </label>
+      <input
+        type="radio"
+        formControlName="deliveryOrTakeAway"
+        id="delivery"
+        value="en livraison"
+        (ngModelChange)="getOrderStatus('delivery')"
+      >
+    <div *ngIf="userDetailForm.controls['deliveryOrTakeAway'].value === 'en livraison'">
+      <label>
+        <p>Adresse de livraison 1</p>
+        <input type="text" formControlName="livrAddress1">
+      </label>
+      <p *ngIf="userDetailForm.controls['livrAddress1'].errors">
+        Merci de nous indiquer votre addresse de livraison
+      </p>
+      <label>
+        <p>Adresse de livraison 2</p>
+        <input type="text" formControlName="livrAddress2">
+      </label>
+      <label>
+        <p>Code postal</p>
+        <input type="text" formControlName="zipcode">
+      </label>
+      <p *ngIf="userDetailForm.controls['zipcode'].errors">
+        Merci de nous indiquer votre code postal
+      </p>
+      <label>
+        <p>Ville</p>
+        <input type="text" formControlName="city">
+      </label>
+    </div>
+
+    <p *ngIf="userDetailForm.errors">
+      {{ userDetailForm.errors['tooFar'] }}
+    </p>
+
+    <p *ngIf="userDetailForm.errors">
+      {{ userDetailForm.errors['notEnough'] }}
+    </p>
+
+    <p *ngIf="userDetailForm.errors">
+      {{ userDetailForm.errors['notInTimeDetailOrderPage'] }}
+    </p>
+
+    <p *ngIf="userDetailForm.errors && totalOrder === 0">
+      {{ userDetailForm.errors['emptyOrder'] }}
+    </p>
+
+    <label>
+      <p>Adresse de facturation</p>
+      <input type="text" formControlName="factAddress">
+    </label>
+    <label>
+      <p>Commentaires</p>
+      <textarea placeholder="Ex: Régina sans champignons..." formControlName="comment"></textarea>
+    </label>
+    <button type="submit">CONFIRMER LA COMMANDE</button>
+  </form>
+</div>

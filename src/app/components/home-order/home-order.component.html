@@ -1,0 +1,46 @@
+<div class="columns">
+  <div class="cont d-flex flex-row column is-one-quarter">
+    <a
+      class="myButton"
+     [routerLink]="['/menuPage']"
+     routerLinkActive="router-link-active"
+    >
+      MENUS
+    </a>
+
+    <a
+      class="myButton"
+      [routerLink]="['/saladePage']"
+      routerLinkActive="router-link-active"
+    >
+      SALADES
+    </a>
+    <a
+      class="myButton"
+      [routerLink]="['/pizzaPage']"
+      routerLinkActive="router-link-active"
+    >
+      PIZZAS
+    </a>
+  </div>
+  <div class="cont d-flex flex-row column is-three-quarter">
+    <h2>COMMANDER</h2>
+
+    <div class="explainText">
+      <p>Bienvenue sur la commande en ligne OHMYFOOD. Vous pouvez commander sur nos horaires d'ouvertures, 
+        11h-14h du mardi au vendredi et 19h-22h du mardi au dimanche.</p>
+      <p>Les menus sont disponibles uniquement le midi.</p>
+      <p>Tous les mardis, les pizzas sont à 7.50€ (à emporter uniquement)</p>
+    </div>
+    <div class="classButton">
+      <button
+        class="button"
+        [routerLink]="['/detailOrderPage']"
+        routerLinkActive="router-link-active"
+      >
+        VOIR MA COMMANDE
+      </button>
+    </div>
+  </div>
+</div>
+<br><br>

@@ -1,0 +1,286 @@
+@import '../../../styles/colors.scss';
+
+.arrowToggle {
+    align-items: center;
+    display: block;
+    height: 5vh;
+    font-size: 1.3rem;
+    justify-content: center;
+    transition-duration: .5s;
+    transform: rotate(-180deg);
+    z-index: 100;
+}
+
+.basket {
+    width: 100vw;
+    height: 9%;
+    background: $green;
+    border: 3px solid white;
+    color: white;
+    position: fixed;
+    top: 0;
+    right: -91vw;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    transition-duration: .5s;
+    z-index: 30;
+}
+
+.button {
+    border-radius: 25px !important;
+    font-size: 0.7em;
+}
+.test {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9em;
+  white-space: nowrap;
+  margin-top: 5%
+}
+
+.test2 {
+  width: 100%;
+}
+
+.contenant {
+  flex-wrap: wrap;
+  display: flex;
+  justify-content: space-around;
+
+}
+
+.suga {
+  width: 45%;
+  margin-left: 5%;
+  margin-top: 5%;
+}
+//formGroupName
+
+.displayElement {
+    display: flex;
+    justify-content: space-between;
+}
+
+.headerBasket {
+  justify-content: space-around;
+  width: 60%;
+}
+
+.inlineBasket {
+    flex-wrap: wrap;
+    justify-content: center;
+    position: absolute;
+    top: 10px;
+    margin-left:0;
+    text-align: center;
+    width: 100%;
+}
+
+input[type=text] {
+    border-radius: 50%;
+    font-size: 1.3rem;
+    text-align: center;
+    width: 34%;
+}
+
+input[type=text]::-webkit-inner-spin-button,
+input[type=text]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.fa-shopping-cart {
+    font-size: 1rem;
+    margin-left: 20%;
+}
+
+.formular {
+    overflow-y: scroll;
+    height: 74vh;
+}
+
+.formular::-webkit-scrollbar { width: 0 !important }
+
+.formular { overflow: -moz-scrollbars-none; }
+
+.formular { -ms-overflow-style: none; }
+
+
+
+label {
+    display: block;
+    margin-left: 20px;
+    text-align: left;
+    width: 60%;
+}
+
+.livrAndStatus {
+    justify-content: space-around;
+    width: 100%;
+}
+
+.overScrollForm {
+    height: 74vh;
+}
+h5 {
+  text-align: center;
+}
+h2 {
+  margin-bottom: 0;
+}
+h6 {
+  text-align: left;
+}
+p {
+    text-align: left;
+    margin: 0 ;
+}
+.totalOrder {
+  text-align: center;
+}
+.quantityButton {
+    margin-right: 5%;
+    input {
+      font-size: 92%;
+      width: 20%;
+    }
+}
+.quantitySalads {
+  display: flex;
+  margin-right: 5%;
+}
+.buttonSalads {
+  width: 8%;
+  text-align: center;
+  border-radius: 27px;
+}
+
+.rubanToggle {
+    justify-content: space-around;
+    width: 10%;
+}
+
+span {
+    display: block;
+    margin-left: 5%;
+}
+
+#totalOrderText {
+    width: 100%;
+}
+
+ul li {
+    display: inline-block;
+}
+.fa-x3 {
+  margin-left: 10px;
+  font-size: 2em !important;
+}
+.styleParagraphe {
+  margin-left: 6%;
+}
+.submitBasket {
+  margin-left: 6%;
+  margin-top: 5%;
+  border-radius: 6%;
+}
+
+@media screen and (min-width: 720px) {
+
+    .arrowToggle {
+        font-size: 2rem;
+    }
+
+    .basket {
+        height: 12%;
+        right: -90vw;
+        width: 100vw;
+    }
+
+    .formular {
+        height: 80vh;
+    }
+
+    label {
+      display: flex;
+    justify-content: space-between;
+    }
+    .inlineBasket {
+        margin-left: 10%;
+        width: 90%;
+    }
+
+    input[type=text] {
+        margin: 0 9px;
+        width: 23%;
+    }
+
+    .overScrollForm {
+        height: 80vh;
+    }
+
+    .quantityButton {
+        width: 25%;
+        margin-right: 0;
+    }
+
+    span {
+        display: inline;
+        margin-left: 0;
+    }
+
+    span:nth-child(0) {
+        font-weight: bolder;
+    }
+
+    span:nth-child(1) {
+        margin-left: 5%;
+    }
+
+    .reverseText {
+        align-items: center;
+        border-right: 1px solid white;
+        color: white;
+        display: flex;
+        font-size: 1rem;
+        font-weight: bolder;
+        justify-content: center;
+        height: 90vh;
+        text-orientation: upright;
+        writing-mode: vertical-rl;
+    }
+  .displayElement {
+    display: flex;
+
+  }
+}
+
+@media screen and (min-width: 928px) {
+    .basket {
+        width: 40vw;
+        right: -36.5vw;
+    }
+
+    .fa-shopping-cart {
+      font-size: 2rem;
+    }
+
+    .formular, .overScrollForm {
+        height: 76vh;
+    }
+    label {
+      display: flex;
+      justify-content: space-between;
+    }
+}
+  .basketToggle {
+      right: 0;
+      height: 100%;
+  }
+
+  .arrowToggleAnimation {
+      transform: rotate(0deg);
+  }
+
+

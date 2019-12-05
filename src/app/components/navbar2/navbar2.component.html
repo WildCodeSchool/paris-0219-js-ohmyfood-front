@@ -1,0 +1,62 @@
+<div class="topbar has-text-centered is-vcentered columns">
+
+  <div class="column is-4 phone">
+    <p id='phone'>01 46 87 33 47</p>
+  </div>
+
+  <div class="column is-4 title">
+    <p id='title'>OHMYFOOD</p>
+    <span>Bienvenue <span *ngIf="userAccountObject['0'] != undefined">{{userAccountObject['0']['firstname']}}</span></span>
+  </div>
+
+  <div class="column is-4 loginShow">
+    <a
+      class="connexion"
+      (click)="logOut($event)"
+      *ngIf="ifLogged === true"
+    >
+      <i>DECONNEXION</i>
+    </a>
+    <a
+      class="connexion"
+      *ngIf="ifLogged === false"
+      [routerLink]="['/authClientPage']"
+      routerLinkActive="router-link-active"
+    >
+      <i>CONNEXION</i>
+    </a>
+      <a [routerLink]="['/userAccountPage']" routerLinkActive="router-link-active" >
+        <i class="fa fa-user-circle fa-3x"></i>
+      </a>
+    <span *ngIf="booleanAdminLogged === 1">* ADMIN *</span>
+  </div>
+
+</div>
+
+<div class='cont'>
+  <ul class="navbar">
+    <li><a [routerLink]="['/homePage']"
+      routerLinkActive="router-link-active"
+    >
+      Accueil
+    </a></li>
+
+    <li><a [routerLink]="['/menuPage']"
+      routerLinkActive="router-link-active"
+    >
+      Menu
+    </a></li>
+
+    <li><a
+      id='order'
+      (click)="checkIfUserLogged()"
+    >
+      COMMANDER
+    </a></li>
+    <li><a [routerLink]="['/contactPage']"
+      routerLinkActive="router-link-active"
+    >
+      Contact
+    </a></li>
+  </ul>
+</div>

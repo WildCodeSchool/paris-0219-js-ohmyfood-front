@@ -1,0 +1,122 @@
+<form [formGroup]="authModifyForm">
+  <div class="formContent">
+    <p>Modifiez vos informations</p>
+    <p>Vous pouvez laisser les champs vides là où vous ne voulez pas modifier</p>
+    <label>
+      <p>Entrez votre Nom</p>
+      <input
+        type="text"
+        placeholder="Nom"
+        formControlName="lastName"
+      >
+    </label>
+    <div *ngIf="fC.lastName.invalid && (fC.lastName.dirty || fC.lastName.touched)">
+      <div *ngIf="fC.lastName.errors.required">
+        <p class="invalidText">*Votre nom est requis</p>
+      </div>
+      <div *ngIf="fC.lastName.errors.minlength">
+        <p class="invalidText">*Votre nom doit contenir au moins 2 caractères</p>
+      </div>
+      <div *ngIf="fC.lastName.errors.maxlength">
+        <p class="invalidText">*Votre nom ne doit pas dépasser les 45 caractères</p>
+      </div>
+    </div>
+    <label>
+      <p>Entrez votre Prénom</p>
+      <input
+        type="text"
+        placeholder="Prénom"
+        formControlName="firstName"
+      >
+    </label>
+    <div *ngIf="fC.firstName.invalid && (fC.firstName.dirty || fC.firstName.touched)">
+      <div *ngIf="fC.firstName.errors.required">
+        <p class="invalidText">*Votre prénom est requis</p>
+      </div>
+      <div *ngIf="fC.firstName.errors.minlength">
+        <p class="invalidText">*Votre prénom doit contenir au moins 2 caractères</p>
+      </div>
+      <div *ngIf="fC.firstName.errors.maxlength">
+        <p class="invalidText">*Votre prénom ne doit pas dépasser les 45 caractères</p>
+      </div>
+    </div>
+    <label>
+      <p>Entrez votre E-Mail</p>
+      <input
+        type="text"
+        placeholder="E-Mail"
+        formControlName="mail"
+      >
+    </label>
+    <div *ngIf="fC.mail.invalid && (fC.mail.dirty || fC.mail.touched)">
+      <div *ngIf="fC.mail.errors.required">
+        <p class="invalidText">*Votre mail est requis</p>
+      </div>
+      <div *ngIf="fC.mail.errors.pattern">
+        <p class="invalidText">*Votre e-mail doit être de la forme xxx@xxx.xxx</p>
+      </div>
+      <div *ngIf="fC.mail.errors.minlength">
+        <p class="invalidText">*Votre e-mail doit contenir au moins 4 caractères</p>
+      </div>
+    </div>
+    <label>
+      <p>Entrez votre téléphoneNumber</p>
+      <input
+        type="text"
+        placeholder="Téléphone"
+        formControlName="phoneNumber"
+      >
+    </label>
+    <div *ngIf="fC.phoneNumber.invalid && (fC.phoneNumber.dirty || fC.phoneNumber.touched)">
+      <div *ngIf="fC.phoneNumber.errors.required">
+        <p class="invalidText">*Votre prénom est requis</p>
+      </div>
+      <div *ngIf="fC.phoneNumber.errors.minlength">
+        <p class="invalidText">*Votre téléphoneNumber doit se composer de 10 chiffres</p>
+      </div>
+      <div *ngIf="fC.phoneNumber.errors.maxlength">
+        <p class="invalidText">*Votre téléphoneNumber doit se composer de 10 chiffres</p>
+      </div>
+      <div *ngIf="fC.phoneNumber.errors.pattern">
+        <p class="invalidText">*Votre téléphoneNumber ne doit comporter que des chiffres</p>
+      </div>
+    </div>
+    <label>
+      <p>Entrez votre mot de passe</p>
+      <p>Pour une sécurité optimale, nous vous conseillons d'entrer un mot de passe incluant des majuscules et des caractères spéciaux</p>
+      <p>Exemple de mot de passe : IlovePizza!42</p>
+      <input
+        type="{{ passwordType }}"
+        placeholder="Mot de Passe"
+        formControlName="password"
+      >
+      <a *ngIf="show" (click)="showPssw($event)"><i class="fa fa-eye"></i></a>
+      <a *ngIf="!show" (click)="showPssw($event)"><i class="fa fa-eye-slash"></i></a>
+      <div *ngIf="fC.password.invalid && (fC.password.dirty || fC.password.touched)">
+        <div *ngIf="fC.password.errors.required">
+          <p class="invalidText">*Votre mot de passe est requis</p>
+        </div>
+        <div *ngIf="fC.password.errors.minlength">
+          <p class="invalidText">*Votre mot de passe doit au moins se composer de 7 caractères</p>
+        </div>
+        <div *ngIf="fC.password.errors.maxlength">
+          <p class="invalidText">*Votre mot de passe ne doit pas excéder 15 caractères</p>
+        </div>
+      </div>
+    </label>
+    <label>
+      <p>Confirmer votre mot de passe</p>
+      <input
+        type="{{ passwordType }}"
+        placeholder="Mot de Passe"
+        formControlName="psswVerif"
+      >
+      <a *ngIf="show" (click)="showPssw($event)"><i class="fa fa-eye"></i></a>
+      <a *ngIf="!show" (click)="showPssw($event)"><i class="fa fa-eye-slash"></i></a>
+    </label>
+    <div *ngIf="authModifyForm.errors">
+      <p class="invalidText">{{ authModifyForm.errors['wrongPassword'] }}</p>
+    </div>
+    <button type="submit" (click)="onSubmitModifyUserForm()">Modifier mes informations</button>
+  </div>
+</form>

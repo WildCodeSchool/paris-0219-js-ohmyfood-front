@@ -1,0 +1,99 @@
+<section>
+  <a>
+    <h1>
+      MENUS PIZZAS
+    </h1>
+  </a>
+  <form
+    [formGroup]="pizzaMenuForm"
+    (ngSubmit)="pizzaMenuForm.valid && onSubmit()"
+    #menuPizza="ngForm"
+  >
+    <ul formArrayName="pizza" class="flag">
+        <h5>Cliquez-ici pour découvrir nos pizzas</h5>
+      <li
+        [formGroupName]="i"
+        *ngFor="let pizzas of pizza.controls; let i = index"
+      >
+
+        <label class="pizzNameClass" for="pizza-{{ i }}">
+          {{ pizzas.value.pizzName }}
+          <input
+            type="radio"
+            formControlName="pizzQuantity"
+            name="pizzQuantity"
+            id="pizza-{{ i }}"
+            value="{{ pizzas.value.pizzQuantity }}"
+            (ngModelChange)="getUserChoice(i, pizzas.value)"
+          />
+        </label>
+
+        <p class="pizzDescClass">{{ pizzas.value.pizzDesc }}</p>
+      </li>
+    </ul>
+
+    <div formArrayName="beverage">
+        <h5>Cliquez-ici pour découvrir nos boissons</h5>
+
+      <div
+        [formGroupName]="i"
+        *ngFor="let beverages of beverage.controls; let i = index"
+      >
+
+        <label for="beverage-{{ i }}">
+          {{ beverages.value.bevName }}
+        </label>
+
+        <input
+          type="radio"
+          formControlName="bevQuantity"
+          name="bevQuantity"
+          id="beverage-{{ i }}"
+          value="{{ beverages.value.bevQuantity }}"
+          (ngModelChange)="getUserChoice(i, beverages.value)"
+        />
+      </div>
+
+      <p *ngIf="beerSelected">
+        Vous avez sélectionné de la bière dans votre menu. Notez qu'il y a un supplément de 1€.
+      </p>
+    </div>
+
+    <div formArrayName="dessert">
+      <h5>Ciquez-ici pour découvrir nos desserts</h5>
+
+      <div
+        [formGroupName]="i"
+        *ngFor="let desserts of dessert.controls; let i = index"
+      >
+
+        <label for="dessert-{{ i }}">
+          {{ desserts.value.dessName }}
+        </label>
+
+        <input
+          type="radio"
+          formControlName="dessQuantity"
+          name="dessQuantity"
+          id="dessert-{{ i }}"
+          value="{{ desserts.value.dessQuantity }}"
+          (ngModelChange)="getUserChoice(i, desserts.value)"
+        >
+      </div>
+    </div>
+
+    <h5>Prix du menu</h5>
+
+    <p>{{ pizzaMenuForm.value.pizzaMenuPriceTotal }} €</p>
+
+    <p *ngIf="menuPizza.errors">
+      {{ pizzaMenuForm.errors['notInTime'] }}
+    </p>
+
+    <p *ngIf="menuPizza.errors">
+      {{ pizzaMenuForm.errors['lessPizzAndBevAndDess']}}
+    </p>
+
+    <button type="submit">Ajouter au panier</button>
+  </form>
+</section>

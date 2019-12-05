@@ -1,0 +1,98 @@
+@import "../../../styles/colors";
+
+.classButton {
+    justify-content: space-around;
+    width: 100%;
+}
+
+.column {
+    a {
+        background-color: $green;
+        border: 1px solid #eee;
+        font-size: 2rem;
+        margin-bottom: 15%;
+        margin-left: 40px;
+        text-align: center;
+        width: 100%;
+    }
+}
+
+.columns {
+    width: 100%;
+}
+
+.cont {
+    flex-wrap: wrap;
+    align-content: center;
+}
+
+h2 {
+    margin-top: 20px;
+    text-align: center;
+    width: 100%;
+}
+
+.explainText, p {
+    display: flex;
+    flex-direction: row;
+}
+
+.explainText {
+    justify-content: center;
+    padding: 0 10%;
+    padding-bottom: 8%;
+    width: 100%;
+}
+
+.explainText {
+    display: block;
+    text-align: center;
+    margin: 10px 20px;
+}
+
+.livrAndStatus {
+    justify-content: space-around;
+    width: 100%;
+}
+
+.myButton {
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='$green', endColorstr='$green',GradientType=0);
+	background-color:$green;
+	-moz-border-radius:3px;
+	-webkit-border-radius:3px;
+	border-radius:3px;
+	border:1px solid #83c41a;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:16px 31px;
+	text-decoration:none;
+}
+
+.myButton:active {
+	position:relative;
+	top:1px;
+}
+
+.myButton:nth-child(1) {
+    margin-top: 15px;
+}
+
+
+#orderStatus {
+    color: red;
+}
+
+ul, li, p {
+    display: inline-block;
+    font-size: 2rem;
+}
+
+ul, p {
+    display: inline-block;
+}
+
+//@media screen and (min-width: )

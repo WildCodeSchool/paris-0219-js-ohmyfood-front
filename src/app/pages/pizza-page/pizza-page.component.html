@@ -1,0 +1,48 @@
+<form
+  [formGroup]="orderStatusForm"
+>
+  <label for="delivery">En livraison</label>
+
+  <input
+    type="radio"
+    id="delivery"
+    value="en livraison"
+    formControlName="orderStatus"
+    name="orderStatus"
+    (ngModelChange)="getOrderStatus('delivery')"
+  />
+
+  <label for="toTakeAway">A emporter</label>
+
+  <input
+    type="radio"
+    id="toTakeAway"
+    value="à emporter"
+    name="orderStatus"
+    formControlName="orderStatus"
+    (ngModelChange)="getOrderStatus('toTakeAway')"
+  />
+</form>
+
+<app-pizzas-form
+  (getDay)="onGetDay($event)"
+  (getControls)="onGetControl($event)"
+>
+
+</app-pizzas-form>
+
+<app-beverages-form></app-beverages-form>
+
+<app-basket></app-basket>
+
+<app-desserts-form></app-desserts-form>
+
+<div class="paragrapheStyle">
+  <p *ngIf="formPizza.errors">
+    {{ formPizza.errors['notInTime'] }}
+  </p>
+
+  <p *ngIf="today === 'Tuesday'">
+    OH MY MARDI!! Toutes les pizzas sont à {{ ohMyMardiPrice[0].pizzPriceReducTTC.toFixed(2) }} € !
+  </p>
+</div>

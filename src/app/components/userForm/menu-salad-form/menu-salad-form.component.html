@@ -1,0 +1,95 @@
+<section>
+  <a>
+    <h1>
+      MENUS SALADES
+    </h1>
+  </a>
+
+  <app-salads-form [menu]='isMenu'></app-salads-form>
+
+  <form
+    [formGroup]="saladMenuForm"
+    (ngSubmit)="onSubmit()"
+    #menuSalad="ngForm"
+  >
+
+    <div formArrayName="beverage">
+        <h5>Cliquez-ici pour découvrir nos boissons</h5>
+
+      <div
+        [formGroupName]="i"
+        *ngFor="let beverages of beverage.controls; let i = index"
+      >
+
+        <label for="beverage-{{ i }}">
+          {{ beverages.value.bevName }}
+        </label>
+
+        <input
+          type="radio"
+          formControlName="bevQuantity"
+          name="bevQuantity"
+          id="beverage-{{ i }}"
+          value="{{ beverages.value.bevQuantity }}"
+          (ngModelChange)="getUserChoice(i, beverages.value)"
+        />
+      </div>
+    </div>
+
+    <button type="button" (click)="resetBevOrDess('beverage')">Supprimer la boisson</button>
+
+    <div formArrayName="dessert">
+      <h5>Ciquez-ici pour découvrir nos desserts</h5>
+
+      <div
+        [formGroupName]="i"
+        *ngFor="let desserts of dessert.controls; let i = index"
+      >
+
+        <label for="dessert-{{ i }}">
+          {{ desserts.value.dessName }}
+        </label>
+
+        <input
+          type="radio"
+          formControlName="dessQuantity"
+          name="dessQuantity"
+          id="dessert-{{ i }}"
+          value="{{ desserts.value.dessQuantity }}"
+          (ngModelChange)="getUserChoice(i, desserts.value)"
+        />
+      </div>
+    </div>
+
+    <button type="button" (click)="resetBevOrDess('dessert')">Supprimer le dessert</button>
+
+    <h5>Prix du menu</h5>
+
+    <p>
+      {{ saladMenuForm.value.saladMenuPrice }} € plus le prix de votre salade qui est actuellement de
+      {{ saladMenuForm.value.salad.orderSaladsPriceTotal.toFixed(2) }} €.
+    </p>
+
+    <p>
+      Soit un total de {{ saladMenuForm.value.saladMenuPriceTotal }} €
+    </p>
+
+    <p *ngIf="menuSalad.submitted && saladMenuForm.controls['salad'].errors">
+      {{ saladMenuForm.controls['salad'].errors['lessSalad'] }}
+    </p>
+
+    <p *ngIf="saladMenuForm.errors">
+      {{ saladMenuForm.errors['notInTime']}}
+    </p>
+
+    <p *ngIf="menuSalad.submitted && saladMenuForm.errors">
+      {{ saladMenuForm.errors['lessBevOrDess']}}
+    </p>
+
+    <p *ngIf="beerSelected">
+      Attention, vous avez pris une bière, notez qu'il y a un supplément de 1€.
+    </p>
+
+    <button type="submit">Ajouter au panier</button>
+  </form>
+</section>

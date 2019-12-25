@@ -1,0 +1,212 @@
+<section>
+    <div class="saladsTitle">
+      <a href (click)="toggleFormSalads($event, 'form')">
+        <h1>
+          SALADES COMPOSEES
+        </h1>
+
+        <p class="paragrapheStyle">
+          Cliquez pour découvrir nos ingredients de salade
+        </p>
+      </a>
+    </div>
+    <div class="notToggle" [ngClass]="{toggle: isToggle}">
+
+    <form [formGroup]="formSalads" (ngSubmit)="onSubmit()" #saladsForm=ngForm>
+      <div class="contenaire">
+        <div class="head">
+          <div class="ldm">
+            <a href (click)="toggleFormSalads($event, 'base')">
+              <h1 class="header">
+                Sélectionner votre Base
+              </h1>
+            </a>
+
+            <div class="notToggleBase" [ngClass]="{toggleBase: isToggleBase}">
+              <div formArrayName="selectBase">
+                <div
+                  class="formLine"
+                  [formGroupName]="i"
+                  *ngFor="let base of selectBase.controls ; let i = index"
+                >
+
+                  <label for="selectBase-{{ i }}">
+                    <span class="styleBaseWidth">{{ base.value.saladsBaseName }}</span><span class="styleWidthBasePrice">{{ base.value.saladsBasePriceTTC }} €</span>
+                  </label>
+
+                  <input
+                  type="checkbox"
+                  formControlName="saladsBaseQuantity"
+                  name="selectBase-{{ i }}"
+                  id="selectBase-{{ i }}">
+                </div>
+
+                <div *ngIf="saladsForm.submitted && selectBase.errors">
+                  <p>{{selectBase.errors['tooMuchBase']}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        <div class="ldm">
+        <a href (click)="toggleFormSalads($event, 'sauce')">
+            <h1 class="header">
+              Sélectionner votre sauce
+            </h1>
+          </a>
+
+            <div class="notToggleSauce" [ngClass]="{toggleSauce: isToggleSauce}">
+              <div formArrayName="selectSauces">
+                <div
+                  class="formLine"
+                  [formGroupName]="i"
+                  *ngFor="let sauces of selectSauces.controls ; let i = index">
+
+                    <label for="saladsSaucesQuantity-{{ i }}">
+                      {{ sauces.value.saladsSaucesName }}
+                    </label>
+
+                      <input
+                        type="radio"
+                        formControlName='saladsSaucesQuantity'
+                        name='saladsSaucesQuantity'
+                        id="saladsSaucesQuantity-{{ i }}"
+                        value="{{sauces.value.saladsSaucesName}}"
+                        (ngModelChange)="getSauce(i, saladsForm.submitted)">
+
+                </div>
+
+                <p class="style" *ngIf="displaySaucesMessage">Attention, vous n'avez pas séléctionné de sauces</p>
+
+                <div class="submitSection">
+                <button
+                class="buttonDelete button is-hovered"
+                type="button"
+                (click)="resetSauces()"
+                >
+                Supprimer
+              </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+
+        <div class="sousContain">
+          <div class="wreck">
+            <a href (click)="toggleFormSalads($event, 'ingredients')">
+              <h1 class="header">
+                Sélectionner vos ingredients
+              </h1>
+            </a>
+
+            <div class="notToggleIngredients" [ngClass]="{toggleIngredients: isToggleIngredients}">
+              <div formArrayName="selectIngredients">
+                <div
+                  class="formLine"
+                  [formGroupName]="i"
+                  *ngFor="let ingredients of selectIngredients.controls ; let i = index">
+
+                    <label for="selectIngredients-{{ i }}">
+                      <span class="styleWidth">{{ ingredients.value.saladsIngredientsName }}</span><span class="styleWidthPrice">{{ ingredients.value.saladsIngredientsPriceTTC }} €</span>
+                    </label>
+
+                    <div class="buttonQuantity">
+                      <button
+                        class="button is-rounded is-outlined is-mobile is-small"
+                        name="remove-saladsIngredients-quantity"
+                        type="button"
+                        (click)="quantitySelect('-', i, ingredients['controls'].saladsIngredientsQuantity.value, ingredients)">
+                          -
+                      </button>
+
+                      <input
+                        type="text"
+                        formControlName='saladsIngredientsQuantity'
+                        name='selectIngredients-{{ i }}'
+                        value="{{ ingredients['controls'].saladsIngredientsQuantity.value }}">
+
+                      <button
+                        class="button is-rounded is-outlined is-mobile is-small"
+                        name="remove-saladsIngredients-quantity"
+                        type="button"
+                        (click)="quantitySelect('+', i, ingredients['controls'].saladsIngredientsQuantity.value, ingredients)">
+                          +
+                        </button>
+                    </div>
+                </div>
+              </div>
+              <div *ngIf="saladsForm.submitted && selectIngredients.errors">
+                  <p>{{selectIngredients.errors['isRequired']}}</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="wreck">
+            <a href (click)="toggleFormSalads($event, 'toppings')">
+                <h1 class="header">
+                  Sélectionner vos toppings
+                </h1>
+              </a>
+            <div class="notToggleToppings" [ngClass]="{toggleToppings: isToggleToppings}">
+              <div formArrayName="selectToppings">
+                <div
+                  class="formLine"
+                  [formGroupName]="i"
+                  *ngFor="let toppings of selectToppings.controls ; let i = index">
+
+                    <label for="selectToppings-{{ i }}">
+                      <span class="styleWidth">{{ toppings.value.saladsToppingsName }}</span><span class="styleWidthPrice">{{ toppings.value.saladsToppingsPriceTTC }} €</span>
+                    </label>
+
+                    <div class="buttonQuantity">
+                      <button
+                        class="button is-rounded is-outlined is-mobile is-small"
+                        name="remove-saladsToppings-quantity"
+                        type="button"
+                        (click)="quantitySelect('-', i, toppings['controls'].saladsToppingsQuantity.value, toppings)">
+                          -
+                      </button>
+
+                      <input
+                        type="text"
+                        formControlName='saladsToppingsQuantity'
+                        name='selectToppings-{{ i }}'
+                        value="{{ toppings['controls'].saladsToppingsQuantity.value }}">
+
+                      <button
+                        class="button is-rounded is-outlined is-mobile is-small"
+                        name="remove-saladsToppings-quantity"
+                        type="button"
+                        (click)="quantitySelect('+', i, toppings['controls'].saladsToppingsQuantity.value, toppings)">
+                          +
+                        </button>
+                    </div>
+                </div>
+
+                <p *ngIf="displayToppingsMessage">Attention, vous n'avez pas séléctionné de toppings</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="submitSections">
+          <button
+            *ngIf="!menu"
+            class="submitButton button is-rounded is-outlined"
+            type='submit'
+          >
+            Ajouter au panier
+          </button>
+
+          <button
+            class="submitButton button is-rounded is-outlined"
+            *ngIf="menu"
+            type='submit'
+          >
+            Ajouter cette salade à votre menu
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>

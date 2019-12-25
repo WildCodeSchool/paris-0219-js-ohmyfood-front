@@ -1,0 +1,237 @@
+<ul id="ulOrder">
+  <li
+    *ngFor="let order of listOfOrdersArchived; let i = index"
+    class="orderList"
+  >
+    <h1>
+      Commande n°{{ order.idOrder }} du {{ order.dateOrder | date : "dd/MM/yy à H'h'mm" }}
+
+      <span>Total de la commande : {{ order.orderPrice }} €</span>
+    </h1>
+
+    <h2>Informations client</h2>
+
+    <div id="orderUserInformation">
+      <div class="orderFirstInfos">
+        <h3 class="lastFirstPhone">
+          Nom <span>{{ order.clientFirstName }}</span>
+        </h3>
+
+        <h3 class="lastFirstPhone">
+            Prénom <span>{{ order.clientLastName }}</span>
+        </h3>
+
+        <h3 class="lastFirstPhone">
+            Téléphone <span>{{ order.clientPhoneNumber }}</span>
+        </h3>
+
+        <h3 id="mail">
+            Mail <span>{{ order.clientMail }}</span>
+        </h3>
+      </div>
+
+      <div class="orderStatusInformations">
+        <h3 class="orderStatusDelivAddress">Statut de la commande  <span>{{ order.orderMessage }}</span></h3>
+
+        <h3
+          *ngIf="order.orderMessage === 'en livraison'"
+          class="orderStatusDelivAddress"
+        >
+          Addresse de livraison: <span>{{ order.userDeliveryAddress }}</span>
+        </h3>
+
+
+        <h3>
+          Addresse de facturation: <span>{{ order.userAddressFacturation }}</span>
+        </h3>
+      </div>
+    </div>
+
+    <div class="detailOrder">
+      <div
+        class="pizza"
+        *ngIf="order.pizza.length > 0"
+      >
+        <h4>Liste des pizzas commandées</h4>
+
+        <ul>
+          <li *ngFor="let pizza of order.pizza">
+            <h5>
+              {{ pizza.pizzName }} <span>quantité : {{ pizza.pizzasQuantity }}</span>
+            </h5>
+          </li>
+        </ul>
+      </div>
+
+      <div
+        class="salad"
+        *ngIf="order.salad.length > 0"
+      >
+        <h4>Liste des salades composées commandées</h4>
+
+        <ul>
+          <li *ngFor="let salad of order.salad; let i = index">
+            <h5>Salade composée n°{{ i + 1}}</h5>
+
+            <p>Les bases</p>
+
+            <ul>
+              <li
+                class="saladIngredients"
+                *ngFor="let base of salad.orderSaladsBases"
+              >
+                {{ base.baseName }} <span>quantité : {{ base.baseQuantity }}</span>
+              </li>
+            </ul>
+
+            <p>Les ingrédients</p>
+
+            <ul>
+              <li
+                *ngFor="let ingredient of salad.orderSaladsIngredients"
+                class="saladIngredients"
+              >
+                {{ ingredient.ingredientName }} <span>quantité : {{ ingredient.ingredientQuantity }}</span>
+              </li>
+            </ul>
+
+            <p *ngIf="salad.orderSaladsToppings !== undefined">Les toppings</p>
+
+            <ul>
+              <li
+                *ngFor="let topping of salad.orderSaladsToppings"
+                class="saladIngredients"
+              >
+                {{ topping.toppingName }} <span>quantité : {{ topping.toppingQuantity }}</span>
+              </li>
+            </ul>
+
+            <p>La sauce</p>
+
+            <p>{{ salad.orderSaladsSauces }}</p>
+          </li>
+        </ul>
+      </div>
+
+      <div
+        class="beverage"
+        *ngIf="order.beverage.length > 0"
+      >
+        <h4>Liste des boissons commandées</h4>
+
+        <ul>
+          <li *ngFor="let beverage of order.beverage">
+            <h5>
+              {{ beverage.bevName }} <span>quantité : {{ beverage.bevQuantity }}</span>
+            </h5>
+          </li>
+        </ul>
+      </div>
+
+      <div
+        class="dessert"
+        *ngIf="order.dessert.length > 0"
+      >
+        <h4>Liste des desserts commandés</h4>
+
+        <ul>
+          <li *ngFor="let dessert of order.dessert">
+            <h5>
+              {{ dessert.dessName }} <span>quantité : {{ dessert.dessQuantity }}</span>
+            </h5>
+          </li>
+        </ul>
+      </div>
+
+      <div
+        class="menuPizza"
+        *ngIf="order.menuPizza.length > 0"
+      >
+        <h4>Liste des menus Pizzas commandés</h4>
+
+        <ul>
+          <li *ngFor="let menuPizza of order.menuPizza ; let i = index">
+            <h5>Menu pizza n°{{ i + 1 }}</h5>
+
+            <p>Pizza sélectionnée <span>{{ menuPizza.pizzName }}</span></p>
+
+            <p>Boisson sélectionnée <span>{{ menuPizza.bevName }}</span></p>
+
+            <p>Dessert sélectionné <span>{{ menuPizza.dessName }}</span></p>
+
+            <p>Quantité de ce menu <span>{{ menuPizza.menuQuantity }}</span></p>
+          </li>
+        </ul>
+      </div>
+
+      <div
+        class="menuSalad"
+        *ngIf="order.menuSalad.length > 0"
+      >
+        <h4>Liste des menus Salades commandés</h4>
+
+        <ul>
+            <li *ngFor="let menuSalad of order.menuSalad ; let i = index">
+              <h5>Menu salade n°{{ i + 1 }}</h5>
+
+              <h6>La salade composée</h6>
+
+              <p class="menuSaladIngredients">Les bases</p>
+
+              <ul>
+                <li *ngFor="let base of menuSalad.bases">
+                  <p>
+                    {{ base.baseName }} <span>quantité : {{ base.baseQuantity }}</span>
+                  </p>
+                </li>
+              </ul>
+
+              <p class="menuSaladIngredients">Les ingrédients</p>
+
+              <ul>
+                <li *ngFor="let ingredient of menuSalad.ingredients">
+                  <p>
+                    {{ ingredient.ingredientName }} <span>quantité : {{ ingredient.ingredientQuantity }}</span>
+                  </p>
+                </li>
+              </ul>
+
+              <p
+                *ngIf="menuSalad.toppings !== undefined"
+                class="menuSaladIngredients"
+              >
+                Les toppings
+              </p>
+
+              <ul>
+                <li *ngFor="let topping of menuSalad.toppings">
+                  <p>
+                    {{ topping.toppingName }} <span>quantité : {{ topping.toppingQuantity }}</span>
+                  </p>
+                </li>
+              </ul>
+
+              <p class="detailMenuSalad">La sauce <span>{{ menuSalad.saladsSaucesName }}</span></p>
+
+              <p>La boisson  <span>{{ menuSalad.bevName }}</span></p>
+
+              <p>Le dessert  <span>{{ menuSalad.dessName }}</span></p>
+
+              <p>Quantité  <span>{{ menuSalad.menuQuantity }}</span></p>
+
+              <p>Prix du menu complet <span>{{ menuSalad.menuSaladPrice }} €</span></p>
+            </li>
+          </ul>
+      </div>
+    </div>
+
+      <button
+        class="submitButton button is-rounded is-outlined"
+        type="button"
+        (click)="deleteOrder(i)"
+      >
+        Supprimer cette commande
+      </button>
+    </li>
+</ul>
+

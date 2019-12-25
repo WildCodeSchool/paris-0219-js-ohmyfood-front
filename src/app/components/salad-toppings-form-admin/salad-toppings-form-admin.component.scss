@@ -1,0 +1,35 @@
+#conteneur {
+    border-color: #2d2c33;
+    border-radius: 1%;
+    border-style: solid;
+    border-width: 5px;
+    -webkit-box-shadow: 5px 5px 5px 0px #d9ffbf;
+    -moz-box-shadow: 5px 5px 5px 0px #d9ffbf;
+    box-shadow: 5px 5px 5px 0px #d9ffbf;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 0.5%;
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-bottom: 5%;
+}
+
+h1 {
+    text-align: center;
+    color: #d9ffbf;
+    text-shadow: 1px 1px #2d2c33;
+}
+
+.invalidText {
+    color: red;
+}
+
+.ng-valid {
+    border-left: 5px solid #42A948; /* green */
+  }
+
+.ng-invalid:not(form) {
+    border-left: 5px solid #a94442; /* red */
+}
